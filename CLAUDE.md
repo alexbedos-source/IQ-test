@@ -2,20 +2,28 @@
 
 Personal project: a phone-installable web app ("IQ Lab") that trains the owner for an Oxford/Imperial physics interview
 and broader physics/maths fluency, plus an IQ test for them and friends. The owner is in Year 13; their personal statement
-and admissions test are done, so **interview preparation is the priority**. They use it on an iPhone from the home screen.
+and admissions test are done, so **interview preparation (Oxford Physics) is the priority**. They use it on an iPhone from the home screen.
 They do not want a friend-challenge / shared-test feature.
+A-levels: **AQA Physics (7408), Edexcel Mathematics (9MA0), AQA Economics (7136)**. They want to be tested on all three;
+interview prep stays focused on Oxford Physics.
+The owner wants the question banks to keep growing so they never run out (a nightly scheduled session adds questions and updates a PR).
+Later goal (not started): video explanations for questions answered wrongly.
 
 ## How the app is delivered
 - Static site, no build step. Files:
   - `index.html`: styles, shared helpers, home hub, `leave()`, IQ test (generators, scoring, screens).
   - `iq-bank.js`: written IQ items. `physics.js`: physics questions, follow-ups (`PHY_FOLLOW`) and practice screens.
   - `interview.js`: mock interview. `drill.js`: daily drill and streak. `learn.js`: flashcards, bridging topics, problem of the week, resources.
-  - `tools.js`: study timer, processing-speed task, progress dashboard. Plus `sw.js`, `manifest.webmanifest`, `icons/`.
+  - `tools.js`: study timer, processing-speed task, progress dashboard.
+  - `alevel.js`: A-level practice by spec topic. Banks `AL_PHY_BANK`, `AL_MATHS_BANK`, `AL_ECON_BANK` (format `[topic, prompt, [correct, w, w, w], explanation]`) plus generators `AL_*_GEN` (`[topic, () => item]`) that make calculation questions fresh each time.
+  - Plus `sw.js`, `manifest.webmanifest`, `icons/`.
 - Every top-level screen calls `leave()` first; modules push teardown functions onto `cleanups` (timers, microphone).
+- **Back arrow:** `leave()` points the top-left arrow at `home`; any sub-screen must call `setBack(fn)` with its parent screen (use a `confirm()` wrapper when leaving would lose a running test). Every new screen needs this.
 - Hosted on GitHub Pages from `main` at https://alexbedos-source.github.io/IQ-test/ and added to the iPhone home screen as a PWA.
 - **Workflow:** make changes on a branch, open a PR to `main`; the owner merges from the GitHub app. Never push straight to `main`.
 - **Bump `VERSION` in `sw.js` on every change** to any app file, or installed phones keep serving the old cache. New files must also be added to `SHELL` in `sw.js`.
-- All user data lives in `localStorage`: `iq10-history`, `iq10-seen`, `phy-ratings`, `iv-history`, `drill`, `cards`, `topics-read`, `potw`, `study-log`, `study-run`, `study-pref`, `speed-history`. Keep keys and formats backwards compatible.
+- All user data lives in `localStorage`: `iq10-history`, `iq10-seen`, `phy-ratings`, `iv-history`, `drill`, `cards`, `topics-read`, `potw`, `study-log`, `study-run`, `study-pref`, `speed-history`, `alevel`, `alevel-seen`.
+- Flashcard ids are `'c' + index`, so **only append** new cards to `CARDS` (never insert or reorder), or saved progress maps to the wrong cards. The same applies to IQ bank items (ids by index) and `POTW` (indexed by week). Keep keys and formats backwards compatible.
 - Mock-interview recordings use MediaRecorder, stay in memory and are never uploaded.
 
 ## Rules agreed with the owner
@@ -44,8 +52,16 @@ Don't kill the server with `pkill -f` on a pattern that also matches your own co
 ## Processing speed
 `tools.js` symbol-search task (60 s, correct minus wrong). It is deliberately **not** included in the IQ estimate because there are no norms; it is compared with the owner's own history only.
 
+## Adding questions (the nightly job does this)
+- Physics interview: append to `PHY` via `PHY.push(...)` with unique ids, 2–3 hints, a worked answer and exactly two follow-ups.
+- A-level: append to the banks with a valid topic index, or add generators. Keep topics balanced; check facts against the spec.
+- IQ: append to `EXTRA.V/Q/L` in `iq-bank.js`. Flashcards: append to `CARDS`. Problems of the week: append to `POTW`.
+- Validate: every item has four distinct options with the correct one first, no `undefined`/`NaN`, and the browser test passes.
+
 ## Roadmap
 - More physics questions and follow-ups; the owner will say which topics feel too easy or hard.
 - More bridging topics, flashcards and problems of the week.
+- Video explanations for wrong answers (owner's long-term idea; needs a source of videos or generated explanations).
+- A 9am daily-drill reminder needs Web Push with a server, which this static site does not have; the owner was pointed to an iPhone Reminders / Shortcuts automation instead.
 - Grow written IQ banks further so the 30-minute test repeats less.
 - Possibly calibrate difficulty using open data (e.g. openpsychometrics.org) or ICAR if access arrives.

@@ -73,7 +73,7 @@ function speedItem(){
   return {t,row,yes};
 }
 function speedHome(){
-  leave();
+  leave();setBack(iqHome);
   const h=loadJSON('speed-history',[]),best=h.reduce((m,x)=>Math.max(m,x.score),0);
   app.innerHTML=
   '<div class="stack"><div class="stack" style="gap:8px"><p class="eyebrow">Intelligence</p><h1>Processing speed</h1>'+
@@ -88,6 +88,7 @@ function speedHome(){
 }
 function speedStart(){
   SP={end:Date.now()+60000,ok:0,bad:0,it:speedItem()};
+  setBack(speedHome);
   cleanups.push(()=>clearInterval(SP&&SP.tick));
   app.innerHTML=
   '<div class="stack"><div class="top"><span class="count" id="spc">0</span><span class="timer" id="spt">1:00</span></div>'+
@@ -101,6 +102,7 @@ function speedStart(){
   SP.tick=setInterval(()=>{const left=(SP.end-Date.now())/1000;const el=document.getElementById('spt');if(el)el.textContent=fmt(left);if(left<=0){clearInterval(SP.tick);speedDone();}},200);
 }
 function speedDone(){
+  setBack(speedHome);
   const score=Math.max(0,SP.ok-SP.bad),h=loadJSON('speed-history',[]);
   const prevBest=h.reduce((m,x)=>Math.max(m,x.score),0);
   h.push({t:Date.now(),score,ok:SP.ok,bad:SP.bad});saveJSON('speed-history',h.slice(-100));

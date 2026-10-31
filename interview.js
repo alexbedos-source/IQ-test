@@ -66,6 +66,7 @@ async function ivStart(level,record){
 }
 
 function ivRender(){
+  setBack(()=>{if(confirm('Leave the interview without reviewing it?'))ivHome();});
   const q=iv.qs[iv.k],$=id=>document.getElementById(id);
   const recBadge=iv.rec&&iv.rec.state==='recording'?'<span class="recdot">● REC</span>':iv.recError?'<span class="note">No mic</span>':'';
   let body='';
@@ -101,7 +102,7 @@ function ivRender(){
 }
 
 function ivReview(){
-  clearInterval(iv.tick);
+  clearInterval(iv.tick);setBack(ivHome);
   const total=(Date.now()-iv.t0)/1000;
   iv.onaudio=()=>{const el=document.getElementById('ivaudio');if(el&&iv.audio)el.innerHTML='<audio controls src="'+iv.audio+'" style="width:100%"></audio>';};
   ivStopRec();
