@@ -116,6 +116,7 @@ let CS=null,cardTopic=-1;
 function cardsHome(){
   leave();
   const st=cardState(),{due,fresh}=cardsDue(st,cardTopic);
+  const pool=CARDS.filter(c=>cardTopic<0||c.cat===cardTopic),unseen=pool.filter(c=>!st.s[c.id]);
   const boxes=[0,0,0,0,0,0,0];CARDS.forEach(c=>{const s=st.s[c.id];boxes[s?s.box:0]++;});
   app.innerHTML=
   '<div class="stack">'+
@@ -123,7 +124,9 @@ function cardsHome(){
   '<p class="muted">AQA A-level Physics: definitions, laws, particle facts and graph shapes you have to learn. Constants and formulas on the AQA data booklet are left out. Cards you know come back less and less often; cards you miss come back tomorrow.</p></div>'+
   '<div class="chips">'+['All topics'].concat(CARD_CATS).map((n,i)=>'<button class="chip'+(cardTopic===i-1?' on':'')+'" data-t="'+(i-1)+'">'+n+'</button>').join('')+'</div>'+
   '<div class="facts"><div class="fact"><b>'+due.length+'</b><span>due now</span></div><div class="fact"><b>'+fresh.length+'</b><span>new today</span></div><div class="fact"><b>'+(boxes[4]+boxes[5]+boxes[6])+'</b><span>well known</span></div></div>'+
-  '<button class="btn" id="cgo"'+(due.length+fresh.length?'':' disabled')+'>'+(due.length+fresh.length?'Review '+(due.length+fresh.length)+' cards':'All done for today')+'</button>'+
+  '<button class="btn" id="cgo"'+(due.length+fresh.length?'':' disabled')+'>'+(due.length+fresh.length?'Review '+(due.length+fresh.length)+' cards':'Today\'s cards done')+'</button>'+
+  '<div class="row2"><button class="btn ghost" id="cmore"'+(unseen.length>fresh.length?'':' disabled')+'>Learn 10 more</button><button class="btn ghost" id="cprac">Practise 20 cards</button></div>'+
+  '<p class="note">10 new cards a day is the suggested pace for spaced repetition, but you can learn more or practise any time.</p>'+
   '<div class="card stack"><h2>Your deck</h2><div class="cats">'+['New','1-day box','2-day box','4-day box','8-day box','16-day box','32-day box'].map((n,i)=>{const v=boxes[i];
     return '<div class="cr"><span class="n">'+n+'</span><span class="v">'+v+'</span><div class="t"><i style="width:'+(100*v/CARDS.length)+'%"></i></div></div>';}).join('')+'</div>'+
    '<p class="note">'+CARDS.length+' cards across '+CARD_CATS.length+' AQA topics.</p></div>'+
@@ -131,6 +134,11 @@ function cardsHome(){
   '</div>';
   app.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{cardTopic=+b.dataset.t;cardsHome();});
   document.getElementById('cgo').onclick=()=>{CS={list:shuffle(due.concat(fresh)),i:0,ok:0};cardRender();};
+  /* beyond the daily suggestion: the next 10 unseen cards, ignoring the new-card limit */
+  document.getElementById('cmore').onclick=()=>{CS={list:shuffle(unseen.filter(c=>!fresh.includes(c)).slice(0,10).concat(fresh)).slice(0,10+fresh.length),i:0,ok:0};cardRender();};
+  /* free practice: any 20 cards from this topic, weakest first */
+  document.getElementById('cprac').onclick=()=>{const box=c=>st.s[c.id]?st.s[c.id].box:0;
+    CS={list:shuffle(pool.slice().sort((a,b)=>box(a)-box(b)).slice(0,20)),i:0,ok:0};cardRender();};
   document.getElementById('cback').onclick=home;
 }
 function cardRender(){
