@@ -48,7 +48,9 @@ V:[
  [0.8,'Archipelago is to islands as constellation is to what?',['Stars','Planets','Galaxies','Sky'],'An archipelago is a group of islands; a constellation is a group of stars.'],
  [1.0,'Which word is closest in meaning to ENERVATE?',['Weaken','Energise','Annoy','Excite'],'Enervate means to drain of energy, the opposite of what it sounds like.'],
  [1.2,'Which word is the opposite of EPHEMERAL?',['Permanent','Brief','Delicate','Transparent'],'Ephemeral means short-lived.'],
- [1.5,'Which word is closest in meaning to OBSEQUIOUS?',['Servile','Obvious','Stubborn','Obscure'],'Obsequious means excessively eager to please.']
+ [1.5,'Which word is closest in meaning to OBSEQUIOUS?',['Servile','Obvious','Stubborn','Obscure'],'Obsequious means excessively eager to please.'],
+ [0.2,'Which word is closest in meaning to DILIGENT?',['Hard-working','Lazy','Clever','Polite'],'Diligent means showing care and effort in work.'],
+ [0.9,'Which word is the opposite of GREGARIOUS?',['Solitary','Sociable','Loud','Generous'],'Gregarious means fond of company.']
 ],
 Q:[
  [-1.9,'What is 25% of 80?',['20','25','40','16'],'25% is a quarter, and a quarter of 80 is 20.'],
@@ -93,7 +95,9 @@ Q:[
  [0.9,'A number is increased by 25% and the result is 100. What was the number?',['80','75','125','85'],'1.25x = 100, so x = 80.'],
  [1.1,'You roll two fair dice. What is the probability of at least one six?',['11/36','1/3','1/6','10/36'],'1 − (5/6)² = 1 − 25/36 = 11/36.'],
  [1.3,'Two couples and one single person meet. Everyone shakes hands with everyone else once, except partners. How many handshakes?',['8','10','6','9'],'All 10 pairs minus the 2 couples.'],
- [1.4,'How many squares of any size are there on a 4 × 4 grid?',['30','16','20','25'],'16 + 9 + 4 + 1 = 30.']
+ [1.4,'How many squares of any size are there on a 4 × 4 grid?',['30','16','20','25'],'16 + 9 + 4 + 1 = 30.'],
+ [0.0,'What is 15 × 16?',['240','225','256','210'],'15 × 16 = 15 × 15 + 15 = 240.'],
+ [0.8,'A £60 item is reduced by 15%. What is the new price?',['£51','£45','£54','£52.50'],'15% of £60 is £9, and £60 − £9 = £51.']
 ],
 L:[
  [-1.8,'All cats have whiskers. Tibbles is a cat. Which must be true?',['Tibbles has whiskers','Tibbles is not a cat','Every animal with whiskers is a cat','Tibbles has no whiskers'],'Tibbles is a cat, and all cats have whiskers.'],
@@ -134,6 +138,8 @@ L:[
  [0.6,'Amy, Ben and Cal are a doctor, a lawyer and a teacher, in some order. Amy is not the doctor. Ben is the lawyer\'s brother. Cal is younger than the teacher and is not the lawyer. Who is the doctor?',['Cal','Ben','Amy','It cannot be decided'],'Ben and Cal are not the lawyer, so Amy is. Cal is not the teacher, so Cal is the doctor.'],
  [0.8,'Two fathers and two sons go fishing. Each catches one fish, yet only three fish are caught. How?',['They are a grandfather, father and son','One caught nothing','They shared a fish','It is impossible'],'The middle person is both a father and a son.'],
  [1.0,'No reptiles are warm-blooded. All snakes are reptiles. Which must be true?',['No snakes are warm-blooded','Some snakes are warm-blooded','All reptiles are snakes','Some warm-blooded animals are snakes'],'Snakes are reptiles, and no reptile is warm-blooded.'],
- [1.2,'Knights always tell the truth and knaves always lie. A says: "We are both knaves." What are A and B?',['A is a knave, B is a knight','Both are knaves','A is a knight, B is a knave','Both are knights'],'A knight could not say this. So A is a knave and the statement is false, which means B is a knight.']
+ [1.2,'Knights always tell the truth and knaves always lie. A says: "We are both knaves." What are A and B?',['A is a knave, B is a knight','Both are knaves','A is a knight, B is a knave','Both are knights'],'A knight could not say this. So A is a knave and the statement is false, which means B is a knight.'],
+ [0.1,'All squares are rectangles, and all rectangles have four sides. Which must be true?',['All squares have four sides','All four-sided shapes are squares','All rectangles are squares','No squares are rectangles'],'Squares sit inside rectangles, which all have four sides.'],
+ [0.9,'Five people sit in a row. A is to the left of B but to the right of C. D is to the right of B. E is at the left end. Who sits in the middle?',['A','B','C','D'],'The order is E, C, A, B, D.']
 ]
 };

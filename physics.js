@@ -442,6 +442,32 @@ PHY.push(
  f:[['Would a straw work on the Moon (inside a pressurised base)?','Inside a pressurised base, yes. Outside, with no air pressure, nothing would push the drink up (and it would boil anyway).'],
     ['How do tall trees lift water more than 10 m, then?','Water is pulled up as a continuous column under tension: evaporation from the leaves draws water up, and cohesion between water molecules stops the column breaking.']]}
 );
+PHY.push(
+{id:'q1',t:7,l:2,q:'Why is it much easier to balance a broom upright on your hand than a pencil?',
+ h:['Both are inverted pendulums: if they tilt slightly, they fall further. What sets how quickly the tilt grows?',
+    'Use dimensional analysis: the only time scale from length L and g is √(L/g). Compare that with your reaction time.'],
+ a:'<p>An upright stick that tilts by a small angle θ falls with θ growing roughly as e<sup>t/τ</sup>, where τ ~ √(L/g). For a rod pivoted at its end, τ = √(2L/3g).</p><p>Pencil (L ≈ 0.15 m): τ ≈ 0.1 s. Broom (L ≈ 1.5 m): τ ≈ 0.3 s. Human reactions take about 0.2 s, so you can correct a broom in time but not a pencil. <b>Longer objects fall over more slowly.</b></p>',
+ f:[['Why is a broom easier to balance with the heavy brush at the top?','Raising the centre of mass increases the effective pendulum length (I/md), so it topples even more slowly.'],
+    ['Released 1° from vertical, roughly how long does a pencil take to fall over?','θ ≈ θ₀ cosh(t/τ). Growing from 0.017 rad to about 1 rad needs cosh ≈ 60, so t ≈ 4.8τ ≈ 0.5 s.']]},
+{id:'q2',t:4,l:2,q:'Why does your hair stand on end when you touch a Van de Graaff generator?',
+ h:['When you touch the dome, charge spreads over your body, including every hair.',
+    'What do like charges do to each other?'],
+ a:'<p>Charge flows from the dome onto you and spreads over your surface. Every hair gets charge of the <b>same sign</b>, so the hairs repel each other and your head, and spread out as far apart as possible.</p><p>It only works if you stand on an insulator, so the charge cannot escape to the ground. Fine, dry hair works best.</p>',
+ f:[['Why must you stand on an insulating mat?','Otherwise the charge simply flows through you to earth and never builds up.'],
+    ['Why is the dome large and smooth? Roughly what voltage can a 30 cm diameter dome reach?','Sharp points concentrate the field and leak charge (corona discharge). For a sphere E = V/r, and air breaks down at about 3 MV/m, so V ≈ 3 × 10⁶ × 0.15 ≈ 450 kV.']]},
+{id:'q3',t:5,l:1,q:'Why can you see your breath on a cold day but not on a warm one?',
+ h:['Your breath is warm and saturated with water vapour. What happens to it when it mixes with cold air?',
+    'Cold air can hold much less water vapour than warm air.'],
+ a:'<p>Exhaled air is at about 35 °C and nearly saturated with water vapour. Mixing with cold air cools it below its <b>dew point</b>, so the vapour condenses into a cloud of tiny droplets: you see a little cloud.</p><p>On a warm day the mixture never cools enough to become saturated, so the vapour stays invisible.</p>',
+ f:[['Why do aircraft leave contrails?','Engine exhaust contains water vapour. At altitude the air is around −40 °C, so the vapour quickly condenses and freezes into ice crystals.'],
+    ['Why does a cold drink "sweat" in summer?','Air touching the cold glass is cooled below its dew point, so water condenses on the surface.']]},
+{id:'q4',t:3,l:2,q:'Why does your voice sound higher after breathing in helium?',
+ h:['How does the speed of sound depend on the gas it travels through?',
+    'Your vocal tract is a resonator: its resonant frequencies depend on the wave speed. Does the vibration rate of your vocal cords change much?'],
+ a:'<p>Sound travels about three times faster in helium, because its atoms are much lighter (v = √(γRT/M)). The resonances of your throat and mouth (the "formants" that give your voice its character) shift to much higher frequencies.</p><p>Surprisingly, your vocal cords vibrate at nearly the same rate, so the fundamental pitch barely changes. What changes is the <b>timbre</b>, which makes your voice sound squeaky and higher.</p>',
+ f:[['By roughly what factor is sound faster in helium than in air?','√((γ_He/γ_air)(M_air/M_He)) = √((1.67/1.4)(29/4)) ≈ 2.9.'],
+    ['What would breathing sulfur hexafluoride (a very heavy gas) do?','Sound is slower in it, so the resonances shift down and your voice sounds much deeper. (Like helium, it is dangerous to breathe, because it displaces oxygen.)']]}
+);
 PHY.forEach(q=>{q.f=q.f||PHY_FOLLOW[q.id]||[];});
 
 const PHY_SOURCES=[
