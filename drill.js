@@ -237,7 +237,7 @@ function drillRender(){
     const k=+b.dataset.k,ok=it.opts[k].ok;
     btns.forEach((x,j)=>{x.disabled=true;if(it.opts[j].ok)x.classList.add('right');});
     if(!ok)b.classList.add('wrong');
-    if(ok)D.ok++;D.res.push({type:it.type,ok});
+    if(ok)D.ok++;D.res.push({type:it.type,ok,prompt:it.prompt,stem:it.stem||'',chosen:it.opts[k].h,right:it.right,explain:it.explain});
     document.getElementById('dfb').innerHTML='<div class="fb"><b class="'+(ok?'ok':'no')+'">'+(ok?'Correct.':'Not quite.')+'</b><p class="note">'+it.explain+'</p><button class="btn" id="dnx">'+(D.i+1<D.items.length?'Next':'Finish')+'</button></div>';
     document.getElementById('dnx').onclick=()=>{D.i++;if(D.i<D.items.length)drillRender();else drillFinish();};
   });
@@ -256,7 +256,9 @@ function drillFinish(){
   '<div class="stack"><p class="eyebrow">Drill complete</p><h1>'+D.ok+' / '+D.items.length+'</h1>'+
   '<div class="facts"><div class="fact"><b>'+fmt(secs)+'</b><span>time</span></div><div class="fact"><b>'+st.streak+'</b><span>day streak</span></div><div class="fact"><b>'+Math.round(100*D.ok/D.items.length)+'%</b><span>accuracy</span></div></div>'+
   '<p class="note">Come back tomorrow to keep the streak going.</p>'+
+  reviewHtml(D.res)+
   '<button class="btn" id="dagain">Another drill</button><button class="btn ghost" id="dhome">Back</button></div>';
   document.getElementById('dagain').onclick=drillStart;
   document.getElementById('dhome').onclick=drillHome;
+  window.scrollTo(0,0);
 }

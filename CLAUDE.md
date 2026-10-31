@@ -32,6 +32,8 @@ Later goal (not started): video explanations for questions answered wrongly.
 - All user data lives in `localStorage`: `iq10-history`, `iq10-seen`, `phy-ratings`, `iv-history`, `drill`, `cards`, `topics-read`, `potw`, `study-log`, `study-run`, `study-pref`, `speed-history`, `alevel`, `alevel-seen`.
 - Flashcard ids are `'a' + index` (the deck was replaced with the AQA Physics deck; old `'c'` ids are ignored), so **only append** new cards to `CARDS` (never insert or reorder), or saved progress maps to the wrong cards. The same applies to IQ bank items (ids by index) and `POTW` (indexed by week). Keep keys and formats backwards compatible.
 - Mock-interview recordings use MediaRecorder, stay in memory and are never uploaded.
+- **Maths formatting:** a MutationObserver in `index.html` runs `mathify()` on everything rendered in `#app`, turning `e^(−x²)`, `x^2`, `c_rms`, `k_B` into proper superscripts and subscripts. Writing questions with `^(...)` and `_x` notation is fine; never put `^` or `_` in non-maths text.
+- **Answer review:** quizzes end with `reviewHtml(items)` (your answer, the correct answer and the explanation, mistakes first). Any new quiz screen should record `{prompt, stem, chosen, right, ok, explain}` per question and show it.
 
 ## Rules agreed with the owner
 - **Do not copy questions from copyrighted tests** (Mensa, Raven's, WAIS, PAT, commercial prep sites). Write original items in the same style, and link to official material instead of reproducing it. The repo and site are public.
