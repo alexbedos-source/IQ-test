@@ -1,14 +1,22 @@
-# Reasoning Lab (IQ-test repo)
+# IQ Lab (IQ-test repo)
 
-Personal project: a phone-installable web app with an IQ test and Oxford-style physics interview practice.
-The owner uses it mainly themselves, on an iPhone, from the home screen.
+Personal project: a phone-installable web app ("IQ Lab") that trains the owner for an Oxford/Imperial physics interview
+and broader physics/maths fluency, plus an IQ test for them and friends. The owner is in Year 13; their personal statement
+and admissions test are done, so **interview preparation is the priority**. They use it on an iPhone from the home screen.
+They do not want a friend-challenge / shared-test feature.
 
 ## How the app is delivered
-- Static site, no build step: `index.html` (UI, generators, scoring), `iq-bank.js` (written IQ items), `physics.js` (physics bank + UI), `sw.js`, `manifest.webmanifest`, `icons/`.
+- Static site, no build step. Files:
+  - `index.html`: styles, shared helpers, home hub, `leave()`, IQ test (generators, scoring, screens).
+  - `iq-bank.js`: written IQ items. `physics.js`: physics questions, follow-ups (`PHY_FOLLOW`) and practice screens.
+  - `interview.js`: mock interview. `drill.js`: daily drill and streak. `learn.js`: flashcards, bridging topics, problem of the week, resources.
+  - `tools.js`: study timer, processing-speed task, progress dashboard. Plus `sw.js`, `manifest.webmanifest`, `icons/`.
+- Every top-level screen calls `leave()` first; modules push teardown functions onto `cleanups` (timers, microphone).
 - Hosted on GitHub Pages from `main` at https://alexbedos-source.github.io/IQ-test/ and added to the iPhone home screen as a PWA.
 - **Workflow:** make changes on a branch, open a PR to `main`; the owner merges from the GitHub app. Never push straight to `main`.
 - **Bump `VERSION` in `sw.js` on every change** to any app file, or installed phones keep serving the old cache. New files must also be added to `SHELL` in `sw.js`.
-- The owner's results and physics ratings live in `localStorage` (`iq10-history`, `iq10-seen`, `phy-ratings`). Keep those keys and formats backwards compatible.
+- All user data lives in `localStorage`: `iq10-history`, `iq10-seen`, `phy-ratings`, `iv-history`, `drill`, `cards`, `topics-read`, `potw`, `study-log`, `study-run`, `study-pref`, `speed-history`. Keep keys and formats backwards compatible.
+- Mock-interview recordings use MediaRecorder, stay in memory and are never uploaded.
 
 ## Rules agreed with the owner
 - **Do not copy questions from copyrighted tests** (Mensa, Raven's, WAIS, PAT, commercial prep sites). Write original items in the same style, and link to official material instead of reproducing it. The repo and site are public.
@@ -24,7 +32,7 @@ The owner uses it mainly themselves, on an iPhone, from the home screen.
 - Memory items carry `mem`, `memMs` and `memPrompt`; `render()` shows the stimulus, then hides it.
 
 ## Physics section
-- `PHY` entries: `id`, `t` (topic index into `PHY_TOPICS`), `l` (difficulty 1–3), `q`, `h` (hints, in order), `a` (worked answer HTML).
+- `PHY` entries: `id`, `t` (topic index into `PHY_TOPICS`), `l` (difficulty 1–3), `q`, `h` (hints, in order), `a` (worked answer HTML), `f` (follow-ups: `[question, answer]` pairs; every question should have two, used by the mock interview).
 - Answers should state assumptions, use round numbers, give a sanity check, and say what tutors look for where useful.
 
 ## Testing before a PR
@@ -33,8 +41,11 @@ run all three modes to the results screen, validate every bank item and a few th
 check a memory item hides its stimulus, open a physics question, reveal hints and the answer, and rate it. Watch for console errors.
 Don't kill the server with `pkill -f` on a pattern that also matches your own command.
 
+## Processing speed
+`tools.js` symbol-search task (60 s, correct minus wrong). It is deliberately **not** included in the IQ estimate because there are no norms; it is compared with the owner's own history only.
+
 ## Roadmap
-- Processing speed section (many quick, simple items against the clock): the main CHC ability not yet covered.
-- More physics questions; the owner will say which topics feel too easy or hard.
+- More physics questions and follow-ups; the owner will say which topics feel too easy or hard.
+- More bridging topics, flashcards and problems of the week.
 - Grow written IQ banks further so the 30-minute test repeats less.
 - Possibly calibrate difficulty using open data (e.g. openpsychometrics.org) or ICAR if access arrives.

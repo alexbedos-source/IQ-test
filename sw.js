@@ -1,7 +1,7 @@
 /* Offline support: cache the app shell, serve it cache-first, refresh in the background.
    Bump VERSION whenever index.html changes so phones pick up the new copy. */
-const VERSION = 'iq-v2';
-const SHELL = ['./', 'index.html', 'iq-bank.js', 'physics.js', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touch-icon.png'];
+const VERSION = 'iq-v3';
+const SHELL = ['./', 'index.html', 'iq-bank.js', 'physics.js', 'interview.js', 'drill.js', 'learn.js', 'tools.js', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touch-icon.png'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(VERSION).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));

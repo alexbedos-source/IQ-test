@@ -1,8 +1,19 @@
 # IQ-test
 Experimental project on the use of Artificial Intelligence to create a brief standardised taster IQ test to gauge an individual's intelligence level.
 
-## The app
-A single-page web app (`index.html`) with two sections.
+## The app: IQ Lab
+A phone-installable web app for physics interview preparation, daily maths/physics training and IQ testing.
+
+| Section | What it does |
+|---|---|
+| Mock interview | Two problems back to back, think-aloud timer, hints, tutor follow-ups, optional voice recording, self-review |
+| Physics questions | 60 open-ended Oxford-style questions with hints, worked answers and follow-ups |
+| Problem of the week | A harder olympiad-style problem that changes weekly |
+| Daily drill | Ten generated questions (arithmetic, standard form, orders of magnitude, calculus, units, graphs) with a streak |
+| Flashcards | Constants, formulas, magnitudes and maths with spaced repetition |
+| Bridging topics | Short first-year topics (complex numbers, Taylor series, vectors, ODEs, relativity, quantum, dimensional analysis) with problems |
+| Study timer / Progress / Resources | Focus timer logged by subject, a dashboard of all stats, curated free links |
+| IQ test | Seven abilities, 5/10/30 minute modes, plus a 60 s processing-speed check |
 
 ### IQ test
 Three lengths, all at 20 seconds per question:
@@ -31,7 +42,7 @@ The model is **not calibrated on real test-takers**, so results are rough estima
 
 ### Physics interview
 `physics.js` holds open-ended questions in the style of Oxford physics interviews, across eight topics,
-each with progressive hints, a worked answer and a self-rating that brings weaker questions back first.
+each with progressive hints, a worked answer, two tutor-style follow-ups and a self-rating that brings weaker questions back first.
 The questions are written for this app; official Oxford material is linked from the app rather than copied.
 
 ## Using it on an iPhone
