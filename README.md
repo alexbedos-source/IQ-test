@@ -7,10 +7,10 @@ A phone-installable web app for physics interview preparation, daily maths/physi
 | Section | What it does |
 |---|---|
 | Mock interview | Two problems back to back, think-aloud timer, hints, tutor follow-ups, optional voice recording, self-review |
-| Physics questions | 72 open-ended Oxford-style questions with hints, worked answers and follow-ups |
+| Physics questions | 81 open-ended Oxford-style questions with hints, worked answers and follow-ups |
 | Problem of the week | A harder olympiad-style problem that changes weekly |
 | Daily drill | Ten generated questions (arithmetic, standard form, orders of magnitude, calculus, units, graphs) with a streak |
-| Flashcards | Constants, formulas, magnitudes and maths with spaced repetition |
+| Flashcards | AQA A-level Physics definitions, laws and facts (nothing from the data booklet), spaced repetition, filter by topic |
 | Bridging topics | Short first-year topics (complex numbers, Taylor series, vectors, ODEs, relativity, quantum, dimensional analysis) with problems |
 | Study timer / Progress / Resources | Focus timer logged by subject, a dashboard of all stats, curated free links |
 | IQ test | Seven abilities, 5/10/30 minute modes, plus a 60 s processing-speed check |

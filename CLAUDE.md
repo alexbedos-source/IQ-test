@@ -9,6 +9,13 @@ interview prep stays focused on Oxford Physics.
 The owner wants the question banks to keep growing so they never run out (a nightly scheduled session adds questions and updates a PR).
 Later goal (not started): video explanations for questions answered wrongly.
 
+## Level of content (owner's instruction)
+- **Flashcards and A-level Physics questions: strictly AQA A-level Physics (7408).** Flashcards cover what must be learned:
+  definitions, laws, particle facts, graph shapes, practical and safety points. **No constants and no formulas that are printed
+  on the AQA data and formulae booklet** (they are given in the exam). Derivations that are not on the sheet (e.g. escape velocity) are fine.
+- **Interview questions and problems of the week can be university level** (first-year style) to make interview practice realistic.
+  Note that real Oxford interviews only assume A-level knowledge, so keep a mix and give enough hints to make harder questions approachable.
+
 ## How the app is delivered
 - Static site, no build step. Files:
   - `index.html`: styles, shared helpers, home hub, `leave()`, IQ test (generators, scoring, screens).
@@ -23,7 +30,7 @@ Later goal (not started): video explanations for questions answered wrongly.
 - **Workflow:** make changes on a branch, open a PR to `main`; the owner merges from the GitHub app. Never push straight to `main`.
 - **Bump `VERSION` in `sw.js` on every change** to any app file, or installed phones keep serving the old cache. New files must also be added to `SHELL` in `sw.js`.
 - All user data lives in `localStorage`: `iq10-history`, `iq10-seen`, `phy-ratings`, `iv-history`, `drill`, `cards`, `topics-read`, `potw`, `study-log`, `study-run`, `study-pref`, `speed-history`, `alevel`, `alevel-seen`.
-- Flashcard ids are `'c' + index`, so **only append** new cards to `CARDS` (never insert or reorder), or saved progress maps to the wrong cards. The same applies to IQ bank items (ids by index) and `POTW` (indexed by week). Keep keys and formats backwards compatible.
+- Flashcard ids are `'a' + index` (the deck was replaced with the AQA Physics deck; old `'c'` ids are ignored), so **only append** new cards to `CARDS` (never insert or reorder), or saved progress maps to the wrong cards. The same applies to IQ bank items (ids by index) and `POTW` (indexed by week). Keep keys and formats backwards compatible.
 - Mock-interview recordings use MediaRecorder, stay in memory and are never uploaded.
 
 ## Rules agreed with the owner
@@ -55,7 +62,7 @@ Don't kill the server with `pkill -f` on a pattern that also matches your own co
 ## Adding questions (the nightly job does this)
 - Physics interview: append to `PHY` via `PHY.push(...)` with unique ids, 2–3 hints, a worked answer and exactly two follow-ups.
 - A-level: append to the banks with a valid topic index, or add generators. Keep topics balanced; check facts against the spec.
-- IQ: append to `EXTRA.V/Q/L` in `iq-bank.js`. Flashcards: append to `CARDS`. Problems of the week: append to `POTW`.
+- IQ: append to `EXTRA.V/Q/L` in `iq-bank.js`. Flashcards: append to `CARDS` (AQA Physics only, `[topicIndex, front, back]`, topics as `CARD_CATS`, nothing from the data booklet). Problems of the week: append to `POTW` (university level is welcome; prefix the prompt with "(University level)").
 - Validate: every item has four distinct options with the correct one first, no `undefined`/`NaN`, and the browser test passes.
 
 ## Roadmap

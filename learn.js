@@ -1,72 +1,135 @@
 /* =====================  Flashcards, bridging topics, problem of the week, resources  ===================== */
 
 /* ---------- flashcards (Leitner spaced repetition) ---------- */
-const CARD_CATS=['Constants','Formulas','Magnitudes','Maths','Economics'];
+/* AQA A-level Physics (7408) only: what you must learn yourself. Constants and formulas printed on the
+   AQA data and formulae booklet are deliberately left out. Ids are 'a' + index: append only. */
+const CARD_CATS=['Measurements and errors','Particles and radiation','Waves','Mechanics and materials','Electricity','Further mechanics and thermal','Fields','Nuclear physics'];
 const CARDS=[
- [0,'Speed of light, c','3.00 × 10⁸ m/s'],[0,'Gravitational constant, G','6.67 × 10⁻¹¹ N m² kg⁻²'],[0,'Planck constant, h','6.63 × 10⁻³⁴ J s'],
- [0,'Elementary charge, e','1.60 × 10⁻¹⁹ C'],[0,'Electron mass, mₑ','9.11 × 10⁻³¹ kg'],[0,'Proton mass, mₚ','1.67 × 10⁻²⁷ kg (≈ 1836 mₑ)'],
- [0,'Avogadro constant, N_A','6.02 × 10²³ mol⁻¹'],[0,'Boltzmann constant, k_B','1.38 × 10⁻²³ J/K'],[0,'Molar gas constant, R','8.31 J mol⁻¹ K⁻¹ (= N_A k_B)'],
- [0,'Permittivity of free space, ε₀','8.85 × 10⁻¹² F/m'],[0,'Permeability of free space, μ₀','4π × 10⁻⁷ H/m ≈ 1.26 × 10⁻⁶ H/m'],[0,'Stefan–Boltzmann constant, σ','5.67 × 10⁻⁸ W m⁻² K⁻⁴'],
- [0,'1 electronvolt in joules','1.60 × 10⁻¹⁹ J'],[0,'hc in eV nm (handy for photons)','≈ 1240 eV nm'],[0,'Coulomb constant, 1/(4πε₀)','8.99 × 10⁹ N m² C⁻²'],
- [1,'SUVAT without time','v² = u² + 2as'],[1,'SUVAT without final velocity','s = ut + ½at²'],[1,'Centripetal acceleration','a = v²/r = ω²r'],
- [1,'Newton\'s law of gravitation','F = GMm/r²'],[1,'Gravitational potential energy (far from Earth)','U = −GMm/r'],[1,'Escape velocity','v = √(2GM/R)'],
- [1,'Kepler\'s third law','T² = 4π²r³/(GM)'],[1,'Period of a simple pendulum','T = 2π√(L/g)'],[1,'Period of a mass on a spring','T = 2π√(m/k)'],
- [1,'Coulomb\'s law','F = q₁q₂/(4πε₀r²)'],[1,'Energy stored in a capacitor','E = ½CV² = Q²/(2C)'],[1,'Force on a moving charge in a magnetic field','F = qvB sinθ'],
- [1,'Photon energy','E = hf = hc/λ'],[1,'de Broglie wavelength','λ = h/p'],[1,'Mass–energy equivalence','E = mc² (rest energy)'],
- [1,'Ideal gas law','pV = nRT = Nk_BT'],[1,'Mean kinetic energy of a gas molecule','½m⟨v²⟩ = (3/2)k_BT'],[1,'Stefan–Boltzmann law','P = σAT⁴'],
- [1,'Wien\'s displacement law','λ_max T ≈ 2.9 × 10⁻³ m K'],[1,'Lorentz factor','γ = 1/√(1 − v²/c²)'],[1,'Snell\'s law','n₁ sinθ₁ = n₂ sinθ₂'],
- [1,'Wave speed on a string','v = √(T/μ)'],[1,'Hydrogen energy levels','Eₙ = −13.6 eV / n²'],[1,'Radioactive decay and half-life','N = N₀e^(−λt), t½ = ln2/λ'],
- [1,'Moment of inertia of a solid sphere','I = (2/5)mr²'],[1,'Rotational kinetic energy','E = ½Iω²'],[1,'Angular momentum','L = Iω = mvr (point mass)'],
- [2,'Radius of the Earth','6400 km'],[2,'Earth–Moon distance','3.8 × 10⁵ km (≈ 60 Earth radii)'],[2,'Earth–Sun distance (1 AU)','1.5 × 10¹¹ m'],
- [2,'Mass of the Earth','6.0 × 10²⁴ kg'],[2,'Mass of the Sun','2.0 × 10³⁰ kg'],[2,'Solar constant at Earth','≈ 1.4 kW/m²'],
- [2,'Size of an atom','≈ 10⁻¹⁰ m'],[2,'Size of a nucleus','≈ 10⁻¹⁵ m'],[2,'Seconds in a year','≈ 3.15 × 10⁷ s (≈ π × 10⁷)'],
- [2,'Human resting power output','≈ 100 W'],[2,'Density of air at sea level','≈ 1.2 kg/m³'],[2,'Atmospheric pressure','≈ 1.0 × 10⁵ Pa'],
- [2,'Speed of sound in air','≈ 340 m/s'],[2,'Specific heat capacity of water','4200 J kg⁻¹ K⁻¹'],[2,'Latent heat of vaporisation of water','2.26 MJ/kg'],
- [3,'Taylor series of eˣ','1 + x + x²/2! + x³/3! + …'],[3,'Taylor series of sin x','x − x³/3! + x⁵/5! − …'],[3,'Taylor series of cos x','1 − x²/2! + x⁴/4! − …'],
- [3,'ln(1 + x) for small x','x − x²/2 + x³/3 − …'],[3,'Binomial approximation','(1 + x)ⁿ ≈ 1 + nx for |x| ≪ 1'],[3,'Euler\'s formula','e^(iθ) = cosθ + i sinθ'],
- [3,'Sum of a geometric series','a/(1 − r) for |r| &lt; 1'],[3,'Integration by parts','∫u dv = uv − ∫v du'],[3,'d/dx of tan x','sec² x'],
- [3,'∫ ln x dx','x ln x − x + C'],[3,'Gaussian integral ∫e^(−x²) dx over all x','√π'],[3,'sin 2θ and cos 2θ','2 sinθ cosθ; cos²θ − sin²θ = 1 − 2sin²θ'],
- [3,'Small-angle approximations','sinθ ≈ θ, tanθ ≈ θ, cosθ ≈ 1 − θ²/2'],[3,'Volume and surface area of a sphere','(4/3)πr³ and 4πr²'],[3,'Solution of dy/dx = ky','y = Ae^(kx)']
-,
- [3,'Quadratic formula','x = (−b ± √(b² − 4ac)) / 2a'],[3,'Discriminant conditions','b² − 4ac > 0: two roots; = 0: one repeated; < 0: none real'],
- [3,'cos 2θ (three forms)','cos²θ − sin²θ = 2cos²θ − 1 = 1 − 2sin²θ'],[3,'Sum of first n terms of a geometric series','a(1 − rⁿ)/(1 − r)'],
- [1,'Photoelectric equation','hf = φ + Ek(max)'],[1,'Young modulus','E = (F/A)/(ΔL/L) = stress/strain'],
- [1,'Capacitor discharge','Q = Q₀e^(−t/RC)'],[1,'Fringe spacing (Young\'s slits)','w = λD/s'],
- [4,'Price elasticity of demand','%ΔQd / %ΔP'],[4,'Income elasticity of demand','%ΔQd / %ΔY (negative for inferior goods)'],
- [4,'Cross elasticity of demand','%ΔQd of A / %ΔP of B (positive: substitutes; negative: complements)'],[4,'Aggregate demand','AD = C + I + G + (X − M)'],
- [4,'The multiplier','1 / MPW, where MPW = MPS + MPT + MPM'],[4,'Real interest rate (approx.)','Nominal interest rate − inflation'],
- [4,'Profit maximisation rule','MC = MR'],[4,'Marshall–Lerner condition','|PEDx| + |PEDm| > 1 for a depreciation to improve the current account'],
- [1,'Root-mean-square speed of gas molecules','c_rms = √(3kT/m)'],[3,'Midpoint of (x₁, y₁) and (x₂, y₂)','((x₁ + x₂)/2, (y₁ + y₂)/2)'],
- [3,'Arc length and sector area (θ in radians)','s = rθ, A = ½r²θ'],[1,'Speed of sound in an ideal gas','v = √(γRT/M)'],
- [4,'Price elasticity and total revenue','If |PED| > 1, a price cut raises revenue; if |PED| < 1, a price cut lowers it'],[2,'Breakdown field strength of dry air','≈ 3 × 10⁶ V/m']
-].map((c,i)=>({id:'c'+i,cat:c[0],front:c[1],back:c[2]}));
+ [0,'The six SI base units used in AQA Physics','kg (mass), m (length), s (time), A (current), K (temperature), mol (amount of substance)'],
+ [0,'Precision','Measurements are precise if they are close to each other (little spread). Says nothing about the true value.'],
+ [0,'Accuracy','A measurement is accurate if it is close to the true value.'],
+ [0,'Repeatable vs reproducible','Repeatable: same person, method and equipment gives the same result. Reproducible: the same result with a different person, method or equipment.'],
+ [0,'Systematic vs random errors','Systematic: the same shift every time (e.g. zero error); not reduced by repeating. Random: unpredictable scatter; reduced by averaging repeats.'],
+ [0,'Combining uncertainties','Adding or subtracting: add absolute uncertainties. Multiplying or dividing: add percentage uncertainties. Raising to a power n: multiply the percentage uncertainty by n.'],
+ [0,'Resolution of an instrument','The smallest change in the quantity that it can detect.'],
+ [1,'Specific charge','Charge ÷ mass of a particle or nucleus, in C kg⁻¹.'],
+ [1,'Isotopes','Atoms with the same number of protons but different numbers of neutrons.'],
+ [1,'Range and nature of the strong nuclear force','Attractive up to about 3 fm; repulsive below about 0.5 fm. Holds nucleons together.'],
+ [1,'Hadrons, baryons and mesons','Hadrons feel the strong force. Baryons are three quarks (proton, neutron); mesons are a quark and an antiquark (pions, kaons).'],
+ [1,'Quark content of the proton and neutron','Proton: uud. Neutron: udd.'],
+ [1,'Quark content of π⁺, π⁰ and K⁺','π⁺ = ud̄; π⁰ = uū or dd̄; K⁺ = us̄.'],
+ [1,'Leptons','Electron, muon and neutrinos (plus antiparticles). They do not feel the strong force. Muons decay into electrons.'],
+ [1,'What is conserved in particle interactions','Always: charge, baryon number, lepton number (electron and muon separately), energy and momentum. Strangeness: conserved in strong interactions, can change by ±1 in weak.'],
+ [1,'Exchange particles (AQA)','Electromagnetic: virtual photon. Weak: W⁺ and W⁻ bosons. Strong force between nucleons: pions.'],
+ [1,'Pair production and annihilation','Pair production: a photon with energy ≥ 2mc² creates a particle–antiparticle pair. Annihilation: a particle and antiparticle meet and become two photons.'],
+ [1,'Threshold frequency','The minimum frequency of light that releases photoelectrons from a metal surface.'],
+ [1,'Why the photoelectric effect supports the photon model','Emission is instant and needs f above a threshold, however bright the light; one photon gives all its energy to one electron.'],
+ [1,'The electronvolt','The energy gained by an electron accelerated through a pd of 1 V.'],
+ [1,'Excitation vs ionisation','Excitation: an electron moves to a higher energy level. Ionisation: an electron is removed from the atom completely.'],
+ [1,'How a fluorescent tube produces visible light','Electrons excite mercury atoms, which emit UV when they de-excite. The phosphor coating absorbs UV and re-emits visible light.'],
+ [1,'What line spectra show','Atoms have discrete energy levels: each line is a photon whose energy equals the difference between two levels.'],
+ [1,'Evidence for wave–particle duality','Light: diffraction and interference (wave); photoelectric effect (particle). Electrons: electron diffraction (wave); deflection by fields (particle).'],
+ [2,'Transverse vs longitudinal waves','Transverse: oscillations perpendicular to the direction of energy transfer (EM waves). Longitudinal: parallel (sound).'],
+ [2,'Polarisation','Restricting oscillations to one plane. Only transverse waves can be polarised. Uses: Polaroid sunglasses, aligning TV aerials.'],
+ [2,'How a stationary wave forms','Two waves of the same frequency and amplitude travelling in opposite directions superpose, giving fixed nodes and antinodes. No net energy transfer.'],
+ [2,'Phase in a stationary wave','All points between two adjacent nodes oscillate in phase; points in adjacent loops are in antiphase.'],
+ [2,'Coherent sources','Same frequency (wavelength) and a constant phase difference.'],
+ [2,'Path difference for constructive and destructive interference','Constructive: a whole number of wavelengths, nλ. Destructive: (n + ½)λ.'],
+ [2,'Single-slit diffraction pattern (monochromatic light)','A bright central maximum twice as wide as the others, with dimmer side maxima. A narrower slit or longer wavelength widens it. White light gives a white centre with coloured fringes.'],
+ [2,'Optical fibre: role of the cladding','Lower refractive index than the core so total internal reflection occurs. It also protects the core and stops signals crossing between fibres.'],
+ [2,'Modal and material dispersion','Modal: rays taking different paths arrive at different times (fix: a narrow core). Material: different wavelengths travel at different speeds (fix: monochromatic light).'],
+ [2,'Laser safety','Never look into the beam or its reflections; wear safety goggles; display warning signs; avoid reflective surfaces.'],
+ [3,'Scalars vs vectors','Scalars have size only (speed, mass, energy). Vectors have size and direction (velocity, force, momentum).'],
+ [3,'Principle of moments','For an object in equilibrium, the sum of clockwise moments equals the sum of anticlockwise moments about any point.'],
+ [3,'Centre of mass','The single point through which the whole weight of an object appears to act.'],
+ [3,'Couple','Two equal, opposite, parallel forces that do not act along the same line. Moment = one force × perpendicular distance between them.'],
+ [3,'Newton\'s three laws','1: an object stays at rest or constant velocity unless a resultant force acts. 2: resultant force = rate of change of momentum. 3: if A exerts a force on B, B exerts an equal and opposite force on A.'],
+ [3,'What the gradient and area of a velocity–time graph give','Gradient: acceleration. Area under the graph: displacement.'],
+ [3,'Elastic vs inelastic collisions','Elastic: kinetic energy is conserved. Inelastic: some kinetic energy is transferred to other forms. Momentum is conserved in both (no external forces).'],
+ [3,'Limit of proportionality, elastic limit and yield point','Limit of proportionality: Hooke\'s law stops applying. Elastic limit: beyond it, deformation is permanent. Yield point: the material stretches a lot for little extra force.'],
+ [3,'Brittle, ductile and plastic','Brittle: breaks with little or no plastic deformation (glass). Ductile: can be drawn into wires (copper). Plastic deformation: permanent.'],
+ [3,'Breaking stress (ultimate tensile stress)','The maximum stress a material can withstand before it breaks.'],
+ [3,'Loading and unloading curves for rubber','They differ (hysteresis). The area between them is the energy dissipated as heat.'],
+ [3,'Terminal speed','Drag (plus upthrust) balances the driving force or weight, so the resultant force is zero and the speed is constant.'],
+ [3,'Projectile motion (no air resistance)','Horizontal and vertical motions are independent: constant horizontal velocity, vertical acceleration g downwards.'],
+ [4,'Ohm\'s law','The current through a conductor is directly proportional to the pd across it, provided the temperature and other physical conditions stay constant.'],
+ [4,'I–V characteristic of a filament lamp','An S-shaped curve through the origin: the gradient falls as current rises, because resistance increases as the filament heats up.'],
+ [4,'I–V characteristic of a semiconductor diode','Conducts in the forward direction above about 0.6 V (silicon); very high resistance in the reverse direction.'],
+ [4,'Resistivity','A property of the material: the resistance of a sample 1 m long with 1 m² cross-sectional area. Units Ω m.'],
+ [4,'Superconductor','A material with zero resistivity below its critical temperature. Uses: strong magnetic fields (MRI, particle accelerators), loss-free power cables.'],
+ [4,'Kirchhoff\'s laws','First: total current into a junction = total current out (conservation of charge). Second: sum of emfs = sum of pds round any closed loop (conservation of energy).'],
+ [4,'Potential divider with an LDR or thermistor','The output pd is shared in proportion to resistance. LDR resistance falls as light increases; NTC thermistor resistance falls as temperature rises.'],
+ [4,'Emf vs terminal pd','Emf: energy transferred per coulomb by the source. Terminal pd = emf minus the "lost volts" across the internal resistance.'],
+ [4,'The volt and the ohm','1 V = 1 J C⁻¹. 1 Ω = 1 V A⁻¹.'],
+ [5,'The radian','The angle subtended at the centre of a circle by an arc equal in length to the radius.'],
+ [5,'Condition for simple harmonic motion','Acceleration is directly proportional to displacement from equilibrium and always directed towards it.'],
+ [5,'SHM: where speed and acceleration are greatest','Speed is greatest at equilibrium; acceleration is greatest at maximum displacement (where speed is zero).'],
+ [5,'Light, critical and heavy damping','Light: amplitude decays gradually. Critical: returns to equilibrium in the shortest time without oscillating. Heavy: returns slowly without oscillating.'],
+ [5,'Free vs forced oscillations','Free: no external driving force; oscillates at its natural frequency. Forced: driven by a periodic external force at the driving frequency.'],
+ [5,'Resonance','Amplitude becomes very large when the driving frequency equals the natural frequency. More damping lowers and broadens the peak.'],
+ [5,'Internal energy','The sum of the randomly distributed kinetic and potential energies of all the particles in a body.'],
+ [5,'Specific heat capacity (definition)','The energy needed to raise the temperature of 1 kg of a substance by 1 K without a change of state.'],
+ [5,'Specific latent heat (definition)','The energy needed to change the state of 1 kg of a substance without a change of temperature.'],
+ [5,'Absolute zero','0 K (−273 °C): the lowest possible temperature, where particles have minimum internal energy.'],
+ [5,'Boyle\'s law, Charles\'s law and the pressure law','Boyle: pV constant at constant T. Charles: V/T constant at constant p. Pressure law: p/T constant at constant V.'],
+ [5,'Assumptions of the kinetic theory of gases','Many molecules in random motion; negligible molecular volume; elastic collisions; collision time negligible; no forces between molecules except during collisions.'],
+ [5,'Brownian motion','The random motion of smoke particles, caused by collisions with fast-moving air molecules: evidence for the existence of atoms.'],
+ [6,'Gravitational field strength (definition)','The force per unit mass on a small test mass placed at that point.'],
+ [6,'Gravitational potential (definition)','The work done per unit mass to move a small mass from infinity to that point. Zero at infinity and negative elsewhere.'],
+ [6,'Equipotentials','Surfaces of equal potential. No work is done moving along them; they are perpendicular to field lines.'],
+ [6,'Geostationary satellite','Orbits above the equator with a 24-hour period in the same direction as the Earth rotates, so it stays above one point. Used for communications.'],
+ [6,'Escape velocity (derive it)','Kinetic energy = energy needed to reach infinity: ½mv² = GMm/r, so v = √(2GM/r). It is independent of the object\'s mass.'],
+ [6,'Electric field strength (definition)','The force per unit positive charge on a small test charge placed at that point.'],
+ [6,'Capacitor charging and discharging graphs','Discharging: Q, V and I all decay exponentially. Charging: Q and V rise towards a maximum while I decays. After one time constant, values fall to 37% (or rise to 63%).'],
+ [6,'Dielectric in a capacitor','Polar molecules in the insulator align with the field, opposing it, so more charge is stored for the same pd. Measured by relative permittivity εr.'],
+ [6,'Fleming\'s left-hand rule','First finger: field (N to S). Second finger: conventional current. Thumb: motion (force).'],
+ [6,'Magnetic flux density (definition)','The force per unit length per unit current on a conductor perpendicular to the field. 1 T = 1 N A⁻¹ m⁻¹.'],
+ [6,'Faraday\'s law and Lenz\'s law','Faraday: induced emf is proportional to the rate of change of flux linkage. Lenz: the induced current opposes the change that produces it.'],
+ [6,'Charged particle moving across a magnetic field','It moves in a circle, because the force is always perpendicular to its velocity. Used in cyclotrons.'],
+ [6,'Energy losses in a transformer and how to reduce them','Eddy currents: laminated core. Coil resistance: thick, low-resistance wire. Hysteresis: soft iron core. Flux leakage: wind coils on the same core.'],
+ [6,'Why power is transmitted at high voltage','Lower current for the same power, so less I²R heating in the cables.'],
+ [7,'Conclusions from Rutherford scattering','Most alpha particles pass straight through: the atom is mostly empty space. A few are deflected through large angles: there is a small, dense, positive nucleus.'],
+ [7,'Penetrating power of α, β and γ','Alpha: stopped by paper or a few cm of air. Beta: stopped by a few mm of aluminium. Gamma: reduced by several cm of lead.'],
+ [7,'Ionising power of α, β and γ','Alpha is most strongly ionising, then beta; gamma is the least.'],
+ [7,'Sources of background radiation','Radon gas, rocks and buildings, cosmic rays, food and drink, medical sources, the nuclear industry.'],
+ [7,'Why gamma intensity follows an inverse-square law','From a point source, the radiation spreads out over a sphere of area 4πr², and air barely absorbs it.'],
+ [7,'Binding energy','The energy needed to separate a nucleus into its individual nucleons; equivalent to the mass defect.'],
+ [7,'Binding energy per nucleon curve','Peaks near iron-56. Fusing light nuclei or splitting heavy nuclei increases it, releasing energy.'],
+ [7,'Induced fission and the chain reaction','U-235 absorbs a thermal neutron, splits into two daughter nuclei and releases 2–3 neutrons, which can cause further fissions.'],
+ [7,'Critical mass','The minimum mass of fissile fuel needed to sustain a chain reaction.'],
+ [7,'Moderator, control rods and coolant','Moderator (water or graphite) slows neutrons to thermal speeds. Control rods (boron) absorb neutrons. Coolant transfers heat away.'],
+ [7,'Methods of estimating nuclear radius','Distance of closest approach of alpha particles (an upper limit), and electron diffraction (more accurate).'],
+ [7,'Nuclear density','Roughly the same for all nuclei (about 10¹⁷ kg m⁻³), because R ∝ A^(1/3) so volume ∝ A.']
+].map((c,i)=>({id:'a'+i,cat:c[0],front:c[1],back:c[2]}));
 const BOX_DAYS=[0,1,2,4,8,16,32];
 const NEW_PER_DAY=10;
 function cardState(){return loadJSON('cards',{s:{},newDay:null,newCount:0});}
-function cardsDue(st){
-  const now=Date.now();
-  const due=CARDS.filter(c=>st.s[c.id]&&st.s[c.id].due<=now);
+function cardsDue(st,topic=-1){
+  const now=Date.now(),pool=CARDS.filter(c=>topic<0||c.cat===topic);
+  const due=pool.filter(c=>st.s[c.id]&&st.s[c.id].due<=now);
   const today=dayKey();
   const newLeft=st.newDay===today?Math.max(0,NEW_PER_DAY-st.newCount):NEW_PER_DAY;
-  const fresh=CARDS.filter(c=>!st.s[c.id]).slice(0,newLeft);
+  const fresh=pool.filter(c=>!st.s[c.id]).slice(0,newLeft);
   return {due,fresh};
 }
-let CS=null;
+let CS=null,cardTopic=-1;
 function cardsHome(){
   leave();
-  const st=cardState(),{due,fresh}=cardsDue(st);
+  const st=cardState(),{due,fresh}=cardsDue(st,cardTopic);
   const boxes=[0,0,0,0,0,0,0];CARDS.forEach(c=>{const s=st.s[c.id];boxes[s?s.box:0]++;});
   app.innerHTML=
   '<div class="stack">'+
   '<div class="stack" style="gap:8px"><p class="eyebrow">Daily training</p><h1>Flashcards</h1>'+
-  '<p class="muted">Constants, key formulas, typical sizes and maths you should know without thinking. Cards you know come back less and less often; cards you miss come back tomorrow.</p></div>'+
+  '<p class="muted">AQA A-level Physics: definitions, laws, particle facts and graph shapes you have to learn. Constants and formulas on the AQA data booklet are left out. Cards you know come back less and less often; cards you miss come back tomorrow.</p></div>'+
+  '<div class="chips">'+['All topics'].concat(CARD_CATS).map((n,i)=>'<button class="chip'+(cardTopic===i-1?' on':'')+'" data-t="'+(i-1)+'">'+n+'</button>').join('')+'</div>'+
   '<div class="facts"><div class="fact"><b>'+due.length+'</b><span>due now</span></div><div class="fact"><b>'+fresh.length+'</b><span>new today</span></div><div class="fact"><b>'+(boxes[4]+boxes[5]+boxes[6])+'</b><span>well known</span></div></div>'+
   '<button class="btn" id="cgo"'+(due.length+fresh.length?'':' disabled')+'>'+(due.length+fresh.length?'Review '+(due.length+fresh.length)+' cards':'All done for today')+'</button>'+
   '<div class="card stack"><h2>Your deck</h2><div class="cats">'+['New','1-day box','2-day box','4-day box','8-day box','16-day box','32-day box'].map((n,i)=>{const v=boxes[i];
     return '<div class="cr"><span class="n">'+n+'</span><span class="v">'+v+'</span><div class="t"><i style="width:'+(100*v/CARDS.length)+'%"></i></div></div>';}).join('')+'</div>'+
-   '<p class="note">'+CARDS.length+' cards: '+CARD_CATS.map((n,i)=>CARDS.filter(c=>c.cat===i).length+' '+n.toLowerCase()).join(', ')+'.</p></div>'+
+   '<p class="note">'+CARDS.length+' cards across '+CARD_CATS.length+' AQA topics.</p></div>'+
   '<button class="btn ghost" id="cback">Home</button>'+
   '</div>';
+  app.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{cardTopic=+b.dataset.t;cardsHome();});
   document.getElementById('cgo').onclick=()=>{CS={list:shuffle(due.concat(fresh)),i:0,ok:0};cardRender();};
   document.getElementById('cback').onclick=home;
 }
@@ -212,7 +275,13 @@ const POTW=[
  ['A ball is thrown upwards at 20 m/s from the top of a 25 m cliff, and misses the edge on the way down. When does it hit the ground below, and how fast is it going?',
   'Taking up as positive: −25 = 20t − 4.9t², so 4.9t² − 20t − 25 = 0 and t = (20 + √890)/9.8 ≈ <b>5.1 s</b>. Energy (or v² = u² + 2as): v² = 20² + 2 × 9.8 × 25 = 890, so <b>v ≈ 29.8 m/s</b>, whatever the launch direction.'],
  ['A uniform 4 m plank of mass 20 kg rests on two supports, each 1 m from an end. A 60 kg person walks out past one support. How far past it can they go before the plank tips?',
-  'At the point of tipping, the far support carries no load, so take moments about the near support. The plank\'s centre of mass is 1 m on the other side: 20g × 1 = 60g × x, giving <b>x = 1/3 m</b>. They can only go a third of a metre past the support, not to the end.']
+  'At the point of tipping, the far support carries no load, so take moments about the near support. The plank\'s centre of mass is 1 m on the other side: 20g × 1 = 60g × x, giving <b>x = 1/3 m</b>. They can only go a third of a metre past the support, not to the end.'],
+ ['(University level) Find the moment of inertia of a uniform solid sphere of mass M and radius R about a diameter.',
+  'Slice it into thin discs perpendicular to the axis. A disc at height z has radius r with r² = R² − z² and mass dm = ρπr² dz, and contributes ½r² dm. So I = ½ρπ ∫ (R² − z²)² dz from −R to R = ½ρπ × 16R⁵/15 = 8ρπR⁵/15. With M = (4/3)πR³ρ, <b>I = (2/5)MR²</b>.'],
+ ['(University level) A capacitor C is charged through a resistor R by a battery of emf ε. Show that exactly half the energy supplied by the battery is lost as heat, whatever R is.',
+  'The battery moves charge Q = Cε through emf ε, supplying W = Cε². The capacitor stores ½Cε². With I = (ε/R)e^(−t/RC), the heat is ∫I²R dt = (ε²/R) × RC/2 = ½Cε². <b>Half is lost</b>, independent of R: a smaller R just means a bigger current for a shorter time.'],
+ ['(University level) Show that a planet moving under any central force sweeps out equal areas in equal times (Kepler\'s second law).',
+  'A central force acts along r, so the torque r × F = 0 and the angular momentum L = mr²θ̇ is constant. The area swept in time dt is dA = ½r²dθ, so dA/dt = ½r²θ̇ = <b>L/2m = constant</b>. This works for any central force, not just inverse-square ones.']
 ];
 function weekIndex(){
   const d=new Date(),start=new Date(d.getFullYear(),0,1);
