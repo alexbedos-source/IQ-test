@@ -6,13 +6,13 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="IQ Test">
+<meta name="apple-mobile-web-app-title" content="IQ Lab">
 <meta name="theme-color" content="#eef1f4" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0e151b" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#0e0b16" media="(prefers-color-scheme: dark)">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="icon" type="image/png" href="icons/icon-192.png">
-<title>Reasoning Lab</title>
+<title>IQ Lab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -20,21 +20,21 @@
 /* Layout idea: one phone-width column, big tap targets, a ruled answer-sheet feel; results are read against a bell curve. */
 :root{
   --bg:#eef1f4; --surface:#ffffff; --ink:#121c26; --muted:#5b6975; --line:#d3dae1;
-  --accent:#0b6b8c; --accent-ink:#ffffff; --warn:#b4540a; --good:#1c7a4d; --bad:#b3261e;
+  --accent:#6a3fd1; --accent-ink:#ffffff; --warn:#b4540a; --good:#1c7a4d; --bad:#b3261e;
   --display:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
   --mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
   color-scheme:light;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
-    --bg:#0e151b; --surface:#16212a; --ink:#e8eef2; --muted:#93a3af; --line:#2a3945;
-    --accent:#4cc2e8; --accent-ink:#06222d; --warn:#f0a15a; --good:#5fd39a; --bad:#ff8a80;
+    --bg:#0e0b16; --surface:#1a1526; --ink:#ece8f4; --muted:#a39bb5; --line:#2f2742;
+    --accent:#b393ff; --accent-ink:#1a0b33; --warn:#f0a15a; --good:#5fd39a; --bad:#ff8a80;
     color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#0e151b; --surface:#16212a; --ink:#e8eef2; --muted:#93a3af; --line:#2a3945;
-  --accent:#4cc2e8; --accent-ink:#06222d; --warn:#f0a15a; --good:#5fd39a; --bad:#ff8a80;
+  --bg:#0e0b16; --surface:#1a1526; --ink:#ece8f4; --muted:#a39bb5; --line:#2f2742;
+  --accent:#b393ff; --accent-ink:#1a0b33; --warn:#f0a15a; --good:#5fd39a; --bad:#ff8a80;
   color-scheme:dark;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -172,6 +172,55 @@ details.rev p{margin-top:6px;font-size:.92rem;color:var(--muted)}
 .opt .memgrid i{border-width:1px}
 .opt.seqo{justify-content:center;font:600 1.15rem var(--mono);letter-spacing:.12em}
 .memcount{font:500 .9rem var(--mono);color:var(--muted);text-align:center}
+/* hub sections */
+.hubsec{display:flex;flex-direction:column;gap:10px}
+.hubgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.hubgrid .hubcard{padding:14px;min-height:96px}
+.hubgrid .hubcard b{font-size:1.02rem}
+.hubgrid .hubcard span{font-size:.8rem}
+.badge{align-self:flex-start;font:600 .72rem var(--mono);color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:1px 8px;margin-top:4px}
+.badge.done{color:var(--good);border-color:var(--good)}
+/* shared bits */
+details.fu{border-top:1px solid var(--line);padding:10px 0 2px}
+details.fu summary{cursor:pointer;font-weight:500}
+details.fu p,details.fu .answer{margin-top:8px;color:var(--ink)}
+.tog{display:flex;gap:10px;align-items:center;font-weight:500}
+.tog input{width:22px;height:22px;accent-color:var(--accent)}
+.ivbar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:-6px}
+.recdot{font:600 .8rem var(--mono);color:var(--bad);animation:blink 1.4s infinite}
+@keyframes blink{50%{opacity:.35}}
+.crit{display:flex;flex-direction:column;gap:6px}
+.stars{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.stars button{border:1.5px solid var(--line);background:var(--surface);border-radius:8px;min-height:40px;font:600 .95rem var(--mono);cursor:pointer}
+.stars button.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+textarea{font:inherit;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:10px;padding:10px;width:100%;resize:vertical}
+.days{display:grid;grid-template-columns:repeat(14,1fr);gap:4px}
+.days i{aspect-ratio:1;border-radius:4px;background:var(--line)}
+.days i.on{background:var(--accent)}
+.days i.today{outline:2px solid var(--ink);outline-offset:1px}
+.plot{width:100%;max-width:320px;display:block;margin:12px auto 0;background:var(--bg);border-radius:8px}
+.plot .ax{stroke:var(--muted);stroke-width:1}
+.plot .cv{fill:none;stroke:var(--accent);stroke-width:2.5}
+.plot text{fill:var(--muted);font:500 10px var(--mono)}
+.mathx{font-family:var(--mono);font-weight:600;white-space:nowrap}
+.flash{min-height:180px;display:flex;flex-direction:column;justify-content:center;gap:14px;text-align:center}
+.flash .prompt{font-size:1.25rem}
+.cardback p{font:600 1.15rem var(--mono);color:var(--accent)}
+.lesson p{margin:0}
+.res{display:flex;flex-direction:column;gap:2px;text-decoration:none;color:var(--ink);border-top:1px solid var(--line);padding:10px 0}
+.res:first-of-type{border-top:0}
+.res b{color:var(--accent)}
+.res span{font-size:.88rem;color:var(--muted)}
+.center{text-align:center}
+.sym{font-size:2rem;text-align:center;letter-spacing:.15em;padding:4px 0}
+.sym.tgt{color:var(--accent)}
+.big2{min-height:72px;font-size:1.2rem}
+.spark{width:100%;height:auto}
+.spark polyline{fill:none;stroke:var(--accent);stroke-width:2}
+.spark circle{fill:var(--accent)}
+.spark text{fill:var(--muted);font:500 10px var(--mono)}
+.t1{height:8px;background:var(--line);border-radius:4px;overflow:hidden}
+.t1 i{display:block;height:100%;background:var(--accent)}
 @media (max-width:380px){ .big{font-size:3.4rem} .facts{grid-template-columns:1fr 1fr} }
 @media (prefers-reduced-motion:reduce){ .bar i{transition:none} }
 </style>
@@ -181,6 +230,10 @@ details.rev p{margin-top:6px;font-size:.92rem;color:var(--muted)}
 
 <script src="iq-bank.js"></script>
 <script src="physics.js"></script>
+<script src="interview.js"></script>
+<script src="drill.js"></script>
+<script src="learn.js"></script>
+<script src="tools.js"></script>
 <script>
 /* =====================  helpers  ===================== */
 const rnd=n=>Math.floor(Math.random()*n);
@@ -595,22 +648,42 @@ const fmt=s=>{s=Math.max(0,Math.ceil(s));return Math.floor(s/60)+':'+String(s%60
 const dateTxt=t=>new Date(t).toLocaleDateString(undefined,{day:'numeric',month:'short',year:'numeric'});
 const histHtml=h=>'<div class="hist">'+h.map(x=>'<div class="hrow"><span class="d">'+dateTxt(x.t)+'</span><span class="m">'+(x.min||10)+' min</span><span class="r">'+x.lo+' to '+x.hi+'</span><span class="q">'+x.iq+'</span></div>').join('')+'</div>';
 
+/* every top-level screen calls leave() first, so timers, recordings and test state from the previous screen stop */
+let cleanups=[];
+function leave(){
+  clearInterval(tick);S=null;
+  if(typeof phyTick!=='undefined')clearInterval(phyTick);
+  cleanups.splice(0).forEach(f=>{try{f();}catch(e){}});
+}
+
 function home(){
-  clearInterval(tick);if(typeof phyTick!=='undefined')clearInterval(phyTick);S=null;
+  leave();
+  const dr=drillState(),drDone=!!dr.days[dayKey()],cd=cardsDue(cardState()),due=cd.due.length+cd.fresh.length;
+  const card=(id,title,desc,badge,done)=>'<button class="hubcard" id="'+id+'"><b>'+title+'</b><span>'+desc+'</span>'+(badge?'<span class="badge'+(done?' done':'')+'">'+badge+'</span>':'')+'</button>';
   app.innerHTML=
   '<div class="stack">'+
-  '<div class="stack" style="gap:8px"><p class="eyebrow">Practice and testing</p><h1>Reasoning lab</h1></div>'+
-  '<div class="hub">'+
-   '<button class="hubcard" id="hiq"><b>IQ test</b><span>Timed test across seven abilities. 5, 10 or 30 minutes.</span></button>'+
-   '<button class="hubcard" id="hphy"><b>Physics interview</b><span>'+PHY.length+' open-ended Oxford-style questions with hints and worked answers.</span></button>'+
-  '</div></div>';
-  document.getElementById('hiq').onclick=iqHome;
-  document.getElementById('hphy').onclick=phyHome;
+  '<div class="stack" style="gap:8px"><p class="eyebrow">Train · Prepare · Test</p><h1>IQ Lab</h1></div>'+
+  '<div class="hubsec"><p class="eyebrow">Interview prep</p>'+
+   card('hiv','Mock interview','Two problems, think aloud, tutor follow-ups, then review yourself.')+
+   '<div class="hubgrid">'+card('hphy','Physics questions',PHY.length+' open-ended questions with hints')+card('hpotw','Problem of the week','A harder problem to chew on')+'</div></div>'+
+  '<div class="hubsec"><p class="eyebrow">Daily training</p><div class="hubgrid">'+
+   card('hdrill','Daily drill','10 quick questions',drDone?'✓ done today':(drillStreak(dr)?drillStreak(dr)+'-day streak':'Start a streak'),drDone)+
+   card('hcards','Flashcards','Constants, formulas, maths',due?due+' due':'✓ all done',!due)+
+   card('htopics','Bridging topics','First-year ideas, made simple')+
+   card('hres','Resources','Trusted free links')+'</div></div>'+
+  '<div class="hubsec"><p class="eyebrow">Study tools</p><div class="hubgrid">'+
+   card('hstudy','Study timer','Focus blocks, logged by subject',studyRun()?'running':'')+
+   card('hprog','Progress','Everything in one place')+'</div></div>'+
+  '<div class="hubsec"><p class="eyebrow">Intelligence</p>'+
+   card('hiq','IQ test','Seven abilities · 5, 10 or 30 minutes')+'</div>'+
+  '</div>';
+  const go={hiv:ivHome,hphy:phyHome,hpotw:potwHome,hdrill:drillHome,hcards:cardsHome,htopics:topicsHome,hres:resourcesHome,hstudy:studyHome,hprog:progressHome,hiq:iqHome};
+  for(const id in go)document.getElementById(id).onclick=go[id];
   window.scrollTo(0,0);
 }
 
 function iqHome(){
-  clearInterval(tick);S=null;
+  leave();
   const h=loadJSON('iq10-history',[]).slice(-5).reverse();
   app.innerHTML=
   '<div class="stack">'+
@@ -632,9 +705,11 @@ function iqHome(){
    '<p class="note">Sections map onto the Cattell-Horn-Carroll (CHC) model behind tests such as the WAIS and Stanford-Binet: fluid reasoning (series, matrices, logic), crystallised knowledge (verbal), quantitative reasoning, visual-spatial ability and working memory. Questions are written or generated for this app rather than copied, because published banks are licensed or keep their answer keys private.</p>'+
    '<p class="note">The scoring model has not been calibrated on real test-takers, so read the result as a rough estimate with a wide margin, not a certified score.</p>'+
    '<p class="note">To keep this on your phone: open the page in Safari, tap Share, then Add to Home Screen. It then opens full screen like an app and works offline.</p></div>'+
+  '<button class="btn ghost" id="hspeed">Processing speed check (60 s)</button>'+
   '<button class="btn ghost" id="hback">Home</button>'+
   '</div>';
   app.querySelectorAll('.mode').forEach(b=>b.onclick=()=>intro(MODES[b.dataset.min]));
+  document.getElementById('hspeed').onclick=speedHome;
   document.getElementById('hback').onclick=home;
 }
 
