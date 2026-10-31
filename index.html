@@ -208,7 +208,19 @@ textarea{font:inherit;color:var(--ink);background:var(--bg);border:1.5px solid v
 .plot .ax{stroke:var(--muted);stroke-width:1}
 .plot .cv{fill:none;stroke:var(--accent);stroke-width:2.5}
 .plot text{fill:var(--muted);font:500 10px var(--mono)}
-.mathx{font-family:var(--mono);font-weight:600;white-space:nowrap}
+.mathx{font-family:var(--mono);font-weight:600}
+sup,sub{font-size:.72em;line-height:0}
+/* answer review */
+.rv{border-top:1px solid var(--line);padding:12px 0;display:flex;flex-direction:column;gap:6px}
+.rv:first-of-type{border-top:0}
+.rv .rq{font-weight:500}
+.rv .ra{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;font-size:.92rem;align-items:baseline}
+.rv .ra .lab{font:500 .78rem var(--mono);color:var(--muted);text-transform:uppercase}
+.rv .ra svg{max-width:84px;vertical-align:middle}
+.rv .ra .mx{max-width:180px;margin:0}
+.rv .plot{max-width:240px;margin:4px 0}
+.rv .why{font-size:.9rem;color:var(--muted)}
+.rv .mxwrap{transform-origin:left top}
 .flash{min-height:180px;display:flex;flex-direction:column;justify-content:center;gap:14px;text-align:center}
 .flash .prompt{font-size:1.25rem}
 .cardback p{font:600 1.15rem var(--mono);color:var(--accent)}
@@ -657,6 +669,37 @@ const dateTxt=t=>new Date(t).toLocaleDateString(undefined,{day:'numeric',month:'
 const histHtml=h=>'<div class="hist">'+h.map(x=>'<div class="hrow"><span class="d">'+dateTxt(x.t)+'</span><span class="m">'+(x.min||10)+' min</span><span class="r">'+x.lo+' to '+x.hi+'</span><span class="q">'+x.iq+'</span></div>').join('')+'</div>';
 
 /* every top-level screen calls leave() first, so timers, recordings and test state from the previous screen stop */
+/* Review of answers after a quiz. items: {prompt, stem, chosen, right, ok, explain}; chosen is null if skipped. */
+function reviewHtml(items,title){
+  const wrong=items.filter(x=>!x.ok),right=items.filter(x=>x.ok);
+  const one=x=>'<div class="rv"><p class="rq"><span class="mark '+(x.ok?'ok':x.chosen==null?'sk':'no')+'">'+(x.ok?'✓':x.chosen==null?'–':'✗')+'</span> '+x.prompt+'</p>'+(x.stem||'')+
+    '<div class="ra">'+(x.ok?'':'<span class="lab">You</span><span class="no">'+(x.chosen==null?'Skipped':x.chosen)+'</span>')+
+    '<span class="lab">Answer</span><span class="ok">'+x.right+'</span></div>'+(x.explain?'<p class="why">'+x.explain+'</p>':'')+'</div>';
+  return '<div class="card stack"><h2>'+(title||'Review your answers')+'</h2>'+
+    (wrong.length?'<p class="eyebrow">'+wrong.length+' to learn from</p>'+wrong.map(one).join(''):'<p class="note">Everything correct. Nice work.</p>')+
+    (right.length?'<details class="fu"><summary>'+right.length+' correct</summary>'+right.map(one).join('')+'</details>':'')+'</div>';
+}
+
+/* Turn plain-text maths into proper superscripts and subscripts wherever it appears on screen:
+   e^(−x²) → e<sup>−x²</sup>, x^2 → x<sup>2</sup>, c_rms → c<sub>rms</sub>, k_B → k<sub>B</sub>. */
+const MATH_RE=/\^[(\w−.-]|[A-Za-zΔΦαβγελμρστφωħ]_[(\w]/;
+function fmtMath(t){
+  t=t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  return t
+    .replace(/\^\(((?:[^()]|\([^()]*\))*)\)/g,'<sup>$1</sup>')
+    .replace(/\^([−-]?[0-9.]*[0-9]|[A-Za-zα-ω]+)/g,'<sup>$1</sup>')
+    .replace(/([A-Za-zΔΦαβγελμρστφωħ])_\(([^()]*)\)/g,'$1<sub>$2</sub>')
+    .replace(/([A-Za-zΔΦαβγελμρστφωħ])_([A-Za-z0-9]+)/g,'$1<sub>$2</sub>');
+}
+function mathify(root){
+  const w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT,{acceptNode:n=>{
+    const p=n.parentNode&&n.parentNode.nodeName;
+    return (p==='SCRIPT'||p==='STYLE'||p==='TEXTAREA'||p==='text'||!MATH_RE.test(n.data))?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT;}});
+  const nodes=[];while(w.nextNode())nodes.push(w.currentNode);
+  nodes.forEach(n=>{const s=document.createElement('span');s.innerHTML=fmtMath(n.data);n.replaceWith(...s.childNodes);});
+}
+new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{if(n.nodeType===1)mathify(n);else if(n.nodeType===3&&n.parentNode&&MATH_RE.test(n.data))mathify(n.parentNode);}))).observe(document.getElementById('app'),{childList:true,subtree:true});
+
 let cleanups=[],backFn=null;
 /* the top-left arrow runs backFn; leave() points it at home, and screens override it */
 function setBack(fn){backFn=fn;document.getElementById('tb').style.display=fn?'flex':'none';}
@@ -813,6 +856,7 @@ function render(){
 function answer(k){
   if(!S||S.done)return;
   S.ans[S.i]=k===null?null:S.items[S.i].opts[k].ok;
+  (S.pick=S.pick||[])[S.i]=k;
   S.i++;
   if(S.i>=S.n)finish(false);else render();
 }
@@ -869,7 +913,10 @@ function results(e,used,timedOut,st,hist){
     '<p class="note">Mensa admits the top 2%, which is roughly 130 or above on this scale, using supervised tests. Tiredness, noise and a small screen all lower scores. Each attempt draws new questions, but practice still helps a little.</p></div>'+
   '<div class="card"><h2 style="margin-bottom:6px">Review answers</h2>'+
     items.map((it,i)=>{const r=ans[i];const m=r===true?['✓','ok']:r===false?['✗','no']:['–','sk'];
-      return '<details class="rev"><summary><span class="mark '+m[1]+'">'+m[0]+'</span><span>Q'+(i+1)+' · '+CATS[it.cat]+'</span></summary><p>'+it.explain+'</p></details>';}).join('')+'</div>'+
+      const k=(st.pick||[])[i],right=it.opts.find(o=>o.ok).html,chosen=k==null?null:it.opts[k].html;
+      return '<details class="rev"><summary><span class="mark '+m[1]+'">'+m[0]+'</span><span>Q'+(i+1)+' · '+CATS[it.cat]+'</span></summary>'+
+        '<div class="rv"><p class="rq">'+it.prompt+'</p>'+(it.mem?'':it.stem)+'<div class="ra">'+(r===true?'':'<span class="lab">You</span><span class="no">'+(r===null?(i<st.i?'Skipped':'Not reached'):chosen)+'</span>')+
+        '<span class="lab">Answer</span><span class="ok">'+right+'</span></div><p class="why">'+it.explain+'</p></div></details>';}).join('')+'</div>'+
   '<button class="btn" id="again">Take it again with new questions</button><button class="btn ghost" id="home">Back to IQ test</button>'+
   '</div>';
   document.getElementById('again').onclick=()=>start(mode);
