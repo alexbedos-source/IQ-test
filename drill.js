@@ -222,6 +222,7 @@ function drillHome(){
 }
 function drillStart(){D={items:drillSet(),i:0,ok:0,t0:Date.now(),res:[]};drillRender();}
 function drillRender(){
+  setBack(()=>{if(confirm('Leave this drill? It will not count towards your streak.'))drillHome();});
   const it=D.items[D.i];
   app.innerHTML=
   '<div class="stack">'+
@@ -243,6 +244,7 @@ function drillRender(){
   window.scrollTo(0,0);
 }
 function drillFinish(){
+  setBack(drillHome);
   const st=drillState(),today=dayKey(),secs=(Date.now()-D.t0)/1000;
   if(!st.days[today]){
     st.streak=drillStreak(st)+1;st.last=today;st.best=Math.max(st.best||0,st.streak);

@@ -392,6 +392,56 @@ PHY.push(
  f:[['How much of that does your brain use?','About 20%, or roughly 20 W.'],
     ['How many stairs could the energy in one biscuit (~200 kJ) lift you?','One stair raises 70 kg by 0.17 m: about 120 J. So ~1700 stairs at 100% efficiency, but muscles are ~25% efficient, so about 400.']]}
 );
+PHY.push(
+{id:'p1',t:0,l:2,q:'Roughly how many photons per second does a 100 W light bulb give out?',
+ h:['What is the energy of one visible photon? Use E = hc/λ with λ ≈ 500 nm, or remember it is a couple of electronvolts.',
+    'Divide the power by the energy per photon. Then think: is all 100 W visible light?'],
+ a:'<p>A 500 nm photon has E = hc/λ ≈ 4 × 10⁻¹⁹ J (about 2.5 eV).</p><p>If all 100 W were visible: 100 / 4 × 10⁻¹⁹ ≈ <b>3 × 10²⁰ photons per second</b>.</p><p>An old filament bulb turns only about 5% into visible light, so about 10¹⁹ visible photons per second, with the rest as infrared.</p>',
+ f:[['How many of those enter your eye from 10 m away?','Pupil area ≈ 2 × 10⁻⁵ m²; sphere area at 10 m ≈ 1300 m². Fraction ≈ 1.5 × 10⁻⁸, so about 10¹¹–10¹² photons per second.'],
+    ['Why don\'t you notice individual photons?','The numbers are enormous. Fully dark-adapted rod cells can respond to single photons, but you need several arriving together to consciously see a flash.']]},
+{id:'p2',t:1,l:1,q:'You stand on bathroom scales in a lift that accelerates upwards at 2 m/s². Your mass is 60 kg. What do the scales read?',
+ h:['Scales measure the normal contact force, not your mass directly.',
+    'Apply Newton\'s second law: N − mg = ma.'],
+ a:'<p>N = m(g + a) = 60 × (9.8 + 2) ≈ 710 N. Scales calibrated in kilograms divide by g, so they read about <b>72 kg</b>.</p><p>Accelerating downwards, they would read less. When moving at constant speed, they read your true 60 kg.</p>',
+ f:[['What do the scales read if the cable snaps?','Zero: you and the scales fall together in free fall.'],
+    ['Why do you feel heavier at the bottom of a swing?','You are accelerating upwards towards the centre of the circle, so the seat must push with N = mg + mv²/r.']]},
+{id:'p3',t:3,l:1,q:'Why do you hear thunder after you see the lightning? How could you use that?',
+ h:['Compare the speeds of light and sound.',
+    'Sound travels at about 340 m/s. How far does it go in 3 seconds?'],
+ a:'<p>Light arrives almost instantly; sound travels at about 340 m/s. The delay tells you the distance: about <b>3 seconds per kilometre</b> (or 5 seconds per mile).</p><p>If the gap is shrinking, the storm is coming towards you.</p>',
+ f:[['Why does thunder rumble rather than make a single bang?','The bolt is kilometres long, so sound from different parts arrives at different times, plus echoes off the ground and clouds.'],
+    ['Why can you sometimes see lightning but hear no thunder at all?','Beyond about 15–25 km, sound is refracted upwards (air is cooler higher up, so sound bends away from the ground) and absorbed.']]},
+{id:'p4',t:4,l:1,q:'Why does a TV remote still work when you point it at the wall instead of the TV?',
+ h:['What kind of signal does the remote send?',
+    'What happens to infrared light when it hits a matt wall?'],
+ a:'<p>The remote flashes an <b>infrared</b> LED in a coded pattern. A matt wall reflects infrared diffusely in all directions, like visible light, so enough reaches the TV\'s sensor.</p>',
+ f:[['How can you check whether a remote\'s LED is working?','Look at it through a phone camera: the sensor detects near-infrared, so the LED appears to flash.'],
+    ['Why can\'t our eyes see infrared?','Infrared photons have too little energy to trigger the light-sensitive pigments in the retina.']]},
+{id:'p5',t:5,l:2,q:'Why does a bicycle pump get hot when you pump up a tyre?',
+ h:['You do work on the air when you push the handle. Where does that energy go?',
+    'A quick compression does not leave time for heat to escape. This is called an adiabatic change.'],
+ a:'<p>Compressing the gas quickly does work on it, raising its internal energy and therefore its temperature, because there is little time for heat to escape (an <b>adiabatic</b> compression). Friction between the piston and barrel adds some heat too.</p><p>For air (γ = 1.4) compressed quickly from 1 to 3 atmospheres: T₂ = T₁ × 3<sup>0.29</sup> ≈ 293 × 1.37 ≈ 400 K, a rise of about 100 °C in the air itself. The metal barrel warms more gently.</p>',
+ f:[['Why does an aerosol can get cold when you spray it?','The gas expands and the liquid propellant evaporates, both of which take energy from the can.'],
+    ['How does a fridge use the same idea?','Refrigerant is compressed (heating it, so it releases heat outside) and then expanded (cooling it, so it absorbs heat inside).']]},
+{id:'p6',t:6,l:2,q:'How do we know what the Sun is made of, without going there?',
+ h:['When light passes through a cooler gas, certain wavelengths are absorbed.',
+    'Each element has a unique pattern of spectral lines.'],
+ a:'<p><b>Spectroscopy</b>. Sunlight split into a spectrum shows dark absorption lines (Fraunhofer lines), where atoms in the Sun\'s cooler outer layers absorb specific wavelengths. Each element\'s pattern acts as a fingerprint.</p><p>Matching the lines identifies the elements; their strengths, with atomic physics, give the amounts. Cecilia Payne showed in 1925 that the Sun is mostly hydrogen and helium.</p>',
+ f:[['How was helium discovered?','As an unknown yellow spectral line in sunlight during the 1868 eclipse, decades before it was found on Earth. It is named after Helios, the Sun.'],
+    ['How can spectra tell us that a star is moving away from us?','The whole pattern of lines is shifted to longer wavelengths (redshift), by an amount that gives the speed.']]},
+{id:'p7',t:2,l:1,q:'Is 0.999… (recurring forever) equal to 1?',
+ h:['Call it x. What is 10x?',
+    'Subtract x from 10x.'],
+ a:'<p>Yes. Let x = 0.999… Then 10x = 9.999…, so 10x − x = 9 and x = <b>1</b> exactly.</p><p>Another view: if they were different numbers, there would have to be a number between them, and there is none. It is also the geometric series 9/10 + 9/100 + … = (9/10)/(1 − 1/10) = 1.</p>',
+ f:[['Write 0.272727… as a fraction.','100x − x = 27, so x = 27/99 = 3/11.'],
+    ['What is 1/2 + 1/4 + 1/8 + …?','1: a geometric series with a = ½ and r = ½.']]},
+{id:'p8',t:7,l:2,q:'How does a drinking straw work? Could you drink through a 15 m straw?',
+ h:['When you suck, what are you actually doing to the air in the straw?',
+    'What pushes the liquid up, and what is the most it can push?'],
+ a:'<p>You lower the pressure inside the straw; atmospheric pressure on the drink\'s surface pushes the liquid up. You don\'t pull it.</p><p>Even with a perfect vacuum, atmospheric pressure can only support a column of height h = p/(ρg) = 10⁵/(1000 × 9.8) ≈ <b>10 m</b> of water. A 15 m straw cannot work, however hard you suck.</p>',
+ f:[['Would a straw work on the Moon (inside a pressurised base)?','Inside a pressurised base, yes. Outside, with no air pressure, nothing would push the drink up (and it would boil anyway).'],
+    ['How do tall trees lift water more than 10 m, then?','Water is pulled up as a continuous column under tension: evaporation from the leaves draws water up, and cohesion between water molecules stops the column breaking.']]}
+);
 PHY.forEach(q=>{q.f=q.f||PHY_FOLLOW[q.id]||[];});
 
 const PHY_SOURCES=[
@@ -442,7 +492,7 @@ function phyHome(){
 }
 
 function phyQuestion(q){
-  clearInterval(phyTick);
+  clearInterval(phyTick);setBack(phyHome);
   let shown=0,end=0;
   app.innerHTML=
   '<div class="stack">'+

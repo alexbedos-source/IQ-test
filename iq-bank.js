@@ -38,7 +38,17 @@ V:[
  [1.3,'Which word does not belong: obdurate, intransigent, recalcitrant, tractable?',['Tractable','Obdurate','Intransigent','Recalcitrant'],'The others mean stubborn; tractable means easy to manage.'],
  [1.4,'Which word is the opposite of PROLIX?',['Succinct','Wordy','Bold','Fixed'],'Prolix means long-winded; succinct means brief.'],
  [1.6,'Which word is closest in meaning to SESQUIPEDALIAN?',['Using long words','Three-footed','Half-hearted','Slow-moving'],'Sesquipedalian describes long words, or someone who uses them.'],
- [1.7,'Inchoate is to complete as callow is to what?',['Experienced','Young','Cold','Cruel'],'Inchoate (undeveloped) is the opposite of complete; callow (immature) is the opposite of experienced.']
+ [1.7,'Inchoate is to complete as callow is to what?',['Experienced','Young','Cold','Cruel'],'Inchoate (undeveloped) is the opposite of complete; callow (immature) is the opposite of experienced.'],
+ [-1.1,'Which word is the opposite of BRAVE?',['Cowardly','Bold','Strong','Fearless'],'Brave means showing courage; cowardly is the opposite.'],
+ [-0.9,'Glove is to hand as sock is to what?',['Foot','Shoe','Leg','Wool'],'A glove covers a hand; a sock covers a foot.'],
+ [-0.4,'Which word does not belong: oak, pine, rose, birch?',['Rose','Oak','Pine','Birch'],'The others are trees; a rose is a shrub.'],
+ [0.1,'Which word is closest in meaning to CANDID?',['Frank','Sweet','Hidden','Careful'],'Candid means honest and direct.'],
+ [0.3,'Which word is the opposite of FRUGAL?',['Extravagant','Thrifty','Poor','Careful'],'Frugal means sparing with money.'],
+ [0.6,'Which word is closest in meaning to TACITURN?',['Reserved','Talkative','Angry','Clumsy'],'Taciturn means saying very little.'],
+ [0.8,'Archipelago is to islands as constellation is to what?',['Stars','Planets','Galaxies','Sky'],'An archipelago is a group of islands; a constellation is a group of stars.'],
+ [1.0,'Which word is closest in meaning to ENERVATE?',['Weaken','Energise','Annoy','Excite'],'Enervate means to drain of energy, the opposite of what it sounds like.'],
+ [1.2,'Which word is the opposite of EPHEMERAL?',['Permanent','Brief','Delicate','Transparent'],'Ephemeral means short-lived.'],
+ [1.5,'Which word is closest in meaning to OBSEQUIOUS?',['Servile','Obvious','Stubborn','Obscure'],'Obsequious means excessively eager to please.']
 ],
 Q:[
  [-1.9,'What is 25% of 80?',['20','25','40','16'],'25% is a quarter, and a quarter of 80 is 20.'],
@@ -74,7 +84,16 @@ Q:[
  [1.0,'A cyclist rides 30 km at 15 km/h and then another 30 km at 30 km/h. What is the average speed for the whole trip?',['20 km/h','22.5 km/h','25 km/h','18 km/h'],'The legs take 2 h and 1 h: 60 km in 3 h is 20 km/h. Averaging the two speeds is the trap.'],
  [1.1,'A clock shows 3:15. What is the angle between the hour and minute hands?',['7.5°','0°','15°','30°'],'The minute hand is at 90°. The hour hand has moved a quarter of the way from 3 to 4: 90° + 7.5° = 97.5°. The gap is 7.5°.'],
  [1.2,'How many whole numbers from 1 to 100 are divisible by 3 or by 5?',['47','53','45','50'],'33 multiples of 3, plus 20 of 5, minus the 6 multiples of 15 counted twice: 47.'],
- [1.2,'Which is larger: 2³⁰ or 10⁹?',['2³⁰','10⁹','They are equal','It cannot be decided without a calculator'],'2¹⁰ = 1024, which is more than 1000, so 2³⁰ = 1024³ is more than 1000³ = 10⁹.']
+ [1.2,'Which is larger: 2³⁰ or 10⁹?',['2³⁰','10⁹','They are equal','It cannot be decided without a calculator'],'2¹⁰ = 1024, which is more than 1000, so 2³⁰ = 1024³ is more than 1000³ = 10⁹.'],
+ [-1.4,'What is 9 × 12?',['108','98','112','96'],'9 × 12 = 108.'],
+ [-0.5,'A recipe needs 3 eggs for 4 people. How many eggs are needed for 12 people?',['9','12','6','8'],'Three times as many people need three times as many eggs.'],
+ [0.1,'What is 12.5% of 640?',['80','64','72','125'],'12.5% is one eighth; 640 ÷ 8 = 80.'],
+ [0.4,'A car travels 150 km in 1 hour 15 minutes. What is its average speed?',['120 km/h','100 km/h','150 km/h','130 km/h'],'150 ÷ 1.25 = 120 km/h.'],
+ [0.7,'How many diagonals does a hexagon have?',['9','6','12','15'],'n(n − 3)/2 = 6 × 3 / 2 = 9.'],
+ [0.9,'A number is increased by 25% and the result is 100. What was the number?',['80','75','125','85'],'1.25x = 100, so x = 80.'],
+ [1.1,'You roll two fair dice. What is the probability of at least one six?',['11/36','1/3','1/6','10/36'],'1 − (5/6)² = 1 − 25/36 = 11/36.'],
+ [1.3,'Two couples and one single person meet. Everyone shakes hands with everyone else once, except partners. How many handshakes?',['8','10','6','9'],'All 10 pairs minus the 2 couples.'],
+ [1.4,'How many squares of any size are there on a 4 × 4 grid?',['30','16','20','25'],'16 + 9 + 4 + 1 = 30.']
 ],
 L:[
  [-1.8,'All cats have whiskers. Tibbles is a cat. Which must be true?',['Tibbles has whiskers','Tibbles is not a cat','Every animal with whiskers is a cat','Tibbles has no whiskers'],'Tibbles is a cat, and all cats have whiskers.'],
@@ -107,6 +126,14 @@ L:[
  [1.1,'Three boxes are labelled "Apples", "Oranges" and "Mixed", and every label is wrong. You may take one fruit from one box. Which box should you choose to relabel all three correctly?',['The box labelled Mixed','The box labelled Apples','The box labelled Oranges','One fruit is not enough'],'The "Mixed" box must hold only one kind. Whatever you draw names it, and the other two labels then follow.'],
  [1.1,'You have 8 identical-looking coins, and one is heavier. What is the fewest weighings on a balance that always finds it?',['2','3','1','4'],'Weigh 3 against 3. If they balance, the heavy coin is one of the other 2: weigh them. If not, take the heavier 3 and weigh 1 against 1.'],
  [1.2,'Statement 1: "Exactly one of these two statements is true." Statement 2: "Statement 1 is false." Which is consistent?',['1 is true, 2 is false','1 is false, 2 is true','Both are true','Both are false'],'If 1 were false, 2 would be true, making exactly one true, so 1 would be true after all. With 1 true and 2 false, everything fits.'],
- [1.4,'Knights always tell the truth and knaves always lie. A says: "At least one of us is a knave." What are A and B?',['A is a knight, B is a knave','Both are knaves','A is a knave, B is a knight','Both are knights'],'A knave cannot say this, because it would be true. So A is a knight, and the true statement means B is a knave.']
+ [1.4,'Knights always tell the truth and knaves always lie. A says: "At least one of us is a knave." What are A and B?',['A is a knight, B is a knave','Both are knaves','A is a knave, B is a knight','Both are knights'],'A knave cannot say this, because it would be true. So A is a knight, and the true statement means B is a knave.'],
+ [-1.2,'All dogs bark. Rex does not bark. Which must be true?',['Rex is not a dog','Rex is a dog','Rex is a cat','Nothing follows'],'If Rex were a dog, Rex would bark.'],
+ [-0.3,'Jack is older than Jill. Jill is older than Jim. Jim is older than Joy. Who is the second youngest?',['Jim','Jill','Joy','Jack'],'From youngest: Joy, Jim, Jill, Jack.'],
+ [0.2,'Some A are B, and all B are C. Which must be true?',['Some A are C','All A are C','All C are A','No A are C'],'The As that are B are also C.'],
+ [0.5,'A clock takes 5 seconds to strike 6 (timed from the first strike to the last). How long does it take to strike 12?',['11 seconds','10 seconds','12 seconds','24 seconds'],'6 strikes have 5 one-second gaps; 12 strikes have 11 gaps.'],
+ [0.6,'Amy, Ben and Cal are a doctor, a lawyer and a teacher, in some order. Amy is not the doctor. Ben is the lawyer\'s brother. Cal is younger than the teacher and is not the lawyer. Who is the doctor?',['Cal','Ben','Amy','It cannot be decided'],'Ben and Cal are not the lawyer, so Amy is. Cal is not the teacher, so Cal is the doctor.'],
+ [0.8,'Two fathers and two sons go fishing. Each catches one fish, yet only three fish are caught. How?',['They are a grandfather, father and son','One caught nothing','They shared a fish','It is impossible'],'The middle person is both a father and a son.'],
+ [1.0,'No reptiles are warm-blooded. All snakes are reptiles. Which must be true?',['No snakes are warm-blooded','Some snakes are warm-blooded','All reptiles are snakes','Some warm-blooded animals are snakes'],'Snakes are reptiles, and no reptile is warm-blooded.'],
+ [1.2,'Knights always tell the truth and knaves always lie. A says: "We are both knaves." What are A and B?',['A is a knave, B is a knight','Both are knaves','A is a knight, B is a knave','Both are knights'],'A knight could not say this. So A is a knave and the statement is false, which means B is a knight.']
 ]
 };

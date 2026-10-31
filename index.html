@@ -172,6 +172,12 @@ details.rev p{margin-top:6px;font-size:.92rem;color:var(--muted)}
 .opt .memgrid i{border-width:1px}
 .opt.seqo{justify-content:center;font:600 1.15rem var(--mono);letter-spacing:.12em}
 .memcount{font:500 .9rem var(--mono);color:var(--muted);text-align:center}
+/* back arrow */
+.tb{position:sticky;top:0;z-index:5;display:none;padding:max(8px,env(safe-area-inset-top)) 12px 6px max(12px,env(safe-area-inset-left));background:color-mix(in srgb,var(--bg) 88%,transparent);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+#backbtn{width:42px;height:42px;border-radius:50%;border:1.5px solid var(--line);background:var(--surface);display:grid;place-items:center;cursor:pointer;padding:0}
+#backbtn:active{border-color:var(--accent)}
+#backbtn svg{width:22px;height:22px;fill:none;stroke:var(--ink);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.tb[style*="flex"]+.wrap{padding-top:4px}
 /* hub sections */
 .hubsec{display:flex;flex-direction:column;gap:10px}
 .hubgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -226,6 +232,7 @@ textarea{font:inherit;color:var(--ink);background:var(--bg);border:1.5px solid v
 </style>
 </head>
 <body>
+<header class="tb" id="tb"><button id="backbtn" aria-label="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button></header>
 <main class="wrap" id="app"></main>
 
 <script src="iq-bank.js"></script>
@@ -234,6 +241,7 @@ textarea{font:inherit;color:var(--ink);background:var(--bg);border:1.5px solid v
 <script src="drill.js"></script>
 <script src="learn.js"></script>
 <script src="tools.js"></script>
+<script src="alevel.js"></script>
 <script>
 /* =====================  helpers  ===================== */
 const rnd=n=>Math.floor(Math.random()*n);
@@ -649,15 +657,18 @@ const dateTxt=t=>new Date(t).toLocaleDateString(undefined,{day:'numeric',month:'
 const histHtml=h=>'<div class="hist">'+h.map(x=>'<div class="hrow"><span class="d">'+dateTxt(x.t)+'</span><span class="m">'+(x.min||10)+' min</span><span class="r">'+x.lo+' to '+x.hi+'</span><span class="q">'+x.iq+'</span></div>').join('')+'</div>';
 
 /* every top-level screen calls leave() first, so timers, recordings and test state from the previous screen stop */
-let cleanups=[];
+let cleanups=[],backFn=null;
+/* the top-left arrow runs backFn; leave() points it at home, and screens override it */
+function setBack(fn){backFn=fn;document.getElementById('tb').style.display=fn?'flex':'none';}
+document.getElementById('backbtn').onclick=()=>{if(backFn)backFn();};
 function leave(){
-  clearInterval(tick);S=null;
+  clearInterval(tick);S=null;setBack(home);
   if(typeof phyTick!=='undefined')clearInterval(phyTick);
   cleanups.splice(0).forEach(f=>{try{f();}catch(e){}});
 }
 
 function home(){
-  leave();
+  leave();setBack(null);
   const dr=drillState(),drDone=!!dr.days[dayKey()],cd=cardsDue(cardState()),due=cd.due.length+cd.fresh.length;
   const card=(id,title,desc,badge,done)=>'<button class="hubcard" id="'+id+'"><b>'+title+'</b><span>'+desc+'</span>'+(badge?'<span class="badge'+(done?' done':'')+'">'+badge+'</span>':'')+'</button>';
   app.innerHTML=
@@ -666,6 +677,8 @@ function home(){
   '<div class="hubsec"><p class="eyebrow">Interview prep</p>'+
    card('hiv','Mock interview','Two problems, think aloud, tutor follow-ups, then review yourself.')+
    '<div class="hubgrid">'+card('hphy','Physics questions',PHY.length+' open-ended questions with hints')+card('hpotw','Problem of the week','A harder problem to chew on')+'</div></div>'+
+  '<div class="hubsec"><p class="eyebrow">A-levels</p><div class="hubgrid">'+
+   card('alphy','Physics','AQA')+card('almaths','Maths','Edexcel')+card('alecon','Economics','AQA')+card('alall','All subjects','Accuracy by topic')+'</div></div>'+
   '<div class="hubsec"><p class="eyebrow">Daily training</p><div class="hubgrid">'+
    card('hdrill','Daily drill','10 quick questions',drDone?'✓ done today':(drillStreak(dr)?drillStreak(dr)+'-day streak':'Start a streak'),drDone)+
    card('hcards','Flashcards','Constants, formulas, maths',due?due+' due':'✓ all done',!due)+
@@ -677,7 +690,7 @@ function home(){
   '<div class="hubsec"><p class="eyebrow">Intelligence</p>'+
    card('hiq','IQ test','Seven abilities · 5, 10 or 30 minutes')+'</div>'+
   '</div>';
-  const go={hiv:ivHome,hphy:phyHome,hpotw:potwHome,hdrill:drillHome,hcards:cardsHome,htopics:topicsHome,hres:resourcesHome,hstudy:studyHome,hprog:progressHome,hiq:iqHome};
+  const go={alphy:()=>alSubject(0,home),almaths:()=>alSubject(1,home),alecon:()=>alSubject(2,home),alall:alHome,hiv:ivHome,hphy:phyHome,hpotw:potwHome,hdrill:drillHome,hcards:cardsHome,htopics:topicsHome,hres:resourcesHome,hstudy:studyHome,hprog:progressHome,hiq:iqHome};
   for(const id in go)document.getElementById(id).onclick=go[id];
   window.scrollTo(0,0);
 }
@@ -714,6 +727,7 @@ function iqHome(){
 }
 
 function intro(mode){
+  setBack(iqHome);
   app.innerHTML=
   '<div class="stack">'+
   '<p class="eyebrow">'+mode.name+' · '+mode.n+' questions · '+mode.min+':00</p><h1>How it works</h1>'+
@@ -742,6 +756,7 @@ function optsHtml(it){
 
 function practice(i,items,mode){
   if(i>=items.length)return intro(mode);
+  setBack(()=>intro(mode));
   const it=items[i];
   app.innerHTML=
   '<div class="stack"><p class="eyebrow">Practice '+(i+1)+' of '+items.length+' · not timed, not scored</p>'+
@@ -759,6 +774,7 @@ function practice(i,items,mode){
 function start(mode){
   S={mode,n:mode.n,limit:mode.min*60,i:0,start:Date.now(),
     items:buildTest(mode).map(it=>Object.assign({},it,{opts:shuffle(it.opts.slice())})),ans:new Array(mode.n).fill(null),done:false};
+  setBack(()=>{if(confirm('Leave the test? This attempt will not be saved.'))iqHome();});
   render();
   clearInterval(tick);tick=setInterval(updateTimer,250);
 }
@@ -833,6 +849,7 @@ function curveSvg(iq,lo,hi){
 
 const ERRTXT={5:'around 10 to 15',10:'around 8 to 12',30:'around 5 to 8'};
 function results(e,used,timedOut,st,hist){
+  setBack(iqHome);
   const {iq,lo,hi}=e,{items,ans,n,mode}=st;
   const pct=clamp(phi((iq-100)/15)*100,.1,99.9),pctTxt=pct>=99?'99+':pct<1?'<1':String(Math.round(pct));
   const right=ans.filter(a=>a===true).length,attempted=ans.filter(a=>a!==null).length;

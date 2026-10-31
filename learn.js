@@ -1,7 +1,7 @@
 /* =====================  Flashcards, bridging topics, problem of the week, resources  ===================== */
 
 /* ---------- flashcards (Leitner spaced repetition) ---------- */
-const CARD_CATS=['Constants','Formulas','Magnitudes','Maths'];
+const CARD_CATS=['Constants','Formulas','Magnitudes','Maths','Economics'];
 const CARDS=[
  [0,'Speed of light, c','3.00 × 10⁸ m/s'],[0,'Gravitational constant, G','6.67 × 10⁻¹¹ N m² kg⁻²'],[0,'Planck constant, h','6.63 × 10⁻³⁴ J s'],
  [0,'Elementary charge, e','1.60 × 10⁻¹⁹ C'],[0,'Electron mass, mₑ','9.11 × 10⁻³¹ kg'],[0,'Proton mass, mₚ','1.67 × 10⁻²⁷ kg (≈ 1836 mₑ)'],
@@ -27,6 +27,15 @@ const CARDS=[
  [3,'Sum of a geometric series','a/(1 − r) for |r| &lt; 1'],[3,'Integration by parts','∫u dv = uv − ∫v du'],[3,'d/dx of tan x','sec² x'],
  [3,'∫ ln x dx','x ln x − x + C'],[3,'Gaussian integral ∫e^(−x²) dx over all x','√π'],[3,'sin 2θ and cos 2θ','2 sinθ cosθ; cos²θ − sin²θ = 1 − 2sin²θ'],
  [3,'Small-angle approximations','sinθ ≈ θ, tanθ ≈ θ, cosθ ≈ 1 − θ²/2'],[3,'Volume and surface area of a sphere','(4/3)πr³ and 4πr²'],[3,'Solution of dy/dx = ky','y = Ae^(kx)']
+,
+ [3,'Quadratic formula','x = (−b ± √(b² − 4ac)) / 2a'],[3,'Discriminant conditions','b² − 4ac > 0: two roots; = 0: one repeated; < 0: none real'],
+ [3,'cos 2θ (three forms)','cos²θ − sin²θ = 2cos²θ − 1 = 1 − 2sin²θ'],[3,'Sum of first n terms of a geometric series','a(1 − rⁿ)/(1 − r)'],
+ [1,'Photoelectric equation','hf = φ + Ek(max)'],[1,'Young modulus','E = (F/A)/(ΔL/L) = stress/strain'],
+ [1,'Capacitor discharge','Q = Q₀e^(−t/RC)'],[1,'Fringe spacing (Young\'s slits)','w = λD/s'],
+ [4,'Price elasticity of demand','%ΔQd / %ΔP'],[4,'Income elasticity of demand','%ΔQd / %ΔY (negative for inferior goods)'],
+ [4,'Cross elasticity of demand','%ΔQd of A / %ΔP of B (positive: substitutes; negative: complements)'],[4,'Aggregate demand','AD = C + I + G + (X − M)'],
+ [4,'The multiplier','1 / MPW, where MPW = MPS + MPT + MPM'],[4,'Real interest rate (approx.)','Nominal interest rate − inflation'],
+ [4,'Profit maximisation rule','MC = MR'],[4,'Marshall–Lerner condition','|PEDx| + |PEDm| > 1 for a depreciation to improve the current account']
 ].map((c,i)=>({id:'c'+i,cat:c[0],front:c[1],back:c[2]}));
 const BOX_DAYS=[0,1,2,4,8,16,32];
 const NEW_PER_DAY=10;
@@ -59,6 +68,7 @@ function cardsHome(){
   document.getElementById('cback').onclick=home;
 }
 function cardRender(){
+  setBack(cardsHome);
   if(CS.i>=CS.list.length){
     app.innerHTML='<div class="stack"><p class="eyebrow">Session complete</p><h1>'+CS.ok+' / '+CS.list.length+' known</h1><button class="btn" id="cdone">Back to flashcards</button></div>';
     document.getElementById('cdone').onclick=cardsHome;return;
@@ -141,6 +151,7 @@ function topicsHome(){
   document.getElementById('tback').onclick=home;
 }
 function topicView(i){
+  setBack(topicsHome);
   const t=TOPICS[i];
   app.innerHTML=
   '<div class="stack"><p class="eyebrow">Bridging topic</p><h1>'+t.title+'</h1>'+
@@ -181,7 +192,20 @@ const POTW=[
  ['Estimate the lift of a 1000 m³ hot-air balloon heated to 100 °C on a 20 °C day.',
   'At fixed pressure, density ∝ 1/T. Hot air density = 1.2 × 293/373 ≈ 0.94 kg/m³. Difference ≈ 0.26 kg/m³, so lift ≈ <b>260 kg</b> for 1000 m³. Real balloons are 2000–3000 m³.'],
  ['A spring of stiffness k is cut in half. What is the stiffness of each half?',
-  'Each half stretches half as much under the same force, so its stiffness is <b>2k</b>. (Two halves in series must give back k: 1/k = 1/k₁ + 1/k₁.)']
+  'Each half stretches half as much under the same force, so its stiffness is <b>2k</b>. (Two halves in series must give back k: 1/k = 1/k₁ + 1/k₁.)'],
+ ['A 1 kg ball on a 1 m string is swung in a vertical circle. What is the smallest speed at the top that keeps the string taut, and what is the tension at the bottom in that case?',
+  'At the top, gravity alone provides the centripetal force: v² = gR, so <b>v = √(gR) ≈ 3.1 m/s</b>. Energy conservation gives v² at the bottom = gR + 4gR = 5gR. Then T − mg = mv²/R = 5mg, so <b>T = 6mg ≈ 59 N</b>.'],
+ ['Two identical bulbs are in series with a battery. A third identical bulb is then connected in parallel with one of them. What happens to the brightness of each bulb?',
+  'Before: each bulb has V/2. After: the parallel pair has resistance R/2, so the total is 3R/2. The single bulb now gets 2V/3 (<b>brighter</b>: power up by a factor of 16/9), and each bulb of the pair gets V/3 (<b>dimmer</b>: 4/9 of the original power).'],
+ ['A small block starts at rest at the top of a smooth hemisphere of radius R and slides off. At what height above the centre does it leave the surface?',
+  'At angle θ from the top, energy gives v² = 2gR(1 − cosθ). It leaves when the normal force reaches zero: mg cosθ = mv²/R. So cosθ = 2(1 − cosθ), giving cosθ = 2/3. It leaves at a height of <b>2R/3</b> above the centre.'],
+ ['Water leaks from a small hole at depth h below the surface of a tank. How fast does it come out? If the tank has height H, where should the hole be to make the jet land furthest away?',
+  'Energy conservation (Torricelli): <b>v = √(2gh)</b>. A hole at depth h has height H − h above the ground, so the range is 2√(h(H − h)). This is greatest when <b>h = H/2</b>, giving a range of H.'],
+ ['What is the escape velocity from the Earth? Why doesn\'t it matter which direction you launch in (ignoring the atmosphere)?',
+  '½mv² = GMm/R gives v = √(2gR) = √(2 × 9.8 × 6.4 × 10⁶) ≈ <b>11.2 km/s</b>. Energy is a scalar, so only speed matters: any direction that does not hit the planet escapes.'],
+ ['A uniform rod of length L, pivoted at one end, is released from horizontal. What is the speed of its free end as it passes through the vertical?',
+  'The centre of mass falls L/2: mg(L/2) = ½Iω² with I = mL²/3, so ω² = 3g/L. The tip moves at v = ωL = <b>√(3gL)</b>: faster than a ball dropped through the same height L (√(2gL)).']
+
 ];
 function weekIndex(){
   const d=new Date(),start=new Date(d.getFullYear(),0,1);

@@ -14,6 +14,7 @@ A phone-installable web app for physics interview preparation, daily maths/physi
 | Bridging topics | Short first-year topics (complex numbers, Taylor series, vectors, ODEs, relativity, quantum, dimensional analysis) with problems |
 | Study timer / Progress / Resources | Focus timer logged by subject, a dashboard of all stats, curated free links |
 | IQ test | Seven abilities, 5/10/30 minute modes, plus a 60 s processing-speed check |
+| A-level practice | AQA Physics, Edexcel Maths and AQA Economics by specification topic: written questions plus generated calculations |
 
 ### IQ test
 Three lengths, all at 20 seconds per question:
