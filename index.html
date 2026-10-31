@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="IQ Test">
+<meta name="theme-color" content="#eef1f4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e151b" media="(prefers-color-scheme: dark)">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<title>IQ Test</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: one phone-width column, big tap targets, a ruled answer-sheet feel; results are read against a bell curve. */
+:root{
+  --bg:#eef1f4; --surface:#ffffff; --ink:#121c26; --muted:#5b6975; --line:#d3dae1;
+  --accent:#0b6b8c; --accent-ink:#ffffff; --warn:#b4540a; --good:#1c7a4d; --bad:#b3261e;
+  --display:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0e151b; --surface:#16212a; --ink:#e8eef2; --muted:#93a3af; --line:#2a3945;
+    --accent:#4cc2e8; --accent-ink:#06222d; --warn:#f0a15a; --good:#5fd39a; --bad:#ff8a80;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0e151b; --surface:#16212a; --ink:#e8eef2; --muted:#93a3af; --line:#2a3945;
+  --accent:#4cc2e8; --accent-ink:#06222d; --warn:#f0a15a; --good:#5fd39a; --bad:#ff8a80;
+  color-scheme:dark;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.5 var(--display);-webkit-text-size-adjust:100%;touch-action:manipulation}
+.wrap{max-width:560px;margin:0 auto;padding:max(16px,env(safe-area-inset-top)) max(16px,env(safe-area-inset-right)) max(40px,env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left))}
+h1,h2,h3{text-wrap:balance;line-height:1.2;margin:0}
+h1{font-size:1.8rem;font-weight:600}
+h2{font-size:1.2rem;font-weight:600}
+p{margin:0}
+.muted{color:var(--muted)}
+.note{font-size:.88rem;color:var(--muted)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px}
+.stack{display:flex;flex-direction:column;gap:16px}
+button{font:inherit;color:inherit}
+.btn{background:var(--accent);color:var(--accent-ink);border:0;border-radius:10px;padding:14px 20px;font-weight:600;cursor:pointer;min-height:50px;width:100%}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn.small{width:auto;padding:10px 16px;min-height:44px}
+.btn:focus-visible,.opt:focus-visible,.mode:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.eyebrow{font:500 .78rem var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.kinds{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.kind{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--surface)}
+.kind b{display:block;font-size:.92rem}
+.kind span{font-size:.8rem;color:var(--muted)}
+.modes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.mode{display:flex;flex-direction:column;align-items:center;gap:2px;background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:14px 8px;cursor:pointer;min-height:96px;justify-content:center}
+.mode:active{border-color:var(--accent);background:var(--bg)}
+.mode b{font:600 1.6rem var(--mono);color:var(--accent);font-variant-numeric:tabular-nums}
+.mode span{font-size:.82rem;color:var(--muted)}
+.rules{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:8px}
+.hist{display:flex;flex-direction:column}
+.hrow{display:grid;grid-template-columns:1fr auto auto auto;gap:12px;padding:10px 0;border-top:1px solid var(--line);align-items:baseline}
+.hrow:first-child{border-top:0}
+.hrow .d{color:var(--muted);font-size:.9rem}
+.hrow .m{font:500 .78rem var(--mono);color:var(--muted)}
+.hrow .q{font:600 1.15rem var(--mono);font-variant-numeric:tabular-nums}
+.hrow .r{font:400 .82rem var(--mono);color:var(--muted)}
+
+/* test */
+.top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.timer{font:600 1.7rem var(--mono);font-variant-numeric:tabular-nums}
+.timer.low{color:var(--warn)}
+.count{font:500 .9rem var(--mono);color:var(--muted);font-variant-numeric:tabular-nums}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-bottom:16px}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .2s}
+.prompt{font-size:1.1rem;font-weight:500}
+.seq{font:600 1.6rem var(--mono);text-align:center;padding:18px 2px;letter-spacing:.03em;overflow-wrap:anywhere}
+.opts{display:grid;gap:10px;margin-top:18px}
+.opts.two{grid-template-columns:1fr 1fr}
+.opts.vis{grid-template-columns:repeat(3,1fr)}
+.opts.four{grid-template-columns:repeat(2,1fr)}
+.opt{display:flex;align-items:center;gap:10px;text-align:left;background:var(--surface);border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;min-height:52px;cursor:pointer;-webkit-user-select:none;user-select:none}
+.opt:active{border-color:var(--accent);background:var(--bg)}
+.opt .k{font:500 .8rem var(--mono);color:var(--muted);min-width:1.1em}
+.opt.num{font:600 1.15rem var(--mono)}
+.opt.vis{flex-direction:column;justify-content:center;gap:2px;padding:6px}
+.opt.vis svg{width:100%;max-width:92px}
+.opt.right{border-color:var(--good);background:color-mix(in srgb,var(--good) 14%,var(--surface))}
+.opt.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,var(--surface))}
+.skip{margin-top:16px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.fb{margin-top:16px;display:flex;flex-direction:column;gap:12px}
+.fb b.ok{color:var(--good)} .fb b.no{color:var(--bad)}
+
+/* figures */
+svg.fig *{stroke:var(--ink);stroke-width:3.5;stroke-linejoin:round}
+svg.fig .f0{fill:none}
+svg.fig .f1{fill:var(--ink);fill-opacity:.3}
+svg.fig .f2{fill:var(--ink)}
+svg.fig .poly{fill:var(--ink);stroke:var(--surface);stroke-width:2}
+.mx{display:grid;grid-template-columns:repeat(3,1fr);max-width:264px;margin:16px auto 0;border:1.5px solid var(--line)}
+.mx .c{aspect-ratio:1;border:1px solid var(--line);display:grid;place-items:center;padding:6px}
+.mx .c svg{width:100%;height:100%}
+.mx .q{font:600 2rem var(--mono);color:var(--accent)}
+.target{display:grid;place-items:center;margin:14px auto 0;width:132px;padding:6px;border:1.5px solid var(--line);border-radius:10px}
+.target svg{width:100%}
+
+/* results */
+.big{font:600 4.2rem/1 var(--mono);font-variant-numeric:tabular-nums}
+.hero{display:flex;flex-direction:column;gap:8px}
+.band{display:inline-block;align-self:flex-start;border:1.5px solid var(--accent);color:var(--accent);border-radius:999px;padding:2px 12px;font-weight:600;font-size:.9rem}
+.curve{width:100%;height:auto;display:block}
+.curve text{fill:var(--muted);font:500 10px var(--mono)}
+.curve .axis{stroke:var(--line);stroke-width:1}
+.curve .area{fill:var(--accent);fill-opacity:.18}
+.curve .line{fill:none;stroke:var(--ink);stroke-width:1.5}
+.curve .pin{stroke:var(--accent);stroke-width:2.5}
+.curve .rng{fill:var(--accent);fill-opacity:.35}
+.cats{display:flex;flex-direction:column;gap:12px}
+.cr{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center}
+.cr .n{font-weight:500}
+.cr .v{font:500 .9rem var(--mono);font-variant-numeric:tabular-nums}
+.cr .t{grid-column:1/-1;height:8px;background:var(--line);border-radius:4px;overflow:hidden}
+.cr .t i{display:block;height:100%;background:var(--accent)}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.fact{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--surface)}
+.fact b{display:block;font:600 1.15rem var(--mono);font-variant-numeric:tabular-nums}
+.fact span{font-size:.8rem;color:var(--muted)}
+details.rev{border-top:1px solid var(--line);padding:10px 0}
+details.rev summary{cursor:pointer;display:flex;gap:10px;align-items:baseline}
+details.rev .mark{font:600 .9rem var(--mono);min-width:1.4em}
+.ok{color:var(--good)} .no{color:var(--bad)} .sk{color:var(--muted)}
+details.rev p{margin-top:6px;font-size:.92rem;color:var(--muted)}
+.src li{margin-bottom:6px}
+@media (max-width:380px){ .big{font-size:3.4rem} .facts{grid-template-columns:1fr 1fr} }
+@media (prefers-reduced-motion:reduce){ .bar i{transition:none} }
+</style>
+</head>
+<body>
+<main class="wrap" id="app"></main>
+
+<script>
+/* =====================  helpers  ===================== */
+const rnd=n=>Math.floor(Math.random()*n);
+const rint=(a,b)=>a+rnd(b-a+1);
+const pick=a=>a[rnd(a.length)];
+const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=rnd(i+1);[a[i],a[j]]=[a[j],a[i]];}return a;};
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const LETTERS='ABCDEF';
+
+/* =====================  figures  ===================== */
+const LAYOUT={1:[[50,50]],2:[[30,50],[70,50]],3:[[50,28],[30,68],[70,68]],4:[[30,30],[70,30],[30,70],[70,70]]};
+const RAD={1:26,2:17,3:14,4:14};
+const SH=['circle','square','triangle'];
+const SHN=['circle','square','triangle'], FILLN=['empty','lightly shaded','solid'];
+function shp(t,x,y,r,f){
+  const c='class="f'+f+'"';
+  if(t==='circle') return '<circle cx="'+x+'" cy="'+y+'" r="'+r+'" '+c+'/>';
+  if(t==='square'){const s=r*.9;return '<rect x="'+(x-s)+'" y="'+(y-s)+'" width="'+(2*s)+'" height="'+(2*s)+'" '+c+'/>';}
+  const p=[[x,y-r],[x+r*.98,y+r*.8],[x-r*.98,y+r*.8]].map(q=>q.join(',')).join(' ');
+  return '<polygon points="'+p+'" '+c+'/>';
+}
+const wrapSvg=inner=>'<svg class="fig" viewBox="0 0 100 100" aria-hidden="true">'+inner+'</svg>';
+const cellSvg=c=>wrapSvg(LAYOUT[c.n].map(([x,y])=>shp(SH[c.s],x,y,RAD[c.n],c.f)).join(''));
+const GLYPH={
+  arrow:'50,10 74,42 59,42 59,90 41,90 41,42 26,42',
+  L:'28,12 48,12 48,68 74,68 74,88 28,88',
+  flag:'34,10 76,32 48,50 48,90 34,90',
+  hook:'30,12 70,12 70,50 52,50 52,88 30,88'
+};
+const glyphSvg=(g,a,mir)=>wrapSvg('<g transform="rotate('+a+' 50 50)'+(mir?' translate(100 0) scale(-1 1)':'')+'"><polygon points="'+GLYPH[g]+'" class="f2"/></g>');
+
+/* polyomino helpers */
+const norm=cs=>{const mx=Math.min(...cs.map(p=>p[0])),my=Math.min(...cs.map(p=>p[1]));return cs.map(([x,y])=>[x-mx,y-my]).sort((a,b)=>a[0]-b[0]||a[1]-b[1]);};
+const rot90=cs=>norm(cs.map(([x,y])=>[-y,x]));
+const mirror=cs=>norm(cs.map(([x,y])=>[-x,y]));
+const rotN=(cs,k)=>{let r=norm(cs);for(let i=0;i<k;i++)r=rot90(r);return r;};
+const pkey=cs=>JSON.stringify(norm(cs));
+const chiral=cs=>[0,1,2,3].every(k=>pkey(mirror(cs))!==pkey(rotN(cs,k)));
+const rotsym=cs=>[1,2,3].some(k=>pkey(rotN(cs,k))===pkey(cs));
+function polySvg(cs){
+  const w=Math.max(...cs.map(p=>p[0]))+1,h=Math.max(...cs.map(p=>p[1]))+1,m=Math.max(w,h);
+  const u=Math.min(26,92/m),ox=(100-w*u)/2,oy=(100-h*u)/2;
+  return wrapSvg(cs.map(([x,y])=>'<rect class="poly" x="'+(ox+x*u)+'" y="'+(oy+y*u)+'" width="'+u+'" height="'+u+'"/>').join(''));
+}
+
+/* generic item builder: first option in `right` is correct */
+function build(o){
+  const opts=[{html:o.right,ok:true}].concat(o.wrong.map(h=>({html:h,ok:false})));
+  return {id:o.id,cat:o.cat,b:o.b,vis:!!o.vis,four:!!o.four,num:!!o.num,two:!!o.two,
+    prompt:o.prompt,stem:o.stem||'',opts,explain:o.explain,c:1/opts.length};
+}
+
+/* =====================  1. number and letter series  ===================== */
+const FAMS=[];
+const fam=(lo,hi,fn)=>FAMS.push({lo,hi,fn});
+fam(0,.3,()=>{const a=rint(2,15),d=rint(2,9),dec=Math.random()<.3;const s=dec?a+d*6:a,dd=dec?-d:d;
+  const t=[0,1,2,3,4].map(i=>s+dd*i);return {t,ans:s+dd*5,ex:'Each term '+(dec?'subtracts ':'adds ')+d+', so the next is '+(s+dd*5)+'.'};});
+fam(.1,.4,()=>{const a=rint(1,5),r=pick([2,3]);const t=[0,1,2,3,4].map(i=>a*Math.pow(r,i));
+  return {t,ans:a*Math.pow(r,5),ex:'Each term is multiplied by '+r+'. '+t[4]+' × '+r+' = '+a*Math.pow(r,5)+'.'};});
+fam(.2,.45,()=>{const s=rint(1,8);const t=[0,1,2,3,4].map(i=>(s+i)*(s+i));
+  return {t,ans:(s+5)*(s+5),ex:'These are square numbers ('+s+'², '+(s+1)+'², …). The next is '+(s+5)+'² = '+(s+5)*(s+5)+'.'};});
+fam(.3,.55,()=>{const a=rint(1,10),g=rint(1,4),h=pick([1,2]);const t=[a];let gap=g;
+  for(let i=0;i<5;i++){t.push(t[t.length-1]+gap);gap+=h;}
+  return {t,ans:t[5]+gap,ex:'The gaps grow by '+h+' each time ('+g+', '+(g+h)+', '+(g+2*h)+', …), so the next gap is '+gap+'. '+t[5]+' + '+gap+' = '+(t[5]+gap)+'.'};});
+fam(.4,.7,()=>{const a1=rint(1,12),d1=rint(2,7),a2=rint(20,40),d2=rint(2,6);
+  const t=[a1,a2,a1+d1,a2+d2,a1+2*d1,a2+2*d2];
+  return {t,ans:a1+3*d1,ex:'Two sequences are interleaved. Positions 1, 3, 5 go up by '+d1+'; positions 2, 4, 6 go up by '+d2+'. The next is '+(a1+3*d1)+'.'};});
+fam(.5,.75,()=>{const x=rint(1,4),k=rint(1,5);const q=[0,1,2,3,4,5].map(i=>x*i*i+k);
+  return {t:q.slice(0,5),ans:q[5],ex:'The terms follow '+(x===1?'':x+' × ')+'n² + '+k+', counting n from 0. For n = 5 that gives '+q[5]+'.'};});
+fam(.5,.8,()=>{const a=rint(1,9),g=rint(1,3);const t=[a,a+g,a+3*g,a+7*g,a+15*g];
+  return {t,ans:a+31*g,ex:'The gaps double: +'+g+', +'+2*g+', +'+4*g+', +'+8*g+', so the next gap is +'+16*g+'. '+t[4]+' + '+16*g+' = '+(a+31*g)+'.'};});
+fam(.55,.8,()=>{const a1=rint(1,5),a2=rint(5,15),d=rint(3,8);
+  const t=[a1,a2,a1*2,a2+d,a1*4,a2+2*d];
+  return {t,ans:a1*8,ex:'Two sequences are interleaved. Positions 1, 3, 5 double ('+a1+', '+a1*2+', '+a1*4+'); positions 2, 4, 6 go up by '+d+'. The next is '+a1*8+'.'};});
+fam(.6,.85,()=>{let m,c,x1,t;do{m=pick([2,3]);c=pick([-1,1,2]);x1=rint(1,4);t=[x1];
+  for(let i=0;i<5;i++)t.push(m*t[t.length-1]+c);}while(t[1]<=t[0]);
+  return {t:t.slice(0,5),ans:t[5],ex:'Each term is '+m+' × the previous term '+(c>0?'plus ':'minus ')+Math.abs(c)+'. '+t[4]+' × '+m+(c>0?' + ':' − ')+Math.abs(c)+' = '+t[5]+'.'};});
+fam(.65,.9,()=>{const a=rint(2,6),s=rint(2,5);const t=[s];
+  for(let i=0;i<5;i++){if(i%2===0){t.push(t[t.length-1]+a);}else{t.push(t[t.length-1]*2);}}
+  return {t,ans:t[5]*2,ex:'The rule alternates: add '+a+', then double. After adding '+a+' to reach '+t[5]+', the next step is to double: '+t[5]*2+'.'};});
+fam(.75,1,()=>{const a=rint(1,8),f=pick([[1,2],[2,3],[1,1],[2,2]]);const g=[f[0],f[1]];
+  for(let i=0;i<4;i++)g.push(g[g.length-1]+g[g.length-2]);
+  const t=[a];for(let i=0;i<5;i++)t.push(t[t.length-1]+g[i]);
+  return {t,ans:t[5]+g[5],ex:'The gaps are '+g.slice(0,5).join(', ')+', each the sum of the two before. The next gap is '+g[5]+'. '+t[5]+' + '+g[5]+' = '+(t[5]+g[5])+'.'};});
+fam(.8,1,()=>{let a=rint(1,5),b=rint(a+1,7);const t=[a,b];
+  for(let i=0;i<5;i++)t.push(t[t.length-1]+t[t.length-2]);
+  return {t:t.slice(0,6),ans:t[6],ex:'Each term is the sum of the two before it. '+t[4]+' + '+t[5]+' = '+t[6]+'.'};});
+fam(.45,.75,()=>{const s=rint(1,3);const t=[0,1,2,3,4].map(i=>(i+s)*(i+s+1)/2);
+  return {t,ans:(5+s)*(6+s)/2,ex:'These are triangular numbers (each adds one more than the last gap). The next is '+(5+s)*(6+s)/2+'.'};});
+const A='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const letterFams=[
+ {lo:0,hi:.35,fn:()=>{const st=rint(0,8),d=rint(2,3);const t=[0,1,2,3,4].map(i=>st+d*i);
+   return {t,ans:st+d*5,ex:'Each letter moves forward '+d+' places in the alphabet.'};}},
+ {lo:.35,hi:.7,fn:()=>{const st=rint(0,3);const t=[st];let g=1;for(let i=0;i<4;i++){t.push(t[t.length-1]+g);g++;}
+   return {t,ans:t[4]+5,ex:'The jumps grow by one each time (1, 2, 3, 4), so the next jump is 5.'};}},
+ {lo:.55,hi:.9,fn:()=>{const a=rint(0,5),b=rint(19,25);const t=[a,b,a+2,b-2,a+4,b-4];
+   return {t,ans:a+6,ex:'Two sequences are interleaved: odd positions move forward 2, even positions move back 2. The next letter is '+A[a+6]+'.'};}}
+];
+function genSeries(L){
+  const isLetter=Math.random()<.25;
+  const pool=(isLetter?letterFams:FAMS).filter(f=>L>=f.lo-.001&&L<=f.hi+.001);
+  const f=(pool.length?pick(pool):pick(isLetter?letterFams:FAMS));
+  const g=f.fn();
+  const b=clamp(-1.9+3.8*L,-1.9,1.9);
+  let shown,right,wrong;
+  if(isLetter){
+    shown=g.t.map(i=>A[i]);right=A[g.ans];
+    const c=shuffle([g.ans+1,g.ans-1,g.ans+2,g.ans-2,g.ans+3].filter(i=>i>=0&&i<26&&i!==g.ans)).slice(0,3);
+    wrong=c.map(i=>A[i]);
+  }else{
+    shown=g.t;right=String(g.ans);
+    const last=g.t[g.t.length-1],prev=g.t[g.t.length-2],gap=last-prev;
+    let c=[g.ans+1,g.ans-1,g.ans+2,g.ans-2,last+gap,g.ans+(g.ans-last),g.ans-(g.ans-last)];
+    c=[...new Set(c.filter(v=>Number.isInteger(v)&&v>0&&v!==g.ans))];
+    shuffle(c);c=c.slice(0,3);
+    while(c.length<3){const v=g.ans+pick([-1,1])*rint(3,7);if(v>0&&v!==g.ans&&!c.includes(v))c.push(v);}
+    wrong=c.map(String);
+  }
+  return build({id:'S',cat:0,b,num:true,two:true,
+    prompt:isLetter?'Which letter comes next?':'What number comes next?',
+    stem:'<div class="seq">'+shown.join(', ')+', ?</div>',right,wrong,explain:g.ex});
+}
+
+/* =====================  2. matrices  ===================== */
+const SUMROWS=[[1,1,2],[1,2,3],[2,1,3],[1,3,4],[3,1,4],[2,2,4]];
+const DIFFROWS=[[3,1,2],[2,1,1],[4,1,3],[4,2,2],[3,2,1],[4,3,1]];
+function symRule(rule){
+  if(rule==='const'){const v=rnd(3);return {f:()=>v,w:0,tx:null};}
+  if(rule==='rowC'){const p=shuffle([0,1,2]);return {f:(r)=>p[r],w:.4,tx:'rowC'};}
+  if(rule==='colC'){const p=shuffle([0,1,2]);return {f:(r,c)=>p[c],w:.4,tx:'colC'};}
+  const p=shuffle([0,1,2]),d=pick([1,2]);return {f:(r,c)=>p[(c+d*r)%3],w:1.0,tx:'dist3'};
+}
+function cntRule(rule){
+  if(rule==='const'){const v=pick([1,2,3]);return {f:()=>v,w:0,tx:null};}
+  if(rule==='rowC'){const p=shuffle([1,2,3,4]).slice(0,3);return {f:(r)=>p[r],w:.4,tx:'rowC'};}
+  if(rule==='colC'){const p=shuffle([1,2,3,4]).slice(0,3);return {f:(r,c)=>p[c],w:.4,tx:'colC'};}
+  if(rule==='prog'){const s=pick([1,2]),ax=pick(['r','c']);return {f:ax==='r'?(r)=>s+r:(r,c)=>s+c,w:.6,tx:ax==='r'?'progR':'progC'};}
+  if(rule==='dist3'){const p=shuffle([1,2,3,4]).slice(0,3),d=pick([1,2]);return {f:(r,c)=>p[(c+d*r)%3],w:1.0,tx:'dist3'};}
+  if(rule==='sum'){const rows=shuffle(SUMROWS.slice()).slice(0,3);return {f:(r,c)=>rows[r][c],w:1.4,tx:'sum'};}
+  const rows=shuffle(DIFFROWS.slice()).slice(0,3);return {f:(r,c)=>rows[r][c],w:1.6,tx:'diff'};
+}
+/* every rule from a small library that fits the 8 visible cells must predict the same missing value */
+function predictions(g,dom){
+  const out=new Set(),dv=dom==='sym'?[0,1,2]:[1,2,3,4];
+  const fits=fn=>{for(let r=0;r<3;r++)for(let c=0;c<3;c++){if(r===2&&c===2)continue;if(fn(r,c)!==g[r][c])return false;}return true;};
+  dv.forEach(v=>{if(fits(()=>v))out.add(v);});
+  if(g[0][0]===g[0][1]&&g[0][1]===g[0][2]&&g[1][0]===g[1][1]&&g[1][1]===g[1][2]&&g[2][0]===g[2][1])out.add(g[2][0]);
+  if([0,1,2].every(c=>g[0][c]===g[1][c])&&[0,1].every(c=>g[0][c]===g[2][c])&&g[0][2]===g[1][2])out.add(g[0][2]);
+  [1,2].forEach(d=>{if(fits((r,c)=>g[0][(c+d*r)%3]))out.add(g[0][(2+2*d)%3]);});
+  const s0=[...g[0]].sort().join(),s1=[...g[1]].sort().join();
+  if(s0===s1&&g[2][0]!==g[2][1]){const rest=[...g[0]];[g[2][0],g[2][1]].forEach(v=>{const i=rest.indexOf(v);if(i>=0)rest.splice(i,1);else rest.push('x','x');});if(rest.length===1)out.add(rest[0]);}
+  if(dom==='cnt'){
+    for(let a=-1;a<=1;a++)for(let b=-1;b<=1;b++)for(let k=-2;k<=6;k++){if(fits((r,c)=>a*r+b*c+k)){const v=2*a+2*b+k;if(v>=1&&v<=4)out.add(v);}}
+    if([0,1].every(r=>g[r][2]===g[r][0]+g[r][1]))out.add(g[2][0]+g[2][1]);
+    if([0,1].every(r=>g[r][2]===g[r][0]-g[r][1]))out.add(g[2][0]-g[2][1]);
+  }
+  return out;
+}
+const EXPL={
+ s:{rowC:'Each row has its own shape.',colC:'Each column has its own shape.',dist3:'The three shapes are spread so each appears once in every row and column.'},
+ n:{rowC:'Each row has its own number of shapes.',colC:'Each column has its own number of shapes.',progR:'The number of shapes goes up by one down each column.',progC:'The number of shapes goes up by one across each row.',dist3:'The three counts are spread so each appears once in every row and column.',sum:'In each row the third count is the first plus the second.',diff:'In each row the third count is the first minus the second.'},
+ f:{rowC:'Each row has its own shading.',colC:'Each column has its own shading.',dist3:'The three shadings are spread so each appears once in every row and column.'}
+};
+function genMatrix(L){
+  const target=.4+3.2*L;let best=null;
+  for(let t=0;t<600;t++){
+    const nAct=L<.2?1:L<.5?pick([1,2,2]):L<.8?pick([2,3]):3;
+    const act=shuffle(['s','n','f']).slice(0,nAct);
+    const R={};let sw=0;
+    ['s','n','f'].forEach(k=>{
+      const on=act.includes(k);
+      R[k]=k==='n'?cntRule(on?pick(['rowC','colC','prog','prog','dist3','sum','diff']):'const'):symRule(on?pick(['rowC','colC','dist3']):'const');
+      sw+=R[k].w;
+    });
+    if(sw<=0||Math.abs(sw-target)>.4)continue;
+    const g={s:[],n:[],f:[]};
+    for(const k in g){for(let r=0;r<3;r++){g[k].push([]);for(let c=0;c<3;c++)g[k][r].push(R[k].f(r,c));}}
+    if(g.n.some(row=>row.some(v=>v<1||v>4)))continue;
+    let amb=false;
+    for(const k of ['s','n','f']){const p=predictions(g[k],k==='n'?'cnt':'sym');if(p.size!==1||!p.has(g[k][2][2])){amb=true;break;}}
+    if(amb)continue;
+    best={R,g,sw,act};break;
+  }
+  if(!best)return genMatrix(Math.max(0,L-.1));
+  const {R,g,sw,act}=best;
+  const cell=(r,c)=>({s:g.s[r][c],n:g.n[r][c],f:g.f[r][c]});
+  const T=cell(2,2),key=x=>x.s+'|'+x.n+'|'+x.f;
+  const seen=new Set([key(T)]),wrong=[];
+  const add=x=>{if(x.n<1||x.n>4||x.s<0||x.s>2||x.f<0||x.f>2)return;if(seen.has(key(x)))return;seen.add(key(x));wrong.push(x);};
+  shuffle([[1,2],[2,1],[1,1],[2,0],[0,2]]).slice(0,5).forEach(([r,c])=>{if(wrong.length<2)add(cell(r,c));});
+  const single=[];
+  for(let v=0;v<3;v++){single.push({s:v,n:T.n,f:T.f});single.push({s:T.s,n:T.n,f:v});}
+  for(let v=1;v<=4;v++)single.push({s:T.s,n:v,f:T.f});
+  shuffle(single).forEach(x=>{if(wrong.length<5)add(x);});
+  while(wrong.length<5)add({s:rnd(3),n:rint(1,4),f:rnd(3)});
+  const names=[];
+  act.forEach(k=>names.push(EXPL[k][R[k].tx]));
+  const noun=T.n===1?SHN[T.s]:SHN[T.s]+'s';
+  const ex=names.join(' ')+' The missing cell is '+(T.n===1?'one ':T.n+' ')+FILLN[T.f]+' '+noun+'.';
+  const b=clamp(-2.1+1.5*sw,-1.9,2.2);
+  const it=build({id:'M',cat:1,b,vis:true,prompt:'Which option completes the pattern?',
+    stem:'<div class="mx" role="img" aria-label="3 by 3 pattern grid with the last cell missing">'+
+      [0,1,2].map(r=>[0,1,2].map(c=>(r===2&&c===2)?'<div class="c q">?</div>':'<div class="c">'+cellSvg(cell(r,c))+'</div>').join('')).join('')+'</div>',
+    right:cellSvg(T),wrong:wrong.map(cellSvg),explain:ex});
+  return it;
+}
+
+/* rotation matrices (glyphs) */
+function genGlyph(L){
+  const hard=L>=.5, gl=shuffle(['flag','L','hook','arrow']);
+  const steps=[0,1,2].map(()=>pick([45,90,135]));
+  let cells=[],ans,glyph,ex,b;
+  if(!hard){
+    for(let r=0;r<3;r++)for(let c=0;c<3;c++)cells.push({g:gl[r],a:(c*steps[r])%360});
+    glyph=gl[2];ans=(2*steps[2])%360;
+    ex='Each row turns its shape the same amount at every step. Row 3 turns '+steps[2]+'° per step (clockwise), so the last shape is at '+ans+'°.';b=-.7+.6*L;
+  }else{
+    for(let r=0;r<3;r++)for(let c=0;c<3;c++)cells.push({g:gl[c],a:(r*steps[c])%360});
+    glyph=gl[2];ans=(2*steps[2])%360;
+    ex='Each column has its own shape, which turns '+steps[2]+'° clockwise on every step down. Column 3 ends at '+ans+'°.';b=.5+.5*L;
+  }
+  const angs=[ans];
+  shuffle([45,-45,90,-90,180,135,-135]).forEach(d=>{const a=((ans+d)%360+360)%360;if(angs.length<5&&!angs.includes(a))angs.push(a);});
+  const wrong=angs.slice(1).map(a=>glyphSvg(glyph,a,false));
+  if(glyph!=='arrow')wrong.push(glyphSvg(glyph,ans,true));
+  else{for(const d of [225,270,315,0]){const a=(ans+d)%360;if(!angs.includes(a)){wrong.push(glyphSvg(glyph,a,false));break;}}}
+  return build({id:'G',cat:1,b,vis:true,prompt:'Which option completes the pattern?',
+    stem:'<div class="mx" role="img" aria-label="3 by 3 rotation pattern">'+cells.map((x,i)=>i===8?'<div class="c q">?</div>':'<div class="c">'+glyphSvg(x.g,x.a,false)+'</div>').join('')+'</div>',
+    right:glyphSvg(glyph,ans,false),wrong,explain:ex});
+}
+
+/* =====================  3. spatial rotation  ===================== */
+function genPoly(n){
+  for(let t=0;t<2000;t++){
+    const cells=[[0,0]];
+    while(cells.length<n){const [x,y]=pick(cells),d=pick([[1,0],[-1,0],[0,1],[0,-1]]),q=[x+d[0],y+d[1]];
+      if(!cells.some(c=>c[0]===q[0]&&c[1]===q[1]))cells.push(q);}
+    const cs=norm(cells),w=Math.max(...cs.map(p=>p[0]))+1,h=Math.max(...cs.map(p=>p[1]))+1;
+    if(w>4||h>4)continue;
+    if(!chiral(cs)||rotsym(cs))continue;
+    return cs;
+  }
+  return norm([[1,0],[2,0],[0,1],[1,1],[1,2]]);
+}
+function genRot(n){
+  const shape=genPoly(n),k=rint(1,3);
+  const ans=rotN(shape,k),wrong=shuffle([0,1,2,3]).slice(0,3).map(j=>polySvg(rotN(mirror(shape),j)));
+  return build({id:'R'+n,cat:3,b:-.7+.6*(n-4),vis:true,four:true,
+    prompt:'Which option is the target shape turned around, not flipped over?',
+    stem:'<div class="target" role="img" aria-label="Target shape">'+polySvg(norm(shape))+'</div>',
+    right:polySvg(ans),wrong,
+    explain:'Turning a shape never changes which way it is handed. Three options are mirror images of the target, so only one can be a pure turn.'});
+}
+
+/* =====================  4. verbal and logic bank  ===================== */
+const VERB=[
+ [-1.8,'Finger is to hand as toe is to what?',['Foot','Shoe','Nail','Leg'],'A finger is part of a hand; a toe is part of a foot.'],
+ [-1.7,'Which word does not belong: apple, banana, carrot, cherry?',['Carrot','Apple','Banana','Cherry'],'Carrot is a vegetable; the others are fruit.'],
+ [-1.6,'Which word is the opposite of GENEROUS?',['Selfish','Kind','Wealthy','Careful'],'Generous means giving freely; selfish is the opposite.'],
+ [-1.5,'Day is to night as summer is to what?',['Winter','Sun','Holiday','Hot'],'Day and night are opposites, as are summer and winter.'],
+ [-1.4,'All roses are flowers. All flowers need water. Which must be true?',['All roses need water','All water is for flowers','Some roses are not flowers','No flowers are roses'],'Roses are flowers, and flowers need water, so roses need water.'],
+ [-1.3,'Tom is taller than Sam. Sam is taller than Joe. Who is the shortest?',['Joe','Tom','Sam','Cannot tell'],'The order is Tom, Sam, Joe, so Joe is shortest.'],
+ [-1.2,'Which word is closest in meaning to RAPID?',['Quick','Slow','Late','Steady'],'Rapid means fast; quick is the closest.'],
+ [-1.1,'What is half of a quarter of 160?',['20','10','40','80'],'A quarter of 160 is 40, and half of 40 is 20.'],
+ [-1.0,'Which word does not belong: whisper, murmur, shout, mutter?',['Shout','Whisper','Murmur','Mutter'],'The others are quiet ways of speaking; shout is loud.'],
+ [-0.9,'Pilot is to cockpit as chef is to what?',['Kitchen','Recipe','Restaurant','Menu'],'A pilot works in a cockpit; a chef works in a kitchen.'],
+ [-0.8,'Which does not belong: sonnet, haiku, limerick, novel?',['Novel','Sonnet','Haiku','Limerick'],'The others are forms of poetry; a novel is prose.'],
+ [-0.7,'If the day before yesterday was Thursday, what day is tomorrow?',['Sunday','Friday','Saturday','Monday'],'Yesterday was Friday, today is Saturday, so tomorrow is Sunday.'],
+ [-0.6,'A train travels 60 miles in 90 minutes. At the same speed, how far does it go in 2 hours?',['80 miles','70 miles','90 miles','120 miles'],'60 miles in 1.5 hours is 40 mph. In 2 hours that is 80 miles.'],
+ [-0.5,'Which fraction is the largest?',['2/3','5/8','7/12','3/5'],'As decimals: 0.625, 0.583, 0.667, 0.6. So 2/3 is largest.'],
+ [-0.5,'Which word is closest in meaning to METICULOUS?',['Thorough','Careless','Hasty','Famous'],'Meticulous means extremely careful about detail.'],
+ [-0.4,'Some artists are musicians. All musicians are creative. Which must be true?',['Some artists are creative','All artists are creative','No artists are creative','All creative people are musicians'],'The artists who are musicians are creative, so at least some artists are creative. Nothing says all are.'],
+ [-0.4,'Which number does not belong: 16, 25, 36, 48, 49?',['48','16','25','49'],'The others are square numbers; 48 is not.'],
+ [-0.3,'Five runners finish a race. Ana finishes after Cal but before Ben. Dee finishes before Cal. Eli finishes last. Who came second?',['Cal','Ana','Dee','Ben'],'The order is Dee, Cal, Ana, Ben, Eli. Cal is second.'],
+ [-0.3,'Verdict is to judge as diagnosis is to what?',['Doctor','Patient','Illness','Hospital'],'A judge gives a verdict; a doctor gives a diagnosis.'],
+ [-0.3,'Mark\'s mother\'s only brother has a daughter, Nina. How is Nina related to Mark?',['Cousin','Sister','Aunt','Niece'],'Nina is the child of Mark\'s uncle, so she is his cousin.'],
+ [-0.2,'Which word is most nearly the opposite of PRUDENT?',['Reckless','Wise','Frugal','Cautious'],'Prudent means careful and sensible; reckless is the opposite.'],
+ [-0.1,'Cacophony is to harmony as chaos is to what?',['Order','Noise','Music','Rhythm'],'Cacophony is the opposite of harmony; chaos is the opposite of order.'],
+ [0.0,'Rearrange the letters CIFAIPC. You get the name of a(n):',['Ocean','City','Animal','Country'],'The letters spell PACIFIC, an ocean.'],
+ [0.0,'If 3 painters take 6 days to paint a house, how many days would 9 painters take at the same pace?',['2','1','3','18'],'The job is 18 painter-days. Nine painters finish it in 2 days.'],
+ [0.1,'What is one fifth of one third of 450?',['30','15','45','90'],'A third of 450 is 150, and a fifth of 150 is 30.'],
+ [0.2,'A bag has red and blue marbles in the ratio 3:5. There are 40 marbles in all. How many are red?',['15','12','24','25'],'3 + 5 = 8 parts, so each part is 5 marbles. Red is 3 × 5 = 15.'],
+ [0.2,'A shirt costs £40 after a 20% discount. What was the original price?',['£50','£48','£52','£60'],'£40 is 80% of the original, so the original is 40 ÷ 0.8 = £50.'],
+ [0.3,'Which word is the opposite of OBSTINATE?',['Flexible','Stubborn','Rigid','Hostile'],'Obstinate means stubborn; flexible is the opposite.'],
+ [0.4,'All squirrels are rodents. Some rodents are pests. Which conclusion is justified?',['Nothing definite follows about squirrels and pests','Some squirrels are pests','All pests are rodents','No squirrels are pests'],'The pests may or may not include squirrels, so no firm conclusion can be drawn.'],
+ [0.5,'The sum of three consecutive whole numbers is 72. What is the largest?',['25','23','24','26'],'The numbers are 23, 24 and 25, which add to 72.'],
+ [0.7,'Today is Wednesday. What day will it be 100 days from today?',['Friday','Thursday','Saturday','Sunday'],'100 = 14 weeks + 2 days. Two days after Wednesday is Friday.'],
+ [0.7,'If 5 machines take 5 minutes to make 5 widgets, how long would 100 machines take to make 100 widgets?',['5 minutes','1 minute','20 minutes','100 minutes'],'Each machine makes one widget in 5 minutes, so 100 machines make 100 in the same 5 minutes.'],
+ [0.8,'A patch of lily pads doubles in size every day. It takes 48 days to cover the whole lake. How many days to cover half of it?',['47','24','40','46'],'It doubles daily, so it was half covering the lake the day before: day 47.'],
+ [0.9,'A rectangle\'s length grows by 20% and its width shrinks by 20%. What happens to its area?',['It falls by 4%','It stays the same','It rises by 4%','It falls by 2%'],'1.2 × 0.8 = 0.96, so the area is 96% of before: a 4% fall.'],
+ [0.9,'Two trains start 300 km apart and travel toward each other at 60 km/h and 90 km/h. How long until they meet?',['2 hours','1 hour','2.5 hours','3 hours'],'They close the gap at 150 km/h, so 300 ÷ 150 = 2 hours.'],
+ [1.0,'A snail climbs a 10 metre well. Each day it climbs 3 m and each night it slips back 2 m. On which day does it reach the top?',['Day 8','Day 7','Day 10','Day 11'],'It gains 1 m a day net. After 7 days it is at 7 m, and on day 8 it climbs the last 3 m without slipping back.'],
+ [1.0,'A is twice as old as B. Five years ago A was three times as old as B. How old is A now?',['20','15','25','30'],'A = 2B and A − 5 = 3(B − 5). So 2B − 5 = 3B − 15, B = 10, A = 20.'],
+ [1.1,'A cube painted on all faces is cut into 27 equal small cubes. How many small cubes have exactly two painted faces?',['12','8','6','24'],'Only the cubes in the middle of each of the cube\'s 12 edges have exactly two painted faces.'],
+ [1.2,'Anna and Ben together can finish a job in 6 days. Anna alone takes 10 days. How many days would Ben take alone?',['15','4','8','16'],'Together they do 1/6 a day and Anna does 1/10. Ben does 1/6 − 1/10 = 1/15, so 15 days.'],
+ [1.3,'The statement "Every member of the club is over 18" is false. Which must be true?',['At least one member is 18 or younger','No member is over 18','Every member is under 18','At least one member is over 18'],'If not everyone is over 18, at least one member is 18 or younger. The others need not follow.'],
+ [1.5,'How many times do the hour and minute hands of a clock overlap in 12 hours?',['11','10','12','13'],'They overlap every 12/11 hours, which gives 11 overlaps in 12 hours (not 12, because the 11th overlap coincides with the end).'],
+ [1.7,'In a survey, 70% of people like tea and 60% like coffee. At least what percentage like both?',['30%','10%','20%','40%'],'70% + 60% = 130%, which exceeds 100% by 30%. At least 30% must like both.']
+];
+const VB=VERB.map((v,i)=>({id:'W'+i,b:v[0],prompt:v[1],opts:v[2],explain:v[3]}));
+function pickVerbal(targets,seen){
+  const used=new Set(),out=[];
+  targets.forEach(t=>{
+    const cand=VB.filter(v=>!used.has(v.id)).map(v=>({v,s:Math.abs(v.b-t)+(seen.includes(v.id)?.8:0)+Math.random()*.4}));
+    cand.sort((a,b)=>a.s-b.s);const v=cand[0].v;used.add(v.id);
+    out.push(build({id:v.id,cat:2,b:v.b,prompt:v.prompt,right:v.opts[0],wrong:v.opts.slice(1),explain:v.explain,two:v.opts.every(o=>o.length<=9)}));
+  });
+  return out;
+}
+
+/* =====================  test modes  ===================== */
+/* Every mode keeps the original pace of 20 seconds per question, so the scoring model's speed
+   assumption holds; longer tests simply carry more questions and give a narrower range.
+   mix = [series, matrices, verbal, spatial]. */
+const MODES={
+  5: {min:5, n:15,mix:[4,4,4,3],  name:'Quick'},
+  10:{min:10,n:30,mix:[8,8,8,6],  name:'Standard'},
+  30:{min:30,n:90,mix:[24,24,24,18],name:'Full'}
+};
+const CATS=['Number and letter series','Matrices','Verbal and logic','Spatial rotation'];
+const lin=(n,a,b)=>Array.from({length:n},(_,i)=>n===1?a:a+(b-a)*i/(n-1));
+function loadJSON(k,def){try{const v=JSON.parse(localStorage.getItem(k)||'null');return v==null?def:v;}catch(e){return def;}}
+function saveJSON(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+let seenMem=[];
+function buildTest(mode){
+  const [nS,nM,nV,nR]=mode.mix;
+  const seen=loadJSON('iq10-seen',seenMem);
+  const series=lin(nS,0,.97).map(L=>genSeries(clamp(L+(Math.random()-.5)*.06,0,1)));
+  /* roughly one in four matrices is a rotation matrix, as in the original 10 minute set */
+  const mats=lin(nM,.03,1).map((L,i)=>(i%4===2)?genGlyph(L):genMatrix(clamp(L+(Math.random()-.5)*.06,0,1)));
+  const verb=pickVerbal(lin(nV,-1.7,1.6),seen);
+  const spat=lin(nR,4,8).map(v=>genRot(Math.round(v)));
+  const newSeen=seen.concat(verb.map(v=>v.id)).slice(-24);
+  seenMem=newSeen;saveJSON('iq10-seen',newSeen);
+  return series.concat(mats,verb,spat).sort((a,b)=>a.b-b.b);
+}
+
+/* =====================  scoring  ===================== */
+const DISC=1.25, PRIOR_SD=1.25, SPEED=0.25;
+function estimate(items,flags){
+  let den=0,m1=0,m2=0;
+  for(let t=-4;t<=4.0001;t+=.05){
+    let ll=-0.5*(t/PRIOR_SD)*(t/PRIOR_SD);
+    for(let k=0;k<items.length;k++){
+      const it=items[k],p=it.c+(1-it.c)/(1+Math.exp(-DISC*(t-it.b-SPEED)));
+      ll+=Math.log(flags[k]?p:1-p);
+    }
+    const w=Math.exp(ll);den+=w;m1+=w*t;m2+=w*t*t;
+  }
+  const mean=m1/den,sd=Math.sqrt(Math.max(0,m2/den-mean*mean));
+  return {iq:100+15*mean,sd:15*sd};
+}
+const phi=z=>{const t=1/(1+0.2316419*Math.abs(z)),d=0.3989423*Math.exp(-z*z/2);
+  const p=d*t*(0.3193815+t*(-0.3565638+t*(1.781478+t*(-1.821256+t*1.330274))));return z>0?1-p:p;};
+const bandOf=q=>q>=130?'Very superior':q>=120?'Superior':q>=110?'High average':q>=90?'Average':q>=80?'Low average':q>=70?'Below average':'Well below average';
+
+/* =====================  app shell  ===================== */
+const app=document.getElementById('app');
+let S=null,tick=null;
+const fmt=s=>{s=Math.max(0,Math.ceil(s));return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');};
+const dateTxt=t=>new Date(t).toLocaleDateString(undefined,{day:'numeric',month:'short',year:'numeric'});
+const histHtml=h=>'<div class="hist">'+h.map(x=>'<div class="hrow"><span class="d">'+dateTxt(x.t)+'</span><span class="m">'+(x.min||10)+' min</span><span class="r">'+x.lo+' to '+x.hi+'</span><span class="q">'+x.iq+'</span></div>').join('')+'</div>';
+
+function home(){
+  clearInterval(tick);S=null;
+  const h=loadJSON('iq10-history',[]).slice(-5).reverse();
+  app.innerHTML=
+  '<div class="stack">'+
+  '<div class="stack" style="gap:8px"><p class="eyebrow">Timed reasoning test</p><h1>IQ test</h1>'+
+  '<p class="muted">Built from the question types used in respected open and classic IQ tests. Every attempt generates new questions. Pick a length: longer tests give a narrower, more reliable estimate.</p></div>'+
+  '<div class="modes">'+Object.values(MODES).map(m=>
+    '<button class="mode" data-min="'+m.min+'"><b>'+m.min+'</b><span>minutes</span><span>'+m.n+' questions</span></button>').join('')+'</div>'+
+  '<div class="kinds">'+
+   '<div class="kind"><b>Number and letter series</b><span>Find the rule</span></div>'+
+   '<div class="kind"><b>Matrices</b><span>Complete the pattern</span></div>'+
+   '<div class="kind"><b>Verbal and logic</b><span>Analogies, reasoning, numbers</span></div>'+
+   '<div class="kind"><b>Spatial rotation</b><span>Turn shapes in your head</span></div>'+
+  '</div>'+
+  (h.length?'<div class="card stack"><h2>Recent results</h2>'+histHtml(h)+'</div>':'')+
+  '<div class="card stack"><h2>About this test</h2>'+
+   '<p class="note">Item types follow the four used in the open-access International Cognitive Ability Resource (series, matrices, verbal reasoning, rotation) and the rule types catalogued for Raven-style matrices. Questions are generated here rather than copied, because the published banks are licensed or keep their answer keys private.</p>'+
+   '<p class="note">The scoring model has not been calibrated on real test-takers, so read the result as a rough estimate with a wide margin, not a certified score.</p>'+
+   '<p class="note">To keep this on your phone: open the page in Safari, tap Share, then Add to Home Screen. It then opens full screen like an app and works offline.</p></div>'+
+  '</div>';
+  app.querySelectorAll('.mode').forEach(b=>b.onclick=()=>intro(MODES[b.dataset.min]));
+}
+
+function intro(mode){
+  app.innerHTML=
+  '<div class="stack">'+
+  '<p class="eyebrow">'+mode.name+' · '+mode.n+' questions · '+mode.min+':00</p><h1>How it works</h1>'+
+  '<div class="card"><ul class="rules">'+
+   '<li>'+mode.n+' questions, '+mode.min+' minutes in total. Questions start easy and get harder, so most people will not finish.</li>'+
+   '<li>Tap an answer to lock it in and move on. You cannot go back.</li>'+
+   '<li>Skipped and unanswered questions count as wrong, so guess when unsure.</li>'+
+   '<li>No calculator, notes or help. Sit somewhere quiet and do it in one go.</li>'+
+  '</ul></div>'+
+  '<button class="btn ghost" id="prac">Try two practice questions first</button>'+
+  '<button class="btn" id="begin">Start the '+mode.min+' minutes</button>'+
+  '<button class="btn ghost" id="back">Back</button>'+
+  '</div>';
+  document.getElementById('prac').onclick=()=>practice(0,[genSeries(.05),genMatrix(.05)],mode);
+  document.getElementById('begin').onclick=()=>start(mode);
+  document.getElementById('back').onclick=home;
+}
+
+function optsHtml(it){
+  const short=it.two&&!it.vis;
+  const cls='opts'+(it.vis?(it.four?' vis four':' vis'):short?' two':'');
+  return '<div class="'+cls+'">'+it.opts.map((o,k)=>
+    '<button class="opt'+(it.vis?' vis':'')+(short&&it.num?' num':'')+'" data-k="'+k+'" aria-label="Option '+LETTERS[k]+'">'+
+    (it.vis?o.html+'<span class="k">'+LETTERS[k]+'</span>':'<span class="k">'+LETTERS[k]+'</span><span>'+o.html+'</span>')+'</button>').join('')+'</div>';
+}
+
+function practice(i,items,mode){
+  if(i>=items.length)return intro(mode);
+  const it=items[i];
+  app.innerHTML=
+  '<div class="stack"><p class="eyebrow">Practice '+(i+1)+' of '+items.length+' · not timed, not scored</p>'+
+  '<div class="card"><p class="prompt">'+it.prompt+'</p>'+it.stem+optsHtml(it)+'<div id="fb"></div></div></div>';
+  const btns=[...app.querySelectorAll('.opt')];
+  btns.forEach(b=>b.onclick=()=>{
+    const k=+b.dataset.k,ok=it.opts[k].ok;
+    btns.forEach((x,j)=>{x.disabled=true;if(it.opts[j].ok)x.classList.add('right');});
+    if(!ok)b.classList.add('wrong');
+    document.getElementById('fb').innerHTML='<div class="fb"><b class="'+(ok?'ok':'no')+'">'+(ok?'Correct.':'Not quite.')+'</b><p class="note">'+it.explain+'</p><button class="btn" id="nx">'+(i+1<items.length?'Next practice':'Done')+'</button></div>';
+    document.getElementById('nx').onclick=()=>practice(i+1,items,mode);
+  });
+}
+
+function start(mode){
+  S={mode,n:mode.n,limit:mode.min*60,i:0,start:Date.now(),
+    items:buildTest(mode).map(it=>Object.assign({},it,{opts:shuffle(it.opts.slice())})),ans:new Array(mode.n).fill(null),done:false};
+  render();
+  clearInterval(tick);tick=setInterval(updateTimer,250);
+}
+function updateTimer(){
+  if(!S||S.done)return;
+  const left=S.limit-(Date.now()-S.start)/1000,el=document.getElementById('timer');
+  if(el){el.textContent=fmt(left);el.classList.toggle('low',left<=60);}
+  if(left<=0)finish(true);
+}
+function render(){
+  const it=S.items[S.i],left=S.limit-(Date.now()-S.start)/1000;
+  app.innerHTML=
+  '<div class="top"><span class="count">Q '+(S.i+1)+' / '+S.n+'</span><span class="timer'+(left<=60?' low':'')+'" id="timer">'+fmt(left)+'</span></div>'+
+  '<div class="bar"><i style="width:'+(S.i/S.n*100)+'%"></i></div>'+
+  '<div class="card"><div class="eyebrow" style="margin-bottom:8px">'+CATS[it.cat]+'</div>'+
+   '<p class="prompt">'+it.prompt+'</p>'+it.stem+optsHtml(it)+'</div>'+
+  '<div class="skip"><button class="btn ghost small" id="quit">End test</button><button class="btn ghost small" id="skip">Skip</button></div>';
+  app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>answer(+b.dataset.k));
+  document.getElementById('skip').onclick=()=>answer(null);
+  document.getElementById('quit').onclick=()=>{if(confirm('End the test now? Remaining questions count as wrong.'))finish(false);};
+  window.scrollTo(0,0);
+}
+function answer(k){
+  if(!S||S.done)return;
+  S.ans[S.i]=k===null?null:S.items[S.i].opts[k].ok;
+  S.i++;
+  if(S.i>=S.n)finish(false);else render();
+}
+document.addEventListener('keydown',e=>{
+  if(!S||S.done)return;
+  const n=+e.key,it=S.items[S.i];
+  if(it&&n>=1&&n<=it.opts.length&&!e.metaKey&&!e.ctrlKey)answer(n-1);
+});
+
+function finish(timedOut){
+  if(!S||S.done)return;
+  S.done=true;clearInterval(tick);
+  const used=Math.min(S.limit,(Date.now()-S.start)/1000);
+  const flags=S.ans.map(a=>a===true);
+  const e=estimate(S.items,flags);
+  const iq=clamp(e.iq,55,145),lo=clamp(iq-1.645*e.sd,55,145),hi=clamp(iq+1.645*e.sd,55,145);
+  const h=loadJSON('iq10-history',[]);
+  h.push({t:Date.now(),min:S.mode.min,iq:Math.round(iq),lo:Math.round(lo),hi:Math.round(hi)});
+  saveJSON('iq10-history',h.slice(-30));
+  results({iq,lo,hi},used,timedOut,S,h.slice(-5).reverse());
+}
+
+function curveSvg(iq,lo,hi){
+  const W=320,H=150,x0=14,x1=306,base=118,top=14,L=55,R=145;
+  const X=v=>x0+(v-L)/(R-L)*(x1-x0),pdf=v=>Math.exp(-0.5*((v-100)/15)**2),Y=v=>base-pdf(v)*(base-top);
+  let d='';for(let v=L;v<=R;v+=1)d+=(v===L?'M':'L')+X(v).toFixed(1)+' '+Y(v).toFixed(1);
+  let a='M'+X(L)+' '+base;for(let v=L;v<=iq;v+=1)a+='L'+X(v).toFixed(1)+' '+Y(v).toFixed(1);a+='L'+X(iq).toFixed(1)+' '+base+'Z';
+  let ticks='';[70,85,100,115,130].forEach(v=>{ticks+='<line class="axis" x1="'+X(v)+'" x2="'+X(v)+'" y1="'+base+'" y2="'+(base+4)+'"/><text x="'+X(v)+'" y="'+(base+16)+'" text-anchor="middle">'+v+'</text>';});
+  return '<svg class="curve" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Bell curve with your estimate at '+Math.round(iq)+'">'+
+   '<path class="area" d="'+a+'"/><path class="line" d="'+d+'"/><line class="axis" x1="'+x0+'" x2="'+x1+'" y1="'+base+'" y2="'+base+'"/>'+ticks+
+   '<rect class="rng" x="'+X(lo)+'" y="'+(base-6)+'" width="'+(X(hi)-X(lo))+'" height="6" rx="3"/>'+
+   '<line class="pin" x1="'+X(iq)+'" x2="'+X(iq)+'" y1="'+(Y(iq)-6)+'" y2="'+base+'"/><circle cx="'+X(iq)+'" cy="'+(Y(iq)-8)+'" r="4" fill="var(--accent)"/></svg>';
+}
+
+const ERRTXT={5:'around 10 to 15',10:'around 8 to 12',30:'around 5 to 8'};
+function results(e,used,timedOut,st,hist){
+  const {iq,lo,hi}=e,{items,ans,n,mode}=st;
+  const pct=clamp(phi((iq-100)/15)*100,.1,99.9),pctTxt=pct>=99?'99+':pct<1?'<1':String(Math.round(pct));
+  const right=ans.filter(a=>a===true).length,attempted=ans.filter(a=>a!==null).length;
+  const cats=CATS.map((nm,ci)=>{const idx=items.map((it,i)=>it.cat===ci?i:-1).filter(i=>i>=0);return {n:nm,tot:idx.length,ok:idx.filter(i=>ans[i]===true).length};});
+  app.innerHTML=
+  '<div class="stack">'+
+  '<p class="eyebrow">'+(timedOut?'Time is up':'Finished')+' · '+mode.min+' minute test</p>'+
+  '<div class="card hero"><span class="muted">Estimated IQ</span><span class="big">'+Math.round(iq)+'</span><span class="band">'+bandOf(iq)+'</span>'+
+    '<p>Likely range <b>'+Math.round(lo)+' to '+Math.round(hi)+'</b> (90% confidence). Higher than about <b>'+pctTxt+'%</b> of people.</p>'+
+    curveSvg(iq,lo,hi)+'<p class="note">The bar under the curve is your likely range. Scale: average 100, standard deviation 15.</p></div>'+
+  '<div class="facts"><div class="fact"><b>'+right+' / '+n+'</b><span>correct</span></div><div class="fact"><b>'+attempted+'</b><span>answered</span></div><div class="fact"><b>'+fmt(used)+'</b><span>time used</span></div></div>'+
+  '<div class="card stack"><h2>By question type</h2><div class="cats">'+
+    cats.map(c=>'<div class="cr"><span class="n">'+c.n+'</span><span class="v">'+c.ok+' / '+c.tot+'</span><div class="t"><i style="width:'+(c.tot?c.ok/c.tot*100:0)+'%"></i></div></div>').join('')+'</div></div>'+
+  (hist.length>1?'<div class="card stack"><h2>Recent results</h2>'+histHtml(hist)+'</div>':'')+
+  '<div class="card stack"><h2>How to read this</h2>'+
+    '<p class="note">'+n+' questions give a rough estimate. Expect the real error to be '+ERRTXT[mode.min]+' points either way, and more at the extremes. Scores above about 140 or below 70 cannot be told apart by a test like this.</p>'+
+    '<p class="note">Mensa admits the top 2%, which is roughly 130 or above on this scale, using supervised tests. Tiredness, noise and a small screen all lower scores. Each attempt draws new questions, but practice still helps a little.</p></div>'+
+  '<div class="card"><h2 style="margin-bottom:6px">Review answers</h2>'+
+    items.map((it,i)=>{const r=ans[i];const m=r===true?['✓','ok']:r===false?['✗','no']:['–','sk'];
+      return '<details class="rev"><summary><span class="mark '+m[1]+'">'+m[0]+'</span><span>Q'+(i+1)+' · '+CATS[it.cat]+'</span></summary><p>'+it.explain+'</p></details>';}).join('')+'</div>'+
+  '<button class="btn" id="again">Take it again with new questions</button><button class="btn ghost" id="home">Home</button>'+
+  '</div>';
+  document.getElementById('again').onclick=()=>start(mode);
+  document.getElementById('home').onclick=home;
+  window.scrollTo(0,0);
+}
+
+home();
+if('serviceWorker' in navigator&&location.protocol==='https:')navigator.serviceWorker.register('sw.js');
+</script>
+</body>
+</html>
