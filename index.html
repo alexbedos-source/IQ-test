@@ -12,7 +12,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="icon" type="image/png" href="icons/icon-192.png">
-<title>IQ Test</title>
+<title>Reasoning Lab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -138,6 +138,40 @@ details.rev .mark{font:600 .9rem var(--mono);min-width:1.4em}
 .ok{color:var(--good)} .no{color:var(--bad)} .sk{color:var(--muted)}
 details.rev p{margin-top:6px;font-size:.92rem;color:var(--muted)}
 .src li{margin-bottom:6px}
+.src a{color:var(--accent)}
+/* hub */
+.hub{display:flex;flex-direction:column;gap:12px}
+.hubcard{display:flex;flex-direction:column;gap:4px;text-align:left;background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:18px;cursor:pointer}
+.hubcard:active{border-color:var(--accent)}
+.hubcard b{font-size:1.25rem}
+.hubcard span{color:var(--muted);font-size:.92rem}
+/* physics */
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;font-size:.85rem;cursor:pointer;min-height:36px}
+.chip.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.facts.four{grid-template-columns:repeat(4,1fr)}
+.qrow{display:grid;grid-template-columns:1.4em 1fr auto;gap:10px;align-items:baseline;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--line);padding:12px 0;cursor:pointer}
+.qrow:first-of-type{border-top:0}
+.qrow .mark{font:600 .9rem var(--mono)}
+.qrow .qt{font-size:.95rem}
+.qrow .lv,.lv{font-size:.7rem;color:var(--muted);letter-spacing:1px;white-space:nowrap}
+.hint{border-left:3px solid var(--warn);padding:6px 0 6px 12px}
+.hint p{margin-top:2px}
+.answer{border-left:3px solid var(--good);padding:6px 0 6px 12px;display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.answer p{margin:0}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.row3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.row3 .btn{padding:10px 6px;font-size:.9rem}
+.rate.ok{border-color:var(--good)} .rate.sk{border-color:var(--warn)} .rate.no{border-color:var(--bad)}
+/* working memory */
+.mem{font:600 2.2rem var(--mono);text-align:center;letter-spacing:.3em;padding:26px 0 26px .3em;white-space:nowrap}
+.memgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;max-width:200px;margin:18px auto}
+.memgrid i{aspect-ratio:1;border:1.5px solid var(--line);border-radius:4px}
+.memgrid i.on{background:var(--ink);border-color:var(--ink)}
+.opt .memgrid{width:100%;max-width:110px;margin:4px auto;gap:3px}
+.opt .memgrid i{border-width:1px}
+.opt.seqo{justify-content:center;font:600 1.15rem var(--mono);letter-spacing:.12em}
+.memcount{font:500 .9rem var(--mono);color:var(--muted);text-align:center}
 @media (max-width:380px){ .big{font-size:3.4rem} .facts{grid-template-columns:1fr 1fr} }
 @media (prefers-reduced-motion:reduce){ .bar i{transition:none} }
 </style>
@@ -145,6 +179,8 @@ details.rev p{margin-top:6px;font-size:.92rem;color:var(--muted)}
 <body>
 <main class="wrap" id="app"></main>
 
+<script src="iq-bank.js"></script>
+<script src="physics.js"></script>
 <script>
 /* =====================  helpers  ===================== */
 const rnd=n=>Math.floor(Math.random()*n);
@@ -392,7 +428,7 @@ function genPoly(n){
 function genRot(n){
   const shape=genPoly(n),k=rint(1,3);
   const ans=rotN(shape,k),wrong=shuffle([0,1,2,3]).slice(0,3).map(j=>polySvg(rotN(mirror(shape),j)));
-  return build({id:'R'+n,cat:3,b:-.7+.6*(n-4),vis:true,four:true,
+  return build({id:'R'+n,cat:5,b:-.7+.6*(n-4),vis:true,four:true,
     prompt:'Which option is the target shape turned around, not flipped over?',
     stem:'<div class="target" role="img" aria-label="Target shape">'+polySvg(norm(shape))+'</div>',
     right:polySvg(ans),wrong,
@@ -444,42 +480,93 @@ const VERB=[
  [1.5,'How many times do the hour and minute hands of a clock overlap in 12 hours?',['11','10','12','13'],'They overlap every 12/11 hours, which gives 11 overlaps in 12 hours (not 12, because the 11th overlap coincides with the end).'],
  [1.7,'In a survey, 70% of people like tea and 60% like coffee. At least what percentage like both?',['30%','10%','20%','40%'],'70% + 60% = 130%, which exceeds 100% by 30%. At least 30% must like both.']
 ];
-const VB=VERB.map((v,i)=>({id:'W'+i,b:v[0],prompt:v[1],opts:v[2],explain:v[3]}));
-function pickVerbal(targets,seen){
-  const used=new Set(),out=[];
+/* the original bank mixes three abilities; this tags each item V (verbal), Q (quantitative) or L (logic) */
+const VERB_TYPE='VVVVLLVQVVVLQQVLQLVLVVVQQQQVLQLQQQQQQQQLQQ';
+const BANKS={V:[],Q:[],L:[]};
+VERB.forEach((v,i)=>BANKS[VERB_TYPE[i]].push({id:'W'+i,b:v[0],prompt:v[1],opts:v[2],explain:v[3]}));
+for(const k in EXTRA)EXTRA[k].forEach((v,i)=>BANKS[k].push({id:k+i,b:v[0],prompt:v[1],opts:v[2],explain:v[3]}));
+const BANK_CAT={V:2,Q:3,L:4};
+function pickBank(key,targets,seen){
+  const used=new Set(),out=[],bank=BANKS[key];
   targets.forEach(t=>{
-    const cand=VB.filter(v=>!used.has(v.id)).map(v=>({v,s:Math.abs(v.b-t)+(seen.includes(v.id)?.8:0)+Math.random()*.4}));
+    const cand=bank.filter(v=>!used.has(v.id)).map(v=>({v,s:Math.abs(v.b-t)+(seen.includes(v.id)?.8:0)+Math.random()*.4}));
+    if(!cand.length)return;
     cand.sort((a,b)=>a.s-b.s);const v=cand[0].v;used.add(v.id);
-    out.push(build({id:v.id,cat:2,b:v.b,prompt:v.prompt,right:v.opts[0],wrong:v.opts.slice(1),explain:v.explain,two:v.opts.every(o=>o.length<=9)}));
+    out.push(build({id:v.id,cat:BANK_CAT[key],b:v.b,prompt:v.prompt,right:v.opts[0],wrong:v.opts.slice(1),explain:v.explain,two:v.opts.every(o=>o.length<=9)}));
   });
   return out;
+}
+
+/* =====================  5. working memory  ===================== */
+/* The stimulus is shown for a few seconds, then hidden before the options appear. */
+const DIG='123456789';
+function seqVariants(seq,n){
+  const out=new Set([seq.join('')]),res=[];
+  for(let t=0;t<200&&res.length<n;t++){
+    const v=seq.slice(),k=rnd(3);
+    if(k===0){const i=rnd(v.length-1);[v[i],v[i+1]]=[v[i+1],v[i]];}
+    else if(k===1){const free=DIG.split('').filter(d=>!v.includes(d));if(!free.length)continue;v[rnd(v.length)]=pick(free);}
+    else{const i=rnd(v.length),j=rnd(v.length);if(Math.abs(i-j)<2)continue;[v[i],v[j]]=[v[j],v[i]];}
+    const key=v.join('');if(!out.has(key)){out.add(key);res.push(v);}
+  }
+  return res;
+}
+const gridHtml=cells=>'<div class="memgrid">'+Array.from({length:16},(_,i)=>'<i'+(cells.includes(i)?' class="on"':'')+'></i>').join('')+'</div>';
+function genMemory(L){
+  const kind=pick(L<.35?['fwd','fwd','grid']:L<.7?['fwd','rev','grid']:['rev','rev','grid','fwd']);
+  if(kind==='grid'){
+    const k=Math.round(3+4*L),cells=shuffle([...Array(16).keys()]).slice(0,k).sort((a,b)=>a-b);
+    const seen=new Set([cells.join()]),wrong=[];
+    while(wrong.length<3){
+      const v=cells.slice(),i=rnd(k);let c;do{c=rnd(16);}while(v.includes(c));v[i]=c;
+      if(Math.random()<.4&&k>3){const j=(i+1)%k;let c2;do{c2=rnd(16);}while(v.includes(c2));v[j]=c2;}
+      v.sort((a,b)=>a-b);const key=v.join();if(!seen.has(key)){seen.add(key);wrong.push(v);}
+    }
+    return Object.assign(build({id:'Mg',cat:6,b:clamp(-1.4+0.65*(k-3),-1.6,1.6),vis:true,four:true,
+      prompt:'Which grid matches the pattern you just saw?',right:gridHtml(cells),wrong:wrong.map(gridHtml),
+      explain:'The pattern had '+k+' squares filled. Spatial working memory: holding positions in mind briefly.'}),
+      {mem:gridHtml(cells),memMs:1500+500*k,memPrompt:'Remember which squares are filled'});
+  }
+  const rev=kind==='rev',len=rev?Math.round(3+4*L):Math.round(4+4*L);
+  const seq=shuffle(DIG.split('')).slice(0,len);
+  const target=rev?seq.slice().reverse():seq;
+  /* for backwards recall, the unreversed order is a natural distractor */
+  const wrong=rev?[seq].concat(seqVariants(target,4).filter(v=>v.join('')!==seq.join('')).slice(0,2)):seqVariants(target,3);
+  const fmtS=a=>a.join(' ');
+  const b=rev?clamp(-1.0+0.7*(len-3),-1.2,1.9):clamp(-1.9+0.8*(len-4),-1.9,1.6);
+  return Object.assign(build({id:'Ms',cat:6,b,
+    prompt:rev?'Which is the sequence you saw, in reverse order?':'Which sequence did you see?',
+    right:fmtS(target),wrong:wrong.map(fmtS),
+    explain:'The sequence was '+fmtS(seq)+(rev?', so reversed it is '+fmtS(target):'')+'. Most adults can hold about 7 digits forwards and 5 backwards.'}),
+    {seqOpt:true,mem:'<div class="mem">'+seq.join('')+'</div>',memMs:1000+800*len,memPrompt:rev?'Remember these digits. You will be asked for them backwards.':'Remember these digits in order'});
 }
 
 /* =====================  test modes  ===================== */
 /* Every mode keeps the original pace of 20 seconds per question, so the scoring model's speed
    assumption holds; longer tests simply carry more questions and give a narrower range.
-   mix = [series, matrices, verbal, spatial]. */
+   mix = [series, matrices, verbal, quantitative, logic, spatial, working memory]. */
 const MODES={
-  5: {min:5, n:15,mix:[4,4,4,3],  name:'Quick'},
-  10:{min:10,n:30,mix:[8,8,8,6],  name:'Standard'},
-  30:{min:30,n:90,mix:[24,24,24,18],name:'Full'}
+  5: {min:5, n:15,mix:[2,3,2,2,2,2,2],       name:'Quick'},
+  10:{min:10,n:30,mix:[5,5,4,4,4,4,4],       name:'Standard'},
+  30:{min:30,n:90,mix:[13,14,13,13,12,12,13],name:'Full'}
 };
-const CATS=['Number and letter series','Matrices','Verbal and logic','Spatial rotation'];
+const CATS=['Number and letter series','Matrices','Verbal','Quantitative','Logic','Spatial rotation','Working memory'];
 const lin=(n,a,b)=>Array.from({length:n},(_,i)=>n===1?a:a+(b-a)*i/(n-1));
 function loadJSON(k,def){try{const v=JSON.parse(localStorage.getItem(k)||'null');return v==null?def:v;}catch(e){return def;}}
 function saveJSON(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
 let seenMem=[];
 function buildTest(mode){
-  const [nS,nM,nV,nR]=mode.mix;
+  const [nS,nM,nV,nQ,nL,nR,nW]=mode.mix;
   const seen=loadJSON('iq10-seen',seenMem);
   const series=lin(nS,0,.97).map(L=>genSeries(clamp(L+(Math.random()-.5)*.06,0,1)));
   /* roughly one in four matrices is a rotation matrix, as in the original 10 minute set */
   const mats=lin(nM,.03,1).map((L,i)=>(i%4===2)?genGlyph(L):genMatrix(clamp(L+(Math.random()-.5)*.06,0,1)));
-  const verb=pickVerbal(lin(nV,-1.7,1.6),seen);
+  const written=pickBank('V',lin(nV,-1.7,1.6),seen).concat(pickBank('Q',lin(nQ,-1.7,1.2),seen),pickBank('L',lin(nL,-1.6,1.3),seen));
   const spat=lin(nR,4,8).map(v=>genRot(Math.round(v)));
-  const newSeen=seen.concat(verb.map(v=>v.id)).slice(-24);
+  const mem=lin(nW,0,1).map(L=>genMemory(clamp(L+(Math.random()-.5)*.08,0,1)));
+  const newSeen=seen.concat(written.map(v=>v.id)).slice(-80);
   seenMem=newSeen;saveJSON('iq10-seen',newSeen);
-  return series.concat(mats,verb,spat).sort((a,b)=>a.b-b.b);
+  return series.concat(mats,written,spat,mem).sort((a,b)=>a.b-b.b);
 }
 
 /* =====================  scoring  ===================== */
@@ -509,27 +596,46 @@ const dateTxt=t=>new Date(t).toLocaleDateString(undefined,{day:'numeric',month:'
 const histHtml=h=>'<div class="hist">'+h.map(x=>'<div class="hrow"><span class="d">'+dateTxt(x.t)+'</span><span class="m">'+(x.min||10)+' min</span><span class="r">'+x.lo+' to '+x.hi+'</span><span class="q">'+x.iq+'</span></div>').join('')+'</div>';
 
 function home(){
+  clearInterval(tick);if(typeof phyTick!=='undefined')clearInterval(phyTick);S=null;
+  app.innerHTML=
+  '<div class="stack">'+
+  '<div class="stack" style="gap:8px"><p class="eyebrow">Practice and testing</p><h1>Reasoning lab</h1></div>'+
+  '<div class="hub">'+
+   '<button class="hubcard" id="hiq"><b>IQ test</b><span>Timed test across seven abilities. 5, 10 or 30 minutes.</span></button>'+
+   '<button class="hubcard" id="hphy"><b>Physics interview</b><span>'+PHY.length+' open-ended Oxford-style questions with hints and worked answers.</span></button>'+
+  '</div></div>';
+  document.getElementById('hiq').onclick=iqHome;
+  document.getElementById('hphy').onclick=phyHome;
+  window.scrollTo(0,0);
+}
+
+function iqHome(){
   clearInterval(tick);S=null;
   const h=loadJSON('iq10-history',[]).slice(-5).reverse();
   app.innerHTML=
   '<div class="stack">'+
   '<div class="stack" style="gap:8px"><p class="eyebrow">Timed reasoning test</p><h1>IQ test</h1>'+
-  '<p class="muted">Built from the question types used in respected open and classic IQ tests. Every attempt generates new questions. Pick a length: longer tests give a narrower, more reliable estimate.</p></div>'+
+  '<p class="muted">Covers seven of the broad abilities in the standard model of intelligence used by modern IQ tests. Every attempt draws new questions. Longer tests give a narrower, more reliable estimate.</p></div>'+
   '<div class="modes">'+Object.values(MODES).map(m=>
     '<button class="mode" data-min="'+m.min+'"><b>'+m.min+'</b><span>minutes</span><span>'+m.n+' questions</span></button>').join('')+'</div>'+
   '<div class="kinds">'+
-   '<div class="kind"><b>Number and letter series</b><span>Find the rule</span></div>'+
-   '<div class="kind"><b>Matrices</b><span>Complete the pattern</span></div>'+
-   '<div class="kind"><b>Verbal and logic</b><span>Analogies, reasoning, numbers</span></div>'+
+   '<div class="kind"><b>Series</b><span>Find the rule in numbers and letters</span></div>'+
+   '<div class="kind"><b>Matrices</b><span>Complete the visual pattern</span></div>'+
+   '<div class="kind"><b>Verbal</b><span>Vocabulary and analogies</span></div>'+
+   '<div class="kind"><b>Quantitative</b><span>Reasoning with numbers</span></div>'+
+   '<div class="kind"><b>Logic</b><span>Deduction and syllogisms</span></div>'+
    '<div class="kind"><b>Spatial rotation</b><span>Turn shapes in your head</span></div>'+
+   '<div class="kind"><b>Working memory</b><span>Hold digits and patterns in mind</span></div>'+
   '</div>'+
   (h.length?'<div class="card stack"><h2>Recent results</h2>'+histHtml(h)+'</div>':'')+
   '<div class="card stack"><h2>About this test</h2>'+
-   '<p class="note">Item types follow the four used in the open-access International Cognitive Ability Resource (series, matrices, verbal reasoning, rotation) and the rule types catalogued for Raven-style matrices. Questions are generated here rather than copied, because the published banks are licensed or keep their answer keys private.</p>'+
+   '<p class="note">Sections map onto the Cattell-Horn-Carroll (CHC) model behind tests such as the WAIS and Stanford-Binet: fluid reasoning (series, matrices, logic), crystallised knowledge (verbal), quantitative reasoning, visual-spatial ability and working memory. Questions are written or generated for this app rather than copied, because published banks are licensed or keep their answer keys private.</p>'+
    '<p class="note">The scoring model has not been calibrated on real test-takers, so read the result as a rough estimate with a wide margin, not a certified score.</p>'+
    '<p class="note">To keep this on your phone: open the page in Safari, tap Share, then Add to Home Screen. It then opens full screen like an app and works offline.</p></div>'+
+  '<button class="btn ghost" id="hback">Home</button>'+
   '</div>';
   app.querySelectorAll('.mode').forEach(b=>b.onclick=()=>intro(MODES[b.dataset.min]));
+  document.getElementById('hback').onclick=home;
 }
 
 function intro(mode){
@@ -548,14 +654,14 @@ function intro(mode){
   '</div>';
   document.getElementById('prac').onclick=()=>practice(0,[genSeries(.05),genMatrix(.05)],mode);
   document.getElementById('begin').onclick=()=>start(mode);
-  document.getElementById('back').onclick=home;
+  document.getElementById('back').onclick=iqHome;
 }
 
 function optsHtml(it){
   const short=it.two&&!it.vis;
   const cls='opts'+(it.vis?(it.four?' vis four':' vis'):short?' two':'');
   return '<div class="'+cls+'">'+it.opts.map((o,k)=>
-    '<button class="opt'+(it.vis?' vis':'')+(short&&it.num?' num':'')+'" data-k="'+k+'" aria-label="Option '+LETTERS[k]+'">'+
+    '<button class="opt'+(it.vis?' vis':'')+(it.seqOpt?' seqo':'')+(short&&it.num?' num':'')+'" data-k="'+k+'" aria-label="Option '+LETTERS[k]+'">'+
     (it.vis?o.html+'<span class="k">'+LETTERS[k]+'</span>':'<span class="k">'+LETTERS[k]+'</span><span>'+o.html+'</span>')+'</button>').join('')+'</div>';
 }
 
@@ -589,6 +695,19 @@ function updateTimer(){
 }
 function render(){
   const it=S.items[S.i],left=S.limit-(Date.now()-S.start)/1000;
+  if(it.mem&&S.memShown!==S.i){
+    S.memShown=S.i;const tok=S.i,until=Date.now()+it.memMs;
+    app.innerHTML=
+    '<div class="top"><span class="count">Q '+(S.i+1)+' / '+S.n+'</span><span class="timer'+(left<=60?' low':'')+'" id="timer">'+fmt(left)+'</span></div>'+
+    '<div class="bar"><i style="width:'+(S.i/S.n*100)+'%"></i></div>'+
+    '<div class="card"><div class="eyebrow" style="margin-bottom:8px">'+CATS[it.cat]+'</div>'+
+     '<p class="prompt">'+it.memPrompt+'</p>'+it.mem+'<p class="memcount" id="memc"></p></div>';
+    const cd=setInterval(()=>{const el=document.getElementById('memc');if(!S||S.done||S.i!==tok||!el){clearInterval(cd);return;}
+      el.textContent='Hidden in '+Math.max(0,Math.ceil((until-Date.now())/1000))+' s';},100);
+    setTimeout(()=>{clearInterval(cd);if(S&&!S.done&&S.i===tok)render();},it.memMs);
+    window.scrollTo(0,0);
+    return;
+  }
   app.innerHTML=
   '<div class="top"><span class="count">Q '+(S.i+1)+' / '+S.n+'</span><span class="timer'+(left<=60?' low':'')+'" id="timer">'+fmt(left)+'</span></div>'+
   '<div class="bar"><i style="width:'+(S.i/S.n*100)+'%"></i></div>'+
@@ -659,10 +778,10 @@ function results(e,used,timedOut,st,hist){
   '<div class="card"><h2 style="margin-bottom:6px">Review answers</h2>'+
     items.map((it,i)=>{const r=ans[i];const m=r===true?['✓','ok']:r===false?['✗','no']:['–','sk'];
       return '<details class="rev"><summary><span class="mark '+m[1]+'">'+m[0]+'</span><span>Q'+(i+1)+' · '+CATS[it.cat]+'</span></summary><p>'+it.explain+'</p></details>';}).join('')+'</div>'+
-  '<button class="btn" id="again">Take it again with new questions</button><button class="btn ghost" id="home">Home</button>'+
+  '<button class="btn" id="again">Take it again with new questions</button><button class="btn ghost" id="home">Back to IQ test</button>'+
   '</div>';
   document.getElementById('again').onclick=()=>start(mode);
-  document.getElementById('home').onclick=home;
+  document.getElementById('home').onclick=iqHome;
   window.scrollTo(0,0);
 }
 

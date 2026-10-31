@@ -1,7 +1,7 @@
 {
-  "name": "IQ Test",
+  "name": "Reasoning Lab",
   "short_name": "IQ Test",
-  "description": "Timed reasoning test with 5, 10 and 30 minute modes.",
+  "description": "IQ test with 5, 10 and 30 minute modes, plus Oxford-style physics interview practice.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
