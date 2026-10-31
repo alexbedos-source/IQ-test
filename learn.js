@@ -35,7 +35,10 @@ const CARDS=[
  [4,'Price elasticity of demand','%ΔQd / %ΔP'],[4,'Income elasticity of demand','%ΔQd / %ΔY (negative for inferior goods)'],
  [4,'Cross elasticity of demand','%ΔQd of A / %ΔP of B (positive: substitutes; negative: complements)'],[4,'Aggregate demand','AD = C + I + G + (X − M)'],
  [4,'The multiplier','1 / MPW, where MPW = MPS + MPT + MPM'],[4,'Real interest rate (approx.)','Nominal interest rate − inflation'],
- [4,'Profit maximisation rule','MC = MR'],[4,'Marshall–Lerner condition','|PEDx| + |PEDm| > 1 for a depreciation to improve the current account']
+ [4,'Profit maximisation rule','MC = MR'],[4,'Marshall–Lerner condition','|PEDx| + |PEDm| > 1 for a depreciation to improve the current account'],
+ [1,'Root-mean-square speed of gas molecules','c_rms = √(3kT/m)'],[3,'Midpoint of (x₁, y₁) and (x₂, y₂)','((x₁ + x₂)/2, (y₁ + y₂)/2)'],
+ [3,'Arc length and sector area (θ in radians)','s = rθ, A = ½r²θ'],[1,'Speed of sound in an ideal gas','v = √(γRT/M)'],
+ [4,'Price elasticity and total revenue','If |PED| > 1, a price cut raises revenue; if |PED| < 1, a price cut lowers it'],[2,'Breakdown field strength of dry air','≈ 3 × 10⁶ V/m']
 ].map((c,i)=>({id:'c'+i,cat:c[0],front:c[1],back:c[2]}));
 const BOX_DAYS=[0,1,2,4,8,16,32];
 const NEW_PER_DAY=10;
@@ -205,7 +208,11 @@ const POTW=[
   '½mv² = GMm/R gives v = √(2gR) = √(2 × 9.8 × 6.4 × 10⁶) ≈ <b>11.2 km/s</b>. Energy is a scalar, so only speed matters: any direction that does not hit the planet escapes.'],
  ['A uniform rod of length L, pivoted at one end, is released from horizontal. What is the speed of its free end as it passes through the vertical?',
   'The centre of mass falls L/2: mg(L/2) = ½Iω² with I = mL²/3, so ω² = 3g/L. The tip moves at v = ωL = <b>√(3gL)</b>: faster than a ball dropped through the same height L (√(2gL)).']
-
+,
+ ['A ball is thrown upwards at 20 m/s from the top of a 25 m cliff, and misses the edge on the way down. When does it hit the ground below, and how fast is it going?',
+  'Taking up as positive: −25 = 20t − 4.9t², so 4.9t² − 20t − 25 = 0 and t = (20 + √890)/9.8 ≈ <b>5.1 s</b>. Energy (or v² = u² + 2as): v² = 20² + 2 × 9.8 × 25 = 890, so <b>v ≈ 29.8 m/s</b>, whatever the launch direction.'],
+ ['A uniform 4 m plank of mass 20 kg rests on two supports, each 1 m from an end. A 60 kg person walks out past one support. How far past it can they go before the plank tips?',
+  'At the point of tipping, the far support carries no load, so take moments about the near support. The plank\'s centre of mass is 1 m on the other side: 20g × 1 = 60g × x, giving <b>x = 1/3 m</b>. They can only go a third of a metre past the support, not to the end.']
 ];
 function weekIndex(){
   const d=new Date(),start=new Date(d.getFullYear(),0,1);

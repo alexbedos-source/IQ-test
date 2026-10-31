@@ -88,6 +88,10 @@ const AL_PHY_BANK=[
  ,[7,'When measuring a radioactive source\'s count rate, background radiation should be:',['Measured separately and subtracted','Ignored','Doubled','Added on'],'This gives the corrected count rate due to the source alone.']
  ,[7,'Binding energy is:',['The energy needed to separate a nucleus into its individual nucleons','The energy of an emitted alpha particle','The kinetic energy of the nucleons','The energy released in beta decay'],'It equals the mass defect × c².']
 
+ ,[0,'A systematic error:',['Shifts every reading by the same amount or proportion','Varies unpredictably between readings','Is reduced by averaging repeats','Only affects digital meters'],'For example a zero error. Repeating readings does not remove it.']
+ ,[0,'A micrometer reads to 0.01 mm. A wire\'s diameter is 0.52 mm, with uncertainty ±0.01 mm. The percentage uncertainty is about:',['2%','0.01%','5%','0.5%'],'0.01/0.52 × 100 ≈ 1.9%.']
+ ,[3,'At a fixed deceleration, braking distance depends on initial speed v as:',['v² (double the speed, four times the distance)','v','√v','It does not depend on speed'],'v² = 2as gives s ∝ v².']
+ ,[5,'The root-mean-square speed of gas molecules is proportional to:',['√T (absolute temperature)','T','T²','1/T'],'½m(c_rms)² = (3/2)kT.']
 ];
 const AL_PHY_GEN=[
  [4,()=>{const [a,b,r]=pick([[6,3,2],[12,4,3],[10,10,5],[20,5,4],[6,12,4],[30,6,5],[8,8,4],[15,10,6]]);
@@ -174,6 +178,12 @@ const AL_MATHS_BANK=[
  ,[8,'A strong correlation between two variables does not prove:',['That one causes the other','That they are related','That there is a trend','Anything about linearity'],'There may be a third factor or coincidence.']
  ,[9,'At the top of its path, a projectile has:',['Zero vertical velocity','Zero horizontal velocity','Zero acceleration','Its maximum speed'],'Acceleration is still g downwards.']
 
+ ,[1,'Two straight lines are parallel if they have:',['The same gradient','Gradients that multiply to −1','The same y-intercept','Gradients that add to zero'],'Perpendicular lines have gradients that multiply to −1.']
+ ,[1,'What is the midpoint of (2, 5) and (8, −1)?',['(5, 2)','(6, 3)','(10, 4)','(3, 3)'],'Average the coordinates: ((2 + 8)/2, (5 − 1)/2).']
+ ,[2,'A sequence has uₙ₊₁ = 2uₙ − 1 and u₁ = 3. What is u₃?',['9','5','7','11'],'u₂ = 2 × 3 − 1 = 5, then u₃ = 2 × 5 − 1 = 9.']
+ ,[6,'Find ∫ 1/(2x) dx.',['½ ln|x| + C','2 ln|x| + C','ln|x| + C','−1/(2x²) + C'],'Take out the constant ½, then ∫ 1/x dx = ln|x|.']
+ ,[7,'For a = 2i + 3j and b = 4i − j, what is a + b?',['6i + 2j','6i + 4j','8i − 3j','2i − 4j'],'Add the i and j components separately.']
+ ,[7,'The iteration xₙ₊₁ = g(xₙ) fails to converge to a root when, near the root:',['|g′(x)| > 1','g is continuous','The starting value is positive','The root is an integer'],'It converges when |g′(x)| < 1 near the root.']
 ];
 const AL_MATHS_GEN=[
  [0,()=>{let r1,r2;do{r1=rint(-7,7);r2=rint(-7,7);}while(!r1||!r2||r1===r2||r1===-r2);
@@ -311,6 +321,8 @@ const AL_ECON_BANK=[
  ,[7,'Under a floating exchange rate, a rise in UK interest rates is likely to:',['Strengthen the pound','Weaken the pound','Have no effect on the pound','Fix the value of the pound'],'Higher returns attract inflows of hot money.']
  ,[7,'The terms of trade compare:',['Average export prices with average import prices','Export volumes with import volumes','The exchange rate with inflation','Tariff levels between countries'],'Index of export prices ÷ index of import prices × 100.']
 
+ ,[6,'The main role of the Bank of England\'s Prudential Regulation Authority is to:',['Supervise banks and insurers so they stay safe and sound','Set Bank Rate','Collect taxes','Set the inflation target'],'The MPC sets Bank Rate; the government sets the inflation target.']
+ ,[6,'Primary markets differ from secondary markets because in primary markets:',['New securities are issued to raise funds','Existing shares are traded between investors','Only currencies are traded','Prices are set by the government'],'Secondary markets, such as the stock exchange, trade existing securities.']
 ];
 const AL_ECON_GEN=[
  [0,()=>{const p=pick([10,20,25,50]),q=pick([5,10,15,20,40]),ped=-(q/p);

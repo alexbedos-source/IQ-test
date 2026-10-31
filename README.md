@@ -7,7 +7,7 @@ A phone-installable web app for physics interview preparation, daily maths/physi
 | Section | What it does |
 |---|---|
 | Mock interview | Two problems back to back, think-aloud timer, hints, tutor follow-ups, optional voice recording, self-review |
-| Physics questions | 60 open-ended Oxford-style questions with hints, worked answers and follow-ups |
+| Physics questions | 72 open-ended Oxford-style questions with hints, worked answers and follow-ups |
 | Problem of the week | A harder olympiad-style problem that changes weekly |
 | Daily drill | Ten generated questions (arithmetic, standard form, orders of magnitude, calculus, units, graphs) with a streak |
 | Flashcards | Constants, formulas, magnitudes and maths with spaced repetition |
