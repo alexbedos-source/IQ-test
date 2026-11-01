@@ -52,7 +52,9 @@ V:[
  [0.2,'Which word is closest in meaning to DILIGENT?',['Hard-working','Lazy','Clever','Polite'],'Diligent means showing care and effort in work.'],
  [0.9,'Which word is the opposite of GREGARIOUS?',['Solitary','Sociable','Loud','Generous'],'Gregarious means fond of company.'],
  [0.4,'Which word is closest in meaning to PRAGMATIC?',['Practical','Idealistic','Lazy','Cheerful'],'Pragmatic means dealing with things sensibly and realistically.'],
- [1.1,'Which word is the opposite of LOQUACIOUS?',['Reticent','Talkative','Lively','Fluent'],'Loquacious means very talkative; reticent means reserved.']
+ [1.1,'Which word is the opposite of LOQUACIOUS?',['Reticent','Talkative','Lively','Fluent'],'Loquacious means very talkative; reticent means reserved.'],
+ [0.3,'Which word is closest in meaning to METHODICAL?',['Systematic','Chaotic','Quick','Emotional'],'Methodical means done in an orderly, systematic way.'],
+ [1.3,'Which word is the opposite of TRUCULENT?',['Gentle','Aggressive','Truthful','Stubborn'],'Truculent means eager to argue or fight.']
 ],
 Q:[
  [-1.9,'What is 25% of 80?',['20','25','40','16'],'25% is a quarter, and a quarter of 80 is 20.'],
@@ -101,7 +103,9 @@ Q:[
  [0.0,'What is 15 × 16?',['240','225','256','210'],'15 × 16 = 15 × 15 + 15 = 240.'],
  [0.8,'A £60 item is reduced by 15%. What is the new price?',['£51','£45','£54','£52.50'],'15% of £60 is £9, and £60 − £9 = £51.'],
  [0.3,'What is 3/8 as a percentage?',['37.5%','38%','35%','3.8%'],'3 ÷ 8 = 0.375.'],
- [1.0,'What is the sum of the interior angles of an octagon?',['1080°','900°','1260°','720°'],'(n − 2) × 180° = 6 × 180° = 1080°.']
+ [1.0,'What is the sum of the interior angles of an octagon?',['1080°','900°','1260°','720°'],'(n − 2) × 180° = 6 × 180° = 1080°.'],
+ [-0.2,'What is 0.25 × 48?',['12','24','10','16'],'A quarter of 48 is 12.'],
+ [0.9,'A 200 m train passes completely through a 400 m station at 20 m/s. How long does it take?',['30 s','20 s','10 s','40 s'],'The front must travel 400 + 200 = 600 m: 600 ÷ 20 = 30 s.']
 ],
 L:[
  [-1.8,'All cats have whiskers. Tibbles is a cat. Which must be true?',['Tibbles has whiskers','Tibbles is not a cat','Every animal with whiskers is a cat','Tibbles has no whiskers'],'Tibbles is a cat, and all cats have whiskers.'],
@@ -146,6 +150,8 @@ L:[
  [0.1,'All squares are rectangles, and all rectangles have four sides. Which must be true?',['All squares have four sides','All four-sided shapes are squares','All rectangles are squares','No squares are rectangles'],'Squares sit inside rectangles, which all have four sides.'],
  [0.9,'Five people sit in a row. A is to the left of B but to the right of C. D is to the right of B. E is at the left end. Who sits in the middle?',['A','B','C','D'],'The order is E, C, A, B, D.'],
  [0.4,'All poets are dreamers. No dreamers are accountants. Which must be true?',['No poets are accountants','Some accountants are poets','All dreamers are poets','Some poets are accountants'],'Every poet is a dreamer, and no dreamer is an accountant.'],
- [1.1,'Ann says "Bob is lying." Bob says "Cat is lying." Cat says "Ann and Bob are both lying." Who is telling the truth?',['Only Bob','Only Ann','Only Cat','Ann and Cat'],'If Bob lied, Ann and Cat would both be truthful, but Cat\'s claim would then be false. So Bob is truthful, and Ann and Cat are lying, which is consistent.']
+ [1.1,'Ann says "Bob is lying." Bob says "Cat is lying." Cat says "Ann and Bob are both lying." Who is telling the truth?',['Only Bob','Only Ann','Only Cat','Ann and Cat'],'If Bob lied, Ann and Cat would both be truthful, but Cat\'s claim would then be false. So Bob is truthful, and Ann and Cat are lying, which is consistent.'],
+ [0.0,'All squares are rhombuses. Shape X is not a rhombus. Which must be true?',['X is not a square','X is a square','X is a rectangle','Nothing follows'],'If X were a square, it would have to be a rhombus.'],
+ [-0.6,'In a code, CAT is written DBU. How is DOG written?',['EPH','CNF','EOH','DPH'],'Each letter moves one place forward in the alphabet.']
 ]
 };

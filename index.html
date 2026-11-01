@@ -171,6 +171,12 @@ details.rev p{margin-top:6px;font-size:.92rem;color:var(--muted)}
 .brand{display:flex;align-items:center;gap:10px}
 .brand svg{width:34px;height:34px;filter:drop-shadow(0 0 6px rgba(255,122,26,.45))}
 .hubsec>.eyebrow{color:var(--accent)}
+.today{display:flex;flex-direction:column;gap:2px;border-color:color-mix(in srgb,var(--accent) 45%,var(--line));background:linear-gradient(180deg,#1d1610,#141414)}
+.today .eyebrow{color:var(--accent);margin-bottom:4px}
+.trow{display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;background:none;border:0;border-top:1px solid var(--line);padding:11px 0;cursor:pointer;font-weight:500;text-align:left}
+.trow:first-of-type{border-top:0}
+.trow .tv{color:var(--accent);font:500 .88rem var(--mono)}
+.tdone{color:var(--good);font-weight:500}
 .hubcard{background:linear-gradient(180deg,#1a1a1a,#131313);border-color:#2b2b2b}
 .hubcard:active{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
 .btn{box-shadow:0 2px 14px rgba(255,122,26,.18)}
@@ -293,7 +299,7 @@ body.sp-open #scratchbtn,body.vp-open #scratchbtn{display:none}
 /* Start-up safety net: if anything fails while the app loads (for example a stale cached file after an update),
    clear the offline cache and reload once automatically. If it still fails, show a repair button.
    Progress (localStorage) is never touched. */
-window.IQ_V='12';
+window.IQ_V='13';
 (function(){
   let started=false;window.addEventListener('iq-started',()=>{started=true;});
   async function repair(){
@@ -322,18 +328,18 @@ window.IQ_V='12';
 <header class="tb" id="tb"><button id="backbtn" aria-label="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button></header>
 <main class="wrap" id="app"></main>
 
-<script src="iq-bank.js?v=12"></script>
-<script src="physics.js?v=12"></script>
-<script src="interview.js?v=12"></script>
-<script src="drill.js?v=12"></script>
-<script src="learn.js?v=12"></script>
-<script src="tools.js?v=12"></script>
-<script src="alevel.js?v=12"></script>
-<script src="videos.js?v=12"></script>
-<script src="mistakes.js?v=12"></script>
-<script src="backup.js?v=12"></script>
-<script src="practicals.js?v=12"></script>
-<script src="scratch.js?v=12"></script>
+<script src="iq-bank.js?v=13"></script>
+<script src="physics.js?v=13"></script>
+<script src="interview.js?v=13"></script>
+<script src="drill.js?v=13"></script>
+<script src="learn.js?v=13"></script>
+<script src="tools.js?v=13"></script>
+<script src="alevel.js?v=13"></script>
+<script src="videos.js?v=13"></script>
+<script src="mistakes.js?v=13"></script>
+<script src="backup.js?v=13"></script>
+<script src="practicals.js?v=13"></script>
+<script src="scratch.js?v=13"></script>
 <script>
 /* =====================  helpers  ===================== */
 const rnd=n=>Math.floor(Math.random()*n);
@@ -791,6 +797,16 @@ function leave(){
   cleanups.splice(0).forEach(f=>{try{f();}catch(e){}});
 }
 
+/* "Due today": one card listing everything waiting, each row opens the right screen */
+function todayHtml(dr,drDone,cardsDueN,mistakesN){
+  const pd=phyDueList(PHY).length,rows=[];
+  if(!drDone)rows.push(['tdrill','Daily drill',drillStreak(dr)?'keep your '+drillStreak(dr)+'-day streak':'not done yet']);
+  if(cardsDueN)rows.push(['tcards','Flashcards',cardsDueN+' due']);
+  if(pd)rows.push(['tphy','Interview reviews',pd+' due']);
+  if(mistakesN)rows.push(['tmb','Mistakes',mistakesN+' to review']);
+  return '<div class="card today"><p class="eyebrow">Due today</p>'+(rows.length?rows.map(r=>'<button class="trow" id="'+r[0]+'"><span>'+r[1]+'</span><span class="tv">'+r[2]+' ›</span></button>').join(''):
+    '<p class="tdone">✓ All caught up for today</p>')+'</div>';
+}
 function home(){
   leave();setBack(null);
   const dr=drillState(),drDone=!!dr.days[dayKey()],cd=cardsDue(cardState()),due=cd.due.length+cd.fresh.length,nmb=mbList().length;
@@ -798,6 +814,7 @@ function home(){
   app.innerHTML=
   '<div class="stack">'+
   '<div class="stack" style="gap:8px"><p class="eyebrow">Train · Prepare · Test</p><h1 class="brand"><svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="emb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd166"/><stop offset=".55" stop-color="#ff7a1a"/><stop offset="1" stop-color="#ff3d2e"/></linearGradient></defs><path d="M50 8 L94 88 L6 88 Z M50 36 L27 77 L73 77 Z" fill="url(#emb)" fill-rule="evenodd"/></svg>Delta</h1></div>'+
+  todayHtml(dr,drDone,due,nmb)+
   '<div class="hubsec"><p class="eyebrow">Interview prep</p>'+
    card('hiv','Mock interview','Two problems, think aloud, tutor follow-ups, then review yourself.')+
    '<div class="hubgrid">'+card('hphy','Physics questions',PHY.length+' open-ended questions with hints',phyDueList(PHY).length?phyDueList(PHY).length+' due':'')+card('hpotw','Problem of the week','A harder problem to chew on')+'</div></div>'+
@@ -816,8 +833,8 @@ function home(){
   '<div class="hubsec"><p class="eyebrow">Intelligence</p>'+
    card('hiq','IQ test','Seven abilities · 5, 10 or 30 minutes')+'</div>'+
   '</div>';
-  const go={hrp:rpHome,hvid:videosHome,hmb:mbHome,hbk:backupHome,alphy:()=>alSubject(0,home),almaths:()=>alSubject(1,home),alecon:()=>alSubject(2,home),alall:alHome,hiv:ivHome,hphy:phyHome,hpotw:potwHome,hdrill:drillHome,hcards:cardsHome,htopics:topicsHome,hres:resourcesHome,hstudy:studyHome,hprog:progressHome,hiq:iqHome};
-  for(const id in go)document.getElementById(id).onclick=go[id];
+  const go={tdrill:drillHome,tcards:cardsHome,tphy:phyHome,tmb:mbHome,hrp:rpHome,hvid:videosHome,hmb:mbHome,hbk:backupHome,alphy:()=>alSubject(0,home),almaths:()=>alSubject(1,home),alecon:()=>alSubject(2,home),alall:alHome,hiv:ivHome,hphy:phyHome,hpotw:potwHome,hdrill:drillHome,hcards:cardsHome,htopics:topicsHome,hres:resourcesHome,hstudy:studyHome,hprog:progressHome,hiq:iqHome};
+  for(const id in go){const el=document.getElementById(id);if(el)el.onclick=go[id];}
   window.scrollTo(0,0);
 }
 
