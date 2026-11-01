@@ -1,6 +1,6 @@
-# IQ Lab (IQ-test repo)
+# Delta (IQ-test repo)
 
-Personal project: a phone-installable web app ("IQ Lab") that trains the owner for an Oxford/Imperial physics interview
+Personal project: a phone-installable web app ("Delta", formerly "IQ Lab") that trains the owner for an Oxford/Imperial physics interview
 and broader physics/maths fluency, plus an IQ test for them and friends. The owner is in Year 13; their personal statement
 and admissions test are done, so **interview preparation (Oxford Physics) is the priority**. They use it on an iPhone from the home screen.
 They do not want a friend-challenge / shared-test feature.
@@ -28,6 +28,7 @@ Later goal (not started): video explanations for questions answered wrongly.
   - Plus `sw.js`, `manifest.webmanifest`, `icons/`.
 - Every top-level screen calls `leave()` first; modules push teardown functions onto `cleanups` (timers, microphone).
 - **Back arrow:** `leave()` points the top-left arrow at `home`; any sub-screen must call `setBack(fn)` with its parent screen (use a `confirm()` wrapper when leaving would lose a running test). Every new screen needs this.
+- Look: Delta "Ember" icon (orange–amber Δ on black); the app theme is black and orange in all modes. The backup format id stays `iq-lab` so older backups still restore.
 - Hosted on GitHub Pages from `main` at https://alexbedos-source.github.io/IQ-test/ and added to the iPhone home screen as a PWA.
 - **Workflow:** make changes on a branch, open a PR to `main`; the owner merges from the GitHub app. Never push straight to `main`.
 - **Versioning (important, a mistake here blanks the app):** every script tag in `index.html` has `?v=N`, `window.IQ_V` is `'N'`, and `V` in `sw.js` is `'N'`. Bump all three together on every change. New script files must use `?v=N` in `index.html` and be added to `FILES` in `sw.js`. The service worker is network-first, so phones get updates as soon as they are online.
