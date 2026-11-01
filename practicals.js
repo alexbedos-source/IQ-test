@@ -181,10 +181,10 @@ function rqRender(){
   app.innerHTML=
   '<div class="stack"><div class="top"><span class="count">'+(RQ.k+1)+' / '+RQ.items.length+'</span><span class="eyebrow">'+RPS[it.ri].t+'</span></div>'+
   '<div class="bar"><i style="width:'+(RQ.k/RQ.items.length*100)+'%"></i></div>'+
-  '<div class="card"><p class="prompt">'+it.prompt+'</p><div class="opts">'+it.opts.map((o,k)=>'<button class="opt" data-k="'+k+'"><span class="k">'+LETTERS[k]+'</span><span>'+o.h+'</span></button>').join('')+'</div><div id="rqfb"></div></div></div>';
+  '<div class="card"><p class="prompt">'+it.prompt+'</p>'+qTools(it,'Required practical · '+RPS[it.ri].t)+'<div class="opts">'+it.opts.map((o,k)=>'<button class="opt" data-k="'+k+'"><span class="k">'+LETTERS[k]+'</span><span>'+o.h+'</span></button>').join('')+'</div><div id="rqfb"></div></div></div>';
   const btns=[...app.querySelectorAll('.opt')];
   btns.forEach(b=>b.onclick=()=>{
-    const k=+b.dataset.k,ok=it.opts[k].ok;
+    const k=+b.dataset.k,ok=it.opts[k].ok;confRecord(ok);
     btns.forEach((x,j)=>{x.disabled=true;if(it.opts[j].ok)x.classList.add('right');});
     if(!ok)b.classList.add('wrong');
     if(ok)RQ.ok++;

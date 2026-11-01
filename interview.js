@@ -5,6 +5,27 @@
 
 const IV_CRIT=[['clear','Explained my thinking out loud'],['assume','Stated assumptions and simplified'],['hints','Used hints and moved forward'],['check','Checked units and sanity of the answer']];
 let iv=null;
+/* Tutor twists: after you answer, the tutor changes a condition. [twist, what a good response does], by topic. */
+const IV_TWISTS=[
+ [['Your estimate turns out to be ten times too big. Which assumption would you revisit first, and why?','Name the least certain input, say how it scales the answer, and suggest one measurement that would pin it down.'],
+  ['How would you improve your estimate if you could make one quick measurement?','Pick the input with the biggest uncertainty and describe a simple, practical way to measure it.']],
+ [['Now include air resistance. What changes, qualitatively?','Say which quantities shrink or shift, whether the answer still depends on mass, and what happens at low and high speed.'],
+  ['What if the whole experiment were done on the Moon?','Identify which results depend on g (times, heights, forces) and how each scales when g is six times smaller.'],
+  ['Double the mass. Which of your results change, and which stay the same?','Separate mass-independent results (free-fall times, many speeds) from those that scale with mass (forces, energies, momenta).']],
+ [['What happens in the limit of very large x, or very small x?','Find the dominant term, simplify, and check that it matches the behaviour you found or sketched.'],
+  ['Can you check your answer with a simple special case?','Substitute an easy value (0, 1, a symmetric case) and confirm that the result makes sense.']],
+ [['What if the wave travelled through water instead of air?','Say how the wave speed changes and therefore what happens to the wavelength at fixed frequency, and any effect on diffraction or refraction.'],
+  ['What if the frequency were doubled?','Track wavelength, speed (medium-dependent), and any frequency-dependent effects such as scattering or diffraction.']],
+ [['Replace the DC supply with AC. What changes?','Discuss induced effects (inductance, eddy currents), time-varying forces, and whether averages or peak values matter.'],
+  ['Double all the charges (or currents). How do the forces and energies scale?','Use the formula: forces go as q₁q₂ or I² and energies similarly, so say the scaling factor explicitly.']],
+ [['What if the process happened twice as fast?','Discuss whether there is time for heat to flow (adiabatic versus isothermal) and how that changes temperatures or efficiency.'],
+  ['Now do it in a vacuum. What changes?','Remove conduction and convection through air, leaving radiation, and say how much slower or faster heat transfer would be.']],
+ [['What would change on a planet with twice the Earth\'s radius but the same density?','Use g ∝ ρR, so g doubles; then follow the effect through orbits, escape speed or whatever the problem used.'],
+  ['What if the star were twice as massive at the same distance?','Use the formula: orbital speed ∝ √M and period ∝ 1/√M, and say how the other results scale.']],
+ [['How would you test your explanation with a simple experiment at home?','Propose a controlled experiment: change one variable, keep the others fixed, and predict the result if your explanation is right.'],
+  ['Give another everyday example of the same physics.','Spot the underlying principle and find a different situation where it is the key idea, explaining briefly why.']]
+];
+function ivTwist(q){const t=IV_TWISTS[q.t]||IV_TWISTS[7];return pick(t);}
 
 function ivHistory(){return loadJSON('iv-history',[]);}
 function ivStopRec(){
@@ -23,6 +44,7 @@ function ivHome(){
   '<div class="card stack"><h2>Setup</h2>'+
    '<div class="chips" id="ivlevel">'+[['Mixed',0],['Gentler',1],['Harder',3]].map(([n,v],i)=>'<button class="chip'+(i===0?' on':'')+'" data-l="'+v+'">'+n+'</button>').join('')+'</div>'+
    '<label class="tog"><input type="checkbox" id="ivrec"> Record my voice so I can listen back</label>'+
+   '<label class="tog"><input type="checkbox" id="ivtw" checked> Tutor twists: the tutor changes the problem after you answer</label>'+
    '<p class="note">Recording stays on this phone during the session only. Nothing is uploaded. If your phone blocks the microphone, the interview still works without it.</p></div>'+
   '<button class="btn" id="ivgo">Start mock interview</button>'+
   '<div class="card stack"><h2>Real interview tips</h2><ul class="rules">'+
@@ -37,7 +59,7 @@ function ivHome(){
   '</div>';
   let level=0;
   app.querySelectorAll('#ivlevel .chip').forEach(b=>b.onclick=()=>{level=+b.dataset.l;app.querySelectorAll('#ivlevel .chip').forEach(c=>c.classList.toggle('on',c===b));});
-  document.getElementById('ivgo').onclick=()=>ivStart(level,document.getElementById('ivrec').checked);
+  document.getElementById('ivgo').onclick=()=>ivStart(level,document.getElementById('ivrec').checked,document.getElementById('ivtw').checked);
   document.getElementById('ivback').onclick=home;
 }
 
@@ -49,8 +71,9 @@ function ivPick(level){
   return [a,pick(rest.length?rest:pool.filter(q=>q.id!==a.id))];
 }
 
-async function ivStart(level,record){
+async function ivStart(level,record,twists){
   iv={qs:ivPick(level),k:0,stage:'main',hints:[0,0],times:[0,0],fu:0,t0:Date.now(),qt0:Date.now(),chunks:[],audio:null};
+  iv.tw=twists?iv.qs.map(ivTwist):null;
   cleanups.push(ivCleanup);
   if(record&&navigator.mediaDevices&&window.MediaRecorder){
     try{
@@ -74,6 +97,9 @@ function ivRender(){
   if(iv.stage==='main'){
     body='<p class="prompt">'+q.q+'</p><div id="ivh" class="stack" style="gap:10px">'+
       q.h.slice(0,iv.hints[iv.k]).map((h,i)=>'<div class="hint"><b>Hint '+(i+1)+'</b><p>'+h+'</p></div>').join('')+'</div>';
+  }else if(iv.stage==='twist'){
+    body='<p class="note">Original question: '+q.q+'</p><p class="eyebrow" style="margin-top:6px">Twist: the tutor changes the problem</p><p class="prompt">'+iv.tw[iv.k][0]+'</p>'+
+      '<p class="note">Say out loud what changes, what stays the same, and check a limiting case.</p>';
   }else{
     const f=q.f[iv.fu];
     body='<p class="note">Original question: '+q.q+'</p><p class="eyebrow" style="margin-top:6px">The tutor follows up</p><p class="prompt">'+f[0]+'</p>';
@@ -83,14 +109,16 @@ function ivRender(){
   '<div class="top"><span class="count">Problem '+(iv.k+1)+' of '+iv.qs.length+'</span><span class="timer" id="ivclock">'+fmt((Date.now()-iv.qt0)/1000)+'</span></div>'+
   '<div class="ivbar">'+recBadge+'<span class="note">Aim for about 8–10 minutes per problem</span></div>'+
   '<div class="card stack"><p class="eyebrow">'+PHY_TOPICS[q.t]+'</p>'+body+'</div>'+
-  (iv.stage==='main'?
+  (iv.stage==='twist'?'<button class="btn" id="ivtwok">I\'ve answered the twist</button>':iv.stage==='main'?
     '<div class="row2"><button class="btn ghost" id="ivhint"'+(iv.hints[iv.k]>=q.h.length?' disabled':'')+'>'+(iv.hints[iv.k]>=q.h.length?'No more hints':'Ask for a hint')+'</button><button class="btn" id="ivdone">I\'ve answered</button></div>':
     '<button class="btn" id="ivnext">'+(iv.fu+1<q.f.length?'Next follow-up':iv.k+1<iv.qs.length?'Next problem':'Finish and review')+'</button>')+
   '<button class="btn ghost" id="ivquit">End interview</button>'+
   '</div>';
   if(iv.stage==='main'){
     $('ivhint').onclick=()=>{iv.hints[iv.k]++;ivRender();};
-    $('ivdone').onclick=()=>{iv.stage='follow';iv.fu=0;ivRender();};
+    $('ivdone').onclick=()=>{iv.stage=iv.tw?'twist':'follow';iv.fu=0;ivRender();};
+  }else if(iv.stage==='twist'){
+    $('ivtwok').onclick=()=>{iv.stage='follow';iv.fu=0;ivRender();};
   }else{
     $('ivnext').onclick=()=>{
       if(iv.fu+1<q.f.length){iv.fu++;ivRender();return;}
@@ -115,6 +143,7 @@ function ivReview(){
    '<p class="note">Listen for: long silences, unexplained jumps, and whether you said your assumptions out loud. The recording disappears when you leave this screen.</p></div>':'')+
   iv.qs.map((q,i)=>'<div class="card stack"><p class="eyebrow">Problem '+(i+1)+' · '+fmt(iv.times[i])+' · '+iv.hints[i]+' hint'+(iv.hints[i]===1?'':'s')+'</p><p class="prompt">'+q.q+'</p>'+
     '<details class="fu"><summary>Worked answer</summary><div class="answer">'+q.a+'</div></details>'+
+    (iv.tw&&iv.tw[i]?'<details class="fu"><summary>Twist: '+iv.tw[i][0]+'</summary><p>A strong answer: '+iv.tw[i][1]+'</p></details>':'')+
     q.f.map(f=>'<details class="fu"><summary>Follow-up: '+f[0]+'</summary><p>'+f[1]+'</p></details>').join('')+'</div>').join('')+
   '<div class="card stack"><h2>Rate yourself</h2>'+
    IV_CRIT.map(([k,n])=>'<div class="crit"><span>'+n+'</span><div class="stars" data-k="'+k+'">'+[1,2,3,4,5].map(v=>'<button data-v="'+v+'">'+v+'</button>').join('')+'</div></div>').join('')+

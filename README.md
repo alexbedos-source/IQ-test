@@ -20,6 +20,10 @@ A phone-installable web app for physics interview preparation, daily maths/physi
 | Required practicals | All 12 AQA Physics practicals with method, variables, analysis, accuracy, safety and quizzes |
 | Scratchpad | Pen button on question screens for working with your finger, on paper or over the page |
 | Backup | Save all progress to a file (Files / iCloud Drive) and restore it |
+| Mixed 15 | Fifteen questions interleaved across all subjects, drill skills and flashcards |
+| Sketch the graph | Sketch a function on the pad with axes, then compare with the real graph and its key features |
+| Confidence check | Say how sure you are before answering; the Progress page shows your calibration |
+| Report a question | ⚑ on any question opens a pre-filled GitHub issue so it gets fixed in the next update |
 
 ### IQ test
 Three lengths, all at 20 seconds per question:

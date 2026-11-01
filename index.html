@@ -177,6 +177,17 @@ details.rev p{margin-top:6px;font-size:.92rem;color:var(--muted)}
 .trow:first-of-type{border-top:0}
 .trow .tv{color:var(--accent);font:500 .88rem var(--mono)}
 .tdone{color:var(--good);font-weight:500}
+/* confidence + report row */
+.qtools{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:14px;flex-wrap:wrap}
+.conf{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.conf button{border:1.5px solid var(--line);background:transparent;color:var(--ink);border-radius:999px;padding:5px 11px;font:500 .8rem var(--display);cursor:pointer}
+.conf button.on{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 18%,transparent);color:var(--accent)}
+.conf button:disabled{opacity:.6}
+.qflag{border:0;background:none;color:var(--muted);font:500 .8rem var(--display);cursor:pointer;padding:6px 2px}
+#rsheet{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.6);display:flex;align-items:flex-end;justify-content:center}
+#rsheet .rs-box{background:var(--surface);border:1px solid var(--line);border-radius:18px 18px 0 0;padding:20px 16px max(20px,env(safe-area-inset-bottom));width:100%;max-width:560px}
+/* graph sketching: faint axes on the scratchpad */
+#scratch.axes canvas{background-image:linear-gradient(var(--muted),var(--muted)),linear-gradient(var(--muted),var(--muted)),radial-gradient(var(--line) 1px,transparent 1px);background-size:100% 1.5px,1.5px 100%,22px 22px;background-position:center,center,0 0;background-repeat:no-repeat,no-repeat,repeat}
 .hubcard{background:linear-gradient(180deg,#1a1a1a,#131313);border-color:#2b2b2b}
 .hubcard:active{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
 .btn{box-shadow:0 2px 14px rgba(255,122,26,.18)}
@@ -256,6 +267,7 @@ body.vp-open{overflow:hidden}
 /* scratchpad */
 #scratchbtn{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom));z-index:15;width:54px;height:54px;border-radius:50%;border:0;background:var(--accent);box-shadow:0 4px 14px rgba(0,0,0,.25);display:none;place-items:center;cursor:pointer}
 #scratchbtn.show{display:grid}
+body:has(#scratchbtn.show) .wrap{padding-bottom:96px}
 #scratchbtn svg{width:26px;height:26px;fill:none;stroke:var(--accent-ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 body.sp-open #scratchbtn,body.vp-open #scratchbtn{display:none}
 #scratch{position:fixed;inset:0;z-index:25;display:none;flex-direction:column;background:var(--surface)}
@@ -299,7 +311,7 @@ body.sp-open #scratchbtn,body.vp-open #scratchbtn{display:none}
 /* Start-up safety net: if anything fails while the app loads (for example a stale cached file after an update),
    clear the offline cache and reload once automatically. If it still fails, show a repair button.
    Progress (localStorage) is never touched. */
-window.IQ_V='13';
+window.IQ_V='14';
 (function(){
   let started=false;window.addEventListener('iq-started',()=>{started=true;});
   async function repair(){
@@ -328,18 +340,19 @@ window.IQ_V='13';
 <header class="tb" id="tb"><button id="backbtn" aria-label="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button></header>
 <main class="wrap" id="app"></main>
 
-<script src="iq-bank.js?v=13"></script>
-<script src="physics.js?v=13"></script>
-<script src="interview.js?v=13"></script>
-<script src="drill.js?v=13"></script>
-<script src="learn.js?v=13"></script>
-<script src="tools.js?v=13"></script>
-<script src="alevel.js?v=13"></script>
-<script src="videos.js?v=13"></script>
-<script src="mistakes.js?v=13"></script>
-<script src="backup.js?v=13"></script>
-<script src="practicals.js?v=13"></script>
-<script src="scratch.js?v=13"></script>
+<script src="iq-bank.js?v=14"></script>
+<script src="physics.js?v=14"></script>
+<script src="interview.js?v=14"></script>
+<script src="drill.js?v=14"></script>
+<script src="learn.js?v=14"></script>
+<script src="tools.js?v=14"></script>
+<script src="alevel.js?v=14"></script>
+<script src="videos.js?v=14"></script>
+<script src="mistakes.js?v=14"></script>
+<script src="backup.js?v=14"></script>
+<script src="practicals.js?v=14"></script>
+<script src="extras.js?v=14"></script>
+<script src="scratch.js?v=14"></script>
 <script>
 /* =====================  helpers  ===================== */
 const rnd=n=>Math.floor(Math.random()*n);
@@ -817,7 +830,7 @@ function home(){
   todayHtml(dr,drDone,due,nmb)+
   '<div class="hubsec"><p class="eyebrow">Interview prep</p>'+
    card('hiv','Mock interview','Two problems, think aloud, tutor follow-ups, then review yourself.')+
-   '<div class="hubgrid">'+card('hphy','Physics questions',PHY.length+' open-ended questions with hints',phyDueList(PHY).length?phyDueList(PHY).length+' due':'')+card('hpotw','Problem of the week','A harder problem to chew on')+'</div></div>'+
+   '<div class="hubgrid">'+card('hphy','Physics questions',PHY.length+' open-ended questions with hints',phyDueList(PHY).length?phyDueList(PHY).length+' due':'')+card('hpotw','Problem of the week','A harder problem to chew on')+card('hsk','Sketch the graph','Draw it, then compare')+'</div></div>'+
   '<div class="hubsec"><p class="eyebrow">A-levels</p><div class="hubgrid">'+
    card('alphy','Physics','AQA')+card('almaths','Maths','Edexcel')+card('alecon','Economics','AQA')+card('alall','All subjects','Accuracy by topic')+
    card('hrp','Required practicals','All 12 AQA Physics practicals')+card('hvid','Video lessons',VIDEOS.length+' narrated lessons')+'</div></div>'+
@@ -825,6 +838,7 @@ function home(){
    card('hdrill','Daily drill','10 quick questions',drDone?'✓ done today':(drillStreak(dr)?drillStreak(dr)+'-day streak':'Start a streak'),drDone)+
    card('hcards','Flashcards','AQA Physics definitions and facts',due?due+' due':'✓ all done',!due)+
    card('hmb','Review mistakes','Questions you got wrong',nmb?nmb+' to review':'',false)+
+   card('hmix','Mixed 15','All subjects shuffled together')+
    card('htopics','Bridging topics','First-year ideas, made simple')+
    card('hres','Resources','Trusted free links')+'</div></div>'+
   '<div class="hubsec"><p class="eyebrow">Study tools</p><div class="hubgrid">'+
@@ -833,7 +847,7 @@ function home(){
   '<div class="hubsec"><p class="eyebrow">Intelligence</p>'+
    card('hiq','IQ test','Seven abilities · 5, 10 or 30 minutes')+'</div>'+
   '</div>';
-  const go={tdrill:drillHome,tcards:cardsHome,tphy:phyHome,tmb:mbHome,hrp:rpHome,hvid:videosHome,hmb:mbHome,hbk:backupHome,alphy:()=>alSubject(0,home),almaths:()=>alSubject(1,home),alecon:()=>alSubject(2,home),alall:alHome,hiv:ivHome,hphy:phyHome,hpotw:potwHome,hdrill:drillHome,hcards:cardsHome,htopics:topicsHome,hres:resourcesHome,hstudy:studyHome,hprog:progressHome,hiq:iqHome};
+  const go={hsk:sketchHome,hmix:mixedHome,tdrill:drillHome,tcards:cardsHome,tphy:phyHome,tmb:mbHome,hrp:rpHome,hvid:videosHome,hmb:mbHome,hbk:backupHome,alphy:()=>alSubject(0,home),almaths:()=>alSubject(1,home),alecon:()=>alSubject(2,home),alall:alHome,hiv:ivHome,hphy:phyHome,hpotw:potwHome,hdrill:drillHome,hcards:cardsHome,htopics:topicsHome,hres:resourcesHome,hstudy:studyHome,hprog:progressHome,hiq:iqHome};
   for(const id in go){const el=document.getElementById(id);if(el)el.onclick=go[id];}
   window.scrollTo(0,0);
 }
