@@ -576,7 +576,7 @@ function phyHome(){
 }
 
 function phyQuestion(q){
-  clearInterval(phyTick);setBack(phyHome);
+  clearInterval(phyTick);setBack(phyHome);setScratch(true);
   let shown=0,end=0;
   app.innerHTML=
   '<div class="stack">'+

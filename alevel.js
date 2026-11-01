@@ -395,6 +395,7 @@ function alSubject(si,from){
 }
 function alRender(){
   const s=AL_SUBJECTS[AL.si],it=AL.items[AL.i];
+  setScratch(true);
   setBack(()=>{if(confirm('Leave this quiz? Answers so far are kept in your stats.'))alSubject(AL.si);});
   app.innerHTML=
   '<div class="stack"><div class="top"><span class="count">'+(AL.i+1)+' / '+AL.items.length+'</span><span class="eyebrow">'+s.topics[it.topic]+'</span></div>'+
@@ -407,13 +408,16 @@ function alRender(){
     if(!ok)b.classList.add('wrong');
     const st=alStats(),ss=st[s.key]=st[s.key]||{},t=ss[it.topic]=ss[it.topic]||{ok:0,n:0};t.n++;if(ok)t.ok++;saveJSON('alevel',st);
     if(ok)AL.ok++;
-    (AL.res=AL.res||[]).push({ok,prompt:it.prompt,chosen:it.opts[k].h,right:it.right,explain:it.explain});
+    const link={vid:videoFor(s.key,it.topic),yt:SUBJ_BOARD[s.key]+' '+s.topics[it.topic]+' explained'};
+    (AL.res=AL.res||[]).push(Object.assign({ok,prompt:it.prompt,chosen:it.opts[k].h,right:it.right,explain:it.explain},link));
+    if(!ok)mbAdd(Object.assign({src:s.name+' · '+s.topics[it.topic],prompt:it.prompt,right:it.right,wrong:it.wrong,explain:it.explain},link));
     document.getElementById('alfb').innerHTML='<div class="fb"><b class="'+(ok?'ok':'no')+'">'+(ok?'Correct.':'Not quite.')+'</b><p class="note">'+it.explain+'</p><button class="btn" id="alnx">'+(AL.i+1<AL.items.length?'Next':'Finish')+'</button></div>';
     document.getElementById('alnx').onclick=()=>{AL.i++;if(AL.i<AL.items.length)alRender();else alDone();};
   });
   window.scrollTo(0,0);
 }
 function alDone(){
+  setScratch(false);
   setBack(()=>alSubject(AL.si));
   app.innerHTML='<div class="stack"><p class="eyebrow">'+AL_SUBJECTS[AL.si].name+'</p><h1>'+AL.ok+' / '+AL.items.length+'</h1>'+
    reviewHtml(AL.res||[])+

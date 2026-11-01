@@ -15,6 +15,11 @@ A phone-installable web app for physics interview preparation, daily maths/physi
 | Study timer / Progress / Resources | Focus timer logged by subject, a dashboard of all stats, curated free links |
 | IQ test | Seven abilities, 5/10/30 minute modes, plus a 60 s processing-speed check |
 | A-level practice | AQA Physics, Edexcel Maths and AQA Economics by specification topic: written questions plus generated calculations |
+| Video lessons | 27 narrated lessons (one per A-level topic) played in the app; wrong answers link to the matching lesson and to YouTube |
+| Review mistakes | Every wrong answer is saved and comes back until answered correctly twice in a row |
+| Required practicals | All 12 AQA Physics practicals with method, variables, analysis, accuracy, safety and quizzes |
+| Scratchpad | Pen button on question screens for working with your finger, on paper or over the page |
+| Backup | Save all progress to a file (Files / iCloud Drive) and restore it |
 
 ### IQ test
 Three lengths, all at 20 seconds per question:

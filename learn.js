@@ -225,7 +225,7 @@ function topicsHome(){
   document.getElementById('tback').onclick=home;
 }
 function topicView(i){
-  setBack(topicsHome);
+  setBack(topicsHome);setScratch(true);
   const t=TOPICS[i];
   app.innerHTML=
   '<div class="stack"><p class="eyebrow">Bridging topic</p><h1>'+t.title+'</h1>'+
@@ -309,6 +309,7 @@ function potwHome(){
   '<button class="btn ghost" id="pback">Home</button></div>';
   app.querySelectorAll('details.fu').forEach(d=>d.addEventListener('toggle',()=>{if(d.open){const s=loadJSON('potw',{});s[d.dataset.i]=Date.now();saveJSON('potw',s);}}));
   document.getElementById('pback').onclick=home;
+  setScratch(true);
 }
 
 /* ---------- resources ---------- */
