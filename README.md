@@ -60,3 +60,6 @@ After changing any app file, bump `VERSION` in `sw.js` so installed copies updat
 python3 -m http.server
 ```
 then open http://localhost:8000.
+
+## Ideas
+Planned improvements and proposals are tracked in [IDEAS.md](IDEAS.md).

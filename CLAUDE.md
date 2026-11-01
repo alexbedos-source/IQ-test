@@ -67,6 +67,14 @@ Don't kill the server with `pkill -f` on a pattern that also matches your own co
 - IQ: append to `EXTRA.V/Q/L` in `iq-bank.js`. Flashcards: append to `CARDS` (AQA Physics only, `[topicIndex, front, back]`, topics as `CARD_CATS`, nothing from the data booklet). Problems of the week: append to `POTW` (university level is welcome; prefix the prompt with "(University level)").
 - Validate: every item has four distinct options with the correct one first, no `undefined`/`NaN`, and the browser test passes.
 
+## Continuous improvement (owner's instruction)
+The owner wants the app to keep getting better even when they are not involved, and approves changes by merging PRs.
+The nightly session, after adding questions, builds **one small improvement** from the *auto* list in `IDEAS.md` (or a clear
+bug fix / polish it notices), and may add new ideas to `IDEAS.md`. Rules:
+- Small and safe: one feature or fix per night, fully tested (Playwright), with the back arrow, `leave()`, answer review and maths formatting conventions followed.
+- **Never** without approval: removing or renaming features, changing IQ scoring, breaking saved data formats, adding external services, collecting or uploading any data, or anything in the *needs approval* list.
+- Describe the improvement clearly in the PR body (what, why, how to try it) so the owner can decide; mark it `[~]` in `IDEAS.md`, and `[x]` once merged.
+
 ## Roadmap
 - More physics questions and follow-ups; the owner will say which topics feel too easy or hard.
 - More bridging topics, flashcards and problems of the week.
