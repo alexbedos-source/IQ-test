@@ -61,11 +61,12 @@ function mbRender(){
       '<button class="btn" id="mbnx">'+(MB.i+1<MB.items.length?'Next':'Finish')+'</button></div>';
     document.getElementById('mbnx').onclick=()=>{MB.i++;if(MB.i<MB.items.length)mbRender();else mbDone();};
   });
+  skipSetup(it,'mbfb',{vid:it.vid,yt:it.yt},MB.i+1>=MB.items.length,r=>MB.res.push(r),()=>{MB.i++;if(MB.i<MB.items.length)mbRender();else mbDone();});
   window.scrollTo(0,0);
 }
 function mbDone(){
   setBack(mbHome);setScratch(false);
-  app.innerHTML='<div class="stack"><p class="eyebrow">Review mistakes</p><h1>'+MB.ok+' / '+MB.items.length+'</h1>'+
+  app.innerHTML='<div class="stack"><p class="eyebrow">Review mistakes</p>'+scoreLine(MB.ok,MB.res)+
    '<p class="muted">'+MB.cleared+' cleared from the bank, '+mbList().length+' left.</p>'+
    reviewHtml(MB.res)+
    '<button class="btn" id="mbagain"'+(mbList().length?'':' disabled')+'>Review more</button><button class="btn ghost" id="mbback">Back</button></div>';

@@ -249,6 +249,7 @@ function drillRender(){
     document.getElementById('dfb').innerHTML='<div class="fb"><b class="'+(ok?'ok':'no')+'">'+(ok?'Correct.':'Not quite.')+'</b><p class="note">'+it.explain+'</p><button class="btn" id="dnx">'+(D.i+1<D.items.length?'Next':'Finish')+'</button></div>';
     document.getElementById('dnx').onclick=()=>{D.i++;if(D.i<D.items.length)drillRender();else drillFinish();};
   });
+  skipSetup(it,'dfb',drillLink(it.type),D.i+1>=D.items.length,r=>D.res.push(Object.assign({type:it.type},r)),()=>{D.i++;if(D.i<D.items.length)drillRender();else drillFinish();});
   window.scrollTo(0,0);
 }
 function drillFinish(){
@@ -258,11 +259,11 @@ function drillFinish(){
     st.streak=drillStreak(st)+1;st.last=today;st.best=Math.max(st.best||0,st.streak);
   }
   st.days[today]=(st.days[today]||0)+1;
-  D.res.forEach(r=>{const s=st.types[r.type]||{ok:0,n:0};s.n++;if(r.ok)s.ok++;st.types[r.type]=s;});
+  D.res.filter(r=>!r.skip).forEach(r=>{const s=st.types[r.type]||{ok:0,n:0};s.n++;if(r.ok)s.ok++;st.types[r.type]=s;});
   saveJSON('drill',st);
   app.innerHTML=
-  '<div class="stack"><p class="eyebrow">Drill complete</p><h1>'+D.ok+' / '+D.items.length+'</h1>'+
-  '<div class="facts"><div class="fact"><b>'+fmt(secs)+'</b><span>time</span></div><div class="fact"><b>'+st.streak+'</b><span>day streak</span></div><div class="fact"><b>'+Math.round(100*D.ok/D.items.length)+'%</b><span>accuracy</span></div></div>'+
+  '<div class="stack"><p class="eyebrow">Drill complete</p>'+scoreLine(D.ok,D.res)+
+  '<div class="facts"><div class="fact"><b>'+fmt(secs)+'</b><span>time</span></div><div class="fact"><b>'+st.streak+'</b><span>day streak</span></div><div class="fact"><b>'+Math.round(100*D.ok/Math.max(1,D.res.filter(r=>!r.skip).length))+'%</b><span>accuracy</span></div></div>'+
   '<p class="note">Come back tomorrow to keep the streak going.</p>'+
   reviewHtml(D.res)+
   '<button class="btn" id="dagain">Another drill</button><button class="btn ghost" id="dhome">Back</button></div>';
