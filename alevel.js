@@ -92,6 +92,10 @@ const AL_PHY_BANK=[
  ,[0,'A micrometer reads to 0.01 mm. A wire\'s diameter is 0.52 mm, with uncertainty ±0.01 mm. The percentage uncertainty is about:',['2%','0.01%','5%','0.5%'],'0.01/0.52 × 100 ≈ 1.9%.']
  ,[3,'At a fixed deceleration, braking distance depends on initial speed v as:',['v² (double the speed, four times the distance)','v','√v','It does not depend on speed'],'v² = 2as gives s ∝ v².']
  ,[5,'The root-mean-square speed of gas molecules is proportional to:',['√T (absolute temperature)','T','T²','1/T'],'½m(c_rms)² = (3/2)kT.']
+ ,[0,'Which instrument is best for measuring the diameter of a wire of about 0.5 mm?',['Micrometer screw gauge','Metre rule','Vernier caliper reading to 0.1 mm','Tape measure'],'A micrometer resolves 0.01 mm, giving the smallest percentage uncertainty.']
+ ,[2,'Two waves of equal amplitude meet in antiphase. The resultant amplitude is:',['Zero','Double one amplitude','Equal to one amplitude','Half of one amplitude'],'Complete destructive superposition.']
+ ,[4,'A current of 2 A flows for 5 minutes. How much charge passes?',['600 C','10 C','24 C','7200 C'],'Q = It = 2 × 300 s.']
+ ,[7,'In β⁻ decay, the proton number Z and nucleon number A change by:',['Z increases by 1; A unchanged','Z decreases by 1; A unchanged','Z decreases by 2; A decreases by 4','Neither changes'],'A neutron turns into a proton, an electron and an antineutrino.']
 ];
 const AL_PHY_GEN=[
  [4,()=>{const [a,b,r]=pick([[6,3,2],[12,4,3],[10,10,5],[20,5,4],[6,12,4],[30,6,5],[8,8,4],[15,10,6]]);
@@ -184,6 +188,13 @@ const AL_MATHS_BANK=[
  ,[6,'Find ∫ 1/(2x) dx.',['½ ln|x| + C','2 ln|x| + C','ln|x| + C','−1/(2x²) + C'],'Take out the constant ½, then ∫ 1/x dx = ln|x|.']
  ,[7,'For a = 2i + 3j and b = 4i − j, what is a + b?',['6i + 2j','6i + 4j','8i − 3j','2i − 4j'],'Add the i and j components separately.']
  ,[7,'The iteration xₙ₊₁ = g(xₙ) fails to converge to a root when, near the root:',['|g′(x)| > 1','g is continuous','The starting value is positive','The root is an integer'],'It converges when |g′(x)| < 1 near the root.']
+ ,[1,'The line y = 3x + c is a tangent to y = x² + 1. What is c?',['−5/4','5/4','1','−1'],'x² − 3x + 1 − c = 0 must have a repeated root: 9 − 4(1 − c) = 0, so c = −5/4.']
+ ,[2,'Evaluate the sum of (2r + 1) for r = 1 to 10.',['120','110','121','100'],'2 × (1 + 2 + … + 10) + 10 = 2 × 55 + 10 = 120.']
+ ,[4,'Solve 2 ln x = ln 9.',['x = 3','x = 4.5','x = 9','x = ±3'],'ln x² = ln 9 gives x² = 9, and ln x needs x > 0, so x = 3.']
+ ,[5,'Where are the stationary points of y = x³ − 6x² + 9x?',['x = 1 and x = 3','x = 0 and x = 3','x = 1 and x = 2','x = 2 and x = 3'],'dy/dx = 3x² − 12x + 9 = 3(x − 1)(x − 3).']
+ ,[6,'Find the area under y = 1/x from x = 1 to x = e.',['1','e','e − 1','1/e'],'[ln x] from 1 to e = 1 − 0 = 1.']
+ ,[7,'What is the angle between the vectors i + j and i − j?',['90°','45°','0°','60°'],'Their scalar product is 1 − 1 = 0, so they are perpendicular.']
+ ,[9,'A 1000 kg car brakes uniformly from 20 m/s to rest in 50 m. What is the braking force?',['4000 N','2000 N','400 N','20 000 N'],'a = v²/(2s) = 400/100 = 4 m/s², so F = ma = 4000 N.']
 ];
 const AL_MATHS_GEN=[
  [0,()=>{let r1,r2;do{r1=rint(-7,7);r2=rint(-7,7);}while(!r1||!r2||r1===r2||r1===-r2);
@@ -323,6 +334,7 @@ const AL_ECON_BANK=[
 
  ,[6,'The main role of the Bank of England\'s Prudential Regulation Authority is to:',['Supervise banks and insurers so they stay safe and sound','Set Bank Rate','Collect taxes','Set the inflation target'],'The MPC sets Bank Rate; the government sets the inflation target.']
  ,[6,'Primary markets differ from secondary markets because in primary markets:',['New securities are issued to raise funds','Existing shares are traded between investors','Only currencies are traded','Prices are set by the government'],'Secondary markets, such as the stock exchange, trade existing securities.']
+ ,[7,'If the pound appreciates, UK exporters are most likely to find that:',['Their goods become more expensive in foreign currencies','Their goods become cheaper abroad','UK import prices rise','Nothing changes for them'],'Foreign buyers need more of their own currency for each pound.']
 ];
 const AL_ECON_GEN=[
  [0,()=>{const p=pick([10,20,25,50]),q=pick([5,10,15,20,40]),ped=-(q/p);

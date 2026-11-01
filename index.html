@@ -774,7 +774,7 @@ function home(){
   '<div class="stack" style="gap:8px"><p class="eyebrow">Train · Prepare · Test</p><h1>IQ Lab</h1></div>'+
   '<div class="hubsec"><p class="eyebrow">Interview prep</p>'+
    card('hiv','Mock interview','Two problems, think aloud, tutor follow-ups, then review yourself.')+
-   '<div class="hubgrid">'+card('hphy','Physics questions',PHY.length+' open-ended questions with hints')+card('hpotw','Problem of the week','A harder problem to chew on')+'</div></div>'+
+   '<div class="hubgrid">'+card('hphy','Physics questions',PHY.length+' open-ended questions with hints',phyDueList(PHY).length?phyDueList(PHY).length+' due':'')+card('hpotw','Problem of the week','A harder problem to chew on')+'</div></div>'+
   '<div class="hubsec"><p class="eyebrow">A-levels</p><div class="hubgrid">'+
    card('alphy','Physics','AQA')+card('almaths','Maths','Edexcel')+card('alecon','Economics','AQA')+card('alall','All subjects','Accuracy by topic')+
    card('hrp','Required practicals','All 12 AQA Physics practicals')+card('hvid','Video lessons',VIDEOS.length+' narrated lessons')+'</div></div>'+

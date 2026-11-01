@@ -99,7 +99,13 @@ const CARDS=[
  [7,'Critical mass','The minimum mass of fissile fuel needed to sustain a chain reaction.'],
  [7,'Moderator, control rods and coolant','Moderator (water or graphite) slows neutrons to thermal speeds. Control rods (boron) absorb neutrons. Coolant transfers heat away.'],
  [7,'Methods of estimating nuclear radius','Distance of closest approach of alpha particles (an upper limit), and electron diffraction (more accurate).'],
- [7,'Nuclear density','Roughly the same for all nuclei (about 10¹⁷ kg m⁻³), because R ∝ A^(1/3) so volume ∝ A.']
+ [7,'Nuclear density','Roughly the same for all nuclei (about 10¹⁷ kg m⁻³), because R ∝ A^(1/3) so volume ∝ A.'],
+ [0,'Zero error','A reading shown when the true value is zero, e.g. a micrometer that does not read 0.00 mm when closed. It is a systematic error: subtract it from every reading.'],
+ [0,'Anomalous result','A reading that does not fit the pattern. Check it and repeat it; leave it out of the mean if it was a mistake.'],
+ [4,'Why ammeters have very low resistance and voltmeters very high resistance','An ammeter is in series, so it must not reduce the current. A voltmeter is in parallel, so it must draw almost no current and not change the pd it measures.'],
+ [4,'Current and pd in series and parallel','Series: the same current through each component, and the pds add up. Parallel: the same pd across each branch, and the currents add up.'],
+ [2,'Monochromatic vs coherent light','Monochromatic: a single wavelength. Coherent: the same frequency with a constant phase difference. Lasers are both.'],
+ [2,'Double-slit pattern with white light','A white central maximum with coloured fringes either side, blue nearest the centre and red furthest out, because fringe spacing depends on wavelength.']
 ].map((c,i)=>({id:'a'+i,cat:c[0],front:c[1],back:c[2]}));
 const BOX_DAYS=[0,1,2,4,8,16,32];
 const NEW_PER_DAY=10;
@@ -289,7 +295,11 @@ const POTW=[
  ['(University level) A capacitor C is charged through a resistor R by a battery of emf ε. Show that exactly half the energy supplied by the battery is lost as heat, whatever R is.',
   'The battery moves charge Q = Cε through emf ε, supplying W = Cε². The capacitor stores ½Cε². With I = (ε/R)e^(−t/RC), the heat is ∫I²R dt = (ε²/R) × RC/2 = ½Cε². <b>Half is lost</b>, independent of R: a smaller R just means a bigger current for a shorter time.'],
  ['(University level) Show that a planet moving under any central force sweeps out equal areas in equal times (Kepler\'s second law).',
-  'A central force acts along r, so the torque r × F = 0 and the angular momentum L = mr²θ̇ is constant. The area swept in time dt is dA = ½r²dθ, so dA/dt = ½r²θ̇ = <b>L/2m = constant</b>. This works for any central force, not just inverse-square ones.']
+  'A central force acts along r, so the torque r × F = 0 and the angular momentum L = mr²θ̇ is constant. The area swept in time dt is dA = ½r²dθ, so dA/dt = ½r²θ̇ = <b>L/2m = constant</b>. This works for any central force, not just inverse-square ones.'],
+ ['(University level) A rocket in deep space ejects exhaust at speed u relative to itself. Show that its final speed depends only on u and the ratio of initial to final mass, not on how quickly the fuel is burned.',
+  'In time dt, mass dm of exhaust leaves backwards at u relative to the rocket. Momentum conservation gives m dv = −u dm. Integrating from m₀ to m: <b>v = u ln(m₀/m)</b>. Only u and the mass ratio appear, so burning quickly or slowly gives the same final speed (with no gravity or drag).'],
+ ['A tennis ball sits on top of a basketball and they are dropped together from height h. Assuming perfectly elastic bounces and a much lighter tennis ball, how high does the tennis ball go?',
+  'Both hit the ground at speed v. The basketball rebounds upwards at v and meets the tennis ball still coming down at v. In the basketball\'s frame the tennis ball approaches at 2v and bounces back at 2v, so in the ground frame it leaves at 3v. Height ∝ v², so it rises to <b>9h</b> (in reality much less, because of energy losses).']
 ];
 function weekIndex(){
   const d=new Date(),start=new Date(d.getFullYear(),0,1);

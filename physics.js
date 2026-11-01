@@ -526,6 +526,32 @@ PHY.push(
  f:[['When is drag proportional to v instead of v²?','At low Reynolds number (small, slow objects in viscous fluids, like dust or bacteria), Stokes\' law F = 6πηrv applies.'],
     ['How much easier is it to ride behind someone?','Drafting can cut drag by about 30–40%, which matters enormously because power scales with drag at fixed speed.']]}
 );
+PHY.push(
+{id:'r1',t:7,l:2,q:'Why do cyclists lean into a corner? How far must they lean?',
+ h:['In the cyclist\'s frame, what forces act at the tyre, and what must their combination do?',
+    'Friction at the road provides the centripetal force mv²/r. For no toppling, the resultant of friction and the normal force must pass through the centre of mass.'],
+ a:'<p>Turning needs a centripetal force, which only friction at the road can supply. Friction acts at the tyre, below the centre of mass, so on its own it would tip the cyclist outwards. Leaning in makes the resultant contact force (normal + friction) point through the centre of mass, so there is no net torque.</p><p>Normal force = mg, friction = mv²/r, so <b>tanθ = v²/(rg)</b> from the vertical. At 10 m/s round a 20 m radius: tanθ = 100/196 ≈ 0.5, θ ≈ 27°.</p>',
+ f:[['What is the steepest lean possible on a dry road with μ ≈ 0.8?','Friction needed is mg tanθ ≤ μmg, so tanθ ≤ 0.8: about 39°. Lean further and the tyres slide out.'],
+    ['Why do motorbike racers lean even further than the bike?','Moving their body inwards lowers and shifts the combined centre of mass, so the bike itself can stay more upright for the same turn, keeping more tyre in contact.']]},
+{id:'r2',t:4,l:3,q:'A charged capacitor stores energy. Where exactly is that energy?',
+ h:['Think about what exists between the plates of a charged capacitor that was not there before.',
+    'Try energy per unit volume u = ½ε₀E² for the field, and compare with ½CV² for a parallel-plate capacitor with C = ε₀A/d.'],
+ a:'<p>The energy is stored in the <b>electric field</b> between the plates, with energy density u = ½ε₀E².</p><p>Check for a parallel-plate capacitor: E = V/d and volume = Ad, so the field energy is ½ε₀(V/d)² × Ad = ½(ε₀A/d)V² = <b>½CV²</b>, exactly the circuit result.</p><p>Fields carrying energy is a deep idea: light, for example, is energy travelling in electric and magnetic fields.</p>',
+ f:[['How much energy is stored per cubic metre in the fair-weather field of about 100 V/m near the ground?','½ × 8.85 × 10⁻¹² × 100² ≈ 4 × 10⁻⁸ J/m³: tiny.'],
+    ['What is the magnetic equivalent, and how big is it inside a 3 T MRI magnet?','u = B²/2μ₀ = 9/(2 × 1.26 × 10⁻⁶) ≈ 4 × 10⁶ J/m³, which is why quenching an MRI magnet releases a lot of energy.']]},
+{id:'r3',t:5,l:2,q:'How does sweating cool you down, and why does it work badly on humid days?',
+ h:['Evaporating water needs energy. Where does that energy come from?',
+    'The latent heat of vaporisation of water at skin temperature is about 2.4 MJ/kg. Evaporation depends on how much water vapour the air already holds.'],
+ a:'<p>Sweat evaporates by taking latent heat from your skin. Evaporating 1 kg needs about 2.4 MJ, so sweating 1 litre per hour removes 2.4 × 10⁶/3600 ≈ <b>700 W</b>, several times your resting heat output.</p><p>In humid air, the air near your skin is already close to saturated, so the evaporation rate falls. Sweat drips off instead of evaporating, taking almost no heat with it.</p>',
+ f:[['How much sweat per hour must evaporate to remove 100 W?','100 × 3600 / 2.4 × 10⁶ ≈ 0.15 kg, so about 150 ml per hour.'],
+    ['Why do dogs pant instead of sweating?','Dogs have few sweat glands. Panting moves air rapidly over the wet tongue and airways, increasing evaporation there.']]},
+{id:'r4',t:3,l:3,q:'Why is everything blurry when you open your eyes underwater, and why do goggles fix it?',
+ h:['Most of the eye\'s focusing happens at the cornea, not the lens. What sets how strongly a surface refracts?',
+    'The cornea has n ≈ 1.38. Compare its boundary with air (n = 1.00) and with water (n = 1.33).'],
+ a:'<p>Refraction at a surface depends on the change in refractive index across it. In air, the cornea (n ≈ 1.38) provides about two-thirds of the eye\'s focusing power. In water (n ≈ 1.33) the difference is tiny, so most of that power vanishes and images focus far behind the retina: everything is blurred, like extreme long-sightedness.</p><p>Goggles trap a layer of air in front of the eye, restoring the air–cornea boundary.</p>',
+ f:[['Why do objects look bigger through a diving mask?','Refraction at the flat mask makes objects appear at about 3/4 of their real distance (n ≈ 1.33), so they look about a third larger and closer.'],
+    ['How do fish see clearly underwater?','Their corneas do little focusing; instead they have nearly spherical, very strongly curved lenses with a high refractive index.']]}
+);
 PHY.forEach(q=>{q.f=q.f||PHY_FOLLOW[q.id]||[];});
 
 const PHY_SOURCES=[
@@ -539,14 +565,24 @@ const RATE={got:['Got it','ok'],hint:['Needed hints','sk'],stuck:['Stuck','no']}
 let phyFilter=-1, phyTick=null;
 const phyRatings=()=>loadJSON('phy-ratings',{});
 function phyPool(){return PHY.filter(q=>phyFilter<0||q.t===phyFilter);}
+/* Spaced repetition: after rating, a question comes back in 1 day (Stuck), 3 days (Needed hints) or 7 days (Got it),
+   and 21 days once you get it again on its next visit. Older ratings without a due date use the same gaps. */
+const PHY_GAP={stuck:1,hint:3,got:7};
+const phyDue=r=>r.d||(r.t+PHY_GAP[r.r]*864e5);
+function phyDueList(pool){const R=phyRatings(),now=Date.now();return pool.filter(q=>R[q.id]&&phyDue(R[q.id])<=now);}
+function phyRate(id,r){
+  const R=phyRatings(),prev=R[id],gap=r==='got'&&prev&&prev.r==='got'?21:PHY_GAP[r];
+  R[id]={r,t:Date.now(),d:Date.now()+gap*864e5};saveJSON('phy-ratings',R);
+}
 function phyNext(exclude){
   const R=phyRatings(),pool=phyPool().filter(q=>q.id!==exclude);
   if(!pool.length)return phyPool()[0];
-  const rank=q=>{const r=R[q.id];return !r?0:r.r==='stuck'?1:r.r==='hint'?2:3;};
-  const best=Math.min(...pool.map(rank));
-  let cand=pool.filter(q=>rank(q)===best);
-  if(best===3){const oldest=Math.min(...cand.map(q=>R[q.id].t));cand=cand.filter(q=>R[q.id].t===oldest);}
-  return pick(cand);
+  /* 1. due for review (stuck first) 2. never tried 3. whatever is due soonest */
+  const order={stuck:0,hint:1,got:2};
+  const due=phyDueList(pool).sort((a,b)=>order[R[a.id].r]-order[R[b.id].r]||phyDue(R[a.id])-phyDue(R[b.id]));
+  if(due.length){const r0=R[due[0].id].r;return pick(due.filter(q=>R[q.id].r===r0));}
+  const fresh=pool.filter(q=>!R[q.id]);if(fresh.length)return pick(fresh);
+  return pool.slice().sort((a,b)=>phyDue(R[a.id])-phyDue(R[b.id]))[0];
 }
 const lvl=l=>'●'.repeat(l)+'○'.repeat(3-l);
 
@@ -554,16 +590,17 @@ function phyHome(){
   leave();
   const R=phyRatings(),pool=phyPool();
   const cnt={got:0,hint:0,stuck:0};pool.forEach(q=>{if(R[q.id])cnt[R[q.id].r]++;});
-  const unseen=pool.length-cnt.got-cnt.hint-cnt.stuck;
+  const unseen=pool.length-cnt.got-cnt.hint-cnt.stuck,ndue=phyDueList(pool).length;
   app.innerHTML=
   '<div class="stack">'+
   '<div class="stack" style="gap:8px"><p class="eyebrow">Practice · not scored</p><h1>Physics interview</h1>'+
   '<p class="muted">Open-ended questions in the style of Oxford physics interviews. Think aloud, work on paper, use hints the way an interviewer would nudge you, then compare with the worked answer.</p></div>'+
   '<div class="chips">'+['All'].concat(PHY_TOPICS).map((n,i)=>'<button class="chip'+(phyFilter===i-1?' on':'')+'" data-t="'+(i-1)+'">'+n+'</button>').join('')+'</div>'+
   '<div class="facts four"><div class="fact"><b>'+unseen+'</b><span>new</span></div><div class="fact"><b class="no">'+cnt.stuck+'</b><span>stuck</span></div><div class="fact"><b class="sk">'+cnt.hint+'</b><span>hints</span></div><div class="fact"><b class="ok">'+cnt.got+'</b><span>got it</span></div></div>'+
-  '<button class="btn" id="pnext">Next question</button>'+
+  '<button class="btn" id="pnext">'+(ndue?'Review '+ndue+' due question'+(ndue===1?'':'s'):'Next question')+'</button>'+
+  '<p class="note">Questions come back for review 1 day after "Stuck", 3 days after "Needed hints" and 7 days after "Got it" (then 21 days).</p>'+
   '<div class="card"><h2 style="margin-bottom:6px">All questions</h2>'+
-   pool.map(q=>{const r=R[q.id];return '<button class="qrow" data-id="'+q.id+'"><span class="mark '+(r?RATE[r.r][1]:'sk')+'">'+(r?(r.r==='got'?'✓':r.r==='hint'?'~':'✗'):'·')+'</span><span class="qt">'+q.q+'</span><span class="lv">'+lvl(q.l)+'</span></button>';}).join('')+'</div>'+
+   pool.map(q=>{const r=R[q.id],isDue=r&&phyDue(r)<=Date.now();return '<button class="qrow" data-id="'+q.id+'"><span class="mark '+(r?RATE[r.r][1]:'sk')+'">'+(r?(r.r==='got'?'✓':r.r==='hint'?'~':'✗'):'·')+'</span><span class="qt">'+q.q+(isDue?' <span class="badge">due</span>':'')+'</span><span class="lv">'+lvl(q.l)+'</span></button>';}).join('')+'</div>'+
   '<div class="card stack"><h2>Official resources</h2><ul class="src">'+PHY_SOURCES.map(s=>'<li><a href="'+s[1]+'" target="_blank" rel="noopener">'+s[0]+'</a></li>').join('')+'</ul>'+
    '<p class="note">Questions here are written for practice in the style tutors use; they are not official Oxford questions. Interviews reward clear reasoning and responding to hints far more than knowing the answer already.</p></div>'+
   '<button class="btn ghost" id="phome">Home</button>'+
@@ -612,7 +649,7 @@ function phyQuestion(q){
     $('rate').innerHTML='<div class="card stack"><p class="prompt" style="font-size:1rem">How did you do?</p><div class="row3">'+
       Object.entries(RATE).map(([k,v])=>'<button class="btn ghost rate '+v[1]+'" data-r="'+k+'">'+v[0]+'</button>').join('')+'</div></div>';
     $('rate').querySelectorAll('.rate').forEach(b=>b.onclick=()=>{
-      const R=phyRatings();R[q.id]={r:b.dataset.r,t:Date.now()};saveJSON('phy-ratings',R);
+      phyRate(q.id,b.dataset.r);
       phyQuestion(phyNext(q.id));
     });
     $('ans').scrollIntoView({behavior:'smooth',block:'start'});
