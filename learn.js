@@ -105,7 +105,13 @@ const CARDS=[
  [4,'Why ammeters have very low resistance and voltmeters very high resistance','An ammeter is in series, so it must not reduce the current. A voltmeter is in parallel, so it must draw almost no current and not change the pd it measures.'],
  [4,'Current and pd in series and parallel','Series: the same current through each component, and the pds add up. Parallel: the same pd across each branch, and the currents add up.'],
  [2,'Monochromatic vs coherent light','Monochromatic: a single wavelength. Coherent: the same frequency with a constant phase difference. Lasers are both.'],
- [2,'Double-slit pattern with white light','A white central maximum with coloured fringes either side, blue nearest the centre and red furthest out, because fringe spacing depends on wavelength.']
+ [2,'Double-slit pattern with white light','A white central maximum with coloured fringes either side, blue nearest the centre and red furthest out, because fringe spacing depends on wavelength.'],
+ [0,'Uncertainty from repeated readings','Half the range: (largest value − smallest value) ÷ 2.'],
+ [0,'Percentage difference from an accepted value','(Experimental − accepted) ÷ accepted × 100%. If it is smaller than the percentage uncertainty, the result agrees with the accepted value.'],
+ [4,'Adding a resistor in parallel','The total resistance decreases: the current has an extra path, so the total is less than the smallest branch resistance.'],
+ [4,'Why terminal pd falls as more current is drawn','More current means more lost volts (Ir) across the internal resistance, so less pd is left for the external circuit.'],
+ [2,'What sets the pitch and loudness of a sound','Pitch: frequency. Loudness: amplitude (intensity is proportional to amplitude squared).'],
+ [2,'Why a diffraction grating gives sharp maxima','With many slits, waves only reinforce at exact angles where d sinθ = nλ and cancel almost everywhere else, giving bright, narrow maxima.']
 ].map((c,i)=>({id:'a'+i,cat:c[0],front:c[1],back:c[2]}));
 const BOX_DAYS=[0,1,2,4,8,16,32];
 const NEW_PER_DAY=10;
@@ -299,7 +305,11 @@ const POTW=[
  ['(University level) A rocket in deep space ejects exhaust at speed u relative to itself. Show that its final speed depends only on u and the ratio of initial to final mass, not on how quickly the fuel is burned.',
   'In time dt, mass dm of exhaust leaves backwards at u relative to the rocket. Momentum conservation gives m dv = −u dm. Integrating from m₀ to m: <b>v = u ln(m₀/m)</b>. Only u and the mass ratio appear, so burning quickly or slowly gives the same final speed (with no gravity or drag).'],
  ['A tennis ball sits on top of a basketball and they are dropped together from height h. Assuming perfectly elastic bounces and a much lighter tennis ball, how high does the tennis ball go?',
-  'Both hit the ground at speed v. The basketball rebounds upwards at v and meets the tennis ball still coming down at v. In the basketball\'s frame the tennis ball approaches at 2v and bounces back at 2v, so in the ground frame it leaves at 3v. Height ∝ v², so it rises to <b>9h</b> (in reality much less, because of energy losses).']
+  'Both hit the ground at speed v. The basketball rebounds upwards at v and meets the tennis ball still coming down at v. In the basketball\'s frame the tennis ball approaches at 2v and bounces back at 2v, so in the ground frame it leaves at 3v. Height ∝ v², so it rises to <b>9h</b> (in reality much less, because of energy losses).'],
+ ['(University level) The period of a pendulum only stays the same for small swings. Estimate how much longer the period is for a 30° amplitude.',
+  'The next term in the series is T ≈ T₀(1 + θ₀²/16), with θ₀ in radians. For 30°, θ₀ = 0.524, so θ₀²/16 ≈ 0.017: the period is about <b>1.7% longer</b>. A pendulum clock with a wide swing therefore loses about 25 minutes a day compared with a small swing.'],
+ ['A uniform rope of length L hangs vertically from a ceiling. How long does a small transverse pulse take to travel from the bottom to the top?',
+  'At height y above the bottom, the tension supports the rope below: T = μgy, so the wave speed is v = √(T/μ) = √(gy). Then t = ∫₀^L dy/√(gy) = <b>2√(L/g)</b>. For a 4 m rope that is about 1.3 s.']
 ];
 function weekIndex(){
   const d=new Date(),start=new Date(d.getFullYear(),0,1);

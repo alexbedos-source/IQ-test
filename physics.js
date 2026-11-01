@@ -552,6 +552,32 @@ PHY.push(
  f:[['Why do objects look bigger through a diving mask?','Refraction at the flat mask makes objects appear at about 3/4 of their real distance (n ≈ 1.33), so they look about a third larger and closer.'],
     ['How do fish see clearly underwater?','Their corneas do little focusing; instead they have nearly spherical, very strongly curved lenses with a high refractive index.']]}
 );
+PHY.push(
+{id:'s1',t:7,l:2,q:'Why do your ears "pop" on a plane? Roughly how big is the force on your eardrum before they pop?',
+ h:['Aircraft cabins are pressurised to the pressure at about 2400 m altitude, roughly 0.75 atmospheres. What is trapped behind your eardrum?',
+    'Force = pressure difference × area. An eardrum is about 60 mm² in area.'],
+ a:'<p>Air is trapped in the middle ear behind the eardrum. As the cabin pressure falls during the climb, that air is at higher pressure than the cabin, so the eardrum bulges outwards until the Eustachian tube opens and lets air escape: the "pop".</p><p>Δp ≈ 0.25 atm ≈ 2.5 × 10⁴ Pa, and area ≈ 6 × 10⁻⁵ m², so F ≈ <b>1.5 N</b>, roughly the weight of a 150 g apple pressing on a membrane thinner than paper. No wonder it hurts.</p>',
+ f:[['Why is it often worse during descent?','Outside pressure rises and squeezes the soft Eustachian tube shut, so air cannot get back into the middle ear easily. Swallowing or yawning helps open it.'],
+    ['A sealed crisp packet is filled at sea level. By roughly what factor does its volume try to grow in the cabin?','Boyle\'s law at constant temperature: V ∝ 1/p, so about 1/0.75 ≈ 1.3 times.']]},
+{id:'s2',t:6,l:2,q:'How fast is the Earth moving round the Sun? Why don\'t we feel it?',
+ h:['Distance = circumference of the orbit (radius 1.5 × 10¹¹ m); time = one year (3.2 × 10⁷ s).',
+    'Do we feel velocity or acceleration? Work out the centripetal acceleration v²/r.'],
+ a:'<p>v = 2πr/T = 2π × 1.5 × 10¹¹ / 3.2 × 10⁷ ≈ <b>30 km/s</b>, over 100 000 km/h.</p><p>We only feel acceleration, not velocity. The centripetal acceleration is v²/r ≈ (3 × 10⁴)²/1.5 × 10¹¹ ≈ 6 × 10⁻³ m/s², less than a thousandth of g. And we are in free fall around the Sun together with the Earth, so even that produces no felt force.</p>',
+ f:[['How fast are you moving because of the Earth\'s spin, in the UK (latitude about 52°)?','The equator moves at 2π × 6.4 × 10⁶ / 86 400 ≈ 465 m/s; at 52° multiply by cos 52° ≈ 0.62, giving about 290 m/s.'],
+    ['And how fast does the Sun orbit the centre of the galaxy?','About 230 km/s, taking roughly 230 million years per orbit.']]},
+{id:'s3',t:3,l:2,q:'Why does your voice sound better when you sing in the shower?',
+ h:['Think about the surfaces in a shower and what they do to sound.',
+    'A small enclosure has standing-wave resonances (room modes) at f = nv/2L. What frequencies does that give for L ≈ 1 m?'],
+ a:'<p>Hard tiles reflect almost all sound, so your voice <b>reverberates</b>: notes are sustained and blended, which hides small wobbles in pitch.</p><p>The small space also has strong <b>resonances</b>. With L ≈ 1 m, f = v/2L ≈ 170 Hz and its multiples, right in the range of the human voice, so some notes are boosted and sound fuller and louder.</p>',
+ f:[['What is the lowest resonant frequency between the floor and ceiling of a 2 m tall shower?','f = v/2L = 340/4 ≈ 85 Hz.'],
+    ['Why do concert halls avoid large parallel walls?','They cause strong standing waves and "flutter echoes"; irregular shapes and absorbing materials give an even, controlled reverberation.']]},
+{id:'s4',t:0,l:2,q:'Roughly how many raindrops fall on London on a day with 5 mm of rain?',
+ h:['Estimate the total volume of water: area of London × depth of rain.',
+    'London is about 1500 km². A typical raindrop is about 2 mm across.'],
+ a:'<p>Volume ≈ 1.5 × 10⁹ m² × 5 × 10⁻³ m ≈ 7.5 × 10⁶ m³.</p><p>One drop of diameter 2 mm has volume (4/3)π(10⁻³)³ ≈ 4 × 10⁻⁹ m³. Number ≈ 7.5 × 10⁶ / 4 × 10⁻⁹ ≈ <b>2 × 10¹⁵ drops</b>: a couple of thousand trillion.</p>',
+ f:[['Estimate the terminal speed of a 2 mm raindrop.','mg = ½ρC_dAv² with m ≈ 4 × 10⁻⁶ kg, A ≈ 3 × 10⁻⁶ m², C_d ≈ 0.5: v² ≈ 45, so v ≈ 7 m/s (measured: about 6.5 m/s).'],
+    ['Why don\'t raindrops grow much bigger than about 5 mm?','Large drops are flattened by air resistance into a "parachute" shape and break apart, because surface tension can no longer hold them together.']]}
+);
 PHY.forEach(q=>{q.f=q.f||PHY_FOLLOW[q.id]||[];});
 
 const PHY_SOURCES=[
