@@ -4,17 +4,36 @@
    Optional row above the answers: Guess / Fairly sure / Certain. Each answer then updates calibration stats
    ('confidence' in localStorage), shown on the Progress page. */
 const CONF_LEVELS=[['g','Guess'],['f','Fairly sure'],['s','Certain']];
-let CONF=null,QCUR=null;
+let CONF=null,QCUR=null,QSKIP=null;
 function qTools(it,src,opts){
-  CONF=null;QCUR={it,src};
-  return '<div class="qtools">'+(opts&&opts.noConf?'<span></span>':
+  CONF=null;QCUR={it,src};QSKIP=null;
+  const open=opts&&opts.noConf;
+  return '<div class="qtools">'+(open?'<span></span>':
     '<div class="conf" role="group" aria-label="How sure are you?"><span class="note">How sure?</span>'+CONF_LEVELS.map(([k,n])=>'<button data-conf="'+k+'">'+n+'</button>').join('')+'</div>')+
-    '<button class="qflag" aria-label="Report a problem with this question">⚑ Report</button></div>';
+    '<div class="qact">'+(open?'':'<button class="qskip">Haven\'t learnt this yet</button>')+'<button class="qflag" aria-label="Report a problem with this question">⚑ Report</button></div></div>';
 }
+/* "Haven't learnt this yet": reveal the answer with a short explanation and move on. It is not counted as right or
+   wrong, does not go into the mistake bank, and does not affect accuracy stats. Each quiz screen calls
+   skipSetup after rendering; record() stores the skipped item in that quiz's results for the review. */
+function skipSetup(it,fbId,link,isLast,record,onNext){
+  QSKIP=()=>{
+    const btns=[...app.querySelectorAll('.opt')];if(!btns.length||btns[0].disabled)return;
+    btns.forEach((x,j)=>{x.disabled=true;if(it.opts[j].ok)x.classList.add('right');});
+    document.querySelectorAll('[data-conf],.qskip').forEach(b=>b.disabled=true);CONF=null;QSKIP=null;
+    if(record)record({ok:false,skip:true,chosen:null,prompt:it.prompt,stem:it.stem||'',right:it.right,explain:it.explain,vid:link&&link.vid,yt:link&&link.yt});
+    document.getElementById(fbId).innerHTML='<div class="fb"><b class="sk">Not covered yet: here is the key idea</b>'+(it.explain?'<p class="note">'+it.explain+'</p>':'')+
+      videoLinks(link||{})+'<button class="btn" id="qsknx">'+(isLast?'Finish':'Next')+'</button></div>';
+    document.getElementById('qsknx').onclick=onNext;
+  };
+}
+/* score heading that leaves out skipped questions */
+function scoreLine(ok,res){const sk=res.filter(r=>r.skip).length,n=res.length-sk;
+  return (n?'<h1>'+ok+' / '+n+'</h1>':'<h1>Nothing scored</h1>')+(sk?'<p class="note">'+sk+' marked "haven\'t learnt this yet" (not counted).</p>':'');}
 document.addEventListener('click',e=>{
   const c=e.target.closest('[data-conf]');
   if(c){CONF=c.dataset.conf;c.parentNode.querySelectorAll('[data-conf]').forEach(b=>b.classList.toggle('on',b===c));}
   if(e.target.closest('.qflag'))reportOpen();
+  if(e.target.closest('.qskip')&&QSKIP)QSKIP();
 });
 function confRecord(ok){
   if(!CONF)return;
@@ -22,6 +41,8 @@ function confRecord(ok){
   st[CONF].n++;if(ok)st[CONF].ok++;saveJSON('confidence',st);CONF=null;
   document.querySelectorAll('[data-conf]').forEach(b=>b.disabled=true);
 }
+/* once an option is chosen, the skip button no longer applies */
+document.addEventListener('click',e=>{if(e.target.closest('.opt'))document.querySelectorAll('.qskip').forEach(b=>b.disabled=true);},true);
 /* a short verdict for the Progress page */
 function confSummary(){
   const st=loadJSON('confidence',null);if(!st)return null;
@@ -86,12 +107,13 @@ function qrRender(){
       '<button class="btn" id="qrnx">'+(QR.i+1<QR.items.length?'Next':'Finish')+'</button></div>';
     document.getElementById('qrnx').onclick=()=>{QR.i++;if(QR.i<QR.items.length)qrRender();else qrDone();};
   });
+  skipSetup(it,'qrfb',{vid:it.vid,yt:it.yt},QR.i+1>=QR.items.length,r=>QR.res.push(r),()=>{QR.i++;if(QR.i<QR.items.length)qrRender();else qrDone();});
   window.scrollTo(0,0);
 }
 function qrDone(){
   setScratch(false);setBack(QR.back);
   if(QR.onDone)QR.onDone(QR);
-  app.innerHTML='<div class="stack"><p class="eyebrow">'+QR.title+'</p><h1>'+QR.ok+' / '+QR.items.length+'</h1>'+reviewHtml(QR.res)+
+  app.innerHTML='<div class="stack"><p class="eyebrow">'+QR.title+'</p>'+scoreLine(QR.ok,QR.res)+reviewHtml(QR.res)+
     '<button class="btn" id="qragain">Another round</button><button class="btn ghost" id="qrback">Back</button></div>';
   document.getElementById('qragain').onclick=QR.again;
   document.getElementById('qrback').onclick=QR.back;

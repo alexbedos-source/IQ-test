@@ -438,12 +438,13 @@ function alRender(){
     document.getElementById('alfb').innerHTML='<div class="fb"><b class="'+(ok?'ok':'no')+'">'+(ok?'Correct.':'Not quite.')+'</b><p class="note">'+it.explain+'</p><button class="btn" id="alnx">'+(AL.i+1<AL.items.length?'Next':'Finish')+'</button></div>';
     document.getElementById('alnx').onclick=()=>{AL.i++;if(AL.i<AL.items.length)alRender();else alDone();};
   });
+  skipSetup(it,'alfb',{vid:videoFor(s.key,it.topic),yt:SUBJ_BOARD[s.key]+' '+s.topics[it.topic]+' explained'},AL.i+1>=AL.items.length,r=>(AL.res=AL.res||[]).push(r),()=>{AL.i++;if(AL.i<AL.items.length)alRender();else alDone();});
   window.scrollTo(0,0);
 }
 function alDone(){
   setScratch(false);
   setBack(()=>alSubject(AL.si));
-  app.innerHTML='<div class="stack"><p class="eyebrow">'+AL_SUBJECTS[AL.si].name+'</p><h1>'+AL.ok+' / '+AL.items.length+'</h1>'+
+  app.innerHTML='<div class="stack"><p class="eyebrow">'+AL_SUBJECTS[AL.si].name+'</p>'+scoreLine(AL.ok,(AL.res||[]))+
    reviewHtml(AL.res||[])+
    '<button class="btn" id="alagain">Another 10</button><button class="btn ghost" id="alback">Back to topics</button></div>';
   document.getElementById('alagain').onclick=()=>{AL.items=alSet(AL_SUBJECTS[AL.si],AL.topic);AL.i=0;AL.ok=0;AL.res=[];alRender();};

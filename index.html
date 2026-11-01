@@ -184,6 +184,9 @@ details.rev p{margin-top:6px;font-size:.92rem;color:var(--muted)}
 .conf button.on{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 18%,transparent);color:var(--accent)}
 .conf button:disabled{opacity:.6}
 .qflag{border:0;background:none;color:var(--muted);font:500 .8rem var(--display);cursor:pointer;padding:6px 2px}
+.qact{display:flex;gap:12px;align-items:center;margin-left:auto}
+.qskip{border:1.5px dashed var(--line);background:none;color:var(--muted);border-radius:999px;padding:5px 11px;font:500 .8rem var(--display);cursor:pointer}
+.qskip:disabled{opacity:.4}
 #rsheet{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.6);display:flex;align-items:flex-end;justify-content:center}
 #rsheet .rs-box{background:var(--surface);border:1px solid var(--line);border-radius:18px 18px 0 0;padding:20px 16px max(20px,env(safe-area-inset-bottom));width:100%;max-width:560px}
 /* graph sketching: faint axes on the scratchpad */
@@ -311,7 +314,7 @@ body.sp-open #scratchbtn,body.vp-open #scratchbtn{display:none}
 /* Start-up safety net: if anything fails while the app loads (for example a stale cached file after an update),
    clear the offline cache and reload once automatically. If it still fails, show a repair button.
    Progress (localStorage) is never touched. */
-window.IQ_V='14';
+window.IQ_V='15';
 (function(){
   let started=false;window.addEventListener('iq-started',()=>{started=true;});
   async function repair(){
@@ -340,19 +343,19 @@ window.IQ_V='14';
 <header class="tb" id="tb"><button id="backbtn" aria-label="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button></header>
 <main class="wrap" id="app"></main>
 
-<script src="iq-bank.js?v=14"></script>
-<script src="physics.js?v=14"></script>
-<script src="interview.js?v=14"></script>
-<script src="drill.js?v=14"></script>
-<script src="learn.js?v=14"></script>
-<script src="tools.js?v=14"></script>
-<script src="alevel.js?v=14"></script>
-<script src="videos.js?v=14"></script>
-<script src="mistakes.js?v=14"></script>
-<script src="backup.js?v=14"></script>
-<script src="practicals.js?v=14"></script>
-<script src="extras.js?v=14"></script>
-<script src="scratch.js?v=14"></script>
+<script src="iq-bank.js?v=15"></script>
+<script src="physics.js?v=15"></script>
+<script src="interview.js?v=15"></script>
+<script src="drill.js?v=15"></script>
+<script src="learn.js?v=15"></script>
+<script src="tools.js?v=15"></script>
+<script src="alevel.js?v=15"></script>
+<script src="videos.js?v=15"></script>
+<script src="mistakes.js?v=15"></script>
+<script src="backup.js?v=15"></script>
+<script src="practicals.js?v=15"></script>
+<script src="extras.js?v=15"></script>
+<script src="scratch.js?v=15"></script>
 <script>
 /* =====================  helpers  ===================== */
 const rnd=n=>Math.floor(Math.random()*n);
@@ -770,12 +773,13 @@ const histHtml=h=>'<div class="hist">'+h.map(x=>'<div class="hrow"><span class="
 /* every top-level screen calls leave() first, so timers, recordings and test state from the previous screen stop */
 /* Review of answers after a quiz. items: {prompt, stem, chosen, right, ok, explain}; chosen is null if skipped. */
 function reviewHtml(items,title){
-  const wrong=items.filter(x=>!x.ok),right=items.filter(x=>x.ok);
+  const wrong=items.filter(x=>!x.ok&&!x.skip),skipped=items.filter(x=>x.skip),right=items.filter(x=>x.ok);
   const one=x=>'<div class="rv"><p class="rq"><span class="mark '+(x.ok?'ok':x.chosen==null?'sk':'no')+'">'+(x.ok?'✓':x.chosen==null?'–':'✗')+'</span> '+x.prompt+'</p>'+(x.stem||'')+
-    '<div class="ra">'+(x.ok?'':'<span class="lab">You</span><span class="no">'+(x.chosen==null?'Skipped':x.chosen)+'</span>')+
+    '<div class="ra">'+(x.ok||x.skip?'':'<span class="lab">You</span><span class="no">'+(x.chosen==null?'Skipped':x.chosen)+'</span>')+
     '<span class="lab">Answer</span><span class="ok">'+x.right+'</span></div>'+(x.explain?'<p class="why">'+x.explain+'</p>':'')+(x.ok?'':videoLinks(x))+'</div>';
   return '<div class="card stack"><h2>'+(title||'Review your answers')+'</h2>'+
-    (wrong.length?'<p class="eyebrow">'+wrong.length+' to learn from</p>'+wrong.map(one).join(''):'<p class="note">Everything correct. Nice work.</p>')+
+    (wrong.length?'<p class="eyebrow">'+wrong.length+' to learn from</p>'+wrong.map(one).join(''):'<p class="note">'+(skipped.length?'No mistakes.':'Everything correct. Nice work.')+'</p>')+
+    (skipped.length?'<p class="eyebrow">'+skipped.length+' not covered yet</p>'+skipped.map(one).join(''):'')+
     (right.length?'<details class="fu"><summary>'+right.length+' correct</summary>'+right.map(one).join('')+'</details>':'')+'</div>';
 }
 

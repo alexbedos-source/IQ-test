@@ -194,12 +194,13 @@ function rqRender(){
     document.getElementById('rqfb').innerHTML='<div class="fb"><b class="'+(ok?'ok':'no')+'">'+(ok?'Correct.':'Not quite.')+'</b><p class="note">'+it.explain+'</p><button class="btn" id="rqnx">'+(RQ.k+1<RQ.items.length?'Next':'Finish')+'</button></div>';
     document.getElementById('rqnx').onclick=()=>{RQ.k++;if(RQ.k<RQ.items.length)rqRender();else rqDone();};
   });
+  skipSetup(it,'rqfb',{vid:videoFor('phy',RPS[it.ri].topic),yt:'AQA A level physics required practical '+RPS[it.ri].t},RQ.k+1>=RQ.items.length,r=>RQ.res.push(r),()=>{RQ.k++;if(RQ.k<RQ.items.length)rqRender();else rqDone();});
   window.scrollTo(0,0);
 }
 function rqDone(){
   setScratch(false);setBack(()=>RQ.which<0?rpHome():rpView(RQ.which));
   if(RQ.which>=0){const d=loadJSON('rp-quiz',{}),c=d[RQ.which]||{best:0};c.best=Math.max(c.best,RQ.ok);d[RQ.which]=c;saveJSON('rp-quiz',d);}
-  app.innerHTML='<div class="stack"><p class="eyebrow">Required practicals</p><h1>'+RQ.ok+' / '+RQ.items.length+'</h1>'+reviewHtml(RQ.res)+
+  app.innerHTML='<div class="stack"><p class="eyebrow">Required practicals</p>'+scoreLine(RQ.ok,RQ.res)+reviewHtml(RQ.res)+
    '<button class="btn" id="rqagain">Try again</button><button class="btn ghost" id="rqback">Back</button></div>';
   document.getElementById('rqagain').onclick=()=>rpQuiz(RQ.which);
   document.getElementById('rqback').onclick=()=>RQ.which<0?rpHome():rpView(RQ.which);
