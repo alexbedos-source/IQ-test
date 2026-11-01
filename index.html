@@ -293,21 +293,51 @@ body.sp-open #scratchbtn,body.vp-open #scratchbtn{display:none}
 </style>
 </head>
 <body>
+<script>
+/* Start-up safety net: if anything fails while the app loads (for example a stale cached file after an update),
+   clear the offline cache and reload once automatically. If it still fails, show a repair button.
+   Progress (localStorage) is never touched. */
+window.IQ_V='11';
+(function(){
+  let started=false;window.addEventListener('iq-started',()=>{started=true;});
+  async function repair(){
+    try{if(navigator.serviceWorker){const rs=await navigator.serviceWorker.getRegistrations();await Promise.all(rs.map(r=>r.unregister()));}}catch(e){}
+    try{if(window.caches){const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)));}}catch(e){}
+    location.reload();
+  }
+  window.iqRepair=repair;
+  function fail(msg){
+    if(started)return;
+    /* never wipe the offline copy while offline: that is the only copy available */
+    if(navigator.onLine!==false&&!sessionStorage.getItem('iq-repaired')){sessionStorage.setItem('iq-repaired','1');repair();return;}
+    const show=()=>{const a=document.getElementById('app');if(!a)return setTimeout(show,50);
+      a.innerHTML='<div class="stack" style="padding-top:40px"><h1>IQ Lab didn\'t load properly</h1><p class="muted">This can happen just after an update. Your progress is safe: repairing only clears the app\'s offline copy.</p><button class="btn" onclick="sessionStorage.removeItem(\'iq-repaired\');iqRepair()">Repair and reload</button><p class="note">Details: '+String(msg).replace(/</g,'&lt;')+'</p></div>';};
+    show();
+  }
+  /* only script problems count: a missing font or image must not trigger a repair */
+  window.addEventListener('error',e=>{
+    const t=e.target;
+    if(t&&t!==window&&t.tagName!=='SCRIPT')return;
+    fail(e.message||('could not load '+((t&&t.src)||'a script')));
+  },true);
+  window.addEventListener('unhandledrejection',e=>fail(e.reason));
+})();
+</script>
 <header class="tb" id="tb"><button id="backbtn" aria-label="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button></header>
 <main class="wrap" id="app"></main>
 
-<script src="iq-bank.js"></script>
-<script src="physics.js"></script>
-<script src="interview.js"></script>
-<script src="drill.js"></script>
-<script src="learn.js"></script>
-<script src="tools.js"></script>
-<script src="alevel.js"></script>
-<script src="videos.js"></script>
-<script src="mistakes.js"></script>
-<script src="backup.js"></script>
-<script src="practicals.js"></script>
-<script src="scratch.js"></script>
+<script src="iq-bank.js?v=11"></script>
+<script src="physics.js?v=11"></script>
+<script src="interview.js?v=11"></script>
+<script src="drill.js?v=11"></script>
+<script src="learn.js?v=11"></script>
+<script src="tools.js?v=11"></script>
+<script src="alevel.js?v=11"></script>
+<script src="videos.js?v=11"></script>
+<script src="mistakes.js?v=11"></script>
+<script src="backup.js?v=11"></script>
+<script src="practicals.js?v=11"></script>
+<script src="scratch.js?v=11"></script>
 <script>
 /* =====================  helpers  ===================== */
 const rnd=n=>Math.floor(Math.random()*n);
@@ -984,7 +1014,8 @@ function results(e,used,timedOut,st,hist){
 }
 
 home();
-if('serviceWorker' in navigator&&location.protocol==='https:')navigator.serviceWorker.register('sw.js');
+window.dispatchEvent(new Event('iq-started'));sessionStorage.removeItem('iq-repaired');
+if('serviceWorker' in navigator&&location.protocol==='https:')navigator.serviceWorker.register('sw.js?v='+IQ_V);
 </script>
 </body>
 </html>
