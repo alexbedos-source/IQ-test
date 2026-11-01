@@ -23,16 +23,21 @@ Later goal (not started): video explanations for questions answered wrongly.
   - `interview.js`: mock interview. `drill.js`: daily drill and streak. `learn.js`: flashcards, bridging topics, problem of the week, resources.
   - `tools.js`: study timer, processing-speed task, progress dashboard.
   - `alevel.js`: A-level practice by spec topic. Banks `AL_PHY_BANK`, `AL_MATHS_BANK`, `AL_ECON_BANK` (format `[topic, prompt, [correct, w, w, w], explanation]`) plus generators `AL_*_GEN` (`[topic, () => item]`) that make calculation questions fresh each time.
+  - `videos.js`: narrated video lessons (`VIDEOS`, one per A-level topic, plus extras like `graphs`), the overlay player (`playVideo`), `videoFor(subj, topic, extra)` and `videoLinks(item)` used in reviews.
+  - `mistakes.js`: mistake bank (`mbAdd`, `mbList`, review session). `backup.js`: backup and restore. `practicals.js`: the 12 AQA required practicals (`RPS`) with quizzes. `scratch.js`: scratchpad overlay.
   - Plus `sw.js`, `manifest.webmanifest`, `icons/`.
 - Every top-level screen calls `leave()` first; modules push teardown functions onto `cleanups` (timers, microphone).
 - **Back arrow:** `leave()` points the top-left arrow at `home`; any sub-screen must call `setBack(fn)` with its parent screen (use a `confirm()` wrapper when leaving would lose a running test). Every new screen needs this.
 - Hosted on GitHub Pages from `main` at https://alexbedos-source.github.io/IQ-test/ and added to the iPhone home screen as a PWA.
 - **Workflow:** make changes on a branch, open a PR to `main`; the owner merges from the GitHub app. Never push straight to `main`.
 - **Bump `VERSION` in `sw.js` on every change** to any app file, or installed phones keep serving the old cache. New files must also be added to `SHELL` in `sw.js`.
-- All user data lives in `localStorage`: `iq10-history`, `iq10-seen`, `phy-ratings`, `iv-history`, `drill`, `cards`, `topics-read`, `potw`, `study-log`, `study-run`, `study-pref`, `speed-history`, `alevel`, `alevel-seen`.
+- All user data lives in `localStorage`: `iq10-history`, `iq10-seen`, `phy-ratings`, `iv-history`, `drill`, `cards`, `topics-read`, `potw`, `study-log`, `study-run`, `study-pref`, `speed-history`, `alevel`, `alevel-seen`, `mistakes`, `mistakes-cleared`, `rp-quiz`, `videos-watched`, `video-voice`, `backup-last`. Backups export every localStorage key, so new keys are included automatically.
 - Flashcard ids are `'a' + index` (the deck was replaced with the AQA Physics deck; old `'c'` ids are ignored), so **only append** new cards to `CARDS` (never insert or reorder), or saved progress maps to the wrong cards. The same applies to IQ bank items (ids by index) and `POTW` (indexed by week). Keep keys and formats backwards compatible.
 - Mock-interview recordings use MediaRecorder, stay in memory and are never uploaded.
 - **Maths formatting:** a MutationObserver in `index.html` runs `mathify()` on everything rendered in `#app`, turning `e^(−x²)`, `x^2`, `c_rms`, `k_B` into proper superscripts and subscripts. Writing questions with `^(...)` and `_x` notation is fine; never put `^` or `_` in non-maths text.
+- **Scratchpad:** question screens call `setScratch(true)` (a new question resets the pad); `leave()` hides it, and result screens call `setScratch(false)`.
+- **Mistake bank:** every quiz must call `mbAdd({src, prompt, stem?, right, wrong:[3], explain, vid?, yt?})` for wrong answers (not for working-memory items, whose stimulus is gone).
+- **Video links:** review items may carry `vid` (a `VIDEOS` id, from `videoFor`) and `yt` (a YouTube search string); `reviewHtml` shows them on wrong answers. Video lessons are original, written as scenes `{h, show, say}`; `say` is spoken aloud, so write it in plain words (no symbols). Graph visuals use `VGR(fn, caption)` and diagrams `VDG(xLabel, yLabel, items)`.
 - **Answer review:** quizzes end with `reviewHtml(items)` (your answer, the correct answer and the explanation, mistakes first). Any new quiz screen should record `{prompt, stem, chosen, right, ok, explain}` per question and show it.
 
 ## Rules agreed with the owner
@@ -66,6 +71,14 @@ Don't kill the server with `pkill -f` on a pattern that also matches your own co
 - A-level: append to the banks with a valid topic index, or add generators. Keep topics balanced; check facts against the spec.
 - IQ: append to `EXTRA.V/Q/L` in `iq-bank.js`. Flashcards: append to `CARDS` (AQA Physics only, `[topicIndex, front, back]`, topics as `CARD_CATS`, nothing from the data booklet). Problems of the week: append to `POTW` (university level is welcome; prefix the prompt with "(University level)").
 - Validate: every item has four distinct options with the correct one first, no `undefined`/`NaN`, and the browser test passes.
+
+## Continuous improvement (owner's instruction)
+The owner wants the app to keep getting better even when they are not involved, and approves changes by merging PRs.
+The nightly session, after adding questions, builds **one small improvement** from the *auto* list in `IDEAS.md` (or a clear
+bug fix / polish it notices), and may add new ideas to `IDEAS.md`. Rules:
+- Small and safe: one feature or fix per night, fully tested (Playwright), with the back arrow, `leave()`, answer review and maths formatting conventions followed.
+- **Never** without approval: removing or renaming features, changing IQ scoring, breaking saved data formats, adding external services, collecting or uploading any data, or anything in the *needs approval* list.
+- Describe the improvement clearly in the PR body (what, why, how to try it) so the owner can decide; mark it `[~]` in `IDEAS.md`, and `[x]` once merged.
 
 ## Roadmap
 - More physics questions and follow-ups; the owner will say which topics feel too easy or hard.

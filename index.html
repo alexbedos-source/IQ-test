@@ -221,6 +221,55 @@ sup,sub{font-size:.72em;line-height:0}
 .rv .plot{max-width:240px;margin:4px 0}
 .rv .why{font-size:.9rem;color:var(--muted)}
 .rv .mxwrap{transform-origin:left top}
+/* video links */
+.vlinks{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.vbtn{border:1.5px solid var(--accent);color:var(--accent);background:transparent;border-radius:999px;padding:6px 12px;font:600 .85rem var(--display);cursor:pointer}
+.vyt{font-size:.85rem;color:var(--muted)}
+/* video player */
+#vplayer{position:fixed;inset:0;z-index:30;background:var(--bg);overflow:auto;padding:max(14px,env(safe-area-inset-top)) 16px max(20px,env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:12px;max-width:560px;margin:0 auto}
+body.vp-open{overflow:hidden}
+.vp-top{display:flex;justify-content:space-between;align-items:center}
+.vp-x{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--line);background:var(--surface);font-size:1rem;cursor:pointer}
+.vp-dots{display:flex;gap:6px}
+.vp-dots i{flex:1;height:5px;border-radius:3px;background:var(--line);cursor:pointer}
+.vp-dots i.on{background:var(--accent)}
+.vp-stage{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;min-height:260px;display:flex;flex-direction:column;gap:12px;justify-content:center}
+.vp-show{animation:vpin .45s ease}
+@keyframes vpin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.vp-show{animation:none}}
+.vp-cap{font-size:1rem;line-height:1.55;color:var(--ink);min-height:4.6em}
+.vp-ctl{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.vp-ctl button{min-height:52px;border-radius:12px;border:1.5px solid var(--line);background:var(--surface);font-size:1.3rem;cursor:pointer}
+.vp-ctl .vp-play{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.v-eq p{font:600 1.15rem var(--mono);text-align:center;margin:8px 0;overflow-wrap:anywhere}
+.v-li{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:10px;font-size:1.02rem}
+.v-gr .plot{max-width:300px}
+.v-gr .note{text-align:center}
+.v-dg{width:100%;max-width:300px;display:block;margin:0 auto}
+.v-dg .ax{stroke:var(--muted);stroke-width:.8}
+.v-dg .c1{stroke:var(--accent);stroke-width:1.6}.v-dg .c2{stroke:var(--good);stroke-width:1.6}.v-dg .c3{stroke:var(--bad);stroke-width:1.6}
+.v-dg text{fill:var(--muted);font:500 4.2px var(--mono)}.v-dg .lb{fill:var(--ink)}
+.v-dg .dot{fill:var(--ink)}.v-dg .area{fill:var(--bad);fill-opacity:.25}
+.v-end{display:flex;flex-direction:column;gap:12px;text-align:center}
+/* scratchpad */
+#scratchbtn{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom));z-index:15;width:54px;height:54px;border-radius:50%;border:0;background:var(--accent);box-shadow:0 4px 14px rgba(0,0,0,.25);display:none;place-items:center;cursor:pointer}
+#scratchbtn.show{display:grid}
+#scratchbtn svg{width:26px;height:26px;fill:none;stroke:var(--accent-ink);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+body.sp-open #scratchbtn,body.vp-open #scratchbtn{display:none}
+#scratch{position:fixed;inset:0;z-index:25;display:none;flex-direction:column;background:var(--surface)}
+#scratch.open{display:flex}
+#scratch.over{background:transparent}
+#scratch.over .sp-bar{background:var(--surface)}
+#scratch canvas{flex:1;width:100%;touch-action:none;display:block;background-image:radial-gradient(var(--line) 1px,transparent 1px);background-size:22px 22px}
+#scratch.over canvas{background-image:none}
+.sp-bar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:max(10px,env(safe-area-inset-top)) 10px 10px;border-bottom:1px solid var(--line)}
+.sp-bar button{min-height:40px;min-width:40px;border-radius:10px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);font:600 .9rem var(--display);padding:0 10px;cursor:pointer}
+.sp-bar button.on{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 15%,var(--surface))}
+.sp-cols{display:flex;gap:4px}
+.sp-cols button{padding:0;min-width:36px}
+.sp-cols i{display:block;width:18px;height:18px;border-radius:50%;margin:auto}
+.sp-cols [data-c="ink"] i{background:var(--ink)}.sp-cols [data-c="accent"] i{background:var(--accent)}.sp-cols [data-c="bad"] i{background:var(--bad)}
+.sp-bar .sp-close{margin-left:auto;background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
 .flash{min-height:180px;display:flex;flex-direction:column;justify-content:center;gap:14px;text-align:center}
 .flash .prompt{font-size:1.25rem}
 .cardback p{font:600 1.15rem var(--mono);color:var(--accent)}
@@ -254,6 +303,11 @@ sup,sub{font-size:.72em;line-height:0}
 <script src="learn.js"></script>
 <script src="tools.js"></script>
 <script src="alevel.js"></script>
+<script src="videos.js"></script>
+<script src="mistakes.js"></script>
+<script src="backup.js"></script>
+<script src="practicals.js"></script>
+<script src="scratch.js"></script>
 <script>
 /* =====================  helpers  ===================== */
 const rnd=n=>Math.floor(Math.random()*n);
@@ -674,7 +728,7 @@ function reviewHtml(items,title){
   const wrong=items.filter(x=>!x.ok),right=items.filter(x=>x.ok);
   const one=x=>'<div class="rv"><p class="rq"><span class="mark '+(x.ok?'ok':x.chosen==null?'sk':'no')+'">'+(x.ok?'✓':x.chosen==null?'–':'✗')+'</span> '+x.prompt+'</p>'+(x.stem||'')+
     '<div class="ra">'+(x.ok?'':'<span class="lab">You</span><span class="no">'+(x.chosen==null?'Skipped':x.chosen)+'</span>')+
-    '<span class="lab">Answer</span><span class="ok">'+x.right+'</span></div>'+(x.explain?'<p class="why">'+x.explain+'</p>':'')+'</div>';
+    '<span class="lab">Answer</span><span class="ok">'+x.right+'</span></div>'+(x.explain?'<p class="why">'+x.explain+'</p>':'')+(x.ok?'':videoLinks(x))+'</div>';
   return '<div class="card stack"><h2>'+(title||'Review your answers')+'</h2>'+
     (wrong.length?'<p class="eyebrow">'+wrong.length+' to learn from</p>'+wrong.map(one).join(''):'<p class="note">Everything correct. Nice work.</p>')+
     (right.length?'<details class="fu"><summary>'+right.length+' correct</summary>'+right.map(one).join('')+'</details>':'')+'</div>';
@@ -698,7 +752,7 @@ function mathify(root){
   const nodes=[];while(w.nextNode())nodes.push(w.currentNode);
   nodes.forEach(n=>{const s=document.createElement('span');s.innerHTML=fmtMath(n.data);n.replaceWith(...s.childNodes);});
 }
-new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{if(n.nodeType===1)mathify(n);else if(n.nodeType===3&&n.parentNode&&MATH_RE.test(n.data))mathify(n.parentNode);}))).observe(document.getElementById('app'),{childList:true,subtree:true});
+new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{if(n.nodeType===1)mathify(n);else if(n.nodeType===3&&n.parentNode&&MATH_RE.test(n.data))mathify(n.parentNode);}))).observe(document.body,{childList:true,subtree:true});
 
 let cleanups=[],backFn=null;
 /* the top-left arrow runs backFn; leave() points it at home, and screens override it */
@@ -706,34 +760,37 @@ function setBack(fn){backFn=fn;document.getElementById('tb').style.display=fn?'f
 document.getElementById('backbtn').onclick=()=>{if(backFn)backFn();};
 function leave(){
   clearInterval(tick);S=null;setBack(home);
+  if(window.scratchReset)scratchReset();
   if(typeof phyTick!=='undefined')clearInterval(phyTick);
   cleanups.splice(0).forEach(f=>{try{f();}catch(e){}});
 }
 
 function home(){
   leave();setBack(null);
-  const dr=drillState(),drDone=!!dr.days[dayKey()],cd=cardsDue(cardState()),due=cd.due.length+cd.fresh.length;
+  const dr=drillState(),drDone=!!dr.days[dayKey()],cd=cardsDue(cardState()),due=cd.due.length+cd.fresh.length,nmb=mbList().length;
   const card=(id,title,desc,badge,done)=>'<button class="hubcard" id="'+id+'"><b>'+title+'</b><span>'+desc+'</span>'+(badge?'<span class="badge'+(done?' done':'')+'">'+badge+'</span>':'')+'</button>';
   app.innerHTML=
   '<div class="stack">'+
   '<div class="stack" style="gap:8px"><p class="eyebrow">Train · Prepare · Test</p><h1>IQ Lab</h1></div>'+
   '<div class="hubsec"><p class="eyebrow">Interview prep</p>'+
    card('hiv','Mock interview','Two problems, think aloud, tutor follow-ups, then review yourself.')+
-   '<div class="hubgrid">'+card('hphy','Physics questions',PHY.length+' open-ended questions with hints')+card('hpotw','Problem of the week','A harder problem to chew on')+'</div></div>'+
+   '<div class="hubgrid">'+card('hphy','Physics questions',PHY.length+' open-ended questions with hints',phyDueList(PHY).length?phyDueList(PHY).length+' due':'')+card('hpotw','Problem of the week','A harder problem to chew on')+'</div></div>'+
   '<div class="hubsec"><p class="eyebrow">A-levels</p><div class="hubgrid">'+
-   card('alphy','Physics','AQA')+card('almaths','Maths','Edexcel')+card('alecon','Economics','AQA')+card('alall','All subjects','Accuracy by topic')+'</div></div>'+
+   card('alphy','Physics','AQA')+card('almaths','Maths','Edexcel')+card('alecon','Economics','AQA')+card('alall','All subjects','Accuracy by topic')+
+   card('hrp','Required practicals','All 12 AQA Physics practicals')+card('hvid','Video lessons',VIDEOS.length+' narrated lessons')+'</div></div>'+
   '<div class="hubsec"><p class="eyebrow">Daily training</p><div class="hubgrid">'+
    card('hdrill','Daily drill','10 quick questions',drDone?'✓ done today':(drillStreak(dr)?drillStreak(dr)+'-day streak':'Start a streak'),drDone)+
    card('hcards','Flashcards','AQA Physics definitions and facts',due?due+' due':'✓ all done',!due)+
+   card('hmb','Review mistakes','Questions you got wrong',nmb?nmb+' to review':'',false)+
    card('htopics','Bridging topics','First-year ideas, made simple')+
    card('hres','Resources','Trusted free links')+'</div></div>'+
   '<div class="hubsec"><p class="eyebrow">Study tools</p><div class="hubgrid">'+
    card('hstudy','Study timer','Focus blocks, logged by subject',studyRun()?'running':'')+
-   card('hprog','Progress','Everything in one place')+'</div></div>'+
+   card('hprog','Progress','Everything in one place')+card('hbk','Backup','Save or restore your progress',loadJSON('backup-last',null)?'':'not backed up yet')+'</div></div>'+
   '<div class="hubsec"><p class="eyebrow">Intelligence</p>'+
    card('hiq','IQ test','Seven abilities · 5, 10 or 30 minutes')+'</div>'+
   '</div>';
-  const go={alphy:()=>alSubject(0,home),almaths:()=>alSubject(1,home),alecon:()=>alSubject(2,home),alall:alHome,hiv:ivHome,hphy:phyHome,hpotw:potwHome,hdrill:drillHome,hcards:cardsHome,htopics:topicsHome,hres:resourcesHome,hstudy:studyHome,hprog:progressHome,hiq:iqHome};
+  const go={hrp:rpHome,hvid:videosHome,hmb:mbHome,hbk:backupHome,alphy:()=>alSubject(0,home),almaths:()=>alSubject(1,home),alecon:()=>alSubject(2,home),alall:alHome,hiv:ivHome,hphy:phyHome,hpotw:potwHome,hdrill:drillHome,hcards:cardsHome,htopics:topicsHome,hres:resourcesHome,hstudy:studyHome,hprog:progressHome,hiq:iqHome};
   for(const id in go)document.getElementById(id).onclick=go[id];
   window.scrollTo(0,0);
 }
@@ -872,6 +929,8 @@ function finish(timedOut){
   const used=Math.min(S.limit,(Date.now()-S.start)/1000);
   const flags=S.ans.map(a=>a===true);
   const e=estimate(S.items,flags);
+  S.items.forEach((it,i)=>{if(S.ans[i]===false&&!it.mem){const k=(S.pick||[])[i];
+    mbAdd({src:'IQ test · '+CATS[it.cat],prompt:it.prompt,stem:it.stem,right:it.opts.find(o=>o.ok).html,wrong:it.opts.filter(o=>!o.ok).map(o=>o.html),explain:it.explain});}});
   const iq=clamp(e.iq,55,145),lo=clamp(iq-1.645*e.sd,55,145),hi=clamp(iq+1.645*e.sd,55,145);
   const h=loadJSON('iq10-history',[]);
   h.push({t:Date.now(),min:S.mode.min,iq:Math.round(iq),lo:Math.round(lo),hi:Math.round(hi)});

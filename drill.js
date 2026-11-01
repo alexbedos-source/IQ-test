@@ -221,7 +221,13 @@ function drillHome(){
   document.getElementById('dback').onclick=home;
 }
 function drillStart(){D={items:drillSet(),i:0,ok:0,t0:Date.now(),res:[]};drillRender();}
+/* which lesson (or YouTube search) explains each drill type */
+function drillLink(t){
+  return [{yt:'mental arithmetic tricks'},{yt:'standard form multiplying and dividing'},{yt:'physics estimation orders of magnitude'},
+    {vid:videoFor('maths',5)},{vid:videoFor('maths',6)},{vid:videoFor('phy',0),yt:'A level physics SI base units homogeneity'},{vid:videoFor('maths',5,'graphs')}][t]||{};
+}
 function drillRender(){
+  setScratch(true);
   setBack(()=>{if(confirm('Leave this drill? It will not count towards your streak.'))drillHome();});
   const it=D.items[D.i];
   app.innerHTML=
@@ -237,14 +243,16 @@ function drillRender(){
     const k=+b.dataset.k,ok=it.opts[k].ok;
     btns.forEach((x,j)=>{x.disabled=true;if(it.opts[j].ok)x.classList.add('right');});
     if(!ok)b.classList.add('wrong');
-    if(ok)D.ok++;D.res.push({type:it.type,ok,prompt:it.prompt,stem:it.stem||'',chosen:it.opts[k].h,right:it.right,explain:it.explain});
+    const link=drillLink(it.type);
+    if(ok)D.ok++;D.res.push(Object.assign({type:it.type,ok,prompt:it.prompt,stem:it.stem||'',chosen:it.opts[k].h,right:it.right,explain:it.explain},link));
+    if(!ok)mbAdd(Object.assign({src:'Daily drill · '+DRILL_TYPES[it.type],prompt:it.prompt,stem:it.stem||'',right:it.right,wrong:it.wrong,explain:it.explain},link));
     document.getElementById('dfb').innerHTML='<div class="fb"><b class="'+(ok?'ok':'no')+'">'+(ok?'Correct.':'Not quite.')+'</b><p class="note">'+it.explain+'</p><button class="btn" id="dnx">'+(D.i+1<D.items.length?'Next':'Finish')+'</button></div>';
     document.getElementById('dnx').onclick=()=>{D.i++;if(D.i<D.items.length)drillRender();else drillFinish();};
   });
   window.scrollTo(0,0);
 }
 function drillFinish(){
-  setBack(drillHome);
+  setBack(drillHome);setScratch(false);
   const st=drillState(),today=dayKey(),secs=(Date.now()-D.t0)/1000;
   if(!st.days[today]){
     st.streak=drillStreak(st)+1;st.last=today;st.best=Math.max(st.best||0,st.streak);
