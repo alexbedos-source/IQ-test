@@ -5,36 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="IQ Lab">
-<meta name="theme-color" content="#eef1f4" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0e0b16" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Delta">
+<meta name="theme-color" content="#0a0a0a">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="icon" type="image/png" href="icons/icon-192.png">
-<title>IQ Lab</title>
+<title>Delta</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 /* Layout idea: one phone-width column, big tap targets, a ruled answer-sheet feel; results are read against a bell curve. */
 :root{
-  --bg:#eef1f4; --surface:#ffffff; --ink:#121c26; --muted:#5b6975; --line:#d3dae1;
-  --accent:#6a3fd1; --accent-ink:#ffffff; --warn:#b4540a; --good:#1c7a4d; --bad:#b3261e;
+  /* Delta theme: black and orange, matching the logo, in light and dark mode alike */
+  --bg:#0a0a0a; --surface:#161616; --ink:#f5f5f4; --muted:#a8a29e; --line:#2b2b2b;
+  --accent:#ff7a1a; --accent-ink:#140700; --warn:#fbbf24; --good:#4ade80; --bad:#f87171;
   --display:'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
   --mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
-  color-scheme:light;
-}
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --bg:#0e0b16; --surface:#1a1526; --ink:#ece8f4; --muted:#a39bb5; --line:#2f2742;
-    --accent:#b393ff; --accent-ink:#1a0b33; --warn:#f0a15a; --good:#5fd39a; --bad:#ff8a80;
-    color-scheme:dark;
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#0e0b16; --surface:#1a1526; --ink:#ece8f4; --muted:#a39bb5; --line:#2f2742;
-  --accent:#b393ff; --accent-ink:#1a0b33; --warn:#f0a15a; --good:#5fd39a; --bad:#ff8a80;
   color-scheme:dark;
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -180,6 +168,14 @@ details.rev p{margin-top:6px;font-size:.92rem;color:var(--muted)}
 .tb[style*="flex"]+.wrap{padding-top:4px}
 /* hub sections */
 .hubsec{display:flex;flex-direction:column;gap:10px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand svg{width:34px;height:34px;filter:drop-shadow(0 0 6px rgba(255,122,26,.45))}
+.hubsec>.eyebrow{color:var(--accent)}
+.hubcard{background:linear-gradient(180deg,#1a1a1a,#131313);border-color:#2b2b2b}
+.hubcard:active{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.btn{box-shadow:0 2px 14px rgba(255,122,26,.18)}
+.btn.ghost{box-shadow:none}
+.bar i,.cr .t i,.t1 i{background:linear-gradient(90deg,#ff3d2e,#ff7a1a,#ffd166)}
 .hubgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .hubgrid .hubcard{padding:14px;min-height:96px}
 .hubgrid .hubcard b{font-size:1.02rem}
@@ -297,7 +293,7 @@ body.sp-open #scratchbtn,body.vp-open #scratchbtn{display:none}
 /* Start-up safety net: if anything fails while the app loads (for example a stale cached file after an update),
    clear the offline cache and reload once automatically. If it still fails, show a repair button.
    Progress (localStorage) is never touched. */
-window.IQ_V='11';
+window.IQ_V='12';
 (function(){
   let started=false;window.addEventListener('iq-started',()=>{started=true;});
   async function repair(){
@@ -311,7 +307,7 @@ window.IQ_V='11';
     /* never wipe the offline copy while offline: that is the only copy available */
     if(navigator.onLine!==false&&!sessionStorage.getItem('iq-repaired')){sessionStorage.setItem('iq-repaired','1');repair();return;}
     const show=()=>{const a=document.getElementById('app');if(!a)return setTimeout(show,50);
-      a.innerHTML='<div class="stack" style="padding-top:40px"><h1>IQ Lab didn\'t load properly</h1><p class="muted">This can happen just after an update. Your progress is safe: repairing only clears the app\'s offline copy.</p><button class="btn" onclick="sessionStorage.removeItem(\'iq-repaired\');iqRepair()">Repair and reload</button><p class="note">Details: '+String(msg).replace(/</g,'&lt;')+'</p></div>';};
+      a.innerHTML='<div class="stack" style="padding-top:40px"><h1>Delta didn\'t load properly</h1><p class="muted">This can happen just after an update. Your progress is safe: repairing only clears the app\'s offline copy.</p><button class="btn" onclick="sessionStorage.removeItem(\'iq-repaired\');iqRepair()">Repair and reload</button><p class="note">Details: '+String(msg).replace(/</g,'&lt;')+'</p></div>';};
     show();
   }
   /* only script problems count: a missing font or image must not trigger a repair */
@@ -326,18 +322,18 @@ window.IQ_V='11';
 <header class="tb" id="tb"><button id="backbtn" aria-label="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button></header>
 <main class="wrap" id="app"></main>
 
-<script src="iq-bank.js?v=11"></script>
-<script src="physics.js?v=11"></script>
-<script src="interview.js?v=11"></script>
-<script src="drill.js?v=11"></script>
-<script src="learn.js?v=11"></script>
-<script src="tools.js?v=11"></script>
-<script src="alevel.js?v=11"></script>
-<script src="videos.js?v=11"></script>
-<script src="mistakes.js?v=11"></script>
-<script src="backup.js?v=11"></script>
-<script src="practicals.js?v=11"></script>
-<script src="scratch.js?v=11"></script>
+<script src="iq-bank.js?v=12"></script>
+<script src="physics.js?v=12"></script>
+<script src="interview.js?v=12"></script>
+<script src="drill.js?v=12"></script>
+<script src="learn.js?v=12"></script>
+<script src="tools.js?v=12"></script>
+<script src="alevel.js?v=12"></script>
+<script src="videos.js?v=12"></script>
+<script src="mistakes.js?v=12"></script>
+<script src="backup.js?v=12"></script>
+<script src="practicals.js?v=12"></script>
+<script src="scratch.js?v=12"></script>
 <script>
 /* =====================  helpers  ===================== */
 const rnd=n=>Math.floor(Math.random()*n);
@@ -801,7 +797,7 @@ function home(){
   const card=(id,title,desc,badge,done)=>'<button class="hubcard" id="'+id+'"><b>'+title+'</b><span>'+desc+'</span>'+(badge?'<span class="badge'+(done?' done':'')+'">'+badge+'</span>':'')+'</button>';
   app.innerHTML=
   '<div class="stack">'+
-  '<div class="stack" style="gap:8px"><p class="eyebrow">Train · Prepare · Test</p><h1>IQ Lab</h1></div>'+
+  '<div class="stack" style="gap:8px"><p class="eyebrow">Train · Prepare · Test</p><h1 class="brand"><svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="emb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd166"/><stop offset=".55" stop-color="#ff7a1a"/><stop offset="1" stop-color="#ff3d2e"/></linearGradient></defs><path d="M50 8 L94 88 L6 88 Z M50 36 L27 77 L73 77 Z" fill="url(#emb)" fill-rule="evenodd"/></svg>Delta</h1></div>'+
   '<div class="hubsec"><p class="eyebrow">Interview prep</p>'+
    card('hiv','Mock interview','Two problems, think aloud, tutor follow-ups, then review yourself.')+
    '<div class="hubgrid">'+card('hphy','Physics questions',PHY.length+' open-ended questions with hints',phyDueList(PHY).length?phyDueList(PHY).length+' due':'')+card('hpotw','Problem of the week','A harder problem to chew on')+'</div></div>'+

@@ -20,13 +20,13 @@ function bkSummary(data){
   const iv=j('iv-history');if(iv&&iv.length)parts.push(iv.length+' mock interviews');
   return parts.length?parts.join(', '):'no progress yet';
 }
-function bkFileName(){const d=new Date();return 'iq-lab-backup-'+d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')+'.json';}
+function bkFileName(){const d=new Date();return 'delta-backup-'+d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')+'.json';}
 async function bkExport(){
   const json=JSON.stringify(bkCollect()),name=bkFileName();
   const blob=new Blob([json],{type:'application/json'});
   try{
     const file=new File([blob],name,{type:'application/json'});
-    if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:'IQ Lab backup'});return 'shared';}
+    if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:'Delta backup'});return 'shared';}
   }catch(e){if(e&&e.name==='AbortError')return 'cancelled';}
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();
   setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},2000);
@@ -35,7 +35,7 @@ async function bkExport(){
 /* returns an error message, or null when the text is a valid backup */
 function bkCheck(text){
   let b;try{b=JSON.parse(text);}catch(e){return 'That is not a valid backup file.';}
-  if(!b||b.app!==BK_APP||typeof b.data!=='object')return 'That file is not an IQ Lab backup.';
+  if(!b||b.app!==BK_APP||typeof b.data!=='object')return 'That file is not a Delta backup.';
   return null;
 }
 function bkRestore(text){
@@ -48,7 +48,7 @@ function backupHome(){
   const cur=bkCollect(),last=loadJSON('backup-last',null);
   app.innerHTML=
   '<div class="stack"><div class="stack" style="gap:8px"><p class="eyebrow">Study tools</p><h1>Backup and restore</h1>'+
-  '<p class="muted">Your progress is stored only on this phone. If you remove the IQ Lab icon from your home screen, iOS deletes it. Save a backup now and then (to iCloud Drive or Files) so you can always get it back.</p></div>'+
+  '<p class="muted">Your progress is stored only on this phone. If you remove the Delta icon from your home screen, iOS deletes it. Save a backup now and then (to iCloud Drive or Files) so you can always get it back.</p></div>'+
   '<div class="card stack"><h2>Save a backup</h2><p class="note">Currently saved on this phone: '+bkSummary(cur.data)+'.</p>'+
    '<p class="note">Last backup: '+(last?dateTxt(last):'never')+'.</p>'+
    '<button class="btn" id="bkexp">Save backup file</button><button class="btn ghost" id="bkcopy">Copy backup as text</button><p class="note" id="bkmsg"></p></div>'+
