@@ -2,9 +2,9 @@
    - Script and style URLs carry ?v=<version> (set in index.html), so an update can never mix old and new files.
    - Network first: when online, always load the latest files and refresh the cache; fall back to the cache offline.
    Bump V here and the ?v= numbers in index.html together on every change (window.IQ_V there must match). */
-const V = '13';
+const V = '14';
 const CACHE = 'iq-v' + V;
-const FILES = ['iq-bank.js', 'physics.js', 'interview.js', 'drill.js', 'learn.js', 'tools.js', 'alevel.js', 'videos.js', 'mistakes.js', 'backup.js', 'practicals.js', 'scratch.js'];
+const FILES = ['iq-bank.js', 'physics.js', 'interview.js', 'drill.js', 'learn.js', 'tools.js', 'alevel.js', 'videos.js', 'mistakes.js', 'backup.js', 'practicals.js', 'extras.js', 'scratch.js'];
 const SHELL = ['./', 'index.html', 'manifest.webmanifest', 'icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touch-icon.png'].concat(FILES.map(f => f + '?v=' + V));
 
 self.addEventListener('install', e => {

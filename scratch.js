@@ -55,10 +55,12 @@
   });
   function open(){pad.classList.add('open');document.body.classList.add('sp-open');size();}
   function close(){pad.classList.remove('open');document.body.classList.remove('sp-open');}
-  btn.onclick=open;
+  btn.onclick=()=>open();
+  /* open the pad straight away, optionally with x and y axes drawn faintly (for graph sketching) */
+  window.scratchOpen=axes=>{pad.classList.toggle('axes',!!axes);btn.classList.add('show');open();};
   window.addEventListener('resize',()=>{if(pad.classList.contains('open'))size();});
   /* on: show the pen button. A new screen or question always starts with a clean pad. */
-  window.setScratch=on=>{strokes=[];redraw();close();btn.classList.toggle('show',!!on);};
+  window.setScratch=on=>{strokes=[];redraw();close();pad.classList.remove('axes');btn.classList.toggle('show',!!on);};
   window.scratchReset=()=>setScratch(false);
   window.scratchStrokes=()=>strokes.length;
 })();

@@ -18,7 +18,18 @@ Status: `[ ]` not started · `[~]` in progress / in an open PR · `[x]` done.
 
 - [~] **"Due today" summary on the home screen:** one line listing everything due (flashcards, interview reviews, mistakes, drill).
 
+- [~] **Confidence check** before answering, with calibration on the Progress page (approved 1 Nov).
+- [~] **Mixed 15:** interleaved questions across all subjects (approved 1 Nov).
+- [~] **Report a question:** flag button that opens a pre-filled GitHub issue (approved 1 Nov).
+- [ ] **Weekly goal + rest day:** weekly targets with a progress ring; one rest day keeps the streak.
+- [ ] **Data booklet drill:** find and apply the right AQA data-booklet equation quickly.
+
 ## Bigger ideas (needs approval)
+- [~] **Tutor twist** in mock interviews: the tutor changes a condition after you answer (approved 1 Nov).
+- [~] **Sketch the graph:** sketch on the pad with axes, then compare with the real graph (approved 1 Nov).
+- [ ] **Explain it back:** record a 30-second explanation and compare with the model answer's key points.
+- [ ] **Command-word trainer** for AQA command words.
+- [ ] **Interview day simulator:** two timed interviews with a break and a summary report.
 - [ ] **Exam-style long answers:** 6-mark AQA Physics and 15/25-mark Economics questions with mark schemes for self-marking.
 <!-- [~] items below were approved by the owner on 2026-11-01 -->
 - [x] **Video explanations for wrong answers** (owner's long-term goal). First step: a "Watch an explanation" link on each review item that opens a YouTube search for that topic. Later: curated videos per topic.

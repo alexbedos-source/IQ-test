@@ -48,10 +48,10 @@ function mbRender(){
   app.innerHTML=
   '<div class="stack"><div class="top"><span class="count">'+(MB.i+1)+' / '+MB.items.length+'</span><span class="eyebrow">'+it.src+(it.n===1?' · one more':'')+'</span></div>'+
   '<div class="bar"><i style="width:'+(MB.i/MB.items.length*100)+'%"></i></div>'+
-  '<div class="card"><p class="prompt">'+it.prompt+'</p>'+it.stem+'<div class="opts">'+it.opts.map((o,k)=>'<button class="opt'+(/<svg/.test(o.h)?' vis':'')+'" data-k="'+k+'"><span class="k">'+LETTERS[k]+'</span><span>'+o.h+'</span></button>').join('')+'</div><div id="mbfb"></div></div></div>';
+  '<div class="card"><p class="prompt">'+it.prompt+'</p>'+it.stem+qTools(it,it.src)+'<div class="opts">'+it.opts.map((o,k)=>'<button class="opt'+(/<svg/.test(o.h)?' vis':'')+'" data-k="'+k+'"><span class="k">'+LETTERS[k]+'</span><span>'+o.h+'</span></button>').join('')+'</div><div id="mbfb"></div></div></div>';
   const btns=[...app.querySelectorAll('.opt')];
   btns.forEach(b=>b.onclick=()=>{
-    const k=+b.dataset.k,ok=it.opts[k].ok;
+    const k=+b.dataset.k,ok=it.opts[k].ok;confRecord(ok);
     btns.forEach((x,j)=>{x.disabled=true;if(it.opts[j].ok)x.classList.add('right');});
     if(!ok)b.classList.add('wrong');
     const gone=mbAnswer(it.k,ok);

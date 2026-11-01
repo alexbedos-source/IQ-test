@@ -235,12 +235,12 @@ function drillRender(){
   '<div class="top"><span class="count">'+(D.i+1)+' / '+D.items.length+'</span><span class="eyebrow">'+DRILL_TYPES[it.type]+'</span></div>'+
   '<div class="bar"><i style="width:'+(D.i/D.items.length*100)+'%"></i></div>'+
   '<div class="card"><p class="prompt">'+it.prompt+'</p>'+(it.stem||'')+
-   '<div class="opts">'+it.opts.map((o,k)=>'<button class="opt" data-k="'+k+'"><span class="k">'+LETTERS[k]+'</span><span>'+o.h+'</span></button>').join('')+'</div>'+
+   qTools(it,'Daily drill · '+DRILL_TYPES[it.type])+'<div class="opts">'+it.opts.map((o,k)=>'<button class="opt" data-k="'+k+'"><span class="k">'+LETTERS[k]+'</span><span>'+o.h+'</span></button>').join('')+'</div>'+
    '<div id="dfb"></div></div>'+
   '</div>';
   const btns=[...app.querySelectorAll('.opt')];
   btns.forEach(b=>b.onclick=()=>{
-    const k=+b.dataset.k,ok=it.opts[k].ok;
+    const k=+b.dataset.k,ok=it.opts[k].ok;confRecord(ok);
     btns.forEach((x,j)=>{x.disabled=true;if(it.opts[j].ok)x.classList.add('right');});
     if(!ok)b.classList.add('wrong');
     const link=drillLink(it.type);

@@ -424,10 +424,10 @@ function alRender(){
   app.innerHTML=
   '<div class="stack"><div class="top"><span class="count">'+(AL.i+1)+' / '+AL.items.length+'</span><span class="eyebrow">'+s.topics[it.topic]+'</span></div>'+
   '<div class="bar"><i style="width:'+(AL.i/AL.items.length*100)+'%"></i></div>'+
-  '<div class="card"><p class="prompt">'+it.prompt+'</p><div class="opts">'+it.opts.map((o,k)=>'<button class="opt" data-k="'+k+'"><span class="k">'+LETTERS[k]+'</span><span>'+o.h+'</span></button>').join('')+'</div><div id="alfb"></div></div></div>';
+  '<div class="card"><p class="prompt">'+it.prompt+'</p>'+qTools(it,s.name+' · '+s.topics[it.topic])+'<div class="opts">'+it.opts.map((o,k)=>'<button class="opt" data-k="'+k+'"><span class="k">'+LETTERS[k]+'</span><span>'+o.h+'</span></button>').join('')+'</div><div id="alfb"></div></div></div>';
   const btns=[...app.querySelectorAll('.opt')];
   btns.forEach(b=>b.onclick=()=>{
-    const k=+b.dataset.k,ok=it.opts[k].ok;
+    const k=+b.dataset.k,ok=it.opts[k].ok;confRecord(ok);
     btns.forEach((x,j)=>{x.disabled=true;if(it.opts[j].ok)x.classList.add('right');});
     if(!ok)b.classList.add('wrong');
     const st=alStats(),ss=st[s.key]=st[s.key]||{},t=ss[it.topic]=ss[it.topic]||{ok:0,n:0};t.n++;if(ok)t.ok++;saveJSON('alevel',st);

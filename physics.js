@@ -644,7 +644,7 @@ function phyQuestion(q){
   app.innerHTML=
   '<div class="stack">'+
   '<div class="top"><span class="eyebrow">'+PHY_TOPICS[q.t]+' · '+lvl(q.l)+'</span><span class="timer" id="ptimer"></span></div>'+
-  '<div class="card stack"><p class="prompt">'+q.q+'</p>'+
+  '<div class="card stack"><p class="prompt">'+q.q+'</p>'+qTools({prompt:q.q,right:'',wrong:[],explain:''},'Physics interview · '+PHY_TOPICS[q.t]+' ('+q.id+')',{noConf:true})+
    '<div id="hints" class="stack" style="gap:10px"></div>'+
    '<div id="ans"></div></div>'+
   '<div class="row2"><button class="btn ghost" id="ptime">Start 5 min timer</button><button class="btn ghost" id="phint">Hint 1 of '+q.h.length+'</button></div>'+
