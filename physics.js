@@ -578,6 +578,32 @@ PHY.push(
  f:[['Estimate the terminal speed of a 2 mm raindrop.','mg = ½ρC_dAv² with m ≈ 4 × 10⁻⁶ kg, A ≈ 3 × 10⁻⁶ m², C_d ≈ 0.5: v² ≈ 45, so v ≈ 7 m/s (measured: about 6.5 m/s).'],
     ['Why don\'t raindrops grow much bigger than about 5 mm?','Large drops are flattened by air resistance into a "parachute" shape and break apart, because surface tension can no longer hold them together.']]}
 );
+PHY.push(
+{id:'v1',t:4,l:2,q:'How does an induction hob heat a pan but not your hand?',
+ h:['Under the glass is a coil carrying alternating current at tens of kilohertz. What does a changing magnetic field do to a nearby conductor?',
+    'Induced currents heat a material through its resistance. How good a conductor is your hand compared with a steel pan?'],
+ a:'<p>The coil makes a rapidly alternating magnetic field. By Faraday\'s law, the changing flux induces <b>eddy currents</b> in the metal base of the pan, which heat it through its resistance (I²R). Iron-based pans also lose energy by repeatedly re-magnetising (hysteresis).</p><p>Your hand is a very poor conductor and is not magnetic, so only tiny currents flow and it barely warms. The glass top only gets hot from contact with the pan.</p>',
+ f:[['Why do copper or aluminium pans work badly on induction?','They are not ferromagnetic and have very low resistivity: the induced currents spread out and produce little heating, and there is no hysteresis loss. (Some hobs use special higher-frequency coils for them.)'],
+    ['Why use such a high frequency?','Induced emf is proportional to the rate of change of flux, so higher frequency gives larger currents. It also concentrates the currents in a thin surface layer (the skin effect) and keeps the hum above the range of hearing.']]},
+{id:'v2',t:5,l:3,q:'Why is it hard to cook an egg properly on top of Everest? Estimate the boiling point of water there.',
+ h:['Air pressure at the summit is about a third of sea-level pressure. Water boils when its vapour pressure equals the surrounding pressure.',
+    'Use the Clausius–Clapeyron relation: ln(p₂/p₁) = −(L/R)(1/T₂ − 1/T₁), with L = 41 kJ/mol and T₁ = 373 K.'],
+ a:'<p>With p₂/p₁ ≈ 1/3, ln(p₂/p₁) ≈ −1.1 and L/R ≈ 4900 K. So 1/T₂ = 1/373 + 1.1/4900 ≈ 0.00290 K⁻¹, giving T₂ ≈ 344 K ≈ <b>71 °C</b>.</p><p>Egg proteins set at roughly 62–80 °C, and the hardest-to-set parts need the top of that range, so water at 71 °C cooks an egg very slowly and the white may never fully firm up. Climbers use pressure cookers.</p>',
+ f:[['What is the boiling point inside a pressure cooker at 2 atmospheres?','ln 2 = 0.69: 1/T₂ = 1/373 − 0.69/4900 ≈ 0.00254 K⁻¹, so T₂ ≈ 394 K ≈ 121 °C.'],
+    ['Does adding a teaspoon of salt to the water noticeably raise the boiling point?','Hardly. About 6 g of salt in 1 kg of water gives about 0.2 mol of ions, raising the boiling point by only about 0.1 K.']]},
+{id:'v3',t:7,l:2,q:'Why does a T-shirt look darker when it is wet?',
+ h:['Most of the light you see from dry fabric is scattered back from the surfaces of many tiny fibres. What causes that scattering?',
+    'Scattering at a boundary depends on the change in refractive index. Fibres have n ≈ 1.5, air n = 1.0, water n = 1.33.'],
+ a:'<p>Dry fabric looks light because light is scattered back out at the many fibre–air boundaries before it can be absorbed. When water fills the gaps, the refractive-index difference at each boundary is much smaller, so far less light is scattered back.</p><p>Light travels deeper into the fabric and has more chances to be absorbed by the dye, so less returns to your eye and the fabric looks <b>darker and more saturated</b>.</p>',
+ f:[['Why does wet sand look darker than dry sand?','Exactly the same reason: water between the grains reduces scattering at their surfaces, so more light is absorbed.'],
+    ['Why does frosted glass become nearly see-through if you put clear sticky tape over it?','The tape\'s adhesive fills the rough surface and has a similar refractive index to the glass, so the scattering surface effectively disappears.']]},
+{id:'v4',t:6,l:2,q:'Why can\'t we see the stars during the day, even though they are still there?',
+ h:['What makes the daytime sky bright?',
+    'Seeing something faint depends on contrast with its background, not just on how much light it sends.'],
+ a:'<p>Sunlight scattered by air molecules makes the whole sky glow blue. A star sends the same light by day as by night, but against the bright sky its contrast is far too small for your eye to notice, especially as your eyes adapt to daylight.</p><p>Remove the scattering (above the atmosphere) and the sky is black even with the Sun up.</p>',
+ f:[['Why can you sometimes see Venus in daylight?','It is extremely bright (much brighter than any star) and compact, so if you know exactly where to look, its contrast with the sky is just enough.'],
+    ['Could astronauts on the Moon see stars during the lunar day?','In principle, yes: there is no atmosphere to scatter light. In practice their eyes and cameras were adjusted for the brilliant sunlit surface, so the faint stars rarely showed up in photos.']]}
+);
 PHY.forEach(q=>{q.f=q.f||PHY_FOLLOW[q.id]||[];});
 
 const PHY_SOURCES=[
@@ -644,7 +670,7 @@ function phyQuestion(q){
   app.innerHTML=
   '<div class="stack">'+
   '<div class="top"><span class="eyebrow">'+PHY_TOPICS[q.t]+' · '+lvl(q.l)+'</span><span class="timer" id="ptimer"></span></div>'+
-  '<div class="card stack"><p class="prompt">'+q.q+'</p>'+qTools({prompt:q.q,right:'',wrong:[],explain:''},'Physics interview · '+PHY_TOPICS[q.t]+' ('+q.id+')',{noConf:true})+
+  '<div class="card stack"><p class="prompt">'+q.q+'</p>'+qTools({prompt:q.q,right:'',wrong:[],explain:'',phyId:q.id},'Physics interview · '+PHY_TOPICS[q.t]+' ('+q.id+')',{noConf:true})+
    '<div id="hints" class="stack" style="gap:10px"></div>'+
    '<div id="ans"></div></div>'+
   '<div class="row2"><button class="btn ghost" id="ptime">Start 5 min timer</button><button class="btn ghost" id="phint">Hint 1 of '+q.h.length+'</button></div>'+

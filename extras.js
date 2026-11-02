@@ -10,7 +10,9 @@ function qTools(it,src,opts){
   const open=opts&&opts.noConf;
   return '<div class="qtools">'+(open?'<span></span>':
     '<div class="conf" role="group" aria-label="How sure are you?"><span class="note">How sure?</span>'+CONF_LEVELS.map(([k,n])=>'<button data-conf="'+k+'">'+n+'</button>').join('')+'</div>')+
-    '<div class="qact">'+(open?'':'<button class="qskip">Haven\'t learnt this yet</button>')+'<button class="qflag" aria-label="Report a problem with this question">⚑ Report</button></div></div>';
+    '<div class="qact">'+(open?'':'<button class="qskip">Haven\'t learnt this yet</button>')+
+    '<button class="qsave'+(isSaved(it)?' on':'')+'" aria-label="Save this question">'+(isSaved(it)?'★ Saved':'☆ Save')+'</button>'+
+    '<button class="qflag" aria-label="Report a problem with this question">⚑ Report</button></div></div>';
 }
 /* "Haven't learnt this yet": reveal the answer with a short explanation and move on. It is not counted as right or
    wrong, does not go into the mistake bank, and does not affect accuracy stats. Each quiz screen calls
@@ -34,6 +36,7 @@ document.addEventListener('click',e=>{
   if(c){CONF=c.dataset.conf;c.parentNode.querySelectorAll('[data-conf]').forEach(b=>b.classList.toggle('on',b===c));}
   if(e.target.closest('.qflag'))reportOpen();
   if(e.target.closest('.qskip')&&QSKIP)QSKIP();
+  const sv=e.target.closest('.qsave');if(sv&&QCUR){const on=toggleSaved(QCUR.it,QCUR.src);sv.classList.toggle('on',on);sv.textContent=on?'★ Saved':'☆ Save';}
 });
 function confRecord(ok){
   if(!CONF)return;
@@ -171,7 +174,9 @@ const SKETCH=[
  {id:'k17',f:'y = tan x',fn:Math.tan,feat:['Odd; period π','Roots at multiples of π','Vertical asymptotes at x = ±π/2, ±3π/2, …']},
  {id:'k18',f:'y = x² e^(−x)',fn:x=>x*x*Math.exp(-x),feat:['Touches zero at the origin (a minimum)','Maximum at x = 2, y = 4/e² ≈ 0.54','Tends to 0 as x → ∞ and to +∞ as x → −∞']},
  {id:'k19',f:'y = cos 2x',fn:x=>Math.cos(2*x),feat:['Even; period π','Maximum 1 at x = 0','Roots at x = ±π/4, ±3π/4, …']},
- {id:'k20',f:'y = 2x − x²',fn:x=>2*x-x*x,feat:['Roots at x = 0 and x = 2','Maximum at (1, 1)','An upside-down parabola, symmetric about x = 1']}
+ {id:'k20',f:'y = 2x − x²',fn:x=>2*x-x*x,feat:['Roots at x = 0 and x = 2','Maximum at (1, 1)','An upside-down parabola, symmetric about x = 1']},
+ {id:'k21',f:'y = x³ − 4x',fn:x=>x*x*x-4*x,feat:['Odd: rotational symmetry about the origin','Roots at x = 0 and x = ±2','Maximum at x = −2/√3 (y ≈ 3.08), minimum at x = 2/√3 (y ≈ −3.08)']},
+ {id:'k22',f:'y = 1/(x² − 1)',fn:x=>1/(x*x-1),feat:['Even; vertical asymptotes at x = ±1, horizontal asymptote y = 0','Between the asymptotes it is negative, with a maximum of −1 at x = 0','Outside them it is positive, falling towards 0 for large |x|']}
 ];
 function sketchHome(){
   leave();
@@ -202,4 +207,30 @@ function sketchQ(s){
     document.getElementById('skrate').querySelectorAll('.rate').forEach(b=>b.onclick=()=>{const R=loadJSON('sketch',{});R[s.id]={r:b.dataset.r,t:Date.now()};saveJSON('sketch',R);sketchQ(sketchNext());});
   };
   window.scrollTo(0,0);
+}
+
+/* ---------- saved (bookmarked) questions ----------
+   ☆ Save on any question keeps a copy in 'saved'. Multiple-choice ones can be practised together;
+   physics interview questions open in the normal practice screen. */
+const savedKey=it=>it.phyId?'phy:'+it.phyId:(String(it.prompt)+'|'+String(it.right)).replace(/<[^>]+>/g,'').slice(0,300);
+function savedList(){return loadJSON('saved',[]);}
+function isSaved(it){const k=savedKey(it);return savedList().some(x=>x.k===k);}
+function toggleSaved(it,src){
+  const L=savedList(),k=savedKey(it),i=L.findIndex(x=>x.k===k);
+  if(i>=0){L.splice(i,1);saveJSON('saved',L);return false;}
+  L.push({k,src:strip(src),phy:it.phyId||null,prompt:it.prompt,stem:it.stem||'',right:it.right||'',wrong:(it.wrong||[]).slice(0,3),explain:it.explain||'',vid:it.vid||null,yt:it.yt||null,t:Date.now()});
+  saveJSON('saved',L.slice(-300));return true;
+}
+function savedHome(){
+  leave();
+  const L=savedList(),mc=L.filter(x=>!x.phy&&x.wrong.length>=3),ph=L.filter(x=>x.phy);
+  app.innerHTML='<div class="stack"><div class="stack" style="gap:8px"><p class="eyebrow">Daily training</p><h1>Saved questions</h1>'+
+    '<p class="muted">Questions you starred with ☆ Save. Practise the multiple-choice ones together, or open a saved interview question.</p></div>'+
+    '<button class="btn" id="svgo"'+(mc.length?'':' disabled')+'>'+(mc.length?'Practise '+Math.min(15,mc.length)+' saved questions':'No saved multiple-choice questions yet')+'</button>'+
+    (L.length?'<div class="card"><h2 style="margin-bottom:6px">All saved ('+L.length+')</h2>'+L.slice().reverse().map(x=>
+      '<div class="qrow svrow"><span class="mark ok">★</span><span class="qt"'+(x.phy?' data-phy="'+x.phy+'" role="button"':'')+'>'+strip(x.prompt).slice(0,140)+'<br><span class="note">'+x.src+(x.phy?' · tap to open':'')+'</span></span><button class="svx" data-k="'+encodeURIComponent(x.k)+'" aria-label="Remove">✕</button></div>').join('')+'</div>'
+     :'<p class="note">Nothing saved yet. Tap ☆ Save on any question to keep it here.</p>')+'</div>';
+  document.getElementById('svgo').onclick=()=>quizRun({title:'Saved questions',items:shuffle(mc.slice()).slice(0,15).map(x=>({src:x.src,prompt:x.prompt,stem:x.stem,right:x.right,wrong:x.wrong,explain:x.explain,vid:x.vid,yt:x.yt})),back:savedHome,again:()=>document.getElementById('svgo')?savedHome():savedHome()});
+  app.querySelectorAll('[data-phy]').forEach(el=>el.onclick=()=>{const q=PHY.find(p=>p.id===el.dataset.phy);if(q){leave();setBack(savedHome);phyQuestion(q);setBack(savedHome);}});
+  app.querySelectorAll('.svx').forEach(b=>b.onclick=()=>{const k=decodeURIComponent(b.dataset.k);saveJSON('saved',savedList().filter(x=>x.k!==k));savedHome();});
 }
