@@ -13,20 +13,20 @@ Status: `[ ]` not started · `[~]` in progress / in an open PR · `[x]` done.
 - [x] **Scratchpad:** a draw-with-your-finger panel on physics and A-level questions for quick working.
 - [x] **Spaced repetition for physics interview questions:** bring back "Stuck" and "Needed hints" questions after 1, 3 and 7 days.
 - [x] ~~**Light / dark mode switch**~~ (not needed: the theme is now black and orange in every mode).
-- [ ] **Bookmark questions** to revisit later, with a "Saved" list.
+- [~] **Bookmark questions** to revisit later, with a "Saved" list.
 - [ ] **Topic heatmap** on the Progress page across all A-level topics.
 
-- [~] **"Due today" summary on the home screen:** one line listing everything due (flashcards, interview reviews, mistakes, drill).
+- [x] **"Due today" summary on the home screen:** one line listing everything due (flashcards, interview reviews, mistakes, drill).
 
-- [~] **Confidence check** before answering, with calibration on the Progress page (approved 1 Nov).
-- [~] **Mixed 15:** interleaved questions across all subjects (approved 1 Nov).
-- [~] **Report a question:** flag button that opens a pre-filled GitHub issue (approved 1 Nov).
+- [x] **Confidence check** before answering, with calibration on the Progress page (approved 1 Nov).
+- [x] **Mixed 15:** interleaved questions across all subjects (approved 1 Nov).
+- [x] **Report a question:** flag button that opens a pre-filled GitHub issue (approved 1 Nov).
 - [ ] **Weekly goal + rest day:** weekly targets with a progress ring; one rest day keeps the streak.
 - [ ] **Data booklet drill:** find and apply the right AQA data-booklet equation quickly.
 
 ## Bigger ideas (needs approval)
-- [~] **Tutor twist** in mock interviews: the tutor changes a condition after you answer (approved 1 Nov).
-- [~] **Sketch the graph:** sketch on the pad with axes, then compare with the real graph (approved 1 Nov).
+- [x] **Tutor twist** in mock interviews: the tutor changes a condition after you answer (approved 1 Nov).
+- [x] **Sketch the graph:** sketch on the pad with axes, then compare with the real graph (approved 1 Nov).
 - [ ] **Explain it back:** record a 30-second explanation and compare with the model answer's key points.
 - [ ] **Command-word trainer** for AQA command words.
 - [ ] **Interview day simulator:** two timed interviews with a break and a summary report.

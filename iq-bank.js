@@ -54,7 +54,9 @@ V:[
  [0.4,'Which word is closest in meaning to PRAGMATIC?',['Practical','Idealistic','Lazy','Cheerful'],'Pragmatic means dealing with things sensibly and realistically.'],
  [1.1,'Which word is the opposite of LOQUACIOUS?',['Reticent','Talkative','Lively','Fluent'],'Loquacious means very talkative; reticent means reserved.'],
  [0.3,'Which word is closest in meaning to METHODICAL?',['Systematic','Chaotic','Quick','Emotional'],'Methodical means done in an orderly, systematic way.'],
- [1.3,'Which word is the opposite of TRUCULENT?',['Gentle','Aggressive','Truthful','Stubborn'],'Truculent means eager to argue or fight.']
+ [1.3,'Which word is the opposite of TRUCULENT?',['Gentle','Aggressive','Truthful','Stubborn'],'Truculent means eager to argue or fight.'],
+ [0.5,'Which word is closest in meaning to ARDUOUS?',['Difficult','Passionate','Quick','Simple'],'Arduous means needing a lot of effort.'],
+ [1.0,'Which word is the opposite of PARSIMONIOUS?',['Generous','Stingy','Careful','Wealthy'],'Parsimonious means extremely unwilling to spend money.']
 ],
 Q:[
  [-1.9,'What is 25% of 80?',['20','25','40','16'],'25% is a quarter, and a quarter of 80 is 20.'],
@@ -105,7 +107,9 @@ Q:[
  [0.3,'What is 3/8 as a percentage?',['37.5%','38%','35%','3.8%'],'3 ÷ 8 = 0.375.'],
  [1.0,'What is the sum of the interior angles of an octagon?',['1080°','900°','1260°','720°'],'(n − 2) × 180° = 6 × 180° = 1080°.'],
  [-0.2,'What is 0.25 × 48?',['12','24','10','16'],'A quarter of 48 is 12.'],
- [0.9,'A 200 m train passes completely through a 400 m station at 20 m/s. How long does it take?',['30 s','20 s','10 s','40 s'],'The front must travel 400 + 200 = 600 m: 600 ÷ 20 = 30 s.']
+ [0.9,'A 200 m train passes completely through a 400 m station at 20 m/s. How long does it take?',['30 s','20 s','10 s','40 s'],'The front must travel 400 + 200 = 600 m: 600 ÷ 20 = 30 s.'],
+ [0.2,'What is 45% of 220?',['99','90','110','95'],'10% is 22, so 45% is 4.5 × 22 = 99.'],
+ [0.5,'In how many different orders can the letters of the word TEN be arranged?',['6','3','9','27'],'3! = 3 × 2 × 1 = 6.']
 ],
 L:[
  [-1.8,'All cats have whiskers. Tibbles is a cat. Which must be true?',['Tibbles has whiskers','Tibbles is not a cat','Every animal with whiskers is a cat','Tibbles has no whiskers'],'Tibbles is a cat, and all cats have whiskers.'],
@@ -152,6 +156,8 @@ L:[
  [0.4,'All poets are dreamers. No dreamers are accountants. Which must be true?',['No poets are accountants','Some accountants are poets','All dreamers are poets','Some poets are accountants'],'Every poet is a dreamer, and no dreamer is an accountant.'],
  [1.1,'Ann says "Bob is lying." Bob says "Cat is lying." Cat says "Ann and Bob are both lying." Who is telling the truth?',['Only Bob','Only Ann','Only Cat','Ann and Cat'],'If Bob lied, Ann and Cat would both be truthful, but Cat\'s claim would then be false. So Bob is truthful, and Ann and Cat are lying, which is consistent.'],
  [0.0,'All squares are rhombuses. Shape X is not a rhombus. Which must be true?',['X is not a square','X is a square','X is a rectangle','Nothing follows'],'If X were a square, it would have to be a rhombus.'],
- [-0.6,'In a code, CAT is written DBU. How is DOG written?',['EPH','CNF','EOH','DPH'],'Each letter moves one place forward in the alphabet.']
+ [-0.6,'In a code, CAT is written DBU. How is DOG written?',['EPH','CNF','EOH','DPH'],'Each letter moves one place forward in the alphabet.'],
+ [0.3,'Today is Tuesday. What day was it 10 days ago?',['Saturday','Sunday','Friday','Monday'],'7 days ago was Tuesday; 3 more days back is Saturday.'],
+ [1.0,'Pens cost more than pencils. Rulers cost less than pencils. Erasers cost more than pens. Which is cheapest?',['Rulers','Pencils','Pens','Erasers'],'From most to least expensive: erasers, pens, pencils, rulers.']
 ]
 };

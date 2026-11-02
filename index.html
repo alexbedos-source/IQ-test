@@ -187,6 +187,10 @@ details.rev p{margin-top:6px;font-size:.92rem;color:var(--muted)}
 .qact{display:flex;gap:12px;align-items:center;margin-left:auto}
 .qskip{border:1.5px dashed var(--line);background:none;color:var(--muted);border-radius:999px;padding:5px 11px;font:500 .8rem var(--display);cursor:pointer}
 .qskip:disabled{opacity:.4}
+.qsave{border:0;background:none;color:var(--muted);font:500 .8rem var(--display);cursor:pointer;padding:6px 2px}
+.qsave.on{color:var(--accent)}
+.svrow .qt[role="button"]{cursor:pointer}
+.svx{border:0;background:none;color:var(--muted);font-size:1rem;cursor:pointer;padding:4px 6px}
 #rsheet{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.6);display:flex;align-items:flex-end;justify-content:center}
 #rsheet .rs-box{background:var(--surface);border:1px solid var(--line);border-radius:18px 18px 0 0;padding:20px 16px max(20px,env(safe-area-inset-bottom));width:100%;max-width:560px}
 /* graph sketching: faint axes on the scratchpad */
@@ -314,7 +318,7 @@ body.sp-open #scratchbtn,body.vp-open #scratchbtn{display:none}
 /* Start-up safety net: if anything fails while the app loads (for example a stale cached file after an update),
    clear the offline cache and reload once automatically. If it still fails, show a repair button.
    Progress (localStorage) is never touched. */
-window.IQ_V='15';
+window.IQ_V='16';
 (function(){
   let started=false;window.addEventListener('iq-started',()=>{started=true;});
   async function repair(){
@@ -343,19 +347,19 @@ window.IQ_V='15';
 <header class="tb" id="tb"><button id="backbtn" aria-label="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button></header>
 <main class="wrap" id="app"></main>
 
-<script src="iq-bank.js?v=15"></script>
-<script src="physics.js?v=15"></script>
-<script src="interview.js?v=15"></script>
-<script src="drill.js?v=15"></script>
-<script src="learn.js?v=15"></script>
-<script src="tools.js?v=15"></script>
-<script src="alevel.js?v=15"></script>
-<script src="videos.js?v=15"></script>
-<script src="mistakes.js?v=15"></script>
-<script src="backup.js?v=15"></script>
-<script src="practicals.js?v=15"></script>
-<script src="extras.js?v=15"></script>
-<script src="scratch.js?v=15"></script>
+<script src="iq-bank.js?v=16"></script>
+<script src="physics.js?v=16"></script>
+<script src="interview.js?v=16"></script>
+<script src="drill.js?v=16"></script>
+<script src="learn.js?v=16"></script>
+<script src="tools.js?v=16"></script>
+<script src="alevel.js?v=16"></script>
+<script src="videos.js?v=16"></script>
+<script src="mistakes.js?v=16"></script>
+<script src="backup.js?v=16"></script>
+<script src="practicals.js?v=16"></script>
+<script src="extras.js?v=16"></script>
+<script src="scratch.js?v=16"></script>
 <script>
 /* =====================  helpers  ===================== */
 const rnd=n=>Math.floor(Math.random()*n);
@@ -843,6 +847,7 @@ function home(){
    card('hcards','Flashcards','AQA Physics definitions and facts',due?due+' due':'✓ all done',!due)+
    card('hmb','Review mistakes','Questions you got wrong',nmb?nmb+' to review':'',false)+
    card('hmix','Mixed 15','All subjects shuffled together')+
+   card('hsaved','Saved','Questions you starred',savedList().length?savedList().length+' saved':'')+
    card('htopics','Bridging topics','First-year ideas, made simple')+
    card('hres','Resources','Trusted free links')+'</div></div>'+
   '<div class="hubsec"><p class="eyebrow">Study tools</p><div class="hubgrid">'+
@@ -851,7 +856,7 @@ function home(){
   '<div class="hubsec"><p class="eyebrow">Intelligence</p>'+
    card('hiq','IQ test','Seven abilities · 5, 10 or 30 minutes')+'</div>'+
   '</div>';
-  const go={hsk:sketchHome,hmix:mixedHome,tdrill:drillHome,tcards:cardsHome,tphy:phyHome,tmb:mbHome,hrp:rpHome,hvid:videosHome,hmb:mbHome,hbk:backupHome,alphy:()=>alSubject(0,home),almaths:()=>alSubject(1,home),alecon:()=>alSubject(2,home),alall:alHome,hiv:ivHome,hphy:phyHome,hpotw:potwHome,hdrill:drillHome,hcards:cardsHome,htopics:topicsHome,hres:resourcesHome,hstudy:studyHome,hprog:progressHome,hiq:iqHome};
+  const go={hsaved:savedHome,hsk:sketchHome,hmix:mixedHome,tdrill:drillHome,tcards:cardsHome,tphy:phyHome,tmb:mbHome,hrp:rpHome,hvid:videosHome,hmb:mbHome,hbk:backupHome,alphy:()=>alSubject(0,home),almaths:()=>alSubject(1,home),alecon:()=>alSubject(2,home),alall:alHome,hiv:ivHome,hphy:phyHome,hpotw:potwHome,hdrill:drillHome,hcards:cardsHome,htopics:topicsHome,hres:resourcesHome,hstudy:studyHome,hprog:progressHome,hiq:iqHome};
   for(const id in go){const el=document.getElementById(id);if(el)el.onclick=go[id];}
   window.scrollTo(0,0);
 }
