@@ -56,7 +56,9 @@ V:[
  [0.3,'Which word is closest in meaning to METHODICAL?',['Systematic','Chaotic','Quick','Emotional'],'Methodical means done in an orderly, systematic way.'],
  [1.3,'Which word is the opposite of TRUCULENT?',['Gentle','Aggressive','Truthful','Stubborn'],'Truculent means eager to argue or fight.'],
  [0.5,'Which word is closest in meaning to ARDUOUS?',['Difficult','Passionate','Quick','Simple'],'Arduous means needing a lot of effort.'],
- [1.0,'Which word is the opposite of PARSIMONIOUS?',['Generous','Stingy','Careful','Wealthy'],'Parsimonious means extremely unwilling to spend money.']
+ [1.0,'Which word is the opposite of PARSIMONIOUS?',['Generous','Stingy','Careful','Wealthy'],'Parsimonious means extremely unwilling to spend money.'],
+ [0.2,'Which word is closest in meaning to ABUNDANT?',['Plentiful','Scarce','Brief','Heavy'],'Abundant means existing in large quantities.'],
+ [1.2,'Which word is the opposite of EQUANIMITY?',['Agitation','Calmness','Fairness','Balance'],'Equanimity means calmness and composure.']
 ],
 Q:[
  [-1.9,'What is 25% of 80?',['20','25','40','16'],'25% is a quarter, and a quarter of 80 is 20.'],
@@ -109,7 +111,9 @@ Q:[
  [-0.2,'What is 0.25 × 48?',['12','24','10','16'],'A quarter of 48 is 12.'],
  [0.9,'A 200 m train passes completely through a 400 m station at 20 m/s. How long does it take?',['30 s','20 s','10 s','40 s'],'The front must travel 400 + 200 = 600 m: 600 ÷ 20 = 30 s.'],
  [0.2,'What is 45% of 220?',['99','90','110','95'],'10% is 22, so 45% is 4.5 × 22 = 99.'],
- [0.5,'In how many different orders can the letters of the word TEN be arranged?',['6','3','9','27'],'3! = 3 × 2 × 1 = 6.']
+ [0.5,'In how many different orders can the letters of the word TEN be arranged?',['6','3','9','27'],'3! = 3 × 2 × 1 = 6.'],
+ [0.4,'A rectangle has a perimeter of 30 cm and a length of 9 cm. What is its area?',['54 cm²','63 cm²','45 cm²','81 cm²'],'Width = 15 − 9 = 6 cm, so area = 9 × 6 = 54 cm².'],
+ [0.6,'If 3x − 7 = 2x + 5, what is x²?',['144','12','64','36'],'x = 12, so x² = 144.']
 ],
 L:[
  [-1.8,'All cats have whiskers. Tibbles is a cat. Which must be true?',['Tibbles has whiskers','Tibbles is not a cat','Every animal with whiskers is a cat','Tibbles has no whiskers'],'Tibbles is a cat, and all cats have whiskers.'],
@@ -158,6 +162,8 @@ L:[
  [0.0,'All squares are rhombuses. Shape X is not a rhombus. Which must be true?',['X is not a square','X is a square','X is a rectangle','Nothing follows'],'If X were a square, it would have to be a rhombus.'],
  [-0.6,'In a code, CAT is written DBU. How is DOG written?',['EPH','CNF','EOH','DPH'],'Each letter moves one place forward in the alphabet.'],
  [0.3,'Today is Tuesday. What day was it 10 days ago?',['Saturday','Sunday','Friday','Monday'],'7 days ago was Tuesday; 3 more days back is Saturday.'],
- [1.0,'Pens cost more than pencils. Rulers cost less than pencils. Erasers cost more than pens. Which is cheapest?',['Rulers','Pencils','Pens','Erasers'],'From most to least expensive: erasers, pens, pencils, rulers.']
+ [1.0,'Pens cost more than pencils. Rulers cost less than pencils. Erasers cost more than pens. Which is cheapest?',['Rulers','Pencils','Pens','Erasers'],'From most to least expensive: erasers, pens, pencils, rulers.'],
+ [0.2,'No cats are dogs. All kittens are cats. Which must be true?',['No kittens are dogs','Some kittens are dogs','All dogs are kittens','Some cats are dogs'],'Kittens are cats, and no cat is a dog.'],
+ [0.9,'A is north of B. C is east of A. D is south of C, level with B. Where is D relative to B?',['East','West','North','South'],'D is directly below C, at the same height as B, and C is east of A (which is above B).']
 ]
 };

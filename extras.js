@@ -176,7 +176,9 @@ const SKETCH=[
  {id:'k19',f:'y = cos 2x',fn:x=>Math.cos(2*x),feat:['Even; period π','Maximum 1 at x = 0','Roots at x = ±π/4, ±3π/4, …']},
  {id:'k20',f:'y = 2x − x²',fn:x=>2*x-x*x,feat:['Roots at x = 0 and x = 2','Maximum at (1, 1)','An upside-down parabola, symmetric about x = 1']},
  {id:'k21',f:'y = x³ − 4x',fn:x=>x*x*x-4*x,feat:['Odd: rotational symmetry about the origin','Roots at x = 0 and x = ±2','Maximum at x = −2/√3 (y ≈ 3.08), minimum at x = 2/√3 (y ≈ −3.08)']},
- {id:'k22',f:'y = 1/(x² − 1)',fn:x=>1/(x*x-1),feat:['Even; vertical asymptotes at x = ±1, horizontal asymptote y = 0','Between the asymptotes it is negative, with a maximum of −1 at x = 0','Outside them it is positive, falling towards 0 for large |x|']}
+ {id:'k22',f:'y = 1/(x² − 1)',fn:x=>1/(x*x-1),feat:['Even; vertical asymptotes at x = ±1, horizontal asymptote y = 0','Between the asymptotes it is negative, with a maximum of −1 at x = 0','Outside them it is positive, falling towards 0 for large |x|']},
+ {id:'k23',f:'y = x/(x − 2)',fn:x=>x/(x-2),feat:['Vertical asymptote x = 2, horizontal asymptote y = 1','Passes through the origin','Decreasing on each branch']},
+ {id:'k24',f:'y = sin x + cos x',fn:x=>Math.sin(x)+Math.cos(x),feat:['Equal to √2 sin(x + π/4): amplitude √2 ≈ 1.41, period 2π','y-intercept 1','Roots at x = −π/4 + nπ']}
 ];
 function sketchHome(){
   leave();

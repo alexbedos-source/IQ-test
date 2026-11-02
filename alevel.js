@@ -104,6 +104,10 @@ const AL_PHY_BANK=[
  ,[2,'What happens to the speed of light when it enters a medium with a higher refractive index?',['It decreases','It increases','It stays the same','It becomes zero'],'n = c/v, so a larger refractive index means a lower speed.']
  ,[4,'Three identical 6 Ω resistors are connected in parallel. What is the total resistance?',['2 Ω','18 Ω','3 Ω','6 Ω'],'1/R = 3/6, so R = 2 Ω.']
  ,[5,'An oscillator in SHM has amplitude 0.05 m and angular frequency 4 rad/s. What is its maximum speed?',['0.2 m/s','0.8 m/s','0.0125 m/s','0.05 m/s'],'v_max = ωA = 4 × 0.05 = 0.2 m/s.']
+ ,[0,'How many significant figures does 0.0450 m have?',['3','4','2','5'],'Leading zeros do not count; the final zero does.']
+ ,[3,'Which of these is a vector quantity?',['Displacement','Speed','Energy','Mass'],'Displacement has both size and direction.']
+ ,[6,'g at the Earth\'s surface is 9.8 N/kg. What is it at twice that distance from the centre?',['2.5 N/kg','4.9 N/kg','19.6 N/kg','9.8 N/kg'],'g ∝ 1/r², so it falls by a factor of 4.']
+ ,[7,'A sample has 8000 undecayed nuclei. How many remain after three half-lives?',['1000','2667','4000','500'],'8000 → 4000 → 2000 → 1000.']
 ];
 const AL_PHY_GEN=[
  [4,()=>{const [a,b,r]=pick([[6,3,2],[12,4,3],[10,10,5],[20,5,4],[6,12,4],[30,6,5],[8,8,4],[15,10,6]]);
@@ -215,6 +219,12 @@ const AL_MATHS_BANK=[
  ,[0,'Write x² + 6x + 11 in completed-square form.',['(x + 3)² + 2','(x + 6)² − 25','(x + 3)² + 11','(x − 3)² + 2'],'(x + 3)² = x² + 6x + 9, so add 2.']
  ,[2,'What is the coefficient of x² in the expansion of (2 + x)⁴?',['24','6','16','12'],'⁴C₂ × 2² = 6 × 4 = 24.']
  ,[8,'A and B are independent, with P(A) = 0.4 and P(B) = 0.5. What is P(A ∪ B)?',['0.7','0.9','0.2','0.6'],'P(A ∪ B) = 0.4 + 0.5 − 0.4 × 0.5 = 0.7.']
+ ,[1,'What is the gradient of the line through (1, 2) and (3, 8)?',['3','6','1/3','2'],'(8 − 2)/(3 − 1) = 3.']
+ ,[3,'Simplify (1 − cos²θ)/sinθ.',['sinθ','cosθ','tanθ','1'],'1 − cos²θ = sin²θ, and sin²θ/sinθ = sinθ.']
+ ,[4,'What is ln(e⁵) − ln(e²)?',['3','7','2.5','10'],'5 − 2 = 3.']
+ ,[6,'Find ∫ (6x² + 4) dx.',['2x³ + 4x + C','12x + C','6x³ + 4x + C','2x³ + C'],'Integrate each term: 6x³/3 + 4x + C.']
+ ,[7,'One Newton–Raphson step for f(x) = x² − 5 starting at x₀ = 2 gives x₁ =',['2.25','2.5','2.2','2'],'x₁ = 2 − f(2)/f′(2) = 2 − (−1)/4 = 2.25.']
+ ,[9,'A 4 kg box on a smooth floor is pushed by a 10 N horizontal force. What is its acceleration?',['2.5 m/s²','40 m/s²','0.4 m/s²','6 m/s²'],'a = F/m = 10/4.']
 ];
 const AL_MATHS_GEN=[
  [0,()=>{let r1,r2;do{r1=rint(-7,7);r2=rint(-7,7);}while(!r1||!r2||r1===r2||r1===-r2);
@@ -359,6 +369,8 @@ const AL_ECON_BANK=[
  ,[3,'The marginal revenue product of labour falls as more workers are hired mainly because of:',['Diminishing marginal returns','Rising wages','Cheaper capital','Economies of scale'],'With other factors fixed, each extra worker adds less output.']
  ,[1,'A subsidy designed to correct a positive externality aims to:',['Raise output towards the socially optimal level','Reduce consumption','Raise government revenue','Increase the price consumers pay'],'The good is under-consumed, so lowering its cost encourages more of it.']
  ,[0,'Supply increases while demand stays the same. What happens to equilibrium price and quantity?',['Price falls and quantity rises','Both rise','Both fall','Price rises and quantity falls'],'The supply curve shifts right along an unchanged demand curve.']
+ ,[2,'High barriers to entry are most likely to allow:',['Supernormal profits to persist in the long run','Perfect competition','Only normal profits','Lower prices for consumers'],'New firms cannot enter to compete the profits away.']
+ ,[5,'A cut in income tax is most likely to:',['Raise disposable income and consumption','Reduce aggregate demand','Increase the budget surplus','Reduce imports'],'Households keep more of what they earn, so they spend more.']
 ];
 const AL_ECON_GEN=[
  [0,()=>{const p=pick([10,20,25,50]),q=pick([5,10,15,20,40]),ped=-(q/p);

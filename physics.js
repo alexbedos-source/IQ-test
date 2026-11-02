@@ -186,7 +186,7 @@ const PHY=[
     'The near side is pulled more than the centre; the centre is pulled more than the far side. What does each look like from the Earth\'s point of view?'],
  a:'<p>Relative to the Earth\'s centre, water on the near side is pulled towards the Moon a bit more strongly, and water on the far side a bit less strongly. Both stretch the oceans along the Earth–Moon line, making <b>two bulges</b> on opposite sides.</p><p>The Earth turns under both bulges each day, giving two high tides about 12 h 25 min apart (the extra 25 min because the Moon moves along its orbit). The Sun adds a smaller tidal effect: spring tides happen when the two line up.</p>'},
 {id:'a4',t:6,l:1,q:'How long does sunlight take to reach us? What does that tell you about looking at the night sky?',
- h:['Earth–Sun distance ≈ 1.5 × 10¹¹ m; speed of light ≈ 3 × 10⁸ m/s.'],
+ h:['Earth–Sun distance ≈ 1.5 × 10¹¹ m; speed of light ≈ 3 × 10⁸ m/s.','If light takes time to travel, are you seeing a distant star as it is now, or as it was?'],
  a:'<p>t = 1.5 × 10¹¹ / 3 × 10⁸ = 500 s ≈ <b>8 minutes 20 seconds</b>.</p><p>Every observation is of the past. The nearest stars appear as they were years ago; distant galaxies as they were millions or billions of years ago. That is how astronomers can study the early universe directly.</p>'},
 {id:'a5',t:6,l:2,q:'If the Sun suddenly collapsed into a black hole of the same mass, what would happen to the Earth\'s orbit?',
  h:['Outside a spherical mass, how does gravity depend on its size?',
@@ -603,6 +603,32 @@ PHY.push(
  a:'<p>Sunlight scattered by air molecules makes the whole sky glow blue. A star sends the same light by day as by night, but against the bright sky its contrast is far too small for your eye to notice, especially as your eyes adapt to daylight.</p><p>Remove the scattering (above the atmosphere) and the sky is black even with the Sun up.</p>',
  f:[['Why can you sometimes see Venus in daylight?','It is extremely bright (much brighter than any star) and compact, so if you know exactly where to look, its contrast with the sky is just enough.'],
     ['Could astronauts on the Moon see stars during the lunar day?','In principle, yes: there is no atmosphere to scatter light. In practice their eyes and cameras were adjusted for the brilliant sunlit surface, so the faint stars rarely showed up in photos.']]}
+);
+PHY.push(
+{id:'y1',t:0,l:1,q:'Estimate how far you walk in a lifetime. How does it compare with the distance round the Earth?',
+ h:['Estimate the number of steps you take in a typical day, and the length of a step.',
+    'Something like 7000 steps of 0.7 m each. Then multiply by the days in about 80 years. The Earth\'s circumference is 40 000 km.'],
+ a:'<p>7000 steps × 0.7 m ≈ 5 km per day. Over 80 years: 5 × 365 × 80 ≈ 1.5 × 10⁵ km.</p><p>That is about <b>150 000 km, nearly four times round the Earth</b>, or roughly 40% of the way to the Moon.</p>',
+ f:[['If each step raises your centre of mass by about 3 cm, how much lifting work is that per day?','7000 × 70 kg × 9.8 × 0.03 m ≈ 1.4 × 10⁵ J, about 35 kcal (and much more is used by muscles in reality).'],
+    ['How long would it take to walk to the Moon non-stop?','384 000 km at 5 km/h ≈ 77 000 hours, about 9 years.']]},
+{id:'y2',t:4,l:3,q:'On a fine day there is an electric field of about 100 V/m pointing down near the ground. So there should be about 170 V between your head and feet. Why don\'t you get a shock?',
+ h:['You are a fairly good conductor compared with air. What does a conductor do to an electric field around it?',
+    'A conductor in equilibrium is an equipotential. Where do the field lines end when you stand on the ground?'],
+ a:'<p>Your body conducts far better than air, so charge flows (almost instantly) until your whole body is at the same potential as the ground. The field lines then end on your head instead of passing through you: there is <b>no potential difference across your body</b>.</p><p>The air itself is such a poor conductor that the tiny current that keeps you at ground potential is utterly negligible.</p>',
+ f:[['The upper atmosphere is about 300 kV above the ground. Why doesn\'t that voltage simply leak away?','It does leak continuously (about 1 kA worldwide through the weakly conducting air), but thunderstorms around the world keep recharging it: the global electric circuit.'],
+    ['Estimate the total charge on the Earth\'s surface.','E = σ/ε₀ gives σ ≈ 8.85 × 10⁻¹² × 100 ≈ 9 × 10⁻¹⁰ C/m². Times the surface area 5 × 10¹⁴ m², that is about 5 × 10⁵ C (negative).']]},
+{id:'y3',t:5,l:2,q:'Why do water pipes burst when they freeze?',
+ h:['What happens to the volume of water when it turns to ice?',
+    'The pipe stops the ice expanding. Think about which part of the pipe the pressure actually builds up in.'],
+ a:'<p>Water expands by about 9% when it freezes. In a sealed section, the ice cannot expand, so the pressure rises enormously, in principle to thousands of atmospheres, far beyond what a pipe can withstand.</p><p>Often the burst happens where the water is still liquid: ice plugs form and trap water between them and a closed tap, and further freezing squeezes that trapped water until the pipe splits.</p>',
+ f:[['Why does lagging pipes help, even though insulation produces no heat?','It slows the rate of heat loss, so the water takes much longer to cool to 0 °C, often long enough to get through a cold night.'],
+    ['Why does leaving a tap dripping help?','Moving water brings in warmer water and relieves the pressure between ice plugs, so a burst is much less likely.']]},
+{id:'y4',t:7,l:2,q:'Why does popcorn pop, and why at around 180 °C rather than 100 °C?',
+ h:['Each kernel contains a little water inside a tough, sealed hull.',
+    'What happens to the boiling point of water when it is kept under pressure?'],
+ a:'<p>The kernel holds about 14% water inside a tough, nearly airtight hull. As it heats, the water cannot escape, so the pressure rises and the water stays liquid well above 100 °C.</p><p>At about 180 °C the vapour pressure reaches roughly 9–10 atmospheres and the hull ruptures. The superheated water flashes to steam, and the expanding steam puffs the softened starch into foam, which sets as it cools.</p>',
+ f:[['Why do some kernels never pop?','Their hulls are cracked or leaky, so steam escapes gradually, or they have dried out and have too little water.'],
+    ['How is this related to a pressure cooker?','Both raise the boiling point by raising the pressure: about 120 °C at 2 atmospheres in a pressure cooker.']]}
 );
 PHY.forEach(q=>{q.f=q.f||PHY_FOLLOW[q.id]||[];});
 

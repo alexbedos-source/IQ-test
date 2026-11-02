@@ -191,6 +191,16 @@ details.rev p{margin-top:6px;font-size:.92rem;color:var(--muted)}
 .qsave.on{color:var(--accent)}
 .svrow .qt[role="button"]{cursor:pointer}
 .svx{border:0;background:none;color:var(--muted);font-size:1rem;cursor:pointer;padding:4px 6px}
+/* topic heatmap */
+.hmsub{display:flex;flex-direction:column;gap:6px}
+.hmgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}
+.hm{display:flex;flex-direction:column;gap:2px;text-align:left;border-radius:10px;padding:8px 10px;border:1px solid var(--line);cursor:pointer;min-height:56px}
+.hm b{font-size:.82rem;font-weight:600;line-height:1.25}
+.hm span{font:500 .72rem var(--mono);opacity:.85}
+.hm0{background:#1b1b1b;color:var(--muted)}
+.hm1{background:color-mix(in srgb,var(--bad) 28%,#161616);border-color:color-mix(in srgb,var(--bad) 55%,transparent)}
+.hm2{background:color-mix(in srgb,var(--warn) 24%,#161616);border-color:color-mix(in srgb,var(--warn) 50%,transparent)}
+.hm3{background:color-mix(in srgb,var(--good) 24%,#161616);border-color:color-mix(in srgb,var(--good) 50%,transparent)}
 #rsheet{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.6);display:flex;align-items:flex-end;justify-content:center}
 #rsheet .rs-box{background:var(--surface);border:1px solid var(--line);border-radius:18px 18px 0 0;padding:20px 16px max(20px,env(safe-area-inset-bottom));width:100%;max-width:560px}
 /* graph sketching: faint axes on the scratchpad */
@@ -318,7 +328,7 @@ body.sp-open #scratchbtn,body.vp-open #scratchbtn{display:none}
 /* Start-up safety net: if anything fails while the app loads (for example a stale cached file after an update),
    clear the offline cache and reload once automatically. If it still fails, show a repair button.
    Progress (localStorage) is never touched. */
-window.IQ_V='16';
+window.IQ_V='17';
 (function(){
   let started=false;window.addEventListener('iq-started',()=>{started=true;});
   async function repair(){
@@ -347,19 +357,19 @@ window.IQ_V='16';
 <header class="tb" id="tb"><button id="backbtn" aria-label="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button></header>
 <main class="wrap" id="app"></main>
 
-<script src="iq-bank.js?v=16"></script>
-<script src="physics.js?v=16"></script>
-<script src="interview.js?v=16"></script>
-<script src="drill.js?v=16"></script>
-<script src="learn.js?v=16"></script>
-<script src="tools.js?v=16"></script>
-<script src="alevel.js?v=16"></script>
-<script src="videos.js?v=16"></script>
-<script src="mistakes.js?v=16"></script>
-<script src="backup.js?v=16"></script>
-<script src="practicals.js?v=16"></script>
-<script src="extras.js?v=16"></script>
-<script src="scratch.js?v=16"></script>
+<script src="iq-bank.js?v=17"></script>
+<script src="physics.js?v=17"></script>
+<script src="interview.js?v=17"></script>
+<script src="drill.js?v=17"></script>
+<script src="learn.js?v=17"></script>
+<script src="tools.js?v=17"></script>
+<script src="alevel.js?v=17"></script>
+<script src="videos.js?v=17"></script>
+<script src="mistakes.js?v=17"></script>
+<script src="backup.js?v=17"></script>
+<script src="practicals.js?v=17"></script>
+<script src="extras.js?v=17"></script>
+<script src="scratch.js?v=17"></script>
 <script>
 /* =====================  helpers  ===================== */
 const rnd=n=>Math.floor(Math.random()*n);
