@@ -117,7 +117,13 @@ const CARDS=[
  [7,'What a Geiger–Müller tube measures','The count rate of ionising radiation: each ionising event inside the tube produces a pulse. It does not tell you the energy of the radiation.'],
  [7,'Why alpha sources are fairly safe outside the body but dangerous inside it','Outside, alphas are stopped by the dead outer layer of skin. Inside, their strong ionisation damages nearby living cells.'],
  [3,'Which forces do no work?','Forces perpendicular to the motion, such as the normal reaction on a level road or the centripetal force in uniform circular motion.'],
- [3,'Conditions for equilibrium','No resultant force in any direction and no resultant moment about any point.']
+ [3,'Conditions for equilibrium','No resultant force in any direction and no resultant moment about any point.'],
+ [4,'Why a filament lamp draws a surge of current when switched on','The cold filament has a low resistance, so a large current flows until it heats up. That is why bulbs often fail at switch-on.'],
+ [4,'What a potentiometer does','It gives an output pd that can be varied smoothly from 0 V up to the supply pd, by moving a sliding contact along a resistor.'],
+ [5,'Why a gas exerts pressure (kinetic theory)','Molecules collide with the walls; each collision changes their momentum, and the total rate of change of momentum per unit area is the pressure.'],
+ [5,'Why the temperature stays constant while a substance melts','The energy supplied increases the potential energy of the particles (breaking bonds), not their kinetic energy, so the temperature does not rise.'],
+ [0,'Significant figures in a final answer','Give the answer to the same number of significant figures as the least precise data used.'],
+ [0,'Calibration','Checking an instrument against known reference values (for example a thermometer in melting ice at 0 °C) so systematic errors can be found and corrected.']
 ].map((c,i)=>({id:'a'+i,cat:c[0],front:c[1],back:c[2]}));
 const BOX_DAYS=[0,1,2,4,8,16,32];
 const NEW_PER_DAY=10;
@@ -319,7 +325,11 @@ const POTW=[
  ['(University level) What is the speed of a satellite orbiting just above the Earth\'s surface? Show that it equals the top speed of an object falling through a tunnel through the Earth.',
   'For the orbit, gravity provides the centripetal force: mg = mv²/R, so <b>v = √(gR) ≈ 7.9 km/s</b>. In the tunnel, motion is simple harmonic with ω = √(g/R) and amplitude R, so the top speed is ωR = √(gR): the same. In fact the tunnel motion is exactly the shadow of the circular orbit on a diameter.'],
  ['(University level) A cylinder of water spins steadily about its vertical axis at angular speed ω. Show that the water surface is a parabola.',
-  'In the rotating frame, each bit of the surface must be perpendicular to the combined effect of gravity g (down) and the centrifugal acceleration ω²r (outwards). So the slope is dz/dr = ω²r/g. Integrating: <b>z = ω²r²/(2g)</b>, a paraboloid. Liquid-mirror telescopes use exactly this.']
+  'In the rotating frame, each bit of the surface must be perpendicular to the combined effect of gravity g (down) and the centrifugal acceleration ω²r (outwards). So the slope is dz/dr = ω²r/g. Integrating: <b>z = ω²r²/(2g)</b>, a paraboloid. Liquid-mirror telescopes use exactly this.'],
+ ['Masses m and 2m hang on either side of a light string over a smooth pulley and are released. Find their acceleration and the tension in the string.',
+  'Net force on the system: 2mg − mg = mg, acting on a total mass 3m, so <b>a = g/3</b>. For the lighter mass: T − mg = m(g/3), so <b>T = 4mg/3</b>. Check: it lies between the two weights, mg and 2mg, as it must.'],
+ ['(University level) A charge q of mass m moves at speed v perpendicular to a uniform magnetic field B. Show that the time for one circle does not depend on its speed.',
+  'The magnetic force provides the centripetal force: qvB = mv²/r, so r = mv/(qB). Then T = 2πr/v = <b>2πm/(qB)</b>, independent of v: faster particles move in bigger circles and take the same time. This is why a cyclotron can use a fixed-frequency voltage.']
 ];
 function weekIndex(){
   const d=new Date(),start=new Date(d.getFullYear(),0,1);

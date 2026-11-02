@@ -13,8 +13,8 @@ Status: `[ ]` not started · `[~]` in progress / in an open PR · `[x]` done.
 - [x] **Scratchpad:** a draw-with-your-finger panel on physics and A-level questions for quick working.
 - [x] **Spaced repetition for physics interview questions:** bring back "Stuck" and "Needed hints" questions after 1, 3 and 7 days.
 - [x] ~~**Light / dark mode switch**~~ (not needed: the theme is now black and orange in every mode).
-- [~] **Bookmark questions** to revisit later, with a "Saved" list.
-- [ ] **Topic heatmap** on the Progress page across all A-level topics.
+- [x] **Bookmark questions** to revisit later, with a "Saved" list.
+- [~] **Topic heatmap** on the Progress page across all A-level topics.
 
 - [x] **"Due today" summary on the home screen:** one line listing everything due (flashcards, interview reviews, mistakes, drill).
 
