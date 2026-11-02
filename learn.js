@@ -111,7 +111,13 @@ const CARDS=[
  [4,'Adding a resistor in parallel','The total resistance decreases: the current has an extra path, so the total is less than the smallest branch resistance.'],
  [4,'Why terminal pd falls as more current is drawn','More current means more lost volts (Ir) across the internal resistance, so less pd is left for the external circuit.'],
  [2,'What sets the pitch and loudness of a sound','Pitch: frequency. Loudness: amplitude (intensity is proportional to amplitude squared).'],
- [2,'Why a diffraction grating gives sharp maxima','With many slits, waves only reinforce at exact angles where d sinθ = nλ and cancel almost everywhere else, giving bright, narrow maxima.']
+ [2,'Why a diffraction grating gives sharp maxima','With many slits, waves only reinforce at exact angles where d sinθ = nλ and cancel almost everywhere else, giving bright, narrow maxima.'],
+ [0,'How to find the uncertainty in a gradient','Draw the line of best fit and the steepest (or shallowest) line that still passes through all the error bars. The uncertainty is the difference between their gradients.'],
+ [0,'Why plot a graph instead of using one calculated value','A graph uses all the readings, shows up anomalies, and reveals systematic errors as an unexpected intercept.'],
+ [7,'What a Geiger–Müller tube measures','The count rate of ionising radiation: each ionising event inside the tube produces a pulse. It does not tell you the energy of the radiation.'],
+ [7,'Why alpha sources are fairly safe outside the body but dangerous inside it','Outside, alphas are stopped by the dead outer layer of skin. Inside, their strong ionisation damages nearby living cells.'],
+ [3,'Which forces do no work?','Forces perpendicular to the motion, such as the normal reaction on a level road or the centripetal force in uniform circular motion.'],
+ [3,'Conditions for equilibrium','No resultant force in any direction and no resultant moment about any point.']
 ].map((c,i)=>({id:'a'+i,cat:c[0],front:c[1],back:c[2]}));
 const BOX_DAYS=[0,1,2,4,8,16,32];
 const NEW_PER_DAY=10;
@@ -309,7 +315,11 @@ const POTW=[
  ['(University level) The period of a pendulum only stays the same for small swings. Estimate how much longer the period is for a 30° amplitude.',
   'The next term in the series is T ≈ T₀(1 + θ₀²/16), with θ₀ in radians. For 30°, θ₀ = 0.524, so θ₀²/16 ≈ 0.017: the period is about <b>1.7% longer</b>. A pendulum clock with a wide swing therefore loses about 25 minutes a day compared with a small swing.'],
  ['A uniform rope of length L hangs vertically from a ceiling. How long does a small transverse pulse take to travel from the bottom to the top?',
-  'At height y above the bottom, the tension supports the rope below: T = μgy, so the wave speed is v = √(T/μ) = √(gy). Then t = ∫₀^L dy/√(gy) = <b>2√(L/g)</b>. For a 4 m rope that is about 1.3 s.']
+  'At height y above the bottom, the tension supports the rope below: T = μgy, so the wave speed is v = √(T/μ) = √(gy). Then t = ∫₀^L dy/√(gy) = <b>2√(L/g)</b>. For a 4 m rope that is about 1.3 s.'],
+ ['(University level) What is the speed of a satellite orbiting just above the Earth\'s surface? Show that it equals the top speed of an object falling through a tunnel through the Earth.',
+  'For the orbit, gravity provides the centripetal force: mg = mv²/R, so <b>v = √(gR) ≈ 7.9 km/s</b>. In the tunnel, motion is simple harmonic with ω = √(g/R) and amplitude R, so the top speed is ωR = √(gR): the same. In fact the tunnel motion is exactly the shadow of the circular orbit on a diameter.'],
+ ['(University level) A cylinder of water spins steadily about its vertical axis at angular speed ω. Show that the water surface is a parabola.',
+  'In the rotating frame, each bit of the surface must be perpendicular to the combined effect of gravity g (down) and the centrifugal acceleration ω²r (outwards). So the slope is dz/dr = ω²r/g. Integrating: <b>z = ω²r²/(2g)</b>, a paraboloid. Liquid-mirror telescopes use exactly this.']
 ];
 function weekIndex(){
   const d=new Date(),start=new Date(d.getFullYear(),0,1);

@@ -100,6 +100,10 @@ const AL_PHY_BANK=[
  ,[1,'Which of these particles is a baryon?',['Neutron','Pion','Electron','Kaon'],'Baryons are hadrons made of three quarks. Pions and kaons are mesons; electrons are leptons.']
  ,[3,'A ball is thrown vertically upwards. At its highest point, its acceleration is:',['9.81 m/s² downwards','Zero','9.81 m/s² upwards','Changing direction'],'Gravity acts the whole time; only the velocity is momentarily zero.']
  ,[7,'The range of alpha particles in air is about:',['A few centimetres','A few millimetres','A few metres','Several kilometres'],'They are strongly ionising, so they lose their energy quickly.']
+ ,[0,'How is the uncertainty in a gradient usually found?',['Compare the gradients of the best-fit line and the worst acceptable line through the error bars','Read the y-intercept','Take the largest error bar','Find the area under the line'],'The worst acceptable line is the steepest or shallowest line that still passes through all the error bars.']
+ ,[2,'What happens to the speed of light when it enters a medium with a higher refractive index?',['It decreases','It increases','It stays the same','It becomes zero'],'n = c/v, so a larger refractive index means a lower speed.']
+ ,[4,'Three identical 6 Ω resistors are connected in parallel. What is the total resistance?',['2 Ω','18 Ω','3 Ω','6 Ω'],'1/R = 3/6, so R = 2 Ω.']
+ ,[5,'An oscillator in SHM has amplitude 0.05 m and angular frequency 4 rad/s. What is its maximum speed?',['0.2 m/s','0.8 m/s','0.0125 m/s','0.05 m/s'],'v_max = ωA = 4 × 0.05 = 0.2 m/s.']
 ];
 const AL_PHY_GEN=[
  [4,()=>{const [a,b,r]=pick([[6,3,2],[12,4,3],[10,10,5],[20,5,4],[6,12,4],[30,6,5],[8,8,4],[15,10,6]]);
@@ -205,6 +209,12 @@ const AL_MATHS_BANK=[
  ,[3,'How many solutions does cos x = 0.3 have for 0° ≤ x < 720°?',['4','2','1','8'],'Two solutions in each 360°, over two full turns.']
  ,[4,'If log₂ x = 5, what is x?',['32','10','25','2.5'],'x = 2⁵ = 32.']
  ,[6,'Evaluate ∫₀^(π/2) cos x dx.',['1','0','π/2','−1'],'[sin x] from 0 to π/2 = 1 − 0.']
+ ,[5,'What is the equation of the tangent to y = x² at x = 3?',['y = 6x − 9','y = 6x + 9','y = 3x','y = 2x + 3'],'The gradient 2x is 6 at (3, 9), so y − 9 = 6(x − 3).']
+ ,[7,'What is the unit vector in the direction of 3i − 4j?',['(3i − 4j)/5','3i − 4j','(3i − 4j)/25','(4i + 3j)/5'],'Divide by the magnitude √(9 + 16) = 5.']
+ ,[9,'A particle has velocity v = 3t² − 2t m/s. What is its acceleration at t = 2 s?',['10 m/s²','8 m/s²','12 m/s²','4 m/s²'],'a = dv/dt = 6t − 2 = 10 m/s².']
+ ,[0,'Write x² + 6x + 11 in completed-square form.',['(x + 3)² + 2','(x + 6)² − 25','(x + 3)² + 11','(x − 3)² + 2'],'(x + 3)² = x² + 6x + 9, so add 2.']
+ ,[2,'What is the coefficient of x² in the expansion of (2 + x)⁴?',['24','6','16','12'],'⁴C₂ × 2² = 6 × 4 = 24.']
+ ,[8,'A and B are independent, with P(A) = 0.4 and P(B) = 0.5. What is P(A ∪ B)?',['0.7','0.9','0.2','0.6'],'P(A ∪ B) = 0.4 + 0.5 − 0.4 × 0.5 = 0.7.']
 ];
 const AL_MATHS_GEN=[
  [0,()=>{let r1,r2;do{r1=rint(-7,7);r2=rint(-7,7);}while(!r1||!r2||r1===r2||r1===-r2);
@@ -347,6 +357,8 @@ const AL_ECON_BANK=[
  ,[7,'If the pound appreciates, UK exporters are most likely to find that:',['Their goods become more expensive in foreign currencies','Their goods become cheaper abroad','UK import prices rise','Nothing changes for them'],'Foreign buyers need more of their own currency for each pound.']
  ,[0,'A good with an income elasticity of demand greater than +1 is a:',['Luxury (superior) good','Inferior good','Necessity','Giffen good'],'Demand rises proportionately more than income.']
  ,[3,'The marginal revenue product of labour falls as more workers are hired mainly because of:',['Diminishing marginal returns','Rising wages','Cheaper capital','Economies of scale'],'With other factors fixed, each extra worker adds less output.']
+ ,[1,'A subsidy designed to correct a positive externality aims to:',['Raise output towards the socially optimal level','Reduce consumption','Raise government revenue','Increase the price consumers pay'],'The good is under-consumed, so lowering its cost encourages more of it.']
+ ,[0,'Supply increases while demand stays the same. What happens to equilibrium price and quantity?',['Price falls and quantity rises','Both rise','Both fall','Price rises and quantity falls'],'The supply curve shifts right along an unchanged demand curve.']
 ];
 const AL_ECON_GEN=[
  [0,()=>{const p=pick([10,20,25,50]),q=pick([5,10,15,20,40]),ped=-(q/p);
