@@ -58,7 +58,9 @@ V:[
  [0.5,'Which word is closest in meaning to ARDUOUS?',['Difficult','Passionate','Quick','Simple'],'Arduous means needing a lot of effort.'],
  [1.0,'Which word is the opposite of PARSIMONIOUS?',['Generous','Stingy','Careful','Wealthy'],'Parsimonious means extremely unwilling to spend money.'],
  [0.2,'Which word is closest in meaning to ABUNDANT?',['Plentiful','Scarce','Brief','Heavy'],'Abundant means existing in large quantities.'],
- [1.2,'Which word is the opposite of EQUANIMITY?',['Agitation','Calmness','Fairness','Balance'],'Equanimity means calmness and composure.']
+ [1.2,'Which word is the opposite of EQUANIMITY?',['Agitation','Calmness','Fairness','Balance'],'Equanimity means calmness and composure.'],
+ [0.5,'BOOK is to LIBRARY as PAINTING is to:',['Gallery','Artist','Frame','Canvas'],'A library is where books are kept and shown; a gallery is where paintings are.'],
+ [1.4,'Which word is closest in meaning to PERFUNCTORY?',['Cursory','Thorough','Fragrant','Formal'],'Perfunctory means done with minimal effort or care.']
 ],
 Q:[
  [-1.9,'What is 25% of 80?',['20','25','40','16'],'25% is a quarter, and a quarter of 80 is 20.'],
@@ -113,7 +115,9 @@ Q:[
  [0.2,'What is 45% of 220?',['99','90','110','95'],'10% is 22, so 45% is 4.5 × 22 = 99.'],
  [0.5,'In how many different orders can the letters of the word TEN be arranged?',['6','3','9','27'],'3! = 3 × 2 × 1 = 6.'],
  [0.4,'A rectangle has a perimeter of 30 cm and a length of 9 cm. What is its area?',['54 cm²','63 cm²','45 cm²','81 cm²'],'Width = 15 − 9 = 6 cm, so area = 9 × 6 = 54 cm².'],
- [0.6,'If 3x − 7 = 2x + 5, what is x²?',['144','12','64','36'],'x = 12, so x² = 144.']
+ [0.6,'If 3x − 7 = 2x + 5, what is x²?',['144','12','64','36'],'x = 12, so x² = 144.'],
+ [0.5,'A shirt costs £40 after a 20% discount. What was the original price?',['£50','£48','£60','£45'],'0.8 × price = 40, so price = £50.'],
+ [1.0,'The average of five numbers is 12. When one number is removed, the average of the rest is 10. What number was removed?',['20','12','10','22'],'Total 60, remaining total 40, so 20 was removed.']
 ],
 L:[
  [-1.8,'All cats have whiskers. Tibbles is a cat. Which must be true?',['Tibbles has whiskers','Tibbles is not a cat','Every animal with whiskers is a cat','Tibbles has no whiskers'],'Tibbles is a cat, and all cats have whiskers.'],
@@ -164,6 +168,8 @@ L:[
  [0.3,'Today is Tuesday. What day was it 10 days ago?',['Saturday','Sunday','Friday','Monday'],'7 days ago was Tuesday; 3 more days back is Saturday.'],
  [1.0,'Pens cost more than pencils. Rulers cost less than pencils. Erasers cost more than pens. Which is cheapest?',['Rulers','Pencils','Pens','Erasers'],'From most to least expensive: erasers, pens, pencils, rulers.'],
  [0.2,'No cats are dogs. All kittens are cats. Which must be true?',['No kittens are dogs','Some kittens are dogs','All dogs are kittens','Some cats are dogs'],'Kittens are cats, and no cat is a dog.'],
- [0.9,'A is north of B. C is east of A. D is south of C, level with B. Where is D relative to B?',['East','West','North','South'],'D is directly below C, at the same height as B, and C is east of A (which is above B).']
+ [0.9,'A is north of B. C is east of A. D is south of C, level with B. Where is D relative to B?',['East','West','North','South'],'D is directly below C, at the same height as B, and C is east of A (which is above B).'],
+ [0.6,'If it rains, the match is cancelled. The match was not cancelled. What follows?',['It did not rain','It rained','The match was played indoors','Nothing can be concluded'],'If rain always cancels the match, an uncancelled match means no rain (modus tollens).'],
+ [1.1,'Four friends sit in a row. Ana is not at either end. Ben is directly to the right of Ana. Cara is at the left end. Where is Dev?',['Right end','Left end','Second from left','Third from left'],'Cara is first and Ana cannot be at an end, so Ana is second and Ben third, leaving Dev at the right end.']
 ]
 };

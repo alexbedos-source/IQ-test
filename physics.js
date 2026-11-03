@@ -630,6 +630,32 @@ PHY.push(
  f:[['Why do some kernels never pop?','Their hulls are cracked or leaky, so steam escapes gradually, or they have dried out and have too little water.'],
     ['How is this related to a pressure cooker?','Both raise the boiling point by raising the pressure: about 120 °C at 2 atmospheres in a pressure cooker.']]}
 );
+PHY.push(
+{id:'z1',t:6,l:2,q:'Why do we always see the same face of the Moon?',
+ h:['Does the Moon spin at all? Compare its rotation period with its orbital period.',
+    'The Earth raises tides in the Moon, just as the Moon raises tides in the Earth. What would tidal friction do to a spin that did not match the orbit?'],
+ a:'<p>The Moon <b>does</b> rotate: once per orbit (about 27 days), so the same side always faces us. This is called tidal locking.</p><p>Earth\'s gravity stretches the Moon into a slight bulge along the Earth–Moon line. If the Moon spun faster or slower than it orbits, the bulge would be dragged off that line; Earth\'s pull on the misaligned bulge gives a torque that speeds up or slows down the spin, and internal friction dissipates the energy, until the spin matches the orbit. Then the bulge stays put and the torque vanishes.</p><p>Tutors like it if you notice that "not rotating" would actually show us every side.</p>',
+ f:[['The Moon raises tides on Earth too. What is that doing to the length of our day?','Tidal friction is slowing Earth\'s spin: the day lengthens by about 2 ms per century. The angular momentum goes into the Moon\'s orbit, so the Moon recedes (about 4 cm per year).'],
+    ['Will the Earth eventually always show the same face to the Moon?','In principle yes, when Earth\'s day equals the (by then longer) month, but it would take far longer than the Sun\'s remaining lifetime.']]},
+{id:'z2',t:4,l:2,q:'A magnet is dropped down a vertical copper pipe. It falls much more slowly than outside the pipe. Explain why, and estimate what decides its speed.',
+ h:['Copper is not magnetic. What happens in a conductor when the magnetic flux through it changes?',
+    'Lenz\'s law: in which direction do the induced currents push the magnet? What happens to their size as the magnet speeds up?'],
+ a:'<p>As the magnet falls, the flux through each ring of the pipe changes, so currents (eddy currents) are induced in the copper. By Lenz\'s law they oppose the change: the ring below repels the magnet and the ring above attracts it, so there is an upward force.</p><p>The induced emf, and so the current and the force, grow with speed: the drag is roughly proportional to v. The magnet speeds up until the drag equals its weight, then falls at a steady <b>terminal speed</b>, which is lower for thicker, better-conducting pipes and stronger magnets.</p><p>Energy check: gravitational energy goes into heating the pipe instead of kinetic energy.</p>',
+ f:[['What happens if the pipe has a slit cut along its length?','The currents cannot circulate round the pipe, so the braking is much weaker and the magnet falls faster.'],
+    ['Would the effect be stronger or weaker in a cold pipe (say in liquid nitrogen)?','Stronger: copper\'s resistivity falls when it is cooled, so larger currents flow and the terminal speed is lower.']]},
+{id:'z3',t:5,l:3,q:'(University level) Estimate how long a cup of tea takes to cool from 80 °C to 60 °C in a room at 20 °C.',
+ h:['Newton\'s law of cooling: the rate of heat loss is proportional to the temperature difference with the room. What shape of curve does that give?',
+    'Estimate the heat loss at the start. A mug of tea loses heat at roughly 15 W when it is about 60 °C above the room. Its heat capacity is about 0.3 kg × 4200 J/(kg K).'],
+ a:'<p>Heat capacity C ≈ 0.3 × 4200 ≈ 1300 J/K. If the loss is P = kΔT with P ≈ 15 W at ΔT = 60 K, then k ≈ 0.25 W/K.</p><p>Then ΔT falls exponentially: ΔT = ΔT₀e^(−t/τ), with τ = C/k ≈ 5000 s. Going from ΔT = 60 K to 40 K needs t = τ ln(60/40) ≈ 5000 × 0.4 ≈ 2000 s, roughly <b>half an hour</b>.</p><p>Sanity check: experience says 20–30 minutes; evaporation from the open surface makes real tea cool faster at first.</p>',
+ f:[['Should you add the milk at the start or just before drinking, if you want the tea as hot as possible later on?','Add it at the start: the hotter tea loses heat faster, so cooling it with milk early reduces the losses afterwards.'],
+    ['What is the time constant τ, physically?','The time for the temperature difference to fall to 1/e (about 37%) of its value: it is the heat capacity divided by the heat-loss coefficient.']]},
+{id:'z4',t:3,l:1,q:'Why does a straw look bent where it enters a glass of water?',
+ h:['Light from the part of the straw under water has to leave the water to reach your eye. What happens at the surface?',
+    'Your brain assumes light travels in straight lines. Trace a ray back from your eye.'],
+ a:'<p>Light from the submerged part of the straw refracts away from the normal as it leaves the water (water has a higher refractive index than air). Your brain traces the rays back in straight lines, so they appear to come from a point closer to the surface than the straw really is.</p><p>So the submerged part looks raised and the straw looks bent at the surface. For the same reason a pool looks shallower than it is: about 3/4 of its real depth when viewed from directly above (1/1.33).</p>',
+ f:[['Why does the effect get stronger when you look at a shallow angle?','Refraction increases with the angle of incidence, so the apparent raising of the straw is larger for rays leaving at a glancing angle.'],
+    ['A fish looking up sees the whole sky squeezed into a circle. Why?','Light from all directions above enters within the critical angle (about 49°), so the sky appears in a cone of half-angle 49°; outside it, the fish sees reflections of the bottom.']]}
+);
 PHY.forEach(q=>{q.f=q.f||PHY_FOLLOW[q.id]||[];});
 
 const PHY_SOURCES=[

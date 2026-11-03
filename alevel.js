@@ -108,6 +108,11 @@ const AL_PHY_BANK=[
  ,[3,'Which of these is a vector quantity?',['Displacement','Speed','Energy','Mass'],'Displacement has both size and direction.']
  ,[6,'g at the Earth\'s surface is 9.8 N/kg. What is it at twice that distance from the centre?',['2.5 N/kg','4.9 N/kg','19.6 N/kg','9.8 N/kg'],'g ∝ 1/r², so it falls by a factor of 4.']
  ,[7,'A sample has 8000 undecayed nuclei. How many remain after three half-lives?',['1000','2667','4000','500'],'8000 → 4000 → 2000 → 1000.']
+ ,[1,'Which particle is a lepton?',['Muon','Proton','Pion','Kaon'],'Leptons are fundamental and do not feel the strong force: electrons, muons, (taus) and neutrinos.']
+ ,[1,'Which quantity is NOT conserved in a weak interaction?',['Strangeness','Charge','Baryon number','Lepton number'],'Strangeness can change by 0 or ±1 in weak interactions.']
+ ,[2,'Two waves are in antiphase. What is their phase difference?',['π radians','2π radians','π/2 radians','0'],'Antiphase means half a cycle apart: 180° or π radians.']
+ ,[4,'A 6 Ω and a 3 Ω resistor are connected in parallel. What is the total resistance?',['2 Ω','9 Ω','4.5 Ω','0.5 Ω'],'1/R = 1/6 + 1/3 = 1/2, so R = 2 Ω.']
+ ,[5,'What happens to the internal energy of an ideal gas during an isothermal compression?',['It stays the same','It increases','It decreases','It becomes zero'],'For an ideal gas internal energy depends only on temperature, which is constant.']
 ];
 const AL_PHY_GEN=[
  [4,()=>{const [a,b,r]=pick([[6,3,2],[12,4,3],[10,10,5],[20,5,4],[6,12,4],[30,6,5],[8,8,4],[15,10,6]]);
@@ -225,6 +230,9 @@ const AL_MATHS_BANK=[
  ,[6,'Find ∫ (6x² + 4) dx.',['2x³ + 4x + C','12x + C','6x³ + 4x + C','2x³ + C'],'Integrate each term: 6x³/3 + 4x + C.']
  ,[7,'One Newton–Raphson step for f(x) = x² − 5 starting at x₀ = 2 gives x₁ =',['2.25','2.5','2.2','2'],'x₁ = 2 − f(2)/f′(2) = 2 − (−1)/4 = 2.25.']
  ,[9,'A 4 kg box on a smooth floor is pushed by a 10 N horizontal force. What is its acceleration?',['2.5 m/s²','40 m/s²','0.4 m/s²','6 m/s²'],'a = F/m = 10/4.']
+ ,[5,'Find dy/dx for y = x²e^(x).',['(x² + 2x)e^(x)','2xe^(x)','x²e^(x)','2x + e^(x)'],'Product rule: 2xe^(x) + x²e^(x).']
+ ,[5,'A curve has dy/dx = 0 and d²y/dx² = −3 at x = 1. What is the point at x = 1?',['A maximum','A minimum','A point of inflection','Not a stationary point'],'A stationary point with a negative second derivative is a maximum.']
+ ,[2,'What is the sum of the first 10 terms of the arithmetic series 3 + 7 + 11 + …?',['210','190','43','230'],'S = 10/2 × (2×3 + 9×4) = 5 × 42 = 210.']
 ];
 const AL_MATHS_GEN=[
  [0,()=>{let r1,r2;do{r1=rint(-7,7);r2=rint(-7,7);}while(!r1||!r2||r1===r2||r1===-r2);
@@ -371,6 +379,10 @@ const AL_ECON_BANK=[
  ,[0,'Supply increases while demand stays the same. What happens to equilibrium price and quantity?',['Price falls and quantity rises','Both rise','Both fall','Price rises and quantity falls'],'The supply curve shifts right along an unchanged demand curve.']
  ,[2,'High barriers to entry are most likely to allow:',['Supernormal profits to persist in the long run','Perfect competition','Only normal profits','Lower prices for consumers'],'New firms cannot enter to compete the profits away.']
  ,[5,'A cut in income tax is most likely to:',['Raise disposable income and consumption','Reduce aggregate demand','Increase the budget surplus','Reduce imports'],'Households keep more of what they earn, so they spend more.']
+ ,[1,'A maximum price set below the equilibrium price is most likely to cause:',['A shortage','A surplus','No effect on the market','A rise in supply'],'At the lower price, quantity demanded exceeds quantity supplied.']
+ ,[3,'A monopsony employer in a labour market is most likely to:',['Pay a lower wage and employ fewer workers than a competitive market','Pay a higher wage than a competitive market','Employ more workers than a competitive market','Have no influence on the wage'],'As the single buyer of labour it can push wages down and hires less.']
+ ,[6,'What is the main role of a central bank as "lender of last resort"?',['Lending to banks that cannot borrow elsewhere, to prevent a collapse','Lending to the government to fund spending','Lending directly to households','Setting the exchange rate'],"It stops a liquidity shortage at one bank from spreading through the system."]
+ ,[7,'A country specialises in the good for which it has the lowest opportunity cost. This is called:',['Comparative advantage','Absolute advantage','Economies of scale','Protectionism'],'Trade by comparative advantage can benefit both countries.']
 ];
 const AL_ECON_GEN=[
  [0,()=>{const p=pick([10,20,25,50]),q=pick([5,10,15,20,40]),ped=-(q/p);
