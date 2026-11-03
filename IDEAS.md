@@ -23,6 +23,8 @@ Status: `[ ]` not started · `[~]` in progress / in an open PR · `[x]` done.
 - [x] **Report a question:** flag button that opens a pre-filled GitHub issue (approved 1 Nov).
 - [ ] **Weekly goal + rest day:** weekly targets with a progress ring; one rest day keeps the streak.
 - [~] **Data booklet drill:** find and apply the right AQA data-booklet equation quickly.
+- [~] **Mental maths sprint** (approved 3 Nov): 60 s of no-calculator questions with a personal best.
+- [~] **Read the graph** (approved 3 Nov): gradients, areas and half-lives from generated graphs.
 
 ## Bigger ideas (needs approval)
 - [x] **Tutor twist** in mock interviews: the tutor changes a condition after you answer (approved 1 Nov).
