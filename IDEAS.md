@@ -9,12 +9,12 @@ Status: `[ ]` not started · `[~]` in progress / in an open PR · `[x]` done.
 ## Small improvements (auto)
 - [x] **Backup and restore:** export all progress to a file and import it again. iOS deletes a home-screen app's data if the icon is removed, so this protects streaks and history.
 - [x] **Mistake bank:** collect every question answered wrongly (drill, A-level, IQ) into a "Review mistakes" session that comes back until it is answered correctly twice.
-- [ ] **Weekly summary card** on the home screen: questions done, accuracy, streak, study minutes, compared with last week.
+- [~] **Weekly summary card** on the home screen: questions done, accuracy, streak, study minutes, compared with last week.
 - [x] **Scratchpad:** a draw-with-your-finger panel on physics and A-level questions for quick working.
 - [x] **Spaced repetition for physics interview questions:** bring back "Stuck" and "Needed hints" questions after 1, 3 and 7 days.
 - [x] ~~**Light / dark mode switch**~~ (not needed: the theme is now black and orange in every mode).
 - [x] **Bookmark questions** to revisit later, with a "Saved" list.
-- [~] **Topic heatmap** on the Progress page across all A-level topics.
+- [x] **Topic heatmap** on the Progress page across all A-level topics.
 
 - [x] **"Due today" summary on the home screen:** one line listing everything due (flashcards, interview reviews, mistakes, drill).
 

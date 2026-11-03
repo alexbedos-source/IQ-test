@@ -38,7 +38,36 @@ document.addEventListener('click',e=>{
   if(e.target.closest('.qskip')&&QSKIP)QSKIP();
   const sv=e.target.closest('.qsave');if(sv&&QCUR){const on=toggleSaved(QCUR.it,QCUR.src);sv.classList.toggle('on',on);sv.textContent=on?'★ Saved':'☆ Save';}
 });
+/* ---- weekly summary: answers and flashcards per day, kept for 60 days ('activity') ---- */
+function actLog(kind,ok){
+  const a=loadJSON('activity',{}),k=dayKey(),d=a[k]=a[k]||{q:0,ok:0,c:0};
+  if(kind==='c')d.c++;else{d.q++;if(ok)d.ok++;}
+  Object.keys(a).sort().slice(0,-60).forEach(x=>delete a[x]);saveJSON('activity',a);
+}
+function weekStats(from){
+  const a=loadJSON('activity',{}),dr=drillState(),log=studyLog(),r={q:0,ok:0,c:0,min:0,drill:0};
+  for(let i=from;i<from+7;i++){const k=dayKey(Date.now()-i*864e5),d=a[k];
+    if(d){r.q+=d.q;r.ok+=d.ok;r.c+=d.c;} if(dr.days[k])r.drill++;}
+  const t0=Date.now()-(from+7)*864e5,t1=Date.now()-from*864e5;
+  log.forEach(l=>{if(l.t>t0&&l.t<=t1)r.min+=l.min||0;});
+  return r;
+}
+function weekHtml(){
+  const w=weekStats(0),p=weekStats(7);
+  if(!w.q&&!w.c&&!w.min&&!w.drill&&!p.q&&!p.c&&!p.min&&!p.drill)return '';
+  const diff=(a,b,u)=>{if(!b&&!a)return '';const d=a-b;return '<em class="'+(d>0?'up':d<0?'down':'')+'">'+(d>0?'▲ ':d<0?'▼ ':'= ')+(d?Math.abs(d)+(u||''):'same')+'</em>';};
+  const acc=x=>x.q?Math.round(100*x.ok/x.q):null,wa=acc(w),pa=acc(p);
+  const cell=(n,label,cmp)=>'<div class="wkc"><b>'+n+'</b><span>'+label+'</span>'+cmp+'</div>';
+  return '<button class="card week" id="hweek"><p class="eyebrow">Last 7 days <span class="note">vs the 7 before</span></p><div class="wkg">'+
+    cell(w.q,'questions',diff(w.q,p.q))+
+    cell(wa==null?'–':wa+'%','accuracy',wa!=null&&pa!=null?diff(wa,pa,' pts'):'')+
+    cell(w.c,'flashcards',diff(w.c,p.c))+
+    cell(w.min,'study min',diff(w.min,p.min))+
+    cell(w.drill+'/7','drill days',diff(w.drill,p.drill))+
+    cell(drillStreak(drillState()),'day streak','')+'</div></button>';
+}
 function confRecord(ok){
+  actLog('q',ok);
   if(!CONF)return;
   const st=loadJSON('confidence',{g:{n:0,ok:0},f:{n:0,ok:0},s:{n:0,ok:0}});
   st[CONF].n++;if(ok)st[CONF].ok++;saveJSON('confidence',st);CONF=null;
@@ -178,7 +207,8 @@ const SKETCH=[
  {id:'k21',f:'y = x³ − 4x',fn:x=>x*x*x-4*x,feat:['Odd: rotational symmetry about the origin','Roots at x = 0 and x = ±2','Maximum at x = −2/√3 (y ≈ 3.08), minimum at x = 2/√3 (y ≈ −3.08)']},
  {id:'k22',f:'y = 1/(x² − 1)',fn:x=>1/(x*x-1),feat:['Even; vertical asymptotes at x = ±1, horizontal asymptote y = 0','Between the asymptotes it is negative, with a maximum of −1 at x = 0','Outside them it is positive, falling towards 0 for large |x|']},
  {id:'k23',f:'y = x/(x − 2)',fn:x=>x/(x-2),feat:['Vertical asymptote x = 2, horizontal asymptote y = 1','Passes through the origin','Decreasing on each branch']},
- {id:'k24',f:'y = sin x + cos x',fn:x=>Math.sin(x)+Math.cos(x),feat:['Equal to √2 sin(x + π/4): amplitude √2 ≈ 1.41, period 2π','y-intercept 1','Roots at x = −π/4 + nπ']}
+ {id:'k24',f:'y = sin x + cos x',fn:x=>Math.sin(x)+Math.cos(x),feat:['Equal to √2 sin(x + π/4): amplitude √2 ≈ 1.41, period 2π','y-intercept 1','Roots at x = −π/4 + nπ']},
+ {id:'k25',f:'y = x² − 4|x|',fn:x=>x*x-4*Math.abs(x),feat:['Even function: symmetric about the y-axis','Roots at x = −4, 0, 4','Minima at (±2, −4) and a sharp local maximum at the origin']}
 ];
 function sketchHome(){
   leave();

@@ -123,7 +123,13 @@ const CARDS=[
  [5,'Why a gas exerts pressure (kinetic theory)','Molecules collide with the walls; each collision changes their momentum, and the total rate of change of momentum per unit area is the pressure.'],
  [5,'Why the temperature stays constant while a substance melts','The energy supplied increases the potential energy of the particles (breaking bonds), not their kinetic energy, so the temperature does not rise.'],
  [0,'Significant figures in a final answer','Give the answer to the same number of significant figures as the least precise data used.'],
- [0,'Calibration','Checking an instrument against known reference values (for example a thermometer in melting ice at 0 °C) so systematic errors can be found and corrected.']
+ [0,'Calibration','Checking an instrument against known reference values (for example a thermometer in melting ice at 0 °C) so systematic errors can be found and corrected.'],
+ [2,'Polarisation, and what it shows','Restricting the oscillations of a transverse wave to one plane. Only transverse waves can be polarised, so it shows light is transverse.'],
+ [2,'Conditions for total internal reflection','Light must travel from a higher to a lower refractive index, and hit the boundary at an angle of incidence greater than the critical angle.'],
+ [6,'Gravitational potential at a point','The work done per unit mass to bring a small mass from infinity to that point. It is zero at infinity and negative everywhere else.'],
+ [6,'Equipotential surface','A surface on which the potential is the same everywhere; no work is done moving along it, and it is always perpendicular to the field lines.'],
+ [7,'Why nuclear fission needs a moderator in a thermal reactor','Fission neutrons are too fast to be absorbed well by uranium-235. Collisions with the moderator (e.g. water or graphite) slow them to thermal speeds.'],
+ [7,'Control rods','Rods of a material that absorbs neutrons (e.g. boron), moved in or out to control the rate of fission so that on average one neutron per fission causes another.']
 ].map((c,i)=>({id:'a'+i,cat:c[0],front:c[1],back:c[2]}));
 const BOX_DAYS=[0,1,2,4,8,16,32];
 const NEW_PER_DAY=10;
@@ -187,7 +193,7 @@ function cardRender(){
     if(!s){const today=dayKey();if(st.newDay!==today){st.newDay=today;st.newCount=0;}st.newCount++;}
     const box=ok?Math.min(6,(s?s.box:0)+1):1;
     st.s[c.id]={box,due:Date.now()+BOX_DAYS[box]*864e5-36e5};
-    saveJSON('cards',st);if(ok)CS.ok++;CS.i++;cardRender();
+    saveJSON('cards',st);actLog('c');if(ok)CS.ok++;CS.i++;cardRender();
   };
   $('cno').onclick=()=>grade(false);$('cyes').onclick=()=>grade(true);
   $('cquit').onclick=cardsHome;
@@ -329,7 +335,11 @@ const POTW=[
  ['Masses m and 2m hang on either side of a light string over a smooth pulley and are released. Find their acceleration and the tension in the string.',
   'Net force on the system: 2mg − mg = mg, acting on a total mass 3m, so <b>a = g/3</b>. For the lighter mass: T − mg = m(g/3), so <b>T = 4mg/3</b>. Check: it lies between the two weights, mg and 2mg, as it must.'],
  ['(University level) A charge q of mass m moves at speed v perpendicular to a uniform magnetic field B. Show that the time for one circle does not depend on its speed.',
-  'The magnetic force provides the centripetal force: qvB = mv²/r, so r = mv/(qB). Then T = 2πr/v = <b>2πm/(qB)</b>, independent of v: faster particles move in bigger circles and take the same time. This is why a cyclotron can use a fixed-frequency voltage.']
+  'The magnetic force provides the centripetal force: qvB = mv²/r, so r = mv/(qB). Then T = 2πr/v = <b>2πm/(qB)</b>, independent of v: faster particles move in bigger circles and take the same time. This is why a cyclotron can use a fixed-frequency voltage.'],
+ ['A ball is thrown horizontally at 10 m/s from the top of a 20 m cliff. How far from the base does it land, and at what speed? (Take g = 10 m/s².)',
+  'Vertical: 20 = ½ × 10 × t², so t = 2 s. Horizontal: 10 × 2 = <b>20 m</b>. Vertical speed at landing 10 × 2 = 20 m/s, so the speed is √(10² + 20²) = <b>√500 ≈ 22 m/s</b>. Energy check: ½v² = ½ × 100 + 10 × 20 = 250, so v² = 500. ✓'],
+ ['(University level) Show that a uniform rod of length L, pivoted at one end and swinging freely, has a period of 2π√(2L/3g).',
+  'Moment of inertia about the end: I = mL²/3. For small angles the gravitational torque is −mg(L/2)θ, so (mL²/3)θ″ = −(mgL/2)θ, giving θ″ = −(3g/2L)θ. That is SHM with ω² = 3g/(2L), so <b>T = 2π√(2L/3g)</b>. It behaves like a simple pendulum of length 2L/3, a little shorter than the rod, as the mass is spread out.']
 ];
 function weekIndex(){
   const d=new Date(),start=new Date(d.getFullYear(),0,1);
