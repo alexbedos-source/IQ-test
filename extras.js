@@ -181,6 +181,54 @@ function mixedStart(){
     onDone:q=>{const h=loadJSON('mixed-history',[]);h.push({t:Date.now(),ok:q.ok,n:q.items.length});saveJSON('mixed-history',h.slice(-100));}});
 }
 
+/* ---------- Data booklet drill ----------
+   Pick the right AQA (7408) data-booklet equation for a situation, then use it. Append only. */
+const DBQ=[
+ ['A photon has wavelength λ. Which equation gives its energy?',['E = hc/λ','E = hλ/c','E = ½mv²','E = mc²'],'E = hf and f = c/λ, so E = hc/λ.'],
+ ['Electrons are emitted from a metal lit by UV. Which equation links the photon energy, work function and maximum kinetic energy?',['hf = φ + E_k(max)','hf = φ − E_k(max)','E = hc/λ only','eV = ½mv²'],'The photoelectric equation: photon energy = work function + maximum kinetic energy.'],
+ ['Which equation gives the fringe spacing in Young\'s double-slit experiment?',['w = λD/s','d sinθ = nλ','n = c/c_s','sinθ_c = n₂/n₁'],'w = λD/s, with s the slit separation and D the slit–screen distance.'],
+ ['Light passes through a diffraction grating. Which equation gives the angles of the maxima?',['d sinθ = nλ','w = λD/s','n₁sinθ₁ = n₂sinθ₂','c = fλ'],'d is the slit spacing and n the order of the maximum.'],
+ ['Which equation gives the critical angle at a boundary?',['sinθ_c = n₂/n₁','sinθ_c = n₁/n₂','n = c/c_s','d sinθ = nλ'],'With n₁ > n₂: total internal reflection happens above θ_c.'],
+ ['A car of mass m speeds up uniformly from u to v in time t. Which equation gives the distance travelled most directly?',['s = ((u + v)/2) t','v = u + at','v² = u² + 2as','F = ma'],'Distance = average speed × time, with no need to find a first.'],
+ ['A force F moves an object at constant speed v. Which equation gives the power?',['P = Fv','P = Fs','P = ½mv²','P = F/v'],'Power = rate of doing work = force × velocity.'],
+ ['A wire of length L and cross-sectional area A has resistivity ρ. Which equation gives its resistance?',['R = ρL/A','R = ρA/L','R = V/I only','ρ = m/V'],'Resistance rises with length and falls with area.'],
+ ['A cell has emf ε and internal resistance r, connected to an external resistance R. Which equation is correct?',['ε = I(R + r)','ε = IR − r','ε = I/(R + r)','ε = E/Q only'],'The emf is shared between the external resistance and the internal resistance.'],
+ ['An object moves in a circle of radius r at angular speed ω. Which equation gives its acceleration?',['a = ω²r','a = ω/r','a = v/r','a = −ω²x'],'Centripetal acceleration a = v²/r = ω²r.'],
+ ['Which equation gives the period of a mass m on a spring of stiffness k?',['T = 2π√(m/k)','T = 2π√(k/m)','T = 2π√(l/g)','T = 1/f only'],'A heavier mass or a softer spring gives a longer period.'],
+ ['A body in SHM has amplitude A. Which equation gives its speed at displacement x?',['v = ±ω√(A² − x²)','v = ωA cos ωt only','v = ω²x','v = ±ω√(x² − A²)'],'The speed is maximum (ωA) at x = 0 and zero at x = ±A.'],
+ ['Which equation gives the energy needed to melt a mass m of ice at 0 °C?',['Q = ml','Q = mcΔθ','pV = nRT','E = ½QV'],'At the melting point the temperature does not change, so use specific latent heat.'],
+ ['Which equation links the mean kinetic energy of a gas molecule to temperature?',['½m(c_rms)² = (3/2)kT','pV = (1/3)Nm(c_rms)²','pV = nRT','E = mc²'],'Mean molecular kinetic energy = (3/2)kT.'],
+ ['Which equation gives the gravitational potential at distance r from a mass M?',['V = −GM/r','V = −GM/r²','g = GM/r²','F = GMm/r²'],'Potential goes as 1/r and is negative; field strength goes as 1/r².'],
+ ['Which equation gives the capacitance of a parallel-plate capacitor?',['C = Aε₀ε_r/d','C = Q/V only','C = dε₀/A','E = ½CV²'],'Bigger plates, closer together and a dielectric all increase C.'],
+ ['A capacitor discharges through a resistor R. Which equation gives the charge left after time t?',['Q = Q₀e^(−t/RC)','Q = Q₀(1 − e^(−t/RC))','Q = CV','N = N₀e^(−λt)'],'Exponential decay with time constant RC.'],
+ ['A charge Q moves at speed v perpendicular to a magnetic field B. Which equation gives the force on it?',['F = BQv','F = BIl','F = EQ','F = mv²/r only'],'The force on a moving charge; F = BIl is for a current-carrying wire.'],
+ ['A coil of N turns has flux Φ changing through it. Which equation gives the induced emf?',['ε = NΔΦ/Δt','Φ = BA','ε = BANω sin ωt only','V = W/Q'],'Faraday\'s law: emf = rate of change of flux linkage.'],
+ ['A transformer has Np turns on the primary and Ns on the secondary. Which equation is correct for an ideal transformer?',['Vs/Vp = Ns/Np','Vs/Vp = Np/Ns','VsIs = Ns/Np','Is/Ip = Ns/Np'],'The voltage ratio equals the turns ratio (and the current ratio is inverted).'],
+ ['Which equation gives the radius of a nucleus of nucleon number A?',['R = R₀A^(1/3)','R = R₀A³','R = R₀/A','R = ρL/A'],'Nuclear volume is proportional to A, so radius goes as the cube root.'],
+ ['Which equation links half-life and the decay constant?',['T½ = ln2/λ','T½ = λ/ln2','T½ = ln2 × λ','A = λN'],'From N = N₀e^(−λt) with N = N₀/2.'],
+ ['γ-ray intensity is measured at distance x from a point source. Which equation describes it?',['I = k/x²','I = kx²','I = k/x','I = ΔQ/Δt'],'The inverse-square law for a point source.'],
+ ['Use the right equation: a 2 kg mass on a spring of stiffness 50 N/m. What is its period?',['about 1.3 s','about 0.2 s','about 5 s','about 0.04 s'],'T = 2π√(2/50) = 2π × 0.2 ≈ 1.26 s.'],
+ ['Use the right equation: a wire 2 m long, area 1 × 10⁻⁶ m², resistivity 5 × 10⁻⁷ Ω m. What is its resistance?',['1 Ω','0.25 Ω','4 Ω','10 Ω'],'R = ρL/A = 5 × 10⁻⁷ × 2 / 10⁻⁶ = 1 Ω.'],
+ ['Use the right equation: a 3 kg mass moves in a circle of radius 2 m at 4 m/s. What is the centripetal force?',['24 N','6 N','12 N','96 N'],'F = mv²/r = 3 × 16 / 2 = 24 N.'],
+ ['Use the right equation: a nuclide has a decay constant of 0.01 s⁻¹. What is its half-life?',['about 69 s','about 100 s','about 0.007 s','about 50 s'],'T½ = ln2/λ = 0.693/0.01 ≈ 69 s.'],
+ ['Use the right equation: what mass of water at 100 °C is boiled off by 4.5 MJ? (l = 2.25 MJ/kg)',['2 kg','0.5 kg','10 kg','4.5 kg'],'m = Q/l = 4.5/2.25 = 2 kg.']
+];
+function dbItems(n=10){return shuffle(DBQ.slice()).slice(0,n).map(d=>({src:'Data booklet',prompt:d[0],right:d[1][0],wrong:d[1].slice(1),explain:d[2],yt:'AQA A level physics data booklet equations'}));}
+function dbHome(){
+  leave();setBack(home);setScratch(false);
+  const h=loadJSON('db-history',[]),best=h.reduce((m,x)=>Math.max(m,Math.round(100*x.ok/x.n)),0);
+  app.innerHTML='<div class="stack"><div class="stack" style="gap:8px"><p class="eyebrow">AQA Physics</p><h1>Data booklet drill</h1></div>'+
+   '<p class="lede">10 questions: pick the right equation from the AQA data and formulae booklet for each situation, then use it. In the exam the booklet is given, but finding the right line fast saves minutes.</p>'+
+   '<button class="btn" id="dbgo">Start</button>'+
+   (h.length?'<p class="note">'+h.length+' drill'+(h.length>1?'s':'')+' done · best '+best+'% · last '+Math.round(100*h[h.length-1].ok/h[h.length-1].n)+'%</p>':'')+
+   '<p class="note">'+DBQ.length+' questions in the bank. The official booklet is on the AQA website (7408 data and formulae booklet).</p></div>';
+  document.getElementById('dbgo').onclick=dbStart;
+}
+function dbStart(){
+  quizRun({title:'Data booklet drill',items:dbItems(),back:dbHome,again:dbStart,
+    onDone:q=>{const h=loadJSON('db-history',[]);h.push({t:Date.now(),ok:q.ok,n:Math.max(1,q.res.filter(r=>!r.skip).length)});saveJSON('db-history',h.slice(-100));}});
+}
+
 /* ---------- Sketch the graph ----------
    Sketch on the scratchpad (with axes), then reveal the true graph and its key features, and rate yourself. */
 const SKETCH=[
@@ -208,7 +256,8 @@ const SKETCH=[
  {id:'k22',f:'y = 1/(x² − 1)',fn:x=>1/(x*x-1),feat:['Even; vertical asymptotes at x = ±1, horizontal asymptote y = 0','Between the asymptotes it is negative, with a maximum of −1 at x = 0','Outside them it is positive, falling towards 0 for large |x|']},
  {id:'k23',f:'y = x/(x − 2)',fn:x=>x/(x-2),feat:['Vertical asymptote x = 2, horizontal asymptote y = 1','Passes through the origin','Decreasing on each branch']},
  {id:'k24',f:'y = sin x + cos x',fn:x=>Math.sin(x)+Math.cos(x),feat:['Equal to √2 sin(x + π/4): amplitude √2 ≈ 1.41, period 2π','y-intercept 1','Roots at x = −π/4 + nπ']},
- {id:'k25',f:'y = x² − 4|x|',fn:x=>x*x-4*Math.abs(x),feat:['Even function: symmetric about the y-axis','Roots at x = −4, 0, 4','Minima at (±2, −4) and a sharp local maximum at the origin']}
+ {id:'k25',f:'y = x² − 4|x|',fn:x=>x*x-4*Math.abs(x),feat:['Even function: symmetric about the y-axis','Roots at x = −4, 0, 4','Minima at (±2, −4) and a sharp local maximum at the origin']},
+ {id:'k26',f:'y = (x − 1)²(x + 2)',fn:x=>(x-1)*(x-1)*(x+2),feat:['Cubic with positive leading coefficient','Crosses at x = −2, touches the x-axis at x = 1 (repeated root)','y-intercept 2; local maximum at x = −1, local minimum at (1, 0)']}
 ];
 function sketchHome(){
   leave();

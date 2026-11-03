@@ -129,7 +129,13 @@ const CARDS=[
  [6,'Gravitational potential at a point','The work done per unit mass to bring a small mass from infinity to that point. It is zero at infinity and negative everywhere else.'],
  [6,'Equipotential surface','A surface on which the potential is the same everywhere; no work is done moving along it, and it is always perpendicular to the field lines.'],
  [7,'Why nuclear fission needs a moderator in a thermal reactor','Fission neutrons are too fast to be absorbed well by uranium-235. Collisions with the moderator (e.g. water or graphite) slow them to thermal speeds.'],
- [7,'Control rods','Rods of a material that absorbs neutrons (e.g. boron), moved in or out to control the rate of fission so that on average one neutron per fission causes another.']
+ [7,'Control rods','Rods of a material that absorbs neutrons (e.g. boron), moved in or out to control the rate of fission so that on average one neutron per fission causes another.'],
+ [1,'Pair production','A high-energy photon turns into a particle and its antiparticle (e.g. an electron and a positron). The photon needs at least the combined rest energy of the pair.'],
+ [1,'Annihilation','A particle meets its antiparticle; their mass is converted into two photons, moving in opposite directions to conserve momentum.'],
+ [3,'Elastic limit','The maximum stress (or force) beyond which a material no longer returns to its original shape when the load is removed.'],
+ [3,'Brittle material','Breaks without significant plastic deformation (e.g. glass): the stress–strain graph is a straight line to the breaking point.'],
+ [6,'Kepler\'s third law (the relationship you can derive)','For circular orbits T² ∝ r³, from setting GMm/r² = mω²r with ω = 2π/T.'],
+ [4,'Superconductor','A material with zero resistivity below its critical temperature, so a current can flow with no energy lost as heat.']
 ].map((c,i)=>({id:'a'+i,cat:c[0],front:c[1],back:c[2]}));
 const BOX_DAYS=[0,1,2,4,8,16,32];
 const NEW_PER_DAY=10;
@@ -339,7 +345,11 @@ const POTW=[
  ['A ball is thrown horizontally at 10 m/s from the top of a 20 m cliff. How far from the base does it land, and at what speed? (Take g = 10 m/s².)',
   'Vertical: 20 = ½ × 10 × t², so t = 2 s. Horizontal: 10 × 2 = <b>20 m</b>. Vertical speed at landing 10 × 2 = 20 m/s, so the speed is √(10² + 20²) = <b>√500 ≈ 22 m/s</b>. Energy check: ½v² = ½ × 100 + 10 × 20 = 250, so v² = 500. ✓'],
  ['(University level) Show that a uniform rod of length L, pivoted at one end and swinging freely, has a period of 2π√(2L/3g).',
-  'Moment of inertia about the end: I = mL²/3. For small angles the gravitational torque is −mg(L/2)θ, so (mL²/3)θ″ = −(mgL/2)θ, giving θ″ = −(3g/2L)θ. That is SHM with ω² = 3g/(2L), so <b>T = 2π√(2L/3g)</b>. It behaves like a simple pendulum of length 2L/3, a little shorter than the rod, as the mass is spread out.']
+  'Moment of inertia about the end: I = mL²/3. For small angles the gravitational torque is −mg(L/2)θ, so (mL²/3)θ″ = −(mgL/2)θ, giving θ″ = −(3g/2L)θ. That is SHM with ω² = 3g/(2L), so <b>T = 2π√(2L/3g)</b>. It behaves like a simple pendulum of length 2L/3, a little shorter than the rod, as the mass is spread out.'],
+ ['A 1200 kg car rounds an unbanked bend of radius 50 m. The friction coefficient between tyres and road is 0.8. What is the maximum safe speed? (g = 10 m/s²)',
+  'Friction provides the centripetal force: mv²/r ≤ μmg, so v ≤ √(μgr) = √(0.8 × 10 × 50) = √400 = <b>20 m/s</b> (about 45 mph). The mass cancels, so a heavy lorry has the same limit on a flat bend (ignoring tipping over).'],
+ ['(University level) Estimate the gravitational binding energy of the Earth, the energy needed to blow it apart, using U ≈ 3GM²/5R. Compare with the Sun\'s output.',
+  'M = 6 × 10²⁴ kg, R = 6.4 × 10⁶ m: U ≈ 0.6 × 6.7 × 10⁻¹¹ × 3.6 × 10⁴⁹ / 6.4 × 10⁶ ≈ <b>2 × 10³² J</b>. The Sun radiates 3.8 × 10²⁶ W, so this is the Sun\'s entire output for about 6 × 10⁵ s, roughly a week.']
 ];
 function weekIndex(){
   const d=new Date(),start=new Date(d.getFullYear(),0,1);

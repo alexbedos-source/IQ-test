@@ -656,6 +656,32 @@ PHY.push(
  f:[['Why does the effect get stronger when you look at a shallow angle?','Refraction increases with the angle of incidence, so the apparent raising of the straw is larger for rays leaving at a glancing angle.'],
     ['A fish looking up sees the whole sky squeezed into a circle. Why?','Light from all directions above enters within the critical angle (about 49°), so the sky appears in a cone of half-angle 49°; outside it, the fish sees reflections of the bottom.']]}
 );
+PHY.push(
+{id:'j1',t:1,l:2,q:'You stand on bathroom scales in a lift. Describe what the scales read as the lift starts, travels and stops on the way up.',
+ h:['The scales measure the normal contact force on you, not your weight.',
+    'Apply F = ma to yourself in each stage, taking upwards as positive.'],
+ a:'<p>The scales read the normal force N. Newton\'s second law for you: N − mg = ma.</p><p><b>Starting upwards</b> (accelerating up): N = m(g + a), more than your weight. <b>Steady speed</b>: a = 0, so N = mg, the normal reading. <b>Slowing to a stop</b> (accelerating down): N = m(g − a), less than your weight.</p><p>With a = 1 m/s² and m = 60 kg: about 66 kg, 60 kg, then 54 kg on the dial. Tutors look for a clear free-body diagram and the point that only acceleration matters, not velocity.</p>',
+ f:[['What would the scales read if the cable snapped?','Zero: you and the scales both fall with acceleration g, so there is no contact force. That is "weightlessness", as in orbit.'],
+    ['Could the scales tell you whether the lift is moving up at constant speed or standing still?','No: both have zero acceleration, so the reading is mg either way. Only acceleration is detectable from inside.']]},
+{id:'j2',t:2,l:2,q:'Without a calculator, which is bigger: 2^(100) or 10^(30)?',
+ h:['2^(10) is a number you probably know, and it is close to a power of 10.',
+    '2^(10) = 1024 ≈ 10³. How much bigger than 10³ is it, and what happens when you raise that to the 10th power?'],
+ a:'<p>2^(100) = (2^(10))^(10) = 1024^(10) = 10^(30) × 1.024^(10).</p><p>1.024^(10) ≈ 1 + 10 × 0.024 ≈ 1.27 (a little more, actually), which is more than 1. So <b>2^(100) is bigger</b>, by about 27%. (The exact value is 1.27 × 10^(30).)</p><p>Tutors like the binomial approximation (1 + x)ⁿ ≈ 1 + nx and a comment on when it is valid (nx small).</p>',
+ f:[['How many digits does 2^(100) have?','31: it is about 1.27 × 10^(30).'],
+    ['Estimate log₁₀ 2 from this.','2^(10) ≈ 10³ gives log₁₀ 2 ≈ 0.3 (the true value is 0.301).']]},
+{id:'j3',t:7,l:1,q:'Why does a spoon feel colder than a wooden table, even though they are at the same temperature?',
+ h:['What does your skin actually sense: temperature, or something else?',
+    'Compare how quickly metal and wood conduct heat away from the patch of skin touching them.'],
+ a:'<p>Your skin senses the rate at which it loses heat (and so its own temperature), not the temperature of the object.</p><p>Metal is a far better thermal conductor than wood (roughly 1000 times for steel versus pine), so it carries heat away from your skin much faster. The skin at the contact cools quickly and the spoon feels cold; wood barely draws heat, so the skin surface stays warm.</p><p>On a hot day the opposite happens: metal in the sun feels hotter than wood at the same temperature.</p>',
+ f:[['At what temperature would the spoon and wood feel the same?','At skin temperature (about 33 °C): no heat flows, so neither feels hot or cold.'],
+    ['Why do tiles feel colder than carpet on bare feet?','The same reason: tile conducts heat away faster, and carpet traps air, a very poor conductor.']]},
+{id:'j4',t:4,l:3,q:'(University level) Estimate the drift speed of electrons in a copper wire carrying 1 A. Why does the light come on instantly?',
+ h:['I = nAvq. Copper has about 10²⁹ free electrons per m³. Take a wire 1 mm² in cross-section.',
+    'What actually travels along the wire quickly when you close the switch?'],
+ a:'<p>v = I/(nAq) = 1 / (10²⁹ × 10⁻⁶ × 1.6 × 10⁻¹⁹) ≈ <b>6 × 10⁻⁵ m/s</b>, less than a tenth of a millimetre per second.</p><p>The light comes on at once because the wire is already full of free electrons. Closing the switch sets up an electric field along the whole circuit at nearly the speed of light, so electrons everywhere, including in the filament, start drifting together. It is like pushing a full hosepipe: water comes out at the far end immediately.</p>',
+ f:[['How does the drift speed change if the wire is half the diameter but carries the same current?','The area is a quarter, so the drift speed is four times larger.'],
+    ['Why is the drift speed so small compared with the electrons\' thermal speeds (about 10⁶ m/s)?','The random thermal motion averages to zero; the field adds only a tiny net drift on top, because collisions with the lattice constantly reset it.']]}
+);
 PHY.forEach(q=>{q.f=q.f||PHY_FOLLOW[q.id]||[];});
 
 const PHY_SOURCES=[
