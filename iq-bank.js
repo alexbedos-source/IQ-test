@@ -60,7 +60,11 @@ V:[
  [0.2,'Which word is closest in meaning to ABUNDANT?',['Plentiful','Scarce','Brief','Heavy'],'Abundant means existing in large quantities.'],
  [1.2,'Which word is the opposite of EQUANIMITY?',['Agitation','Calmness','Fairness','Balance'],'Equanimity means calmness and composure.'],
  [0.5,'BOOK is to LIBRARY as PAINTING is to:',['Gallery','Artist','Frame','Canvas'],'A library is where books are kept and shown; a gallery is where paintings are.'],
- [1.4,'Which word is closest in meaning to PERFUNCTORY?',['Cursory','Thorough','Fragrant','Formal'],'Perfunctory means done with minimal effort or care.']
+ [1.4,'Which word is closest in meaning to PERFUNCTORY?',['Cursory','Thorough','Fragrant','Formal'],'Perfunctory means done with minimal effort or care.'],
+ [0.7,'Which word does NOT belong: oak, maple, tulip, birch?',['Tulip','Oak','Maple','Birch'],'The others are trees; a tulip is a flower.'],
+ [1.3,'Which word is closest in meaning to OBDURATE?',['Stubborn','Obvious','Gentle','Hidden'],'Obdurate means stubbornly refusing to change one\'s mind.'],
+ [0.4,'Which word is the opposite of TRANSPARENT?',['Opaque','Clear','Fragile','Bright'],'Opaque means light cannot pass through.'],
+ [1.1,'GLOVE is to HAND as THIMBLE is to:',['Finger','Needle','Thread','Sewing'],'A glove covers the hand; a thimble covers a finger.']
 ],
 Q:[
  [-1.9,'What is 25% of 80?',['20','25','40','16'],'25% is a quarter, and a quarter of 80 is 20.'],
@@ -117,7 +121,11 @@ Q:[
  [0.4,'A rectangle has a perimeter of 30 cm and a length of 9 cm. What is its area?',['54 cm²','63 cm²','45 cm²','81 cm²'],'Width = 15 − 9 = 6 cm, so area = 9 × 6 = 54 cm².'],
  [0.6,'If 3x − 7 = 2x + 5, what is x²?',['144','12','64','36'],'x = 12, so x² = 144.'],
  [0.5,'A shirt costs £40 after a 20% discount. What was the original price?',['£50','£48','£60','£45'],'0.8 × price = 40, so price = £50.'],
- [1.0,'The average of five numbers is 12. When one number is removed, the average of the rest is 10. What number was removed?',['20','12','10','22'],'Total 60, remaining total 40, so 20 was removed.']
+ [1.0,'The average of five numbers is 12. When one number is removed, the average of the rest is 10. What number was removed?',['20','12','10','22'],'Total 60, remaining total 40, so 20 was removed.'],
+ [0.6,'A train travels 180 km in 2 hours 15 minutes. What is its average speed?',['80 km/h','90 km/h','75 km/h','85 km/h'],'180 / 2.25 = 80 km/h.'],
+ [1.1,'How many squares of any size are on a 3 × 3 grid?',['14','9','10','13'],'9 small squares + 4 of size 2 × 2 + 1 of size 3 × 3 = 14.'],
+ [0.7,'What is 15% of 15% of 400?',['9','60','90','22.5'],'15% of 400 = 60, and 15% of 60 = 9.'],
+ [1.3,'A tap fills a tank in 6 hours and a second tap fills it in 3 hours. How long do they take together?',['2 hours','4.5 hours','9 hours','1.5 hours'],'Rates 1/6 + 1/3 = 1/2 of the tank per hour, so 2 hours.']
 ],
 L:[
  [-1.8,'All cats have whiskers. Tibbles is a cat. Which must be true?',['Tibbles has whiskers','Tibbles is not a cat','Every animal with whiskers is a cat','Tibbles has no whiskers'],'Tibbles is a cat, and all cats have whiskers.'],
@@ -170,6 +178,10 @@ L:[
  [0.2,'No cats are dogs. All kittens are cats. Which must be true?',['No kittens are dogs','Some kittens are dogs','All dogs are kittens','Some cats are dogs'],'Kittens are cats, and no cat is a dog.'],
  [0.9,'A is north of B. C is east of A. D is south of C, level with B. Where is D relative to B?',['East','West','North','South'],'D is directly below C, at the same height as B, and C is east of A (which is above B).'],
  [0.6,'If it rains, the match is cancelled. The match was not cancelled. What follows?',['It did not rain','It rained','The match was played indoors','Nothing can be concluded'],'If rain always cancels the match, an uncancelled match means no rain (modus tollens).'],
- [1.1,'Four friends sit in a row. Ana is not at either end. Ben is directly to the right of Ana. Cara is at the left end. Where is Dev?',['Right end','Left end','Second from left','Third from left'],'Cara is first and Ana cannot be at an end, so Ana is second and Ben third, leaving Dev at the right end.']
+ [1.1,'Four friends sit in a row. Ana is not at either end. Ben is directly to the right of Ana. Cara is at the left end. Where is Dev?',['Right end','Left end','Second from left','Third from left'],'Cara is first and Ana cannot be at an end, so Ana is second and Ben third, leaving Dev at the right end.'],
+ [0.5,'Every member of the choir can read music. Sam cannot read music. What follows?',['Sam is not in the choir','Sam is in the choir','Some of the choir cannot read music','Nothing follows'],'If Sam were in the choir, Sam could read music.'],
+ [1.0,'Today is Wednesday. What day will it be in 100 days?',['Friday','Thursday','Wednesday','Saturday'],'100 = 14 × 7 + 2, so two days after Wednesday.'],
+ [0.8,'Some scientists are musicians. All musicians are patient. Which must be true?',['Some scientists are patient','All scientists are patient','All patient people are musicians','No scientist is patient'],'The scientists who are musicians are patient.'],
+ [1.2,'In a race, Kim finished ahead of Lee but behind Max. Nia finished behind Lee. Who came third?',['Lee','Kim','Max','Nia'],'The order is Max, Kim, Lee, Nia.']
 ]
 };

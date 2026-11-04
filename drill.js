@@ -195,11 +195,21 @@ function drillSet(){
 /* ---- streak bookkeeping ---- */
 const dayKey=(t=Date.now())=>{const d=new Date(t);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');};
 function drillState(){return loadJSON('drill',{days:{},streak:0,last:null,best:0,types:{}});}
+/* whole days from key a to key b (local dates) */
+function dayGap(a,b){const p=k=>{const [y,m,d]=k.split('-').map(Number);return new Date(y,m-1,d).getTime();};return Math.round((p(b)-p(a))/864e5);}
+/* one missed day per 7 days keeps the streak alive (a rest day) */
+function restFree(st,missed){return !st.rest||dayGap(st.rest,missed)>=7;}
 function drillStreak(st){
   if(!st.last)return 0;
-  const y=dayKey(Date.now()-864e5);
-  return st.last===dayKey()||st.last===y?st.streak:0;
+  const g=dayGap(st.last,dayKey());
+  if(g<=1)return st.streak;
+  if(g===2&&restFree(st,dayKey(Date.now()-864e5)))return st.streak;
+  return 0;
 }
+function drillGoal(st){return st.goal||5;}
+function drillWeekDays(st){let n=0;for(let i=0;i<7;i++)if(st.days[dayKey(Date.now()-i*864e5)])n++;return n;}
+function goalRing(n,goal,size=46){const r=size/2-4,c=2*Math.PI*r,f=Math.min(1,n/goal);
+  return '<svg class="ring" width="'+size+'" height="'+size+'" viewBox="0 0 '+size+' '+size+'"><circle cx="'+size/2+'" cy="'+size/2+'" r="'+r+'" class="rbg"/><circle cx="'+size/2+'" cy="'+size/2+'" r="'+r+'" class="rfg'+(f>=1?' done':'')+'" stroke-dasharray="'+(c*f).toFixed(1)+' '+c.toFixed(1)+'" transform="rotate(-90 '+size/2+' '+size/2+')"/><text x="50%" y="54%" text-anchor="middle" dominant-baseline="middle">'+n+'/'+goal+'</text></svg>';}
 
 let D=null;
 function drillHome(){
@@ -212,6 +222,9 @@ function drillHome(){
   '<p class="muted">Ten quick questions, about five minutes. Short daily practice builds the speed and fluency interviews reward.</p></div>'+
   '<div class="facts"><div class="fact"><b>'+streak+'</b><span>day streak</span></div><div class="fact"><b>'+(st.best||0)+'</b><span>best streak</span></div><div class="fact"><b>'+Object.keys(st.days).length+'</b><span>days done</span></div></div>'+
   '<div class="card"><p class="eyebrow" style="margin-bottom:8px">Last 14 days</p><div class="days">'+days.map(d=>'<i class="'+(st.days[d]?'on':'')+(d===dayKey()?' today':'')+'" title="'+d+'"></i>').join('')+'</div></div>'+
+  '<div class="card goal"><div>'+goalRing(drillWeekDays(st),drillGoal(st),58)+'</div><div class="stack" style="gap:6px"><p class="eyebrow">Weekly goal · last 7 days</p>'+
+   '<div class="chips">'+[3,4,5,6,7].map(g=>'<button class="chip'+(drillGoal(st)===g?' on':'')+'" data-g="'+g+'">'+g+'</button>').join('')+'</div>'+
+   '<p class="note">'+(restFree(st,dayKey())?'Rest day available: miss one day this week and your streak survives.':'Rest day used on '+st.rest+'; the next one is free from '+dayKey(new Date(st.rest.replace(/-/g,'/')).getTime()+7*864e5)+'.')+'</p></div></div>'+
   '<button class="btn" id="dgo">'+(done?'Do another drill':'Start today\'s drill')+'</button>'+
   '<div class="card stack"><h2>Accuracy by type</h2><div class="cats">'+DRILL_TYPES.map((n,i)=>{const s=st.types[i]||{ok:0,n:0};
     return '<div class="cr"><span class="n">'+n+'</span><span class="v">'+(s.n?Math.round(100*s.ok/s.n)+'%':'–')+'</span><div class="t"><i style="width:'+(s.n?100*s.ok/s.n:0)+'%"></i></div></div>';}).join('')+'</div></div>'+
@@ -219,6 +232,7 @@ function drillHome(){
   '</div>';
   document.getElementById('dgo').onclick=drillStart;
   document.getElementById('dback').onclick=home;
+  app.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>{const s=drillState();s.goal=+b.dataset.g;saveJSON('drill',s);drillHome();});
 }
 function drillStart(){D={items:drillSet(),i:0,ok:0,t0:Date.now(),res:[]};drillRender();}
 /* which lesson (or YouTube search) explains each drill type */
@@ -256,7 +270,9 @@ function drillFinish(){
   setBack(drillHome);setScratch(false);
   const st=drillState(),today=dayKey(),secs=(Date.now()-D.t0)/1000;
   if(!st.days[today]){
-    st.streak=drillStreak(st)+1;st.last=today;st.best=Math.max(st.best||0,st.streak);
+    const prev=drillStreak(st);
+    if(st.last&&dayGap(st.last,today)===2&&prev>0)st.rest=dayKey(Date.now()-864e5);
+    st.streak=prev+1;st.last=today;st.best=Math.max(st.best||0,st.streak);
   }
   st.days[today]=(st.days[today]||0)+1;
   D.res.filter(r=>!r.skip).forEach(r=>{const s=st.types[r.type]||{ok:0,n:0};s.n++;if(r.ok)s.ok++;st.types[r.type]=s;});

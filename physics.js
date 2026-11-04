@@ -656,6 +656,58 @@ PHY.push(
  f:[['Why does the effect get stronger when you look at a shallow angle?','Refraction increases with the angle of incidence, so the apparent raising of the straw is larger for rays leaving at a glancing angle.'],
     ['A fish looking up sees the whole sky squeezed into a circle. Why?','Light from all directions above enters within the critical angle (about 49°), so the sky appears in a cone of half-angle 49°; outside it, the fish sees reflections of the bottom.']]}
 );
+PHY.push(
+{id:'j1',t:1,l:2,q:'You stand on bathroom scales in a lift. Describe what the scales read as the lift starts, travels and stops on the way up.',
+ h:['The scales measure the normal contact force on you, not your weight.',
+    'Apply F = ma to yourself in each stage, taking upwards as positive.'],
+ a:'<p>The scales read the normal force N. Newton\'s second law for you: N − mg = ma.</p><p><b>Starting upwards</b> (accelerating up): N = m(g + a), more than your weight. <b>Steady speed</b>: a = 0, so N = mg, the normal reading. <b>Slowing to a stop</b> (accelerating down): N = m(g − a), less than your weight.</p><p>With a = 1 m/s² and m = 60 kg: about 66 kg, 60 kg, then 54 kg on the dial. Tutors look for a clear free-body diagram and the point that only acceleration matters, not velocity.</p>',
+ f:[['What would the scales read if the cable snapped?','Zero: you and the scales both fall with acceleration g, so there is no contact force. That is "weightlessness", as in orbit.'],
+    ['Could the scales tell you whether the lift is moving up at constant speed or standing still?','No: both have zero acceleration, so the reading is mg either way. Only acceleration is detectable from inside.']]},
+{id:'j2',t:2,l:2,q:'Without a calculator, which is bigger: 2^(100) or 10^(30)?',
+ h:['2^(10) is a number you probably know, and it is close to a power of 10.',
+    '2^(10) = 1024 ≈ 10³. How much bigger than 10³ is it, and what happens when you raise that to the 10th power?'],
+ a:'<p>2^(100) = (2^(10))^(10) = 1024^(10) = 10^(30) × 1.024^(10).</p><p>1.024^(10) ≈ 1 + 10 × 0.024 ≈ 1.27 (a little more, actually), which is more than 1. So <b>2^(100) is bigger</b>, by about 27%. (The exact value is 1.27 × 10^(30).)</p><p>Tutors like the binomial approximation (1 + x)ⁿ ≈ 1 + nx and a comment on when it is valid (nx small).</p>',
+ f:[['How many digits does 2^(100) have?','31: it is about 1.27 × 10^(30).'],
+    ['Estimate log₁₀ 2 from this.','2^(10) ≈ 10³ gives log₁₀ 2 ≈ 0.3 (the true value is 0.301).']]},
+{id:'j3',t:7,l:1,q:'Why does a spoon feel colder than a wooden table, even though they are at the same temperature?',
+ h:['What does your skin actually sense: temperature, or something else?',
+    'Compare how quickly metal and wood conduct heat away from the patch of skin touching them.'],
+ a:'<p>Your skin senses the rate at which it loses heat (and so its own temperature), not the temperature of the object.</p><p>Metal is a far better thermal conductor than wood (roughly 1000 times for steel versus pine), so it carries heat away from your skin much faster. The skin at the contact cools quickly and the spoon feels cold; wood barely draws heat, so the skin surface stays warm.</p><p>On a hot day the opposite happens: metal in the sun feels hotter than wood at the same temperature.</p>',
+ f:[['At what temperature would the spoon and wood feel the same?','At skin temperature (about 33 °C): no heat flows, so neither feels hot or cold.'],
+    ['Why do tiles feel colder than carpet on bare feet?','The same reason: tile conducts heat away faster, and carpet traps air, a very poor conductor.']]},
+{id:'j4',t:4,l:3,q:'(University level) Estimate the drift speed of electrons in a copper wire carrying 1 A. Why does the light come on instantly?',
+ h:['I = nAvq. Copper has about 10²⁹ free electrons per m³. Take a wire 1 mm² in cross-section.',
+    'What actually travels along the wire quickly when you close the switch?'],
+ a:'<p>v = I/(nAq) = 1 / (10²⁹ × 10⁻⁶ × 1.6 × 10⁻¹⁹) ≈ <b>6 × 10⁻⁵ m/s</b>, less than a tenth of a millimetre per second.</p><p>The light comes on at once because the wire is already full of free electrons. Closing the switch sets up an electric field along the whole circuit at nearly the speed of light, so electrons everywhere, including in the filament, start drifting together. It is like pushing a full hosepipe: water comes out at the far end immediately.</p>',
+ f:[['How does the drift speed change if the wire is half the diameter but carries the same current?','The area is a quarter, so the drift speed is four times larger.'],
+    ['Why is the drift speed so small compared with the electrons\' thermal speeds (about 10⁶ m/s)?','The random thermal motion averages to zero; the field adds only a tiny net drift on top, because collisions with the lattice constantly reset it.']]}
+);
+PHY.push(
+{id:'c1',t:5,l:2,q:'Why does a bicycle pump get hot when you pump up a tyre quickly?',
+ h:['Think about the air inside the pump, not just friction. What are you doing to that gas?',
+    'First law of thermodynamics: ΔU = Q + W (work done on the gas). If the compression is quick, is there time for heat to escape?'],
+ a:'<p>Each stroke compresses the air quickly. Work is done <b>on</b> the gas, and because the stroke is fast there is little time for heat to flow out (nearly adiabatic), so the work goes into internal energy: the air gets hotter.</p><p>For air compressed to about a third of its volume adiabatically, T rises by a factor of 3^(0.4) ≈ 1.55, from 290 K to about 450 K in principle. In practice the barrel takes heat away, so the end of the pump near the valve gets warm rather than scalding. Friction of the piston adds a little, but the compression is the main effect.</p>',
+ f:[['Why does gas escaping from an aerosol can feel cold?','The gas expands and does work on the surroundings, so its internal energy and temperature fall (and the liquid propellant evaporating takes latent heat too).'],
+    ['If you pumped very slowly, would the pump still warm up?','Much less: slow compression is close to isothermal, with heat leaking away as fast as work is done.']]},
+{id:'c2',t:6,l:3,q:'(University level) Estimate the escape velocity from the Moon, and explain why the Moon has almost no atmosphere.',
+ h:['Escape velocity: ½mv² = GMm/R. The Moon\'s mass is about 7 × 10²² kg and its radius about 1.7 × 10⁶ m.',
+    'Compare it with the typical speed of gas molecules. In daytime the lunar surface reaches about 390 K. Use ½m(c_rms)² = (3/2)kT. How does a tail of fast molecules matter over billions of years?'],
+ a:'<p>v = √(2GM/R) = √(2 × 6.7 × 10⁻¹¹ × 7 × 10²² / 1.7 × 10⁶) ≈ √(5.5 × 10⁶) ≈ <b>2.4 km/s</b> (Earth: 11.2 km/s).</p><p>For nitrogen at 390 K: c_rms = √(3kT/m) = √(3 × 1.38 × 10⁻²³ × 390 / 4.7 × 10⁻²⁶) ≈ 590 m/s, only about a quarter of the escape speed. That sounds safe, but the Maxwell–Boltzmann distribution has a tail of much faster molecules; a gas is lost over geological time if its rms speed is more than about 1/6 of escape speed. Light gases like hydrogen and helium go fast; heavier ones leak too over 4 billion years, helped by solar wind and no magnetic field.</p><p>Tutors look for the comparison with molecular speeds and the idea that the fast tail matters, not the average.</p>',
+ f:[['Why has Earth kept nitrogen and oxygen but lost almost all its hydrogen?','Hydrogen molecules are 14–16 times lighter, so at the same temperature their rms speed is about 4 times greater, enough for the tail to escape steadily.'],
+    ['Titan, Saturn\'s moon, is smaller than Earth yet has a thick atmosphere. Why?','It is very cold (about 94 K), so molecules move slowly, and it is far from the Sun\'s solar wind.']]},
+{id:'c3',t:3,l:2,q:'A tuning fork is struck and held in the air: you can barely hear it. Press its base on a table and it becomes much louder. Where does the extra sound energy come from, and what is the catch?',
+ h:['The fork\'s prongs are thin. How well does a thin vibrating object push air around?',
+    'If more energy is radiated per second, what must happen to how long the fork rings?'],
+ a:'<p>No energy is created. The thin prongs move very little air, so they radiate sound inefficiently. Pressing the base on the table makes the large table top vibrate too, and a large surface couples to the air much better, so energy is radiated as sound at a much higher <b>rate</b>.</p><p>The catch: the fork\'s vibration energy is used up faster, so it is louder but <b>dies away sooner</b>. Guitar bodies and violin soundboards work in the same way.</p>',
+ f:[['Why do the two prongs of a tuning fork make so little sound on their own?','They move in opposite directions, so the pressure waves they make largely cancel; it behaves like a quadrupole, a very weak radiator.'],
+    ['Why does a tuning fork give a nearly pure note?','Its shape strongly favours one mode of vibration; the higher modes are not harmonics and die away quickly after it is struck.']]},
+{id:'c4',t:0,l:1,q:'Estimate how many breaths you take in a year, and the total volume of air you breathe.',
+ h:['How many breaths per minute at rest? About how much air per breath?',
+    'Roughly 12–15 breaths a minute and half a litre each at rest.'],
+ a:'<p>About 15 breaths per minute × 60 × 24 × 365 ≈ 15 × 5 × 10⁵ ≈ <b>8 × 10⁶ breaths a year</b>.</p><p>At 0.5 L each that is 4 × 10⁶ L, about <b>4000 m³</b> of air a year: roughly the volume of a large house, or 1.5 Olympic swimming pools. Exercise would raise it noticeably, so call it 4000–6000 m³.</p>',
+ f:[['How many molecules are in one breath?','0.5 L is about 1/48 of a mole (24 L per mole at room conditions), so about 1.3 × 10²² molecules.'],
+    ['Estimate the mass of oxygen you use in a day.','About 20% of the air is oxygen, and only about a quarter of that is absorbed: roughly 10 000 L of air a day gives about 500 L of O₂, around 0.7 kg.']]}
+);
 PHY.forEach(q=>{q.f=q.f||PHY_FOLLOW[q.id]||[];});
 
 const PHY_SOURCES=[

@@ -113,6 +113,15 @@ const AL_PHY_BANK=[
  ,[2,'Two waves are in antiphase. What is their phase difference?',['π radians','2π radians','π/2 radians','0'],'Antiphase means half a cycle apart: 180° or π radians.']
  ,[4,'A 6 Ω and a 3 Ω resistor are connected in parallel. What is the total resistance?',['2 Ω','9 Ω','4.5 Ω','0.5 Ω'],'1/R = 1/6 + 1/3 = 1/2, so R = 2 Ω.']
  ,[5,'What happens to the internal energy of an ideal gas during an isothermal compression?',['It stays the same','It increases','It decreases','It becomes zero'],'For an ideal gas internal energy depends only on temperature, which is constant.']
+ ,[2,'What is the path difference between two coherent waves that meet in phase?',['A whole number of wavelengths','Half a wavelength','A quarter of a wavelength','It must be zero'],'Constructive interference: path difference nλ.']
+ ,[3,'An object is in equilibrium. Which statement is correct?',['The resultant force and the resultant moment are both zero','Only the resultant force is zero','It must be at rest','Only the resultant moment is zero'],'Equilibrium needs no resultant force and no resultant moment; it can move at constant velocity.']
+ ,[4,'What is the pd across the 4 Ω resistor when 4 Ω and 8 Ω resistors in series are connected to a 12 V supply?',['4 V','8 V','6 V','12 V'],'The pd divides in proportion to resistance: 12 × 4/12 = 4 V.']
+ ,[6,'Which describes the field lines between two parallel plates at different potentials?',['Parallel and evenly spaced, from positive to negative','Radial from the positive plate','Circles around the plates','Parallel and from negative to positive'],'A uniform field, except near the edges.']
+ ,[7,'Which type of radiation is most strongly ionising?',['Alpha','Beta-minus','Gamma','Beta-plus'],'Alpha particles are large and doubly charged, so they ionise strongly and are stopped by paper.']
+ ,[5,'An ideal gas is heated at constant volume. What happens to the work done by the gas?',['It is zero','It equals the heat supplied','It is negative','It equals pΔV with ΔV > 0'],'No change in volume means no work is done, so all the heat raises the internal energy.']
+ ,[5,'What does absolute zero correspond to in terms of the particles of an ideal gas?',['The minimum possible internal energy, with the particles having (classically) no kinetic energy','The point at which the gas becomes a liquid','The temperature at which pressure doubles','0 °C'],"Pressure and mean kinetic energy extrapolate to zero at 0 K (−273 °C)."]
+ ,[1,'Which quark combination makes up a proton?',['uud','udd','uus','ud̄'],'Charges: +2/3 + 2/3 − 1/3 = +1.']
+ ,[3,'A ball is thrown horizontally from a cliff. Ignoring air resistance, which quantity stays constant during its flight?',['Its horizontal velocity','Its vertical velocity','Its speed','Its kinetic energy'],'No horizontal force acts, so the horizontal component of velocity is unchanged.']
 ];
 const AL_PHY_GEN=[
  [4,()=>{const [a,b,r]=pick([[6,3,2],[12,4,3],[10,10,5],[20,5,4],[6,12,4],[30,6,5],[8,8,4],[15,10,6]]);
@@ -233,6 +242,14 @@ const AL_MATHS_BANK=[
  ,[5,'Find dy/dx for y = x²e^(x).',['(x² + 2x)e^(x)','2xe^(x)','x²e^(x)','2x + e^(x)'],'Product rule: 2xe^(x) + x²e^(x).']
  ,[5,'A curve has dy/dx = 0 and d²y/dx² = −3 at x = 1. What is the point at x = 1?',['A maximum','A minimum','A point of inflection','Not a stationary point'],'A stationary point with a negative second derivative is a maximum.']
  ,[2,'What is the sum of the first 10 terms of the arithmetic series 3 + 7 + 11 + …?',['210','190','43','230'],'S = 10/2 × (2×3 + 9×4) = 5 × 42 = 210.']
+ ,[0,'Which value of n is a counter-example to "n² + n + 1 is always prime"?',['n = 4','n = 1','n = 2','n = 3'],'16 + 4 + 1 = 21 = 3 × 7. (n = 1, 2, 3 give 3, 7, 13, all prime.)']
+ ,[3,'Solve sinx = 0.5 for 0° ≤ x ≤ 360°.',['30° and 150°','30° and 210°','60° and 120°','30° and 330°'],'sinx is positive in the first and second quadrants: 30° and 180° − 30°.']
+ ,[4,'Solve 2^(x) = 10, to 3 significant figures.',['3.32','5.00','2.30','0.301'],'x = log10 / log2 = 1/0.301 ≈ 3.32.']
+ ,[7,'What is the unit vector in the direction of 3i + 4j?',['0.6i + 0.8j','3i + 4j','0.75i + j','i + j'],'Divide by the magnitude 5.']
+ ,[6,'Find the area under y = 3x² between x = 0 and x = 2.',['8','12','6','4'],'∫₀² 3x² dx = [x³]₀² = 8.']
+ ,[8,'For a normal distribution, about what percentage of values lie within 2 standard deviations of the mean?',['95%','68%','99.7%','50%'],'The 68–95–99.7 rule.']
+ ,[9,'A particle moves with constant acceleration 2 m/s² from rest. How far does it travel in 5 s?',['25 m','10 m','50 m','12.5 m'],'s = ½at² = ½ × 2 × 25 = 25 m.']
+ ,[0,'Express (x² − 9)/(x − 3) in its simplest form, for x ≠ 3.',['x + 3','x − 3','x² − 3','x + 9'],'x² − 9 = (x − 3)(x + 3).']
 ];
 const AL_MATHS_GEN=[
  [0,()=>{let r1,r2;do{r1=rint(-7,7);r2=rint(-7,7);}while(!r1||!r2||r1===r2||r1===-r2);
@@ -383,6 +400,13 @@ const AL_ECON_BANK=[
  ,[3,'A monopsony employer in a labour market is most likely to:',['Pay a lower wage and employ fewer workers than a competitive market','Pay a higher wage than a competitive market','Employ more workers than a competitive market','Have no influence on the wage'],'As the single buyer of labour it can push wages down and hires less.']
  ,[6,'What is the main role of a central bank as "lender of last resort"?',['Lending to banks that cannot borrow elsewhere, to prevent a collapse','Lending to the government to fund spending','Lending directly to households','Setting the exchange rate'],"It stops a liquidity shortage at one bank from spreading through the system."]
  ,[7,'A country specialises in the good for which it has the lowest opportunity cost. This is called:',['Comparative advantage','Absolute advantage','Economies of scale','Protectionism'],'Trade by comparative advantage can benefit both countries.']
+ ,[4,'Which of these would shift the long-run aggregate supply curve to the right?',['Improved education and training','A rise in consumer spending','A fall in interest rates','A rise in government benefits'],'Better skills raise productive capacity; the others are demand-side.']
+ ,[0,'If the price elasticity of supply is 0.4, supply is:',['Price inelastic','Price elastic','Unit elastic','Perfectly elastic'],'Between 0 and 1 means quantity supplied responds less than proportionately to price.']
+ ,[2,'In the short run, a firm should keep producing as long as price covers:',['Average variable cost','Average total cost','Marginal revenue','Fixed cost'],'If price covers AVC, producing makes some contribution to fixed costs.']
+ ,[4,'Which of these is a component of aggregate demand?',['Net exports (X − M)','Taxation','Savings','Productivity'],'AD = C + I + G + (X − M).']
+ ,[6,'If interest rates rise, what usually happens to the market price of existing bonds?',['It falls','It rises','It stays the same','It doubles'],'A fixed coupon is worth less when new bonds pay more, so existing bond prices fall.']
+ ,[7,'A fall in the value of the pound is most likely to:',['Make UK exports cheaper abroad','Make UK imports cheaper','Reduce inflation','Reduce demand for UK exports'],'Foreign buyers need less of their own currency to buy UK goods.']
+ ,[3,'A national minimum wage set above the market equilibrium wage may cause:',['Some unemployment in that labour market','A shortage of workers','A fall in wages','No change in employment in any case'],'At the higher wage, more people want to work than firms want to hire (in a competitive market).']
 ];
 const AL_ECON_GEN=[
  [0,()=>{const p=pick([10,20,25,50]),q=pick([5,10,15,20,40]),ped=-(q/p);

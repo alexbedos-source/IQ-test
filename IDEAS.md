@@ -9,7 +9,7 @@ Status: `[ ]` not started · `[~]` in progress / in an open PR · `[x]` done.
 ## Small improvements (auto)
 - [x] **Backup and restore:** export all progress to a file and import it again. iOS deletes a home-screen app's data if the icon is removed, so this protects streaks and history.
 - [x] **Mistake bank:** collect every question answered wrongly (drill, A-level, IQ) into a "Review mistakes" session that comes back until it is answered correctly twice.
-- [~] **Weekly summary card** on the home screen: questions done, accuracy, streak, study minutes, compared with last week.
+- [x] **Weekly summary card** on the home screen: questions done, accuracy, streak, study minutes, compared with last week.
 - [x] **Scratchpad:** a draw-with-your-finger panel on physics and A-level questions for quick working.
 - [x] **Spaced repetition for physics interview questions:** bring back "Stuck" and "Needed hints" questions after 1, 3 and 7 days.
 - [x] ~~**Light / dark mode switch**~~ (not needed: the theme is now black and orange in every mode).
@@ -21,8 +21,10 @@ Status: `[ ]` not started · `[~]` in progress / in an open PR · `[x]` done.
 - [x] **Confidence check** before answering, with calibration on the Progress page (approved 1 Nov).
 - [x] **Mixed 15:** interleaved questions across all subjects (approved 1 Nov).
 - [x] **Report a question:** flag button that opens a pre-filled GitHub issue (approved 1 Nov).
-- [ ] **Weekly goal + rest day:** weekly targets with a progress ring; one rest day keeps the streak.
-- [ ] **Data booklet drill:** find and apply the right AQA data-booklet equation quickly.
+- [~] **Weekly goal + rest day:** weekly targets with a progress ring; one rest day keeps the streak.
+- [~] **Data booklet drill:** find and apply the right AQA data-booklet equation quickly.
+- [~] **Mental maths sprint** (approved 3 Nov): 60 s of no-calculator questions with a personal best.
+- [~] **Read the graph** (approved 3 Nov): gradients, areas and half-lives from generated graphs.
 
 ## Bigger ideas (needs approval)
 - [x] **Tutor twist** in mock interviews: the tutor changes a condition after you answer (approved 1 Nov).
