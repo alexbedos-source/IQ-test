@@ -122,6 +122,11 @@ const AL_PHY_BANK=[
  ,[5,'What does absolute zero correspond to in terms of the particles of an ideal gas?',['The minimum possible internal energy, with the particles having (classically) no kinetic energy','The point at which the gas becomes a liquid','The temperature at which pressure doubles','0 °C'],"Pressure and mean kinetic energy extrapolate to zero at 0 K (−273 °C)."]
  ,[1,'Which quark combination makes up a proton?',['uud','udd','uus','ud̄'],'Charges: +2/3 + 2/3 − 1/3 = +1.']
  ,[3,'A ball is thrown horizontally from a cliff. Ignoring air resistance, which quantity stays constant during its flight?',['Its horizontal velocity','Its vertical velocity','Its speed','Its kinetic energy'],'No horizontal force acts, so the horizontal component of velocity is unchanged.']
+ ,[0,'A reading is 25.0 ± 0.5 cm. What is the percentage uncertainty?',['2%','0.5%','5%','0.02%'],'0.5/25 × 100 = 2%.']
+ ,[2,'What happens to the speed and wavelength of light when it enters glass from air?',['Both decrease; the frequency stays the same','Both increase','The speed decreases, the wavelength increases','The frequency decreases'],'The frequency is set by the source; v = fλ, so λ falls with v.']
+ ,[4,'What happens to the resistance of a thermistor (NTC) when its temperature rises?',['It decreases','It increases','It stays the same','It becomes infinite'],'More charge carriers are released as temperature rises.']
+ ,[6,'What is the direction of the force on a positive charge moving in a magnetic field?',['Perpendicular to both the velocity and the field','Parallel to the field','Parallel to the velocity','Opposite to the field'],'Given by Fleming\'s left-hand rule; this is why the path is circular.']
+ ,[7,'Why is the binding energy per nucleon highest around iron-56?',['Iron nuclei are the most stable, so fusion of lighter or fission of heavier nuclei releases energy','Iron has the most nucleons','Iron has no neutrons','Iron is radioactive'],'Moving towards iron on the curve increases binding energy per nucleon and releases energy.']
 ];
 const AL_PHY_GEN=[
  [4,()=>{const [a,b,r]=pick([[6,3,2],[12,4,3],[10,10,5],[20,5,4],[6,12,4],[30,6,5],[8,8,4],[15,10,6]]);
@@ -250,6 +255,10 @@ const AL_MATHS_BANK=[
  ,[8,'For a normal distribution, about what percentage of values lie within 2 standard deviations of the mean?',['95%','68%','99.7%','50%'],'The 68–95–99.7 rule.']
  ,[9,'A particle moves with constant acceleration 2 m/s² from rest. How far does it travel in 5 s?',['25 m','10 m','50 m','12.5 m'],'s = ½at² = ½ × 2 × 25 = 25 m.']
  ,[0,'Express (x² − 9)/(x − 3) in its simplest form, for x ≠ 3.',['x + 3','x − 3','x² − 3','x + 9'],'x² − 9 = (x − 3)(x + 3).']
+ ,[6,'Find ∫ e^(2x) dx.',['½e^(2x) + C','2e^(2x) + C','e^(2x) + C','e^(2x)/x + C'],'Reverse the chain rule: differentiating ½e^(2x) gives e^(2x).']
+ ,[8,'Two events are independent with P(A) = 0.4 and P(B) = 0.5. What is P(A and B)?',['0.2','0.9','0.1','0.45'],'For independent events, multiply: 0.4 × 0.5.']
+ ,[9,'A 5 kg mass hangs at rest from a string. What is the tension? (g = 9.8 m/s²)',['49 N','5 N','9.8 N','0 N'],'In equilibrium T = mg = 5 × 9.8.']
+ ,[5,'What is the gradient of y = ln x at x = 4?',['1/4','4','ln 4','1'],'dy/dx = 1/x.']
 ];
 const AL_MATHS_GEN=[
  [0,()=>{let r1,r2;do{r1=rint(-7,7);r2=rint(-7,7);}while(!r1||!r2||r1===r2||r1===-r2);
@@ -407,6 +416,9 @@ const AL_ECON_BANK=[
  ,[6,'If interest rates rise, what usually happens to the market price of existing bonds?',['It falls','It rises','It stays the same','It doubles'],'A fixed coupon is worth less when new bonds pay more, so existing bond prices fall.']
  ,[7,'A fall in the value of the pound is most likely to:',['Make UK exports cheaper abroad','Make UK imports cheaper','Reduce inflation','Reduce demand for UK exports'],'Foreign buyers need less of their own currency to buy UK goods.']
  ,[3,'A national minimum wage set above the market equilibrium wage may cause:',['Some unemployment in that labour market','A shortage of workers','A fall in wages','No change in employment in any case'],'At the higher wage, more people want to work than firms want to hire (in a competitive market).']
+ ,[1,'Which is the best example of a public good?',['Street lighting','A sandwich','A train ticket','A private gym membership'],'It is non-rival and non-excludable, so the free market tends to under-provide it.']
+ ,[5,'What is fiscal policy?',['Using government spending and taxation to influence the economy','Changing interest rates','Changing the money supply','Setting the exchange rate'],'Monetary policy covers interest rates and the money supply.']
+ ,[7,'A tariff on imported steel is most likely to:',['Raise the domestic price of steel','Lower the price of steel for consumers','Increase imports of steel','Reduce domestic steel production'],'The tax on imports raises their price, so domestic producers can charge more.']
 ];
 const AL_ECON_GEN=[
  [0,()=>{const p=pick([10,20,25,50]),q=pick([5,10,15,20,40]),ped=-(q/p);

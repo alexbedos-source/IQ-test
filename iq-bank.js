@@ -64,7 +64,9 @@ V:[
  [0.7,'Which word does NOT belong: oak, maple, tulip, birch?',['Tulip','Oak','Maple','Birch'],'The others are trees; a tulip is a flower.'],
  [1.3,'Which word is closest in meaning to OBDURATE?',['Stubborn','Obvious','Gentle','Hidden'],'Obdurate means stubbornly refusing to change one\'s mind.'],
  [0.4,'Which word is the opposite of TRANSPARENT?',['Opaque','Clear','Fragile','Bright'],'Opaque means light cannot pass through.'],
- [1.1,'GLOVE is to HAND as THIMBLE is to:',['Finger','Needle','Thread','Sewing'],'A glove covers the hand; a thimble covers a finger.']
+ [1.1,'GLOVE is to HAND as THIMBLE is to:',['Finger','Needle','Thread','Sewing'],'A glove covers the hand; a thimble covers a finger.'],
+ [0.6,'Which word is closest in meaning to METICULOUS?',['Careful','Careless','Quick','Loud'],'Meticulous means showing great attention to detail.'],
+ [1.5,'Which word is the opposite of LOQUACIOUS?',['Taciturn','Talkative','Generous','Cheerful'],'Loquacious means very talkative; taciturn means saying little.']
 ],
 Q:[
  [-1.9,'What is 25% of 80?',['20','25','40','16'],'25% is a quarter, and a quarter of 80 is 20.'],
@@ -125,7 +127,9 @@ Q:[
  [0.6,'A train travels 180 km in 2 hours 15 minutes. What is its average speed?',['80 km/h','90 km/h','75 km/h','85 km/h'],'180 / 2.25 = 80 km/h.'],
  [1.1,'How many squares of any size are on a 3 × 3 grid?',['14','9','10','13'],'9 small squares + 4 of size 2 × 2 + 1 of size 3 × 3 = 14.'],
  [0.7,'What is 15% of 15% of 400?',['9','60','90','22.5'],'15% of 400 = 60, and 15% of 60 = 9.'],
- [1.3,'A tap fills a tank in 6 hours and a second tap fills it in 3 hours. How long do they take together?',['2 hours','4.5 hours','9 hours','1.5 hours'],'Rates 1/6 + 1/3 = 1/2 of the tank per hour, so 2 hours.']
+ [1.3,'A tap fills a tank in 6 hours and a second tap fills it in 3 hours. How long do they take together?',['2 hours','4.5 hours','9 hours','1.5 hours'],'Rates 1/6 + 1/3 = 1/2 of the tank per hour, so 2 hours.'],
+ [0.5,'What is the next number: 1, 4, 9, 16, 25, …?',['36','30','35','49'],'The square numbers: 6² = 36.'],
+ [1.2,'A number is increased by 10% and the result is then decreased by 10%. What is the overall change?',['A 1% decrease','No change','A 1% increase','A 10% decrease'],'1.1 × 0.9 = 0.99.']
 ],
 L:[
  [-1.8,'All cats have whiskers. Tibbles is a cat. Which must be true?',['Tibbles has whiskers','Tibbles is not a cat','Every animal with whiskers is a cat','Tibbles has no whiskers'],'Tibbles is a cat, and all cats have whiskers.'],
@@ -182,6 +186,8 @@ L:[
  [0.5,'Every member of the choir can read music. Sam cannot read music. What follows?',['Sam is not in the choir','Sam is in the choir','Some of the choir cannot read music','Nothing follows'],'If Sam were in the choir, Sam could read music.'],
  [1.0,'Today is Wednesday. What day will it be in 100 days?',['Friday','Thursday','Wednesday','Saturday'],'100 = 14 × 7 + 2, so two days after Wednesday.'],
  [0.8,'Some scientists are musicians. All musicians are patient. Which must be true?',['Some scientists are patient','All scientists are patient','All patient people are musicians','No scientist is patient'],'The scientists who are musicians are patient.'],
- [1.2,'In a race, Kim finished ahead of Lee but behind Max. Nia finished behind Lee. Who came third?',['Lee','Kim','Max','Nia'],'The order is Max, Kim, Lee, Nia.']
+ [1.2,'In a race, Kim finished ahead of Lee but behind Max. Nia finished behind Lee. Who came third?',['Lee','Kim','Max','Nia'],'The order is Max, Kim, Lee, Nia.'],
+ [0.7,'All squares are rectangles. Shape X is not a rectangle. What follows?',['X is not a square','X is a square','X is a circle','Nothing follows'],'Anything that is a square must be a rectangle.'],
+ [1.3,'Five people shake hands with each other exactly once. How many handshakes are there?',['10','20','25','5'],'Each pair shakes once: 5 × 4 / 2 = 10.']
 ]
 };

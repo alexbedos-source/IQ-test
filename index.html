@@ -177,6 +177,11 @@ details.rev p{margin-top:6px;font-size:.92rem;color:var(--muted)}
 .trow:first-of-type{border-top:0}
 .trow .tv{color:var(--accent);font:500 .88rem var(--mono)}
 .tdone{color:var(--good);font-weight:500}
+/* practice records */
+.recs{display:flex;flex-direction:column}
+.rec{display:flex;flex-direction:column;gap:3px;text-align:left;background:none;border:0;border-top:1px solid var(--line);padding:10px 0;cursor:pointer;color:inherit;font:inherit}
+.rec:first-child{border-top:0}.rec .n{font-weight:600}.rec .v{font:500 .78rem var(--mono);color:var(--muted)}
+.rec svg{max-height:34px}
 /* weekly goal ring */
 .ring .rbg{fill:none;stroke:#2b2b2b;stroke-width:5}.ring .rfg{fill:none;stroke:var(--accent);stroke-width:5;stroke-linecap:round}.ring .rfg.done{stroke:var(--good)}
 .ring text{fill:var(--ink);font:600 11px var(--mono)}
@@ -354,7 +359,7 @@ body.sp-open #scratchbtn,body.vp-open #scratchbtn{display:none}
 /* Start-up safety net: if anything fails while the app loads (for example a stale cached file after an update),
    clear the offline cache and reload once automatically. If it still fails, show a repair button.
    Progress (localStorage) is never touched. */
-window.IQ_V='21';
+window.IQ_V='22';
 (function(){
   let started=false;window.addEventListener('iq-started',()=>{started=true;});
   async function repair(){
@@ -383,20 +388,20 @@ window.IQ_V='21';
 <header class="tb" id="tb"><button id="backbtn" aria-label="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button></header>
 <main class="wrap" id="app"></main>
 
-<script src="iq-bank.js?v=21"></script>
-<script src="physics.js?v=21"></script>
-<script src="interview.js?v=21"></script>
-<script src="drill.js?v=21"></script>
-<script src="learn.js?v=21"></script>
-<script src="tools.js?v=21"></script>
-<script src="alevel.js?v=21"></script>
-<script src="videos.js?v=21"></script>
-<script src="mistakes.js?v=21"></script>
-<script src="backup.js?v=21"></script>
-<script src="practicals.js?v=21"></script>
-<script src="extras.js?v=21"></script>
-<script src="train.js?v=21"></script>
-<script src="scratch.js?v=21"></script>
+<script src="iq-bank.js?v=22"></script>
+<script src="physics.js?v=22"></script>
+<script src="interview.js?v=22"></script>
+<script src="drill.js?v=22"></script>
+<script src="learn.js?v=22"></script>
+<script src="tools.js?v=22"></script>
+<script src="alevel.js?v=22"></script>
+<script src="videos.js?v=22"></script>
+<script src="mistakes.js?v=22"></script>
+<script src="backup.js?v=22"></script>
+<script src="practicals.js?v=22"></script>
+<script src="extras.js?v=22"></script>
+<script src="train.js?v=22"></script>
+<script src="scratch.js?v=22"></script>
 <script>
 /* =====================  helpers  ===================== */
 const rnd=n=>Math.floor(Math.random()*n);

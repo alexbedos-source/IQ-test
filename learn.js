@@ -141,7 +141,13 @@ const CARDS=[
  [5,'Specific heat capacity (definition)','The energy needed to raise the temperature of 1 kg of a substance by 1 K, without changing its state.'],
  [5,'Assumptions of the kinetic theory model of an ideal gas','Molecules are point particles with negligible volume, move randomly, collide elastically, exert no forces except during collisions, and collisions last a negligible time.'],
  [2,'Stationary wave: node and antinode','A node is a point of zero amplitude; an antinode is a point of maximum amplitude. Adjacent nodes are half a wavelength apart.'],
- [4,'Kirchhoff\'s first law','The total current into a junction equals the total current out: a consequence of conservation of charge.']
+ [4,'Kirchhoff\'s first law','The total current into a junction equals the total current out: a consequence of conservation of charge.'],
+ [6,'Why the field inside a charged conducting sphere is zero','Charge sits on the outer surface, and its fields cancel everywhere inside; the potential inside is constant and equal to the surface value.'],
+ [6,'Geostationary orbit','An orbit above the equator with a period of 24 hours, moving west to east, so the satellite stays above the same point on the Earth.'],
+ [7,'Background radiation sources','Radon gas from rocks, cosmic rays, rocks and buildings, food and drink, and medical sources. Subtract the background count from measurements.'],
+ [7,'Evidence for the nuclear model from α scattering','Most α particles pass straight through (the atom is mostly empty); a few are deflected through large angles (a small, dense, positive nucleus).'],
+ [3,'Newton\'s third law','If body A exerts a force on body B, then B exerts an equal and opposite force on A, of the same type.'],
+ [1,'Why the photoelectric effect supports the photon model','Emission is instant and only above a threshold frequency, however intense the light; each electron absorbs one photon, so energy comes in packets hf.']
 ].map((c,i)=>({id:'a'+i,cat:c[0],front:c[1],back:c[2]}));
 const BOX_DAYS=[0,1,2,4,8,16,32];
 const NEW_PER_DAY=10;
@@ -359,7 +365,11 @@ const POTW=[
  ['A 2 kg block slides from rest down a smooth slope 5 m high, then along a rough horizontal floor with a friction force of 4 N. How far along the floor does it slide before stopping? (g = 10 m/s²)',
   'Energy at the bottom: mgh = 2 × 10 × 5 = 100 J. Friction does work 4 × d against it: 4d = 100, so <b>d = 25 m</b>. Note the slope angle does not matter, because the slope is smooth.'],
  ['(University level) A uniform chain of length L lies stretched straight on a smooth table, with a short length hanging over the edge. Show that it slides off with speed √(gL) when the last link leaves the table, if released from (almost) rest.',
-  'Take the table top as zero. At the end the whole chain hangs vertically, so its centre of mass is L/2 below the table: it lost potential energy mgL/2 (the initial overhang is negligible). Then ½mv² = mgL/2, so <b>v = √(gL)</b>. The table is smooth, so no energy is lost.']
+  'Take the table top as zero. At the end the whole chain hangs vertically, so its centre of mass is L/2 below the table: it lost potential energy mgL/2 (the initial overhang is negligible). Then ½mv² = mgL/2, so <b>v = √(gL)</b>. The table is smooth, so no energy is lost.'],
+ ['A 12 V battery with internal resistance 1 Ω is connected to a 5 Ω resistor. Find the current, the terminal pd and the power wasted inside the battery.',
+  'I = ε/(R + r) = 12/6 = <b>2 A</b>. Terminal pd = IR = <b>10 V</b> (the "lost volts" are Ir = 2 V). Power wasted = I²r = <b>4 W</b>, out of 24 W supplied. Check: 20 W in the resistor + 4 W = 24 W. ✓'],
+ ['(University level) Find the speed of a satellite in a circular orbit just above the Earth\'s surface, and the period of the orbit. (g = 9.8 m/s², R = 6.4 × 10⁶ m)',
+  'Gravity provides the centripetal force: mg = mv²/R, so v = √(gR) = √(9.8 × 6.4 × 10⁶) ≈ <b>7.9 km/s</b>. Period T = 2πR/v ≈ 4.0 × 10⁷/7900 ≈ 5100 s ≈ <b>85 minutes</b>. The ISS, about 400 km up, takes about 92 minutes.']
 ];
 function weekIndex(){
   const d=new Date(),start=new Date(d.getFullYear(),0,1);

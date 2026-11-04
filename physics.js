@@ -708,6 +708,32 @@ PHY.push(
  f:[['How many molecules are in one breath?','0.5 L is about 1/48 of a mole (24 L per mole at room conditions), so about 1.3 × 10²² molecules.'],
     ['Estimate the mass of oxygen you use in a day.','About 20% of the air is oxygen, and only about a quarter of that is absorbed: roughly 10 000 L of air a day gives about 500 L of O₂, around 0.7 kg.']]}
 );
+PHY.push(
+{id:'f1',t:1,l:2,q:'A ladder leans against a smooth wall on a rough floor. Why is it more likely to slip when you climb near the top?',
+ h:['Draw the forces: weight of the ladder, your weight, the wall\'s push (horizontal, since the wall is smooth), and the floor\'s normal force and friction.',
+    'Take moments about the foot of the ladder. What happens to the wall\'s push as your weight moves higher up?'],
+ a:'<p>The smooth wall can only push horizontally, with force N_w. Horizontal balance: friction at the floor F = N_w. Vertical balance: the floor\'s normal force R = total weight, which does not depend on where you stand.</p><p>Moments about the foot: N_w × (height of top) = (weights) × (their horizontal distances from the foot). As you climb, your horizontal distance from the foot grows, so N_w grows, and so does the friction needed. Friction is limited to μR, which stays fixed, so near the top the required friction can exceed μR and the ladder slips.</p><p>Tutors look for a clear diagram and the choice of the foot as the pivot (it removes two unknown forces).</p>',
+ f:[['Why is a steeper ladder safer?','The horizontal distances of the weights from the foot are smaller relative to the height, so N_w and the friction needed are smaller.'],
+    ['Why does someone standing on the bottom rung help?','It adds to R (and so the maximum friction μR) without adding much moment, because their weight acts close to the foot.']]},
+{id:'f2',t:4,l:2,q:'Why do birds sitting on a high-voltage power line not get electrocuted, but a person touching the line from a ladder would?',
+ h:['What does a current need to flow through the bird?',
+    'Compare the potential difference between the bird\'s two feet with the potential difference between the line and the ground.'],
+ a:'<p>Current flows through a body only if there is a potential difference across it. The bird\'s feet are a few centimetres apart on the same wire. The wire has a tiny resistance, so even with hundreds of amps the pd between the feet is only millivolts: almost no current flows through the bird.</p><p>A person on a ladder touches the line (hundreds of kilovolts) while connected to the ground at 0 V, so there is a huge pd across their body and a lethal current flows.</p><p>For a 400 A current in a line with resistance of about 5 × 10⁻⁵ Ω per metre, 5 cm of wire gives V = IR ≈ 400 × 2.5 × 10⁻⁶ ≈ 1 mV.</p>',
+ f:[['Why are large birds sometimes killed on power lines anyway?','Their wingspan can bridge two conductors at different potentials, or a conductor and an earthed pylon.'],
+    ['Why do engineers working on live lines wear conducting suits?','The suit (a Faraday cage) keeps the whole body at the line\'s potential, so no pd appears across them and the current flows through the suit.']]},
+{id:'f3',t:7,l:1,q:'Why does a hot-air balloon rise, and why do balloon flights usually happen early in the morning?',
+ h:['Archimedes: the upthrust equals the weight of the air displaced. How does the density of the hot air inside compare with the cooler air outside?',
+    'The lift depends on the temperature difference between inside and outside. When is the outside air coolest and calmest?'],
+ a:'<p>Heating the air inside lowers its density (ρ ∝ 1/T at constant pressure). The envelope displaces a large volume of cooler, denser air, so the upthrust exceeds the weight of the hot air plus the balloon, basket and passengers.</p><p>Example: 2500 m³ of air at 15 °C has a mass of about 3000 kg; at 100 °C inside, the same volume holds about 2300 kg, giving roughly 700 kg of lift. Early mornings are cool (more lift for the same burner temperature) and usually calm, before the Sun heats the ground and causes gusts and thermals.</p>',
+ f:[['How does the balloon descend?','The pilot lets the air cool or opens a vent at the top, so the inside density increases and the upthrust exceeds the weight by less, or not at all.'],
+    ['Would a hot-air balloon work better on a high mountain?','Worse: the outside air is less dense there, so the same volume displaces less mass and the lift is smaller.']]},
+{id:'f4',t:2,l:3,q:'(University level) Show that the sum 1 + 1/2 + 1/3 + 1/4 + … grows without limit, and estimate how many terms are needed for the sum to exceed 10.',
+ h:['Group the terms: 1/3 + 1/4, then 1/5 to 1/8, then 1/9 to 1/16. Compare each group with 1/2.',
+    'For the estimate, compare the sum with ∫ dx/x from 1 to n.'],
+ a:'<p>Each group 1/(2^(k)+1) + … + 1/2^(k+1) has 2^(k) terms, each at least 1/2^(k+1), so each group is at least 1/2. There are infinitely many groups, so the sum <b>diverges</b>, even though the terms go to zero.</p><p>The sum of the first n terms is close to ln n + 0.577. Setting ln n ≈ 10 − 0.58 gives n ≈ e^(9.42) ≈ <b>12 000 terms</b> (the exact answer is 12 367). It grows incredibly slowly: to reach 100 you would need about 10^(43) terms.</p>',
+ f:[['Does 1 + 1/4 + 1/9 + 1/16 + … also diverge?','No: compare with ∫ dx/x² from 1, which is finite. It converges, to π²/6 ≈ 1.645.'],
+    ['How far can a stack of identical blocks overhang the edge of a table?','As far as you like: the n-th block from the top can overhang by L/(2n), and the harmonic series diverges, but you need enormous numbers of blocks.']]}
+);
 PHY.forEach(q=>{q.f=q.f||PHY_FOLLOW[q.id]||[];});
 
 const PHY_SOURCES=[

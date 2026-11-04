@@ -130,6 +130,19 @@ function heatmapHtml(){
       return '<button class="hm '+col(t)+'" data-si="'+si+'" data-ti="'+ti+'"><b>'+n+'</b><span>'+(t&&t.n?Math.round(100*t.ok/t.n)+'% · '+t.n+' q':'not tried')+'</span></button>';}).join('')+'</div></div>').join('')+'</div>';
 }
 function alTopicQuiz(si,ti,from){alFrom=from;leave();const s=AL_SUBJECTS[si];AL={si,topic:ti,items:alSet(s,ti),i:0,ok:0,res:[]};alRender();}
+/* Personal bests for the timed and themed practice modes; tap a row to open it */
+function recordsHtml(){
+  const pct=x=>Math.round(100*x.ok/Math.max(1,x.n));
+  const R=[
+    ['rsprint','Mental maths sprint',loadJSON('sprint-history',[]),x=>x.ok-x.bad,' pts',sprintHome],
+    ['rgraph','Read the graph',loadJSON('graph-history',[]),pct,'%',grHome],
+    ['rdb','Data booklet drill',loadJSON('db-history',[]),pct,'%',dbHome],
+    ['rmix','Mixed 15',loadJSON('mixed-history',[]),pct,'%',mixedHome],
+    ['rspeed','Processing speed',loadJSON('speed-history',[]),x=>x.score,' pts',speedHome]];
+  recordsHtml.go=R;
+  return '<div class="card stack"><h2>Practice records</h2><div class="recs">'+R.map(([id,n,h,f,u])=>{const v=h.map(f);
+    return '<button class="rec" id="'+id+'"><span class="n">'+n+'</span>'+(h.length?'<span class="v">best '+Math.max(...v)+u+' · last '+v[v.length-1]+u+' · '+h.length+'×</span>'+(h.length>1?sparkSvg(v.slice(-12)):''):'<span class="v">not tried yet ›</span>')+'</button>';}).join('')+'</div></div>';
+}
 function progressHome(){
   leave();
   const iq=loadJSON('iq10-history',[]),R=loadJSON('phy-ratings',{}),dr=drillState(),cs=cardState(),iv=loadJSON('iv-history',[]),sl=studyLog(),sp=loadJSON('speed-history',[]);
@@ -141,6 +154,7 @@ function progressHome(){
   '<div class="stack"><div class="stack" style="gap:8px"><p class="eyebrow">Study tools</p><h1>Progress</h1></div>'+
   '<div class="facts four"><div class="fact"><b>'+drillStreak(dr)+'</b><span>drill streak</span></div><div class="fact"><b>'+week+'</b><span>study min/wk</span></div><div class="fact"><b>'+iv.length+'</b><span>mock interviews</span></div><div class="fact"><b>'+ivAvg+'</b><span>interview self-score</span></div></div>'+
   heatmapHtml()+
+  recordsHtml()+
   '<div class="card stack"><h2>Physics questions mastered</h2><div class="cats">'+topicRows.map(([n,g,t])=>'<div class="cr"><span class="n">'+n+'</span><span class="v">'+g+' / '+t+'</span><div class="t"><i style="width:'+(100*g/t)+'%"></i></div></div>').join('')+'</div><p class="note">"Mastered" means you last rated it "Got it".</p></div>'+
   '<div class="card stack"><h2>Flashcards</h2><p>'+known+' of '+CARDS.length+' well known · '+seen+' started</p><div class="t1"><i style="width:'+(100*known/CARDS.length)+'%"></i></div></div>'+
   '<div class="card stack"><h2>Drill accuracy</h2><div class="cats">'+DRILL_TYPES.map((n,i)=>{const s=dr.types[i]||{ok:0,n:0};return '<div class="cr"><span class="n">'+n+'</span><span class="v">'+(s.n?Math.round(100*s.ok/s.n)+'%':'–')+'</span><div class="t"><i style="width:'+(s.n?100*s.ok/s.n:0)+'%"></i></div></div>';}).join('')+'</div></div>'+
@@ -150,5 +164,6 @@ function progressHome(){
   '<div class="card stack"><h2>Processing speed</h2>'+(sp.length>1?sparkSvg(sp.slice(-20).map(x=>x.score)):'<p class="note">'+(sp.length?'Best so far: '+sp[0].score:'No attempts yet.')+'</p>')+'</div>'+
   '<button class="btn ghost" id="prback">Home</button></div>';
   document.getElementById('prback').onclick=home;
+  (recordsHtml.go||[]).forEach(r=>{const el=document.getElementById(r[0]);if(el)el.onclick=()=>{leave();r[5]();setBack(progressHome);};});
   app.querySelectorAll('.hm').forEach(b=>b.onclick=()=>alTopicQuiz(+b.dataset.si,+b.dataset.ti,progressHome));
 }
