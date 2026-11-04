@@ -63,7 +63,7 @@ function weekHtml(){
     cell(wa==null?'–':wa+'%','accuracy',wa!=null&&pa!=null?diff(wa,pa,' pts'):'')+
     cell(w.c,'flashcards',diff(w.c,p.c))+
     cell(w.min,'study min',diff(w.min,p.min))+
-    cell(w.drill+'/7','drill days',diff(w.drill,p.drill))+
+    '<div class="wkc">'+goalRing(w.drill,drillGoal(drillState()),44)+'<span>drill goal</span>'+diff(w.drill,p.drill)+'</div>'+
     cell(drillStreak(drillState()),'day streak','')+'</div></button>';
 }
 function confRecord(ok){
@@ -257,7 +257,8 @@ const SKETCH=[
  {id:'k23',f:'y = x/(x − 2)',fn:x=>x/(x-2),feat:['Vertical asymptote x = 2, horizontal asymptote y = 1','Passes through the origin','Decreasing on each branch']},
  {id:'k24',f:'y = sin x + cos x',fn:x=>Math.sin(x)+Math.cos(x),feat:['Equal to √2 sin(x + π/4): amplitude √2 ≈ 1.41, period 2π','y-intercept 1','Roots at x = −π/4 + nπ']},
  {id:'k25',f:'y = x² − 4|x|',fn:x=>x*x-4*Math.abs(x),feat:['Even function: symmetric about the y-axis','Roots at x = −4, 0, 4','Minima at (±2, −4) and a sharp local maximum at the origin']},
- {id:'k26',f:'y = (x − 1)²(x + 2)',fn:x=>(x-1)*(x-1)*(x+2),feat:['Cubic with positive leading coefficient','Crosses at x = −2, touches the x-axis at x = 1 (repeated root)','y-intercept 2; local maximum at x = −1, local minimum at (1, 0)']}
+ {id:'k26',f:'y = (x − 1)²(x + 2)',fn:x=>(x-1)*(x-1)*(x+2),feat:['Cubic with positive leading coefficient','Crosses at x = −2, touches the x-axis at x = 1 (repeated root)','y-intercept 2; local maximum at x = −1, local minimum at (1, 0)']},
+ {id:'k27',f:'y = 1/(1 + x²)',fn:x=>1/(1+x*x),feat:['Even function with a maximum at (0, 1)','Always positive; y → 0 as x → ±∞ (asymptote y = 0)','No x-intercepts']}
 ];
 function sketchHome(){
   leave();

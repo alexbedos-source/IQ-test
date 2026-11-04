@@ -118,6 +118,10 @@ const AL_PHY_BANK=[
  ,[4,'What is the pd across the 4 Ω resistor when 4 Ω and 8 Ω resistors in series are connected to a 12 V supply?',['4 V','8 V','6 V','12 V'],'The pd divides in proportion to resistance: 12 × 4/12 = 4 V.']
  ,[6,'Which describes the field lines between two parallel plates at different potentials?',['Parallel and evenly spaced, from positive to negative','Radial from the positive plate','Circles around the plates','Parallel and from negative to positive'],'A uniform field, except near the edges.']
  ,[7,'Which type of radiation is most strongly ionising?',['Alpha','Beta-minus','Gamma','Beta-plus'],'Alpha particles are large and doubly charged, so they ionise strongly and are stopped by paper.']
+ ,[5,'An ideal gas is heated at constant volume. What happens to the work done by the gas?',['It is zero','It equals the heat supplied','It is negative','It equals pΔV with ΔV > 0'],'No change in volume means no work is done, so all the heat raises the internal energy.']
+ ,[5,'What does absolute zero correspond to in terms of the particles of an ideal gas?',['The minimum possible internal energy, with the particles having (classically) no kinetic energy','The point at which the gas becomes a liquid','The temperature at which pressure doubles','0 °C'],"Pressure and mean kinetic energy extrapolate to zero at 0 K (−273 °C)."]
+ ,[1,'Which quark combination makes up a proton?',['uud','udd','uus','ud̄'],'Charges: +2/3 + 2/3 − 1/3 = +1.']
+ ,[3,'A ball is thrown horizontally from a cliff. Ignoring air resistance, which quantity stays constant during its flight?',['Its horizontal velocity','Its vertical velocity','Its speed','Its kinetic energy'],'No horizontal force acts, so the horizontal component of velocity is unchanged.']
 ];
 const AL_PHY_GEN=[
  [4,()=>{const [a,b,r]=pick([[6,3,2],[12,4,3],[10,10,5],[20,5,4],[6,12,4],[30,6,5],[8,8,4],[15,10,6]]);
@@ -242,6 +246,10 @@ const AL_MATHS_BANK=[
  ,[3,'Solve sinx = 0.5 for 0° ≤ x ≤ 360°.',['30° and 150°','30° and 210°','60° and 120°','30° and 330°'],'sinx is positive in the first and second quadrants: 30° and 180° − 30°.']
  ,[4,'Solve 2^(x) = 10, to 3 significant figures.',['3.32','5.00','2.30','0.301'],'x = log10 / log2 = 1/0.301 ≈ 3.32.']
  ,[7,'What is the unit vector in the direction of 3i + 4j?',['0.6i + 0.8j','3i + 4j','0.75i + j','i + j'],'Divide by the magnitude 5.']
+ ,[6,'Find the area under y = 3x² between x = 0 and x = 2.',['8','12','6','4'],'∫₀² 3x² dx = [x³]₀² = 8.']
+ ,[8,'For a normal distribution, about what percentage of values lie within 2 standard deviations of the mean?',['95%','68%','99.7%','50%'],'The 68–95–99.7 rule.']
+ ,[9,'A particle moves with constant acceleration 2 m/s² from rest. How far does it travel in 5 s?',['25 m','10 m','50 m','12.5 m'],'s = ½at² = ½ × 2 × 25 = 25 m.']
+ ,[0,'Express (x² − 9)/(x − 3) in its simplest form, for x ≠ 3.',['x + 3','x − 3','x² − 3','x + 9'],'x² − 9 = (x − 3)(x + 3).']
 ];
 const AL_MATHS_GEN=[
  [0,()=>{let r1,r2;do{r1=rint(-7,7);r2=rint(-7,7);}while(!r1||!r2||r1===r2||r1===-r2);
@@ -395,6 +403,10 @@ const AL_ECON_BANK=[
  ,[4,'Which of these would shift the long-run aggregate supply curve to the right?',['Improved education and training','A rise in consumer spending','A fall in interest rates','A rise in government benefits'],'Better skills raise productive capacity; the others are demand-side.']
  ,[0,'If the price elasticity of supply is 0.4, supply is:',['Price inelastic','Price elastic','Unit elastic','Perfectly elastic'],'Between 0 and 1 means quantity supplied responds less than proportionately to price.']
  ,[2,'In the short run, a firm should keep producing as long as price covers:',['Average variable cost','Average total cost','Marginal revenue','Fixed cost'],'If price covers AVC, producing makes some contribution to fixed costs.']
+ ,[4,'Which of these is a component of aggregate demand?',['Net exports (X − M)','Taxation','Savings','Productivity'],'AD = C + I + G + (X − M).']
+ ,[6,'If interest rates rise, what usually happens to the market price of existing bonds?',['It falls','It rises','It stays the same','It doubles'],'A fixed coupon is worth less when new bonds pay more, so existing bond prices fall.']
+ ,[7,'A fall in the value of the pound is most likely to:',['Make UK exports cheaper abroad','Make UK imports cheaper','Reduce inflation','Reduce demand for UK exports'],'Foreign buyers need less of their own currency to buy UK goods.']
+ ,[3,'A national minimum wage set above the market equilibrium wage may cause:',['Some unemployment in that labour market','A shortage of workers','A fall in wages','No change in employment in any case'],'At the higher wage, more people want to work than firms want to hire (in a competitive market).']
 ];
 const AL_ECON_GEN=[
  [0,()=>{const p=pick([10,20,25,50]),q=pick([5,10,15,20,40]),ped=-(q/p);

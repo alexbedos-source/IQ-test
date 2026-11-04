@@ -682,6 +682,32 @@ PHY.push(
  f:[['How does the drift speed change if the wire is half the diameter but carries the same current?','The area is a quarter, so the drift speed is four times larger.'],
     ['Why is the drift speed so small compared with the electrons\' thermal speeds (about 10⁶ m/s)?','The random thermal motion averages to zero; the field adds only a tiny net drift on top, because collisions with the lattice constantly reset it.']]}
 );
+PHY.push(
+{id:'c1',t:5,l:2,q:'Why does a bicycle pump get hot when you pump up a tyre quickly?',
+ h:['Think about the air inside the pump, not just friction. What are you doing to that gas?',
+    'First law of thermodynamics: ΔU = Q + W (work done on the gas). If the compression is quick, is there time for heat to escape?'],
+ a:'<p>Each stroke compresses the air quickly. Work is done <b>on</b> the gas, and because the stroke is fast there is little time for heat to flow out (nearly adiabatic), so the work goes into internal energy: the air gets hotter.</p><p>For air compressed to about a third of its volume adiabatically, T rises by a factor of 3^(0.4) ≈ 1.55, from 290 K to about 450 K in principle. In practice the barrel takes heat away, so the end of the pump near the valve gets warm rather than scalding. Friction of the piston adds a little, but the compression is the main effect.</p>',
+ f:[['Why does gas escaping from an aerosol can feel cold?','The gas expands and does work on the surroundings, so its internal energy and temperature fall (and the liquid propellant evaporating takes latent heat too).'],
+    ['If you pumped very slowly, would the pump still warm up?','Much less: slow compression is close to isothermal, with heat leaking away as fast as work is done.']]},
+{id:'c2',t:6,l:3,q:'(University level) Estimate the escape velocity from the Moon, and explain why the Moon has almost no atmosphere.',
+ h:['Escape velocity: ½mv² = GMm/R. The Moon\'s mass is about 7 × 10²² kg and its radius about 1.7 × 10⁶ m.',
+    'Compare it with the typical speed of gas molecules. In daytime the lunar surface reaches about 390 K. Use ½m(c_rms)² = (3/2)kT. How does a tail of fast molecules matter over billions of years?'],
+ a:'<p>v = √(2GM/R) = √(2 × 6.7 × 10⁻¹¹ × 7 × 10²² / 1.7 × 10⁶) ≈ √(5.5 × 10⁶) ≈ <b>2.4 km/s</b> (Earth: 11.2 km/s).</p><p>For nitrogen at 390 K: c_rms = √(3kT/m) = √(3 × 1.38 × 10⁻²³ × 390 / 4.7 × 10⁻²⁶) ≈ 590 m/s, only about a quarter of the escape speed. That sounds safe, but the Maxwell–Boltzmann distribution has a tail of much faster molecules; a gas is lost over geological time if its rms speed is more than about 1/6 of escape speed. Light gases like hydrogen and helium go fast; heavier ones leak too over 4 billion years, helped by solar wind and no magnetic field.</p><p>Tutors look for the comparison with molecular speeds and the idea that the fast tail matters, not the average.</p>',
+ f:[['Why has Earth kept nitrogen and oxygen but lost almost all its hydrogen?','Hydrogen molecules are 14–16 times lighter, so at the same temperature their rms speed is about 4 times greater, enough for the tail to escape steadily.'],
+    ['Titan, Saturn\'s moon, is smaller than Earth yet has a thick atmosphere. Why?','It is very cold (about 94 K), so molecules move slowly, and it is far from the Sun\'s solar wind.']]},
+{id:'c3',t:3,l:2,q:'A tuning fork is struck and held in the air: you can barely hear it. Press its base on a table and it becomes much louder. Where does the extra sound energy come from, and what is the catch?',
+ h:['The fork\'s prongs are thin. How well does a thin vibrating object push air around?',
+    'If more energy is radiated per second, what must happen to how long the fork rings?'],
+ a:'<p>No energy is created. The thin prongs move very little air, so they radiate sound inefficiently. Pressing the base on the table makes the large table top vibrate too, and a large surface couples to the air much better, so energy is radiated as sound at a much higher <b>rate</b>.</p><p>The catch: the fork\'s vibration energy is used up faster, so it is louder but <b>dies away sooner</b>. Guitar bodies and violin soundboards work in the same way.</p>',
+ f:[['Why do the two prongs of a tuning fork make so little sound on their own?','They move in opposite directions, so the pressure waves they make largely cancel; it behaves like a quadrupole, a very weak radiator.'],
+    ['Why does a tuning fork give a nearly pure note?','Its shape strongly favours one mode of vibration; the higher modes are not harmonics and die away quickly after it is struck.']]},
+{id:'c4',t:0,l:1,q:'Estimate how many breaths you take in a year, and the total volume of air you breathe.',
+ h:['How many breaths per minute at rest? About how much air per breath?',
+    'Roughly 12–15 breaths a minute and half a litre each at rest.'],
+ a:'<p>About 15 breaths per minute × 60 × 24 × 365 ≈ 15 × 5 × 10⁵ ≈ <b>8 × 10⁶ breaths a year</b>.</p><p>At 0.5 L each that is 4 × 10⁶ L, about <b>4000 m³</b> of air a year: roughly the volume of a large house, or 1.5 Olympic swimming pools. Exercise would raise it noticeably, so call it 4000–6000 m³.</p>',
+ f:[['How many molecules are in one breath?','0.5 L is about 1/48 of a mole (24 L per mole at room conditions), so about 1.3 × 10²² molecules.'],
+    ['Estimate the mass of oxygen you use in a day.','About 20% of the air is oxygen, and only about a quarter of that is absorbed: roughly 10 000 L of air a day gives about 500 L of O₂, around 0.7 kg.']]}
+);
 PHY.forEach(q=>{q.f=q.f||PHY_FOLLOW[q.id]||[];});
 
 const PHY_SOURCES=[
