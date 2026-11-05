@@ -734,6 +734,32 @@ PHY.push(
  f:[['Does 1 + 1/4 + 1/9 + 1/16 + … also diverge?','No: compare with ∫ dx/x² from 1, which is finite. It converges, to π²/6 ≈ 1.645.'],
     ['How far can a stack of identical blocks overhang the edge of a table?','As far as you like: the n-th block from the top can overhang by L/(2n), and the harmonic series diverges, but you need enormous numbers of blocks.']]}
 );
+PHY.push(
+{id:'i1',t:5,l:2,q:'Why does sweating cool you down, and why does it work badly on a humid day?',
+ h:['What does water need in order to evaporate from your skin, and where does that energy come from?',
+    'Evaporation is a net flow of molecules from liquid to air. What happens to that net flow if the air is already nearly saturated with water vapour?'],
+ a:'<p>Evaporating water needs latent heat, about 2.4 MJ per kg at skin temperature. It takes that energy from your skin, so you cool down. In molecular terms, the fastest molecules escape, lowering the average kinetic energy of those left behind.</p><p>Evaporating 0.5 kg of sweat an hour removes about 1.2 MJ, roughly 330 W, enough to dump the heat of hard exercise. On a humid day the air already holds nearly as much vapour as it can, so almost as many molecules return to the skin as leave it. The net evaporation, and the cooling, are small: the sweat just drips off.</p>',
+ f:[['Why does a fan help even though it does not cool the air?','It replaces the humid air next to your skin with drier air, increasing the net evaporation (and convection).'],
+    ['Why do dogs pant instead of sweating?','They have few sweat glands; panting evaporates water from the tongue and airways, using the same latent-heat cooling.']]},
+{id:'i2',t:6,l:2,q:'Astronauts on the International Space Station float. Is gravity there much weaker than on Earth?',
+ h:['The ISS orbits about 400 km up, and the Earth\'s radius is 6400 km. How does g depend on distance from the centre?',
+    'If gravity is still strong there, why do the astronauts feel weightless?'],
+ a:'<p>g ∝ 1/r²: g = 9.8 × (6400/6800)² ≈ <b>8.7 N/kg</b>, about 89% of its surface value. Gravity is barely weaker.</p><p>They float because they and the station are in free fall together: both accelerate towards the Earth at the same rate, so there is no contact force between them, and contact forces are what we feel as weight. The station moves sideways at about 7.7 km/s, so it keeps "falling around" the Earth instead of into it.</p><p>Tutors want the distinction between gravitational force and the feeling of weight.</p>',
+ f:[['How high would you need to go for g to be half its surface value?','r = 6400 × √2 ≈ 9050 km from the centre, about 2650 km above the surface.'],
+    ['Would a pendulum clock work on the ISS?','No: in free fall there is no effective restoring force, so it would not swing.']]},
+{id:'i3',t:0,l:2,q:'Estimate how many litres of water are used to flush toilets in the UK each day.',
+ h:['How many people, how many flushes each per day, and how much water per flush?',
+    'Roughly 67 million people, about 5 flushes each per day (some at work or school), and about 6 litres per modern flush (older cisterns use more).'],
+ a:'<p>67 × 10⁶ × 5 × 6 L ≈ <b>2 × 10⁹ litres a day</b>, about 2 million cubic metres.</p><p>That is roughly 800 Olympic swimming pools a day, or about a fifth of all household water use. Sanity check: UK homes use about 140 litres per person per day in total, and toilets are often quoted as about a quarter of that, which gives about 35 litres per person, in line with 5 × 6 = 30.</p>',
+ f:[['How much would switching every toilet to a 4-litre dual flush save per year?','2 litres × 5 × 67 × 10⁶ × 365 ≈ 2.4 × 10¹¹ litres, about a quarter of a cubic kilometre.'],
+    ['Estimate the energy used to pump that water to homes, if it takes about 0.5 kWh per cubic metre.','2 × 10⁶ m³ × 0.5 kWh ≈ 10⁶ kWh per day, about 40 MW on average.']]},
+{id:'i4',t:3,l:3,q:'(University level) Why is the sky blue, but sunsets red? Use the fact that scattering by molecules goes as 1/λ⁴.',
+ h:['Compare how strongly blue light (450 nm) and red light (700 nm) are scattered.',
+    'At sunset the light travels through much more atmosphere to reach you. What happens to the blue part along the way?'],
+ a:'<p>(700/450)⁴ ≈ 5.9, so blue light is scattered about <b>six times</b> more than red by air molecules (Rayleigh scattering). Looking away from the Sun, you see light scattered towards you: mostly blue, so the sky looks blue.</p><p>At sunset, sunlight crosses tens of times more air. Most of the blue is scattered out of the direct beam before it reaches you, leaving the red and orange: the setting Sun and the clouds it lights look red.</p><p>Violet scatters even more, but the sky is not violet because sunlight has less violet, some is absorbed high up, and our eyes are less sensitive to it.</p>',
+ f:[['Why are clouds white rather than blue?','Cloud droplets are much larger than the wavelength of light, so they scatter all colours about equally (Mie scattering).'],
+    ['What colour is the sky on the Moon, and why?','Black: there is no atmosphere to scatter sunlight.']]}
+);
 PHY.forEach(q=>{q.f=q.f||PHY_FOLLOW[q.id]||[];});
 
 const PHY_SOURCES=[

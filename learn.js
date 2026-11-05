@@ -147,7 +147,13 @@ const CARDS=[
  [7,'Background radiation sources','Radon gas from rocks, cosmic rays, rocks and buildings, food and drink, and medical sources. Subtract the background count from measurements.'],
  [7,'Evidence for the nuclear model from α scattering','Most α particles pass straight through (the atom is mostly empty); a few are deflected through large angles (a small, dense, positive nucleus).'],
  [3,'Newton\'s third law','If body A exerts a force on body B, then B exerts an equal and opposite force on A, of the same type.'],
- [1,'Why the photoelectric effect supports the photon model','Emission is instant and only above a threshold frequency, however intense the light; each electron absorbs one photon, so energy comes in packets hf.']
+ [1,'Why the photoelectric effect supports the photon model','Emission is instant and only above a threshold frequency, however intense the light; each electron absorbs one photon, so energy comes in packets hf.'],
+ [0,'Precision vs accuracy','Precise measurements are close to each other (small spread); accurate measurements are close to the true value.'],
+ [2,'Coherent sources','Sources with the same frequency (and wavelength) and a constant phase difference; needed for a stable interference pattern.'],
+ [2,'Diffraction: when it is most noticeable','When the gap or obstacle is about the same size as the wavelength.'],
+ [4,'Why the terminal pd of a cell falls as the current increases','More current means more "lost volts" (Ir) across the internal resistance, so less pd is available to the external circuit.'],
+ [5,'Absolute zero','The lowest possible temperature, 0 K: the temperature at which the particles of a substance have minimum internal energy.'],
+ [5,'Brownian motion and what it shows','The random, jerky motion of small particles (e.g. smoke) caused by collisions with fast, randomly moving molecules: evidence for molecules.']
 ].map((c,i)=>({id:'a'+i,cat:c[0],front:c[1],back:c[2]}));
 const BOX_DAYS=[0,1,2,4,8,16,32];
 const NEW_PER_DAY=10;
@@ -369,7 +375,11 @@ const POTW=[
  ['A 12 V battery with internal resistance 1 Ω is connected to a 5 Ω resistor. Find the current, the terminal pd and the power wasted inside the battery.',
   'I = ε/(R + r) = 12/6 = <b>2 A</b>. Terminal pd = IR = <b>10 V</b> (the "lost volts" are Ir = 2 V). Power wasted = I²r = <b>4 W</b>, out of 24 W supplied. Check: 20 W in the resistor + 4 W = 24 W. ✓'],
  ['(University level) Find the speed of a satellite in a circular orbit just above the Earth\'s surface, and the period of the orbit. (g = 9.8 m/s², R = 6.4 × 10⁶ m)',
-  'Gravity provides the centripetal force: mg = mv²/R, so v = √(gR) = √(9.8 × 6.4 × 10⁶) ≈ <b>7.9 km/s</b>. Period T = 2πR/v ≈ 4.0 × 10⁷/7900 ≈ 5100 s ≈ <b>85 minutes</b>. The ISS, about 400 km up, takes about 92 minutes.']
+  'Gravity provides the centripetal force: mg = mv²/R, so v = √(gR) = √(9.8 × 6.4 × 10⁶) ≈ <b>7.9 km/s</b>. Period T = 2πR/v ≈ 4.0 × 10⁷/7900 ≈ 5100 s ≈ <b>85 minutes</b>. The ISS, about 400 km up, takes about 92 minutes.'],
+ ['Two trolleys, 2 kg at 3 m/s and 1 kg at rest, collide and stick together. Find their common speed and the kinetic energy lost.',
+  'Momentum: 2 × 3 = 3v, so <b>v = 2 m/s</b>. KE before: ½ × 2 × 9 = 9 J; after: ½ × 3 × 4 = 6 J. <b>3 J lost</b> (to heat, sound and deformation), a third of the original: typical of a perfectly inelastic collision.'],
+ ['(University level) A charged capacitor C is connected to an identical uncharged capacitor. Show that half of the stored energy is lost, whatever the resistance of the wires.',
+  'Initially Q = CV and E = ½CV². Charge is shared equally: each has Q/2, so each has pd V/2. Total energy now 2 × ½C(V/2)² = ¼CV²: <b>half is lost</b>. It goes into heat in the wires (or radiation if R → 0); a smaller R just means a larger, shorter current, with the same total I²R loss.']
 ];
 function weekIndex(){
   const d=new Date(),start=new Date(d.getFullYear(),0,1);

@@ -66,7 +66,9 @@ V:[
  [0.4,'Which word is the opposite of TRANSPARENT?',['Opaque','Clear','Fragile','Bright'],'Opaque means light cannot pass through.'],
  [1.1,'GLOVE is to HAND as THIMBLE is to:',['Finger','Needle','Thread','Sewing'],'A glove covers the hand; a thimble covers a finger.'],
  [0.6,'Which word is closest in meaning to METICULOUS?',['Careful','Careless','Quick','Loud'],'Meticulous means showing great attention to detail.'],
- [1.5,'Which word is the opposite of LOQUACIOUS?',['Taciturn','Talkative','Generous','Cheerful'],'Loquacious means very talkative; taciturn means saying little.']
+ [1.5,'Which word is the opposite of LOQUACIOUS?',['Taciturn','Talkative','Generous','Cheerful'],'Loquacious means very talkative; taciturn means saying little.'],
+ [0.5,'Which word is closest in meaning to CANDID?',['Frank','Sweet','Hidden','Brilliant'],'Candid means honest and straightforward.'],
+ [1.2,'PILOT is to AEROPLANE as JOCKEY is to:',['Horse','Race','Saddle','Stable'],'A pilot controls an aeroplane; a jockey rides a horse.']
 ],
 Q:[
  [-1.9,'What is 25% of 80?',['20','25','40','16'],'25% is a quarter, and a quarter of 80 is 20.'],
@@ -129,7 +131,9 @@ Q:[
  [0.7,'What is 15% of 15% of 400?',['9','60','90','22.5'],'15% of 400 = 60, and 15% of 60 = 9.'],
  [1.3,'A tap fills a tank in 6 hours and a second tap fills it in 3 hours. How long do they take together?',['2 hours','4.5 hours','9 hours','1.5 hours'],'Rates 1/6 + 1/3 = 1/2 of the tank per hour, so 2 hours.'],
  [0.5,'What is the next number: 1, 4, 9, 16, 25, …?',['36','30','35','49'],'The square numbers: 6² = 36.'],
- [1.2,'A number is increased by 10% and the result is then decreased by 10%. What is the overall change?',['A 1% decrease','No change','A 1% increase','A 10% decrease'],'1.1 × 0.9 = 0.99.']
+ [1.2,'A number is increased by 10% and the result is then decreased by 10%. What is the overall change?',['A 1% decrease','No change','A 1% increase','A 10% decrease'],'1.1 × 0.9 = 0.99.'],
+ [0.6,'What is the next number: 2, 6, 12, 20, 30, …?',['42','40','36','44'],'Differences 4, 6, 8, 10, then 12.'],
+ [1.1,'A clock shows 3:00. What is the angle between the hands at 3:30?',['75°','90°','60°','80°'],'Minute hand at 180°, hour hand at 90° + 15° = 105°; the difference is 75°.']
 ],
 L:[
  [-1.8,'All cats have whiskers. Tibbles is a cat. Which must be true?',['Tibbles has whiskers','Tibbles is not a cat','Every animal with whiskers is a cat','Tibbles has no whiskers'],'Tibbles is a cat, and all cats have whiskers.'],
@@ -188,6 +192,8 @@ L:[
  [0.8,'Some scientists are musicians. All musicians are patient. Which must be true?',['Some scientists are patient','All scientists are patient','All patient people are musicians','No scientist is patient'],'The scientists who are musicians are patient.'],
  [1.2,'In a race, Kim finished ahead of Lee but behind Max. Nia finished behind Lee. Who came third?',['Lee','Kim','Max','Nia'],'The order is Max, Kim, Lee, Nia.'],
  [0.7,'All squares are rectangles. Shape X is not a rectangle. What follows?',['X is not a square','X is a square','X is a circle','Nothing follows'],'Anything that is a square must be a rectangle.'],
- [1.3,'Five people shake hands with each other exactly once. How many handshakes are there?',['10','20','25','5'],'Each pair shakes once: 5 × 4 / 2 = 10.']
+ [1.3,'Five people shake hands with each other exactly once. How many handshakes are there?',['10','20','25','5'],'Each pair shakes once: 5 × 4 / 2 = 10.'],
+ [0.6,'If no reptiles have fur, and all snakes are reptiles, which must be true?',['No snakes have fur','Some snakes have fur','All reptiles are snakes','Some reptiles have fur'],'Snakes are reptiles, and no reptile has fur.'],
+ [1.4,'A says "B is lying." B says "C is lying." C says "A and B are both lying." Who is telling the truth?',['B only','A only','C only','A and C'],'If C were truthful, A would be lying, so B would be truthful: a contradiction. So C lies, B (who says C lies) is truthful, and A (who says B lies) is lying.']
 ]
 };
