@@ -133,6 +133,11 @@ const AL_PHY_BANK=[
  ,[1,'What is the antiparticle of the electron?',['Positron','Proton','Neutrino','Antineutron'],'The positron has the same mass and opposite charge.']
  ,[3,'A car travels round a roundabout at constant speed. Which statement is true?',['It is accelerating','Its velocity is constant','No resultant force acts on it','Its kinetic energy is increasing'],'Its direction changes, so its velocity changes: it accelerates towards the centre.']
  ,[3,'Which property describes a material that can be drawn into wires?',['Ductile','Brittle','Stiff','Elastic'],'Ductile materials undergo large plastic deformation under tension.']
+ ,[0,'Two lengths are 12.0 ± 0.1 cm and 8.0 ± 0.1 cm. What is the absolute uncertainty in their difference?',['± 0.2 cm','± 0.1 cm','± 0.0 cm','± 0.05 cm'],'When quantities are added or subtracted, absolute uncertainties add.']
+ ,[2,'A stationary wave on a string has nodes 15 cm apart. What is the wavelength?',['30 cm','15 cm','7.5 cm','60 cm'],'Adjacent nodes are half a wavelength apart.']
+ ,[4,'A 2 Ω, a 3 Ω and a 6 Ω resistor are connected in parallel. What is the total resistance?',['1 Ω','11 Ω','3.7 Ω','0.5 Ω'],'1/R = 1/2 + 1/3 + 1/6 = 1, so R = 1 Ω.']
+ ,[6,'The gravitational field strength at the surface of a planet is 10 N/kg. What is it at a height equal to the planet\'s radius?',['2.5 N/kg','5 N/kg','10 N/kg','1.25 N/kg'],'The distance from the centre doubles, so g falls by a factor of 4.']
+ ,[7,'In β⁻ decay, which of these is emitted along with the electron?',['An electron antineutrino','A neutrino','A positron','A proton'],'Lepton number is conserved: the electron (+1) is balanced by an antineutrino (−1).']
 ];
 const AL_PHY_GEN=[
  [4,()=>{const [a,b,r]=pick([[6,3,2],[12,4,3],[10,10,5],[20,5,4],[6,12,4],[30,6,5],[8,8,4],[15,10,6]]);
@@ -270,6 +275,10 @@ const AL_MATHS_BANK=[
  ,[3,'Convert 135° to radians.',['3π/4','2π/3','5π/6','π/4'],'135 × π/180 = 3π/4.']
  ,[4,'Write log₂8 + log₂4 as a single number.',['5','12','32','6'],'3 + 2 = 5 (or log₂32).']
  ,[7,'Vectors a = 2i + 3j and b = i − j. Find a − 2b.',['5j','4i + j','3i + 2j','i + 5j'],'(2 − 2)i + (3 + 2)j = 5j.']
+ ,[0,'Solve the inequality 2x − 5 > 7.',['x > 6','x > 1','x < 6','x > 12'],'Add 5 then divide by 2.']
+ ,[8,'The mean of 4 numbers is 7. A fifth number is added and the mean becomes 8. What is the fifth number?',['12','8','15','9'],'Totals: 28, then 40, so the new number is 12.']
+ ,[9,'A 3 kg particle accelerates at 4 m/s². What is the resultant force on it?',['12 N','0.75 N','7 N','1.33 N'],'F = ma.']
+ ,[4,'Solve e^(x) = 5.',['x = ln 5','x = 5e','x = log 5','x = e⁵'],'Take natural logarithms of both sides.']
 ];
 const AL_MATHS_GEN=[
  [0,()=>{let r1,r2;do{r1=rint(-7,7);r2=rint(-7,7);}while(!r1||!r2||r1===r2||r1===-r2);
@@ -433,6 +442,9 @@ const AL_ECON_BANK=[
  ,[3,'Which of these is most likely to increase the supply of labour to an occupation?',['A rise in the wage in that occupation relative to others','Higher qualification requirements','Worse working conditions','A fall in the wage'],'Higher relative wages draw workers in (a movement along, or entry into, the occupation).']
  ,[6,'What is quantitative easing?',['A central bank creating money to buy assets such as government bonds','A cut in income tax','A rise in government spending','Printing banknotes to pay public sector wages'],'QE aims to lower long-term interest rates and boost spending.']
  ,[4,'Demand-pull inflation is most likely when:',['Aggregate demand grows faster than productive capacity','Oil prices rise','Wages rise faster than productivity','The exchange rate rises'],'Excess demand pulls up prices; the other options are cost-push or deflationary.']
+ ,[1,'A negative externality in production means that:',['The social cost exceeds the private cost','The private cost exceeds the social cost','The good is under-consumed','The market price is too high'],'Third parties bear costs that producers ignore, so the good is over-produced.']
+ ,[2,'Which feature is characteristic of an oligopoly?',['Interdependence between a few large firms','Many small firms','A single seller','No barriers to entry'],'Each firm\'s decisions depend on how its rivals respond.']
+ ,[5,'Which is an example of a supply-side policy?',['Funding apprenticeships to raise skills','Cutting interest rates','Raising unemployment benefits','Printing money'],"It aims to increase productive capacity (LRAS)."]
 ];
 const AL_ECON_GEN=[
  [0,()=>{let p,q;do{p=pick([10,20,25,50]);q=pick([5,10,15,20,40]);}while(p===q);const ped=-(q/p);

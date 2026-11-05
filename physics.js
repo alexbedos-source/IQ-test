@@ -760,6 +760,32 @@ PHY.push(
  f:[['Why are clouds white rather than blue?','Cloud droplets are much larger than the wavelength of light, so they scatter all colours about equally (Mie scattering).'],
     ['What colour is the sky on the Moon, and why?','Black: there is no atmosphere to scatter sunlight.']]}
 );
+PHY.push(
+{id:'k1',t:1,l:2,q:'A 70 kg bungee jumper falls from rest on a cord 20 m long with a stiffness of 200 N/m. Find the maximum extension of the cord and the jumper\'s greatest acceleration. (g = 9.8 m/s²)',
+ h:['At the lowest point the jumper is momentarily at rest. Use energy conservation from the top to the bottom: gravitational PE lost = elastic energy stored.',
+    'The jumper falls (20 + x) metres in total, and the cord stores ½kx². Solve the quadratic for x. The greatest acceleration is at the bottom, where the cord pulls hardest.'],
+ a:'<p>Energy: mg(20 + x) = ½kx², so 686(20 + x) = 100x², giving 100x² − 686x − 13 720 = 0.</p><p>x = (686 + √(686² + 4 × 100 × 13 720))/200 = (686 + 2441)/200 ≈ <b>15.6 m</b>, so the lowest point is about 35.6 m below the platform.</p><p>At the bottom: net upward force = kx − mg = 200 × 15.6 − 686 ≈ 2440 N, so a ≈ 2440/70 ≈ <b>35 m/s² ≈ 3.6 g</b> upwards. Sanity check: the equilibrium extension is mg/k = 3.4 m, and the jumper overshoots it by far, as expected after a 20 m free fall.</p>',
+ f:[['Where is the jumper moving fastest?','At the equilibrium point, 20 + 3.4 = 23.4 m down, where the net force is zero: ½mv² = mg(23.4) − ½k(3.4)², giving v ≈ 20.6 m/s.'],
+    ['Why do bungee cords use a soft, long cord rather than a stiff one?','A smaller k gives a larger stopping distance, so a smaller maximum force and acceleration for the same energy.']]},
+{id:'k2',t:1,l:1,q:'A car travels at 30 m/s (about 70 mph). The driver reacts in 0.7 s and the brakes give a friction coefficient of 0.7. Find the total stopping distance. What happens at twice the speed? (g = 9.8 m/s²)',
+ h:['Split it into thinking distance (constant speed during the reaction time) and braking distance.',
+    'Maximum braking deceleration = μg. Then v² = u² − 2as with v = 0.'],
+ a:'<p>Thinking distance = 30 × 0.7 = 21 m. Deceleration = 0.7 × 9.8 ≈ 6.9 m/s², so braking distance = 30²/(2 × 6.9) ≈ 65 m. Total ≈ <b>86 m</b>, about 20 car lengths.</p><p>At 60 m/s the thinking distance doubles (42 m) but the braking distance <b>quadruples</b> (about 260 m), because it goes as v². Total ≈ 300 m.</p><p>Mass cancels: heavy and light cars brake equally well if their tyres grip equally (in practice lorries take longer).</p>',
+ f:[['How does a wet road (μ = 0.4) change the braking distance at 30 m/s?','30²/(2 × 3.9) ≈ 115 m, nearly twice as far.'],
+    ['How much heat do the brakes absorb for a 1200 kg car stopping from 30 m/s?','½ × 1200 × 900 = 540 kJ, enough to heat 1.5 kg of brake disc (c = 450) by about 800 K, which is why brakes can fade on long descents.']]},
+{id:'k3',t:6,l:2,q:'How short would the Earth\'s day have to be for objects at the equator to become weightless? (g = 9.8 m/s², Earth\'s radius 6.4 × 10⁶ m)',
+ h:['An object on the equator moves in a circle. When would gravity alone be just enough to provide the centripetal force?',
+    'Set g = ω²R and find T = 2π/ω.'],
+ a:'<p>Weightless when mg = mω²R, so ω = √(g/R) = √(9.8/6.4 × 10⁶) ≈ 1.24 × 10⁻³ rad/s.</p><p>T = 2π/ω ≈ <b>5100 s ≈ 85 minutes</b>, the same as the period of a satellite skimming the surface (which makes sense: you would be in orbit while standing still).</p><p>Today ω²R ≈ 0.034 m/s², so the equator already reduces your apparent weight by about 0.3%.</p>',
+ f:[['By how much does the Earth\'s spin reduce the apparent weight of a 60 kg person at the equator today?','m ω²R = 60 × 0.034 ≈ 2 N, about 0.35%.'],
+    ['Why is the Earth wider at the equator than pole to pole?','Its spin reduces the effective gravity at the equator, so the planet bulges there, by about 21 km in radius.']]},
+{id:'k4',t:4,l:1,q:'An electric car has a 60 kWh battery and a range of 400 km. It charges from a 7 kW home charger. How long does a full charge take, what current flows at 230 V, and what does each kilometre cost at 25p per kWh?',
+ h:['Time = energy / power (ignoring charging losses).',
+    'I = P/V. Cost per km = (energy per km) × (price per kWh).'],
+ a:'<p>Time = 60/7 ≈ <b>8.6 hours</b> (overnight). Current = 7000/230 ≈ <b>30 A</b>, more than a normal socket (13 A), which is why chargers need their own circuit.</p><p>Energy per km = 60/400 = 0.15 kWh, so the cost ≈ 0.15 × 25p ≈ <b>3.75p per km</b>. A petrol car using 6 L per 100 km at £1.50 per litre costs about 9p per km.</p><p>In practice charging is about 90% efficient, so allow roughly 10% more time and cost.</p>',
+ f:[['How fast could a 150 kW rapid charger fill the battery from 20% to 80%?','36 kWh / 150 kW ≈ 0.24 h ≈ 15 minutes (in practice slower, as charging rate drops near full).'],
+    ['How much energy is in the 60 kWh battery in joules, and to what height could it lift the 2000 kg car?','2.16 × 10⁸ J; h = E/(mg) ≈ 2.16 × 10⁸ / 19 600 ≈ 11 km.']]}
+);
 /* ---- Calculation rewrites (owner's request, 5 Nov 2026) ----
    54 questions rewritten in place as numerical problems: the 12 that duplicated other questions, plus most of the
    purely verbal ones. Same ids (so saved questions and links still work); their old spaced-repetition ratings are

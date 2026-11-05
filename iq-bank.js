@@ -68,7 +68,9 @@ V:[
  [0.6,'Which word is closest in meaning to METICULOUS?',['Careful','Careless','Quick','Loud'],'Meticulous means showing great attention to detail.'],
  [1.5,'Which word is the opposite of LOQUACIOUS?',['Taciturn','Talkative','Generous','Cheerful'],'Loquacious means very talkative; taciturn means saying little.'],
  [0.5,'Which word is closest in meaning to CANDID?',['Frank','Sweet','Hidden','Brilliant'],'Candid means honest and straightforward.'],
- [1.2,'PILOT is to AEROPLANE as JOCKEY is to:',['Horse','Race','Saddle','Stable'],'A pilot controls an aeroplane; a jockey rides a horse.']
+ [1.2,'PILOT is to AEROPLANE as JOCKEY is to:',['Horse','Race','Saddle','Stable'],'A pilot controls an aeroplane; a jockey rides a horse.'],
+ [0.6,'Which word is closest in meaning to FRUGAL?',['Thrifty','Wasteful','Fruitful','Generous'],'Frugal means careful with money or resources.'],
+ [1.3,'Which word is the opposite of EPHEMERAL?',['Permanent','Brief','Ethereal','Fragile'],'Ephemeral means lasting a very short time.']
 ],
 Q:[
  [-1.9,'What is 25% of 80?',['20','25','40','16'],'25% is a quarter, and a quarter of 80 is 20.'],
@@ -133,7 +135,9 @@ Q:[
  [0.5,'What is the next number: 1, 4, 9, 16, 25, …?',['36','30','35','49'],'The square numbers: 6² = 36.'],
  [1.2,'A number is increased by 10% and the result is then decreased by 10%. What is the overall change?',['A 1% decrease','No change','A 1% increase','A 10% decrease'],'1.1 × 0.9 = 0.99.'],
  [0.6,'What is the next number: 2, 6, 12, 20, 30, …?',['42','40','36','44'],'Differences 4, 6, 8, 10, then 12.'],
- [1.1,'A clock shows 3:00. What is the angle between the hands at 3:30?',['75°','90°','60°','80°'],'Minute hand at 180°, hour hand at 90° + 15° = 105°; the difference is 75°.']
+ [1.1,'A clock shows 3:00. What is the angle between the hands at 3:30?',['75°','90°','60°','80°'],'Minute hand at 180°, hour hand at 90° + 15° = 105°; the difference is 75°.'],
+ [0.6,'A recipe needs 250 g of flour for 4 people. How much flour is needed for 10 people?',['625 g','500 g','1000 g','650 g'],'250/4 = 62.5 g per person, × 10 = 625 g.'],
+ [1.2,'What is the next number: 1, 1, 2, 3, 5, 8, 13, …?',['21','18','20','26'],'Each number is the sum of the previous two (8 + 13).']
 ],
 L:[
  [-1.8,'All cats have whiskers. Tibbles is a cat. Which must be true?',['Tibbles has whiskers','Tibbles is not a cat','Every animal with whiskers is a cat','Tibbles has no whiskers'],'Tibbles is a cat, and all cats have whiskers.'],
@@ -194,6 +198,8 @@ L:[
  [0.7,'All squares are rectangles. Shape X is not a rectangle. What follows?',['X is not a square','X is a square','X is a circle','Nothing follows'],'Anything that is a square must be a rectangle.'],
  [1.3,'Five people shake hands with each other exactly once. How many handshakes are there?',['10','20','25','5'],'Each pair shakes once: 5 × 4 / 2 = 10.'],
  [0.6,'If no reptiles have fur, and all snakes are reptiles, which must be true?',['No snakes have fur','Some snakes have fur','All reptiles are snakes','Some reptiles have fur'],'Snakes are reptiles, and no reptile has fur.'],
- [1.4,'A says "B is lying." B says "C is lying." C says "A and B are both lying." Who is telling the truth?',['B only','A only','C only','A and C'],'If C were truthful, A would be lying, so B would be truthful: a contradiction. So C lies, B (who says C lies) is truthful, and A (who says B lies) is lying.']
+ [1.4,'A says "B is lying." B says "C is lying." C says "A and B are both lying." Who is telling the truth?',['B only','A only','C only','A and C'],'If C were truthful, A would be lying, so B would be truthful: a contradiction. So C lies, B (who says C lies) is truthful, and A (who says B lies) is lying.'],
+ [0.7,'Every doctor in the hospital has a pager. Jo has no pager. What follows?',['Jo is not a doctor in the hospital','Jo is a doctor in the hospital','Jo works in a different hospital','Nothing follows'],'If Jo were a doctor in the hospital, Jo would have a pager.'],
+ [1.3,'A bat and a ball cost £1.10 together. The bat costs £1.00 more than the ball. How much does the ball cost?',['5p','10p','15p','1p'],'Ball = b, bat = b + 1.00, so 2b + 1.00 = 1.10 and b = 0.05.']
 ]
 };

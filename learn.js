@@ -153,7 +153,13 @@ const CARDS=[
  [2,'Diffraction: when it is most noticeable','When the gap or obstacle is about the same size as the wavelength.'],
  [4,'Why the terminal pd of a cell falls as the current increases','More current means more "lost volts" (Ir) across the internal resistance, so less pd is available to the external circuit.'],
  [5,'Absolute zero','The lowest possible temperature, 0 K: the temperature at which the particles of a substance have minimum internal energy.'],
- [5,'Brownian motion and what it shows','The random, jerky motion of small particles (e.g. smoke) caused by collisions with fast, randomly moving molecules: evidence for molecules.']
+ [5,'Brownian motion and what it shows','The random, jerky motion of small particles (e.g. smoke) caused by collisions with fast, randomly moving molecules: evidence for molecules.'],
+ [0,'Zero error','A systematic error where an instrument does not read zero when the true value is zero; correct it by subtracting the zero reading.'],
+ [0,'Parallax error','An error from reading a scale at an angle; avoid it by reading with your eye level and perpendicular to the scale.'],
+ [3,'Principle of moments','For an object in equilibrium, the sum of clockwise moments about any point equals the sum of anticlockwise moments about that point.'],
+ [3,'Terminal velocity','The constant speed reached when the drag force (plus any upthrust) equals the weight, so the resultant force and acceleration are zero.'],
+ [4,'Ohm\'s law','For a conductor at constant temperature, the current is directly proportional to the potential difference across it.'],
+ [7,'Why α radiation is the most dangerous inside the body but least dangerous outside','It is strongly ionising, so inside the body it damages cells nearby; outside, it is stopped by the dead outer layer of skin (or a few cm of air).']
 ].map((c,i)=>({id:'a'+i,cat:c[0],front:c[1],back:c[2]}));
 const BOX_DAYS=[0,1,2,4,8,16,32];
 const NEW_PER_DAY=10;
@@ -379,7 +385,11 @@ const POTW=[
  ['Two trolleys, 2 kg at 3 m/s and 1 kg at rest, collide and stick together. Find their common speed and the kinetic energy lost.',
   'Momentum: 2 × 3 = 3v, so <b>v = 2 m/s</b>. KE before: ½ × 2 × 9 = 9 J; after: ½ × 3 × 4 = 6 J. <b>3 J lost</b> (to heat, sound and deformation), a third of the original: typical of a perfectly inelastic collision.'],
  ['(University level) A charged capacitor C is connected to an identical uncharged capacitor. Show that half of the stored energy is lost, whatever the resistance of the wires.',
-  'Initially Q = CV and E = ½CV². Charge is shared equally: each has Q/2, so each has pd V/2. Total energy now 2 × ½C(V/2)² = ¼CV²: <b>half is lost</b>. It goes into heat in the wires (or radiation if R → 0); a smaller R just means a larger, shorter current, with the same total I²R loss.']
+  'Initially Q = CV and E = ½CV². Charge is shared equally: each has Q/2, so each has pd V/2. Total energy now 2 × ½C(V/2)² = ¼CV²: <b>half is lost</b>. It goes into heat in the wires (or radiation if R → 0); a smaller R just means a larger, shorter current, with the same total I²R loss.'],
+ ['A 0.5 kg ball on a 1.0 m string is whirled in a vertical circle. What is the minimum speed at the top for the string to stay taut, and the tension at the bottom if it moves that slowly at the top? (g = 10 m/s²)',
+  'At the top, gravity alone provides the centripetal force: mg = mv²/r, so v_top = √(gr) = <b>3.2 m/s</b>. Energy down to the bottom (2 m lower): v² = gr + 4gr = 5gr = 50. At the bottom, T − mg = mv²/r, so T = 0.5 × 10 + 0.5 × 50 = <b>30 N</b>, six times the weight.'],
+ ['(University level) A rocket burns fuel so that its mass falls from 100 t to 25 t, with exhaust speed 3 km/s. Using the rocket equation Δv = u ln(m₀/m₁), find its change in speed. Why are rockets built in stages?',
+  'Δv = 3000 × ln4 ≈ 3000 × 1.39 ≈ <b>4.2 km/s</b>, short of the 7.8 km/s needed for orbit (plus losses). Doubling Δv needs the mass ratio squared (16 instead of 4), so rockets drop empty tanks and engines in stages: each stage then only accelerates the useful mass above it.']
 ];
 function weekIndex(){
   const d=new Date(),start=new Date(d.getFullYear(),0,1);
