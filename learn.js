@@ -165,7 +165,13 @@ const CARDS=[
  [4,'Kirchhoff\'s second law','Around any closed loop in a circuit, the sum of the emfs equals the sum of the pds: a consequence of conservation of energy.'],
  [5,'Charles\'s law','For a fixed mass of gas at constant pressure, the volume is directly proportional to the absolute temperature.'],
  [6,'Field lines and equipotentials around a point charge','Field lines are radial; equipotentials are concentric spheres, closer together where the field is stronger.'],
- [3,'Newton\'s first law','An object stays at rest or moves at constant velocity unless a resultant force acts on it.']
+ [3,'Newton\'s first law','An object stays at rest or moves at constant velocity unless a resultant force acts on it.'],
+ [0,'Interpolation vs extrapolation','Interpolation reads a value between measured points; extrapolation extends the graph beyond them, which is less reliable because the trend may change.'],
+ [2,'Refraction at a boundary: what changes','The speed and wavelength change; the frequency stays the same. Light bends towards the normal when it slows down.'],
+ [4,'Uses of superconductors','Strong electromagnets (MRI scanners, particle accelerators) and, in future, power cables with no resistive losses.'],
+ [5,'Specific latent heat of vaporisation vs fusion','Vaporisation needs much more energy per kilogram than melting, because the particles must be separated completely and work is done pushing back the atmosphere.'],
+ [6,'Magnetic flux linkage','The flux through a coil multiplied by its number of turns; an emf is induced whenever it changes.'],
+ [7,'What happens to the proton and nucleon numbers in α decay','The proton number falls by 2 and the nucleon number falls by 4.']
 ].map((c,i)=>({id:'a'+i,cat:c[0],front:c[1],back:c[2]}));
 /* ---- Card fixes (6 Nov 2026): 33 cards repeated earlier cards (added by mistake by scheduled runs). They are rewritten
    in place with new AQA content, keeping their ids; their old review progress is cleared once (key 'cards-fix1'). ---- */
@@ -439,7 +445,11 @@ const POTW=[
  ['A 1500 kg car accelerates from rest to 20 m/s in 8 s on a level road against an average resistive force of 500 N. Find the average power delivered by the engine.',
   'KE gained = ½ × 1500 × 400 = 300 kJ. Distance (uniform acceleration) = ½ × 20 × 8 = 80 m, so work against resistance = 500 × 80 = 40 kJ. Total 340 kJ in 8 s: average power = <b>42.5 kW</b> (about 57 horsepower).'],
  ['(University level) A uniform disc of mass M and radius R (moment of inertia ½MR²) starts from rest and rolls without slipping down a slope at angle θ. Show that its acceleration is (2/3)g sinθ.',
-  'Along the slope: Mg sinθ − F = Ma. Torque from friction about the centre: FR = Iα = ½MR² × (a/R), so F = ½Ma. Adding: Mg sinθ = (3/2)Ma, so <b>a = (2/3)g sinθ</b>, less than the g sinθ of a sliding block, as some energy goes into rotation.']
+  'Along the slope: Mg sinθ − F = Ma. Torque from friction about the centre: FR = Iα = ½MR² × (a/R), so F = ½Ma. Adding: Mg sinθ = (3/2)Ma, so <b>a = (2/3)g sinθ</b>, less than the g sinθ of a sliding block, as some energy goes into rotation.'],
+ ['A 60 kg skier starts from rest at the top of a 30 m high slope and reaches the bottom at 20 m/s. How much energy was lost to friction and air resistance, and what was the average resistive force if the slope is 150 m long? (g = 10 m/s²)',
+  'PE lost = 60 × 10 × 30 = 18 kJ; KE gained = ½ × 60 × 400 = 12 kJ. So <b>6 kJ</b> was lost. Average resistive force = 6000/150 = <b>40 N</b>. Check: without losses the speed would have been √(2gh) ≈ 24.5 m/s.'],
+ ['(University level) Two springs of stiffness k₁ and k₂ are joined in series. Show that the combination has stiffness k₁k₂/(k₁ + k₂), and find the period of a 0.5 kg mass on two 100 N/m springs in series.',
+  'The same tension F acts in both springs, so the extensions add: F/k = F/k₁ + F/k₂, giving <b>k = k₁k₂/(k₁ + k₂)</b>. For two 100 N/m springs, k = 50 N/m, so T = 2π√(m/k) = 2π√(0.01) ≈ <b>0.63 s</b>. (In parallel they would give 200 N/m and 0.31 s.)']
 ];
 function weekIndex(){
   const d=new Date(),start=new Date(d.getFullYear(),0,1);

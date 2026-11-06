@@ -812,6 +812,32 @@ PHY.push(
  f:[['If the room loses 200 W per kelvin above the outside temperature, what is the highest temperature rise the heater can maintain?','In steady state 1000 W = 200 × ΔT, so ΔT = 5 K above outside.'],
     ['How much does running the heater for 3 hours cost at 25p per kWh?','3 kWh × 25p = 75p.']]}
 );
+PHY.push(
+{id:'t1',t:7,l:2,calc:true,q:'A washing machine drum of radius 25 cm spins at 1200 revolutions per minute. Find the acceleration of the clothes against the drum wall in multiples of g. Why does this dry the clothes?',
+ h:['Convert rpm to angular speed ω in rad/s.',
+    'Centripetal acceleration a = ω²r. Then think about the water: what holds it in a circle?'],
+ a:'<p>ω = 1200 × 2π/60 ≈ 126 rad/s. a = ω²r = 126² × 0.25 ≈ 4000 m/s² ≈ <b>400 g</b>.</p><p>The drum wall pushes the clothes inwards, providing the centripetal force. Water in the fabric is held only weakly; where the force needed to keep it moving in a circle exceeds what the fibres can supply, it carries on in a straight line (tangentially) and escapes through the holes in the drum.</p><p>Sanity check: at 400 g, 1 g of water needs about 4 N to stay with the clothes.</p>',
+ f:[['What is the speed of the drum wall?','v = ωr ≈ 126 × 0.25 ≈ 31 m/s, about 70 mph.'],
+    ['Why do machines spin up gradually and wobble if the load is uneven?','An off-centre mass means the centre of mass circles the axis, so a large rotating force shakes the machine; spinning up slowly lets the clothes spread out first.']]},
+{id:'t2',t:0,l:1,calc:true,q:'Estimate the mass of rain that falls on the UK in a year.',
+ h:['Estimate the area of the UK, and the average yearly rainfall depth.',
+    'The UK is roughly 240 000 km²; average rainfall is roughly 1 m a year (much more in the west, less in the east).'],
+ a:'<p>Area ≈ 2.4 × 10¹¹ m². Volume ≈ 2.4 × 10¹¹ × 1 m = 2.4 × 10¹¹ m³, so mass ≈ <b>2.4 × 10¹⁴ kg</b> (240 billion tonnes).</p><p>That is roughly 3600 tonnes per person per year (67 million people), while each person uses only about 50 tonnes of mains water a year: most rain evaporates or flows to the sea.</p>',
+ f:[['How much gravitational potential energy does that rain lose falling from clouds 1 km up?','mgh ≈ 2.4 × 10¹⁴ × 10 × 1000 ≈ 2.4 × 10¹⁸ J, mostly lost to air resistance on the way down.'],
+    ['How does that compare with UK electricity use (about 300 TWh a year)?','300 TWh ≈ 1.1 × 10¹⁸ J, so falling rain releases about twice as much energy, but it is spread thinly and cannot be captured.']]},
+{id:'t3',t:3,l:3,calc:true,q:'A magnifying glass 5 cm across with a focal length of 10 cm focuses sunlight onto paper. The Sun appears 0.53° across. Estimate the size of the bright spot and how much more intense it is than sunlight. (sunlight ≈ 1000 W/m²)',
+ h:['The lens forms an image of the Sun in its focal plane. The image size ≈ focal length × angular size (in radians).',
+    'All the power collected by the lens goes into the spot. Compare the areas.'],
+ a:'<p>0.53° = 9.3 × 10⁻³ rad, so the spot diameter ≈ 0.10 × 9.3 × 10⁻³ ≈ <b>0.9 mm</b>.</p><p>Power collected: π × 0.025² × 1000 ≈ 2.0 W. Spot area: π × (0.46 × 10⁻³)² ≈ 6.7 × 10⁻⁷ m². Intensity ≈ 3 × 10⁶ W/m², about <b>3000 times</b> sunlight (the ratio of the areas, (50/0.93)²).</p><p>Enough to char paper in seconds. A lens with a longer focal length gives a bigger, less intense spot.</p>',
+ f:[['Could you use a lens to make the spot hotter than the surface of the Sun?','No: the image of the Sun can at best match the Sun\'s surface brightness, so the spot cannot get hotter than about 5800 K (a consequence of the second law).'],
+    ['What is the spot size with a 50 cm focal length lens of the same diameter?','About 4.6 mm, and the intensity drops 25-fold to about 120 times sunlight.']]},
+{id:'t4',t:4,l:2,calc:true,q:'A car battery has an emf of 12.6 V and internal resistance 0.01 Ω. The starter motor draws 200 A. Find the terminal pd, the power delivered to the motor and the power wasted in the battery. Why do headlights dim when you start the engine?',
+ h:['Lost volts = Ir; terminal pd = ε − Ir.',
+    'Power to the motor = terminal pd × I; power wasted = I²r.'],
+ a:'<p>Lost volts = 200 × 0.01 = 2 V, so the terminal pd = <b>10.6 V</b>. Power to the motor = 10.6 × 200 ≈ <b>2.1 kW</b>. Wasted in the battery: 200² × 0.01 = <b>400 W</b>.</p><p>The headlights are connected across the same terminals, so their pd drops from 12.6 V to 10.6 V; since P ∝ V², they lose about 30% of their power and visibly dim. A cold battery has a higher internal resistance, making this worse.</p>',
+ f:[['What is the maximum current if the terminals were short-circuited?','ε/r = 12.6/0.01 = 1260 A, which is why shorting a car battery is so dangerous.'],
+    ['For what external resistance is the power to the load greatest?','When it equals the internal resistance (0.01 Ω): then the load gets ε²/4r ≈ 4 kW.']]}
+);
 /* ---- Calculation rewrites (owner's request, 5 Nov 2026) ----
    54 questions rewritten in place as numerical problems: the 12 that duplicated other questions, plus most of the
    purely verbal ones. Same ids (so saved questions and links still work); their old spaced-repetition ratings are

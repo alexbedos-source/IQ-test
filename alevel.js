@@ -142,6 +142,9 @@ const AL_PHY_BANK=[
  ,[0,'Which is a base SI unit?',['Kelvin','Newton','Volt','Joule'],'The base units are kg, m, s, A, K and mol (and cd); the others are derived.']
  ,[2,'What is the phase difference between two points half a wavelength apart on a progressive wave?',['π radians','2π radians','π/2 radians','0'],'One wavelength corresponds to 2π, so half a wavelength is π.']
  ,[4,'A cell of emf 6 V and internal resistance 0.5 Ω is short-circuited. What current flows?',['12 A','3 A','6 A','0.08 A'],'With no external resistance, I = ε/r = 6/0.5.']
+ ,[5,'A mass on a spring oscillates with simple harmonic motion. Where is its acceleration greatest?',['At maximum displacement','At the equilibrium position','Halfway between equilibrium and maximum displacement','It is the same everywhere'],'In SHM acceleration is proportional to displacement (and opposite to it).']
+ ,[6,'What happens to the capacitance of a parallel-plate capacitor if the plate separation is doubled?',['It halves','It doubles','It stays the same','It quarters'],'Capacitance is inversely proportional to the plate separation.']
+ ,[7,'Why is a γ source preferred for sterilising medical equipment?',['γ rays penetrate the packaging and kill bacteria throughout','γ rays are the most ionising','γ rays have a short range in air','γ sources have very short half-lives'],'γ rays are highly penetrating, so they reach everything inside sealed packaging.']
 ];
 const AL_PHY_GEN=[
  [4,()=>{const [a,b,r]=pick([[6,3,2],[12,4,3],[10,10,5],[20,5,4],[6,12,4],[30,6,5],[8,8,4],[15,10,6]]);
@@ -287,6 +290,10 @@ const AL_MATHS_BANK=[
  ,[3,'Which identity is correct?',['sin²θ + cos²θ = 1','sin²θ − cos²θ = 1','tanθ = cosθ/sinθ','sin2θ = 2sinθ'],'The Pythagorean identity; tanθ = sinθ/cosθ and sin2θ = 2sinθcosθ.']
  ,[5,'Differentiate y = sin(3x).',['3cos(3x)','cos(3x)','−3cos(3x)','3sin(3x)'],'Chain rule: the derivative of sin(u) is cos(u) × du/dx.']
  ,[7,'Using the trapezium rule with one strip, estimate ∫₀² x² dx.',['4','8/3','2','8'],'(h/2)(y₀ + y₁) = (2/2)(0 + 4) = 4 (an overestimate of the true 8/3).']
+ ,[2,'What is the sum to infinity of 8 + 4 + 2 + 1 + …?',['16','15','32','8'],'a/(1 − r) = 8/(1 − ½) = 16.']
+ ,[6,'Find ∫ 1/x dx for x > 0.',['ln x + C','x⁻² + C','−1/x² + C','1 + C'],'The derivative of ln x is 1/x.']
+ ,[3,'What is the period of y = sin(2x)?',['π','2π','π/2','4π'],'The period of sin(kx) is 2π/k.']
+ ,[8,'A fair dice is rolled twice. What is the probability of two sixes?',['1/36','1/6','1/12','2/6'],'Independent events: 1/6 × 1/6.']
 ];
 const AL_MATHS_GEN=[
  [0,()=>{let r1,r2;do{r1=rint(-7,7);r2=rint(-7,7);}while(!r1||!r2||r1===r2||r1===-r2);
@@ -457,6 +464,11 @@ const AL_ECON_BANK=[
  ,[3,'The Gini coefficient measures:',['Income or wealth inequality','The rate of inflation','The level of unemployment','The balance of trade'],'0 means perfect equality and 1 means total inequality.']
  ,[6,'What does a commercial bank\'s liquidity refer to?',['Its ability to meet withdrawals and short-term obligations','Its total profit','The interest rate it charges','Its share price'],'Liquid assets can be turned into cash quickly.']
  ,[4,'Which is most likely to cause cost-push inflation?',['A sharp rise in oil prices','A rise in consumer confidence','A cut in income tax','Lower interest rates'],'Higher input costs shift SRAS left, raising prices.']
+ ,[1,'Which is an example of a merit good?',['Education','Cigarettes','Petrol','Fast food'],'Merit goods are under-consumed in a free market because people underestimate their benefits.']
+ ,[2,'A firm maximises profit where:',['Marginal cost equals marginal revenue','Average cost is lowest','Total revenue is highest','Price equals average cost'],'Producing more than MC = MR adds more to costs than to revenue.']
+ ,[5,'Which is the main tool of UK monetary policy?',['Bank Rate set by the Bank of England','Income tax rates','Government spending','Tariffs on imports'],'The Monetary Policy Committee sets Bank Rate to meet the inflation target.']
+ ,[7,'What is a current account deficit?',['Spending on imports of goods, services and income exceeds earnings from exports','The government spends more than it receives in taxes','A fall in the exchange rate','A shortage of foreign currency reserves'],'It records trade in goods and services plus income flows with the rest of the world.']
+ ,[6,'What is a bank\'s capital ratio?',['Its capital as a share of its (risk-weighted) assets','Its profit as a share of sales','Its loans as a share of deposits','Its interest rate minus the Bank Rate'],'Higher capital ratios let banks absorb losses without failing.']
 ];
 const AL_ECON_GEN=[
  [0,()=>{let p,q;do{p=pick([10,20,25,50]);q=pick([5,10,15,20,40]);}while(p===q);const ped=-(q/p);
