@@ -138,6 +138,10 @@ const AL_PHY_BANK=[
  ,[4,'A 2 Ω, a 3 Ω and a 6 Ω resistor are connected in parallel. What is the total resistance?',['1 Ω','11 Ω','3.7 Ω','0.5 Ω'],'1/R = 1/2 + 1/3 + 1/6 = 1, so R = 1 Ω.']
  ,[6,'The gravitational field strength at the surface of a planet is 10 N/kg. What is it at a height equal to the planet\'s radius?',['2.5 N/kg','5 N/kg','10 N/kg','1.25 N/kg'],'The distance from the centre doubles, so g falls by a factor of 4.']
  ,[7,'In β⁻ decay, which of these is emitted along with the electron?',['An electron antineutrino','A neutrino','A positron','A proton'],'Lepton number is conserved: the electron (+1) is balanced by an antineutrino (−1).']
+ ,[5,'Which statement about the internal energy of a substance is correct?',['It is the sum of the random kinetic and potential energies of its particles','It is only the kinetic energy of its particles','It depends only on the substance\'s mass','It is zero at 0 °C'],'Both kinetic (temperature) and potential (state) contributions count.']
+ ,[0,'Which is a base SI unit?',['Kelvin','Newton','Volt','Joule'],'The base units are kg, m, s, A, K and mol (and cd); the others are derived.']
+ ,[2,'What is the phase difference between two points half a wavelength apart on a progressive wave?',['π radians','2π radians','π/2 radians','0'],'One wavelength corresponds to 2π, so half a wavelength is π.']
+ ,[4,'A cell of emf 6 V and internal resistance 0.5 Ω is short-circuited. What current flows?',['12 A','3 A','6 A','0.08 A'],'With no external resistance, I = ε/r = 6/0.5.']
 ];
 const AL_PHY_GEN=[
  [4,()=>{const [a,b,r]=pick([[6,3,2],[12,4,3],[10,10,5],[20,5,4],[6,12,4],[30,6,5],[8,8,4],[15,10,6]]);
@@ -279,6 +283,10 @@ const AL_MATHS_BANK=[
  ,[8,'The mean of 4 numbers is 7. A fifth number is added and the mean becomes 8. What is the fifth number?',['12','8','15','9'],'Totals: 28, then 40, so the new number is 12.']
  ,[9,'A 3 kg particle accelerates at 4 m/s². What is the resultant force on it?',['12 N','0.75 N','7 N','1.33 N'],'F = ma.']
  ,[4,'Solve e^(x) = 5.',['x = ln 5','x = 5e','x = log 5','x = e⁵'],'Take natural logarithms of both sides.']
+ ,[1,'What is the radius of the circle (x − 2)² + (y + 1)² = 49?',['7','49','2','1'],'The equation is (x − a)² + (y − b)² = r², so r = √49.']
+ ,[3,'Which identity is correct?',['sin²θ + cos²θ = 1','sin²θ − cos²θ = 1','tanθ = cosθ/sinθ','sin2θ = 2sinθ'],'The Pythagorean identity; tanθ = sinθ/cosθ and sin2θ = 2sinθcosθ.']
+ ,[5,'Differentiate y = sin(3x).',['3cos(3x)','cos(3x)','−3cos(3x)','3sin(3x)'],'Chain rule: the derivative of sin(u) is cos(u) × du/dx.']
+ ,[7,'Using the trapezium rule with one strip, estimate ∫₀² x² dx.',['4','8/3','2','8'],'(h/2)(y₀ + y₁) = (2/2)(0 + 4) = 4 (an overestimate of the true 8/3).']
 ];
 const AL_MATHS_GEN=[
  [0,()=>{let r1,r2;do{r1=rint(-7,7);r2=rint(-7,7);}while(!r1||!r2||r1===r2||r1===-r2);
@@ -445,6 +453,10 @@ const AL_ECON_BANK=[
  ,[1,'A negative externality in production means that:',['The social cost exceeds the private cost','The private cost exceeds the social cost','The good is under-consumed','The market price is too high'],'Third parties bear costs that producers ignore, so the good is over-produced.']
  ,[2,'Which feature is characteristic of an oligopoly?',['Interdependence between a few large firms','Many small firms','A single seller','No barriers to entry'],'Each firm\'s decisions depend on how its rivals respond.']
  ,[5,'Which is an example of a supply-side policy?',['Funding apprenticeships to raise skills','Cutting interest rates','Raising unemployment benefits','Printing money'],"It aims to increase productive capacity (LRAS)."]
+ ,[0,'If two goods are complements, a rise in the price of one will:',['Reduce demand for the other','Increase demand for the other','Have no effect on the other','Increase supply of the other'],'E.g. printers and ink: dearer printers mean fewer ink sales.']
+ ,[3,'The Gini coefficient measures:',['Income or wealth inequality','The rate of inflation','The level of unemployment','The balance of trade'],'0 means perfect equality and 1 means total inequality.']
+ ,[6,'What does a commercial bank\'s liquidity refer to?',['Its ability to meet withdrawals and short-term obligations','Its total profit','The interest rate it charges','Its share price'],'Liquid assets can be turned into cash quickly.']
+ ,[4,'Which is most likely to cause cost-push inflation?',['A sharp rise in oil prices','A rise in consumer confidence','A cut in income tax','Lower interest rates'],'Higher input costs shift SRAS left, raising prices.']
 ];
 const AL_ECON_GEN=[
  [0,()=>{let p,q;do{p=pick([10,20,25,50]);q=pick([5,10,15,20,40]);}while(p===q);const ped=-(q/p);

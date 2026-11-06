@@ -112,7 +112,7 @@ function ivRender(){
   '<div class="stack">'+
   '<div class="top"><span class="count">Problem '+(iv.k+1)+' of '+iv.qs.length+'</span><span class="timer" id="ivclock">'+fmt((Date.now()-iv.qt0)/1000)+'</span></div>'+
   '<div class="ivbar">'+recBadge+'<span class="note">Aim for about 8–10 minutes per problem</span></div>'+
-  '<div class="card stack"><p class="eyebrow">'+PHY_TOPICS[q.t]+'</p>'+body+'</div>'+
+  '<div class="card stack"><p class="eyebrow">'+PHY_TOPICS[q.t]+(q.calc?' · 🧮 calculation':'')+'</p>'+body+'</div>'+
   (iv.stage==='twist'?'<button class="btn" id="ivtwok">I\'ve answered the twist</button>':iv.stage==='main'?
     '<div class="row2"><button class="btn ghost" id="ivhint"'+(iv.hints[iv.k]>=q.h.length?' disabled':'')+'>'+(iv.hints[iv.k]>=q.h.length?'No more hints':'Ask for a hint')+'</button><button class="btn" id="ivdone">I\'ve answered</button></div>':
     '<button class="btn" id="ivnext">'+(iv.fu+1<q.f.length?'Next follow-up':iv.k+1<iv.qs.length?'Next problem':'Finish and review')+'</button>')+

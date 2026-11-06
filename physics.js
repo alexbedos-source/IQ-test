@@ -786,6 +786,32 @@ PHY.push(
  f:[['How fast could a 150 kW rapid charger fill the battery from 20% to 80%?','36 kWh / 150 kW ≈ 0.24 h ≈ 15 minutes (in practice slower, as charging rate drops near full).'],
     ['How much energy is in the 60 kWh battery in joules, and to what height could it lift the 2000 kg car?','2.16 × 10⁸ J; h = E/(mg) ≈ 2.16 × 10⁸ / 19 600 ≈ 11 km.']]}
 );
+PHY.push(
+{id:'b1',t:7,l:2,q:'A 70 kg tightrope walker stands in the middle of a rope 20 m long, which sags by 0.5 m. Estimate the tension in the rope. Why can a rope never be pulled perfectly straight with someone on it? (g = 9.8 m/s²)',
+ h:['Draw the forces at the walker\'s feet: their weight down, and the tension pulling along each half of the rope.',
+    'Each half makes a small angle θ with the horizontal, with tanθ = 0.5/10. Only the vertical components of the two tensions hold up the weight: 2T sinθ = mg.'],
+ a:'<p>tanθ = 0.5/10 = 0.05, so sinθ ≈ 0.05. Then T = mg/(2 sinθ) = 686/(2 × 0.05) ≈ <b>6900 N</b>, about 10 times the walker\'s weight.</p><p>As the sag goes to zero, sinθ → 0 and T → ∞: no rope is strong enough to hold a load with no sag at all. Halving the sag to 25 cm would double the tension to about 14 kN.</p><p>Tutors like the small-angle approximation (sinθ ≈ tanθ ≈ θ) and the limiting-case argument.</p>',
+ f:[['If the rope can take 20 kN at most, what is the smallest safe sag?','sinθ = 686/40 000 ≈ 0.017, so the sag ≈ 10 × 0.017 ≈ 0.17 m.'],
+    ['Why do walkers carry a long pole?','It increases their moment of inertia, so any tipping happens more slowly and they have time to correct it; drooping ends also lower the centre of mass a little.']]},
+{id:'b2',t:0,l:1,q:'Which has more kinetic energy: a sprinter running at full speed, or a rifle bullet? Estimate both.',
+ h:['Estimate the masses and speeds: a sprinter is about 80 kg at 10 m/s; a rifle bullet is about 10 g at 400 m/s (some are faster).',
+    'KE = ½mv². Then compare momenta too: which one would knock you over?'],
+ a:'<p>Sprinter: ½ × 80 × 10² = <b>4000 J</b>. Bullet: ½ × 0.01 × 400² = <b>800 J</b>. The sprinter has about 5 times more kinetic energy.</p><p>Momentum: sprinter 800 kg m/s, bullet 4 kg m/s. The bullet is dangerous because its energy is concentrated on a tiny area and delivered in a very short time, not because it has more energy.</p><p>Faster rifle rounds (900 m/s) reach 4000 J, comparable with the sprinter: a fun reversal to mention.</p>',
+ f:[['How high could the sprinter jump if all their kinetic energy became potential energy?','h = v²/2g = 100/20 ≈ 5 m for the centre of mass, which is why pole vaulters (who store and return this energy) clear about 6 m.'],
+    ['What force does the sprinter exert to stop from 10 m/s in 2 s?','The momentum change is 800 kg m/s, so the average force = 400 N.']]},
+{id:'b3',t:2,l:2,q:'A ball is dropped from 2.0 m and each bounce reaches 80% of the previous height. Find the total distance it travels, and the total time until it stops bouncing. (g = 9.8 m/s²)',
+ h:['After the first drop, each bounce goes up and back down the same height. The heights form a geometric series: 1.6, 1.28, …',
+    'The time for a fall from height h is √(2h/g). Each bounce takes twice the fall time, and since t ∝ √h the times shrink by a factor of √0.8 each time.'],
+ a:'<p>Distance: 2 + 2(1.6 + 1.28 + …) = 2 + 2 × 1.6/(1 − 0.8) = 2 + 16 = <b>18 m</b>.</p><p>Time: first fall t₀ = √(2 × 2/9.8) ≈ 0.64 s. With r = √0.8 ≈ 0.894, the bounces take 2t₀(r + r² + …) = 2t₀ r/(1 − r) ≈ 2 × 0.64 × 8.47 ≈ 10.8 s. Total ≈ <b>11.4 s</b>.</p><p>So infinitely many bounces happen in a finite time (an echo of Zeno\'s paradox); in reality the ball stops when the bounces become too small to notice.</p>',
+ f:[['What fraction of the energy is lost at each bounce?','20%, since the height (and so the potential energy at the top) falls to 80%.'],
+    ['What is the coefficient of restitution (rebound speed ÷ impact speed)?','√0.8 ≈ 0.89, because speed goes as √h.']]},
+{id:'b4',t:5,l:2,q:'A 1 kW heater warms a 4 m × 4 m × 2.5 m room. How long would it take to raise the air temperature by 5 K if only the air were heated? Why does it take much longer in practice? (air: 1.2 kg/m³, c = 1000 J kg⁻¹ K⁻¹)',
+ h:['Find the mass of air, then the energy needed: mcΔT.',
+    'Compare with the heat capacity of the walls, floor and furniture, and think about heat escaping.'],
+ a:'<p>Volume 40 m³, mass 48 kg. Energy = 48 × 1000 × 5 = 240 kJ, which takes 240 s ≈ <b>4 minutes</b>.</p><p>In practice the walls, floor and furniture have a heat capacity hundreds of times bigger (a tonne of brick at about 800 J kg⁻¹ K⁻¹ is 800 kJ/K), and heat also escapes through windows and walls, so it takes far longer and the air cools quickly once the heater stops. Sanity check: rooms do warm up noticeably in a few minutes, then more slowly.</p>',
+ f:[['If the room loses 200 W per kelvin above the outside temperature, what is the highest temperature rise the heater can maintain?','In steady state 1000 W = 200 × ΔT, so ΔT = 5 K above outside.'],
+    ['How much does running the heater for 3 hours cost at 25p per kWh?','3 kWh × 25p = 75p.']]}
+);
 /* ---- Calculation rewrites (owner's request, 5 Nov 2026) ----
    54 questions rewritten in place as numerical problems: the 12 that duplicated other questions, plus most of the
    purely verbal ones. Same ids (so saved questions and links still work); their old spaced-repetition ratings are
@@ -1126,7 +1152,7 @@ v3:{t:7,l:2,q:`The fraction of light reflected at a boundary at normal incidence
 PHY.forEach(q=>{q.f=q.f||PHY_FOLLOW[q.id]||[];});
 PHY.forEach(q=>{const c=PHY_CALC[q.id];if(c)Object.assign(q,c,{calc:true});});
 /* older questions whose worked answers are already numerical also count as calculations */
-PHY.forEach(q=>{if(!q.calc&&(q.a.match(/\d+(\.\d+)?\s*×\s*10|=\s*[\d.]+|≈\s*[\d.]+/g)||[]).length>=2)q.calc=true;});
+PHY.forEach(q=>{if(!q.calc&&(q.a.match(/\d+(\.\d+)?\s*×\s*10|[=≈]\s*(<b>)?[\d.]+/g)||[]).length>=2)q.calc=true;});
 try{if(localStorage.getItem('phy-calc')!=='1'){const R=JSON.parse(localStorage.getItem('phy-ratings')||'{}');Object.keys(PHY_CALC).forEach(id=>delete R[id]);localStorage.setItem('phy-ratings',JSON.stringify(R));localStorage.setItem('phy-calc','1');}}catch(e){}
 
 const PHY_SOURCES=[
@@ -1193,7 +1219,7 @@ function phyQuestion(q){
   let shown=0,end=0;
   app.innerHTML=
   '<div class="stack">'+
-  '<div class="top"><span class="eyebrow">'+PHY_TOPICS[q.t]+' · '+lvl(q.l)+'</span><span class="timer" id="ptimer"></span></div>'+
+  '<div class="top"><span class="eyebrow">'+PHY_TOPICS[q.t]+' · '+lvl(q.l)+(q.calc?' · 🧮 calculation':'')+'</span><span class="timer" id="ptimer"></span></div>'+
   '<div class="card stack"><p class="prompt">'+q.q+'</p>'+qTools({prompt:q.q,right:'',wrong:[],explain:'',phyId:q.id},'Physics interview · '+PHY_TOPICS[q.t]+' ('+q.id+')',{noConf:true})+
    '<div id="hints" class="stack" style="gap:10px"></div>'+
    '<div id="ans"></div></div>'+

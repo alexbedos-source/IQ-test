@@ -25,6 +25,7 @@ Status: `[ ]` not started · `[~]` in progress / in an open PR · `[x]` done.
 - [~] **Practice records** on Progress: best, last and trend for the sprint, Read the graph, data booklet drill, Mixed 15 and processing speed.
 - [~] **Generator fix:** A-level generators that sometimes produced duplicate or broken options now always give four distinct, valid options (more variety, no wasted questions).
 - [~] **Mock interview: calculation problems only** (on by default, can be switched off; remembered in `iv-calc`).
+- [~] **🧮 tag** on calculation questions (physics question screen and mock interview).
 - [x] **Data booklet drill:** find and apply the right AQA data-booklet equation quickly.
 - [x] **Mental maths sprint** (approved 3 Nov): 60 s of no-calculator questions with a personal best.
 - [x] **Read the graph** (approved 3 Nov): gradients, areas and half-lives from generated graphs.

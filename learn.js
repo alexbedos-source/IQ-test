@@ -159,8 +159,54 @@ const CARDS=[
  [3,'Principle of moments','For an object in equilibrium, the sum of clockwise moments about any point equals the sum of anticlockwise moments about that point.'],
  [3,'Terminal velocity','The constant speed reached when the drag force (plus any upthrust) equals the weight, so the resultant force and acceleration are zero.'],
  [4,'Ohm\'s law','For a conductor at constant temperature, the current is directly proportional to the potential difference across it.'],
- [7,'Why α radiation is the most dangerous inside the body but least dangerous outside','It is strongly ionising, so inside the body it damages cells nearby; outside, it is stopped by the dead outer layer of skin (or a few cm of air).']
+ [7,'Why α radiation is the most dangerous inside the body but least dangerous outside','It is strongly ionising, so inside the body it damages cells nearby; outside, it is stopped by the dead outer layer of skin (or a few cm of air).'],
+ [1,'Strangeness and the strong interaction','Strangeness is conserved in strong interactions, so strange particles are always produced in pairs (e.g. K⁺ and K⁻) by the strong force.'],
+ [2,'Fundamental mode of a string fixed at both ends','The simplest stationary wave: a node at each end and one antinode in the middle, so the string length is half a wavelength.'],
+ [4,'Kirchhoff\'s second law','Around any closed loop in a circuit, the sum of the emfs equals the sum of the pds: a consequence of conservation of energy.'],
+ [5,'Charles\'s law','For a fixed mass of gas at constant pressure, the volume is directly proportional to the absolute temperature.'],
+ [6,'Field lines and equipotentials around a point charge','Field lines are radial; equipotentials are concentric spheres, closer together where the field is stronger.'],
+ [3,'Newton\'s first law','An object stays at rest or moves at constant velocity unless a resultant force acts on it.']
 ].map((c,i)=>({id:'a'+i,cat:c[0],front:c[1],back:c[2]}));
+/* ---- Card fixes (6 Nov 2026): 33 cards repeated earlier cards (added by mistake by scheduled runs). They are rewritten
+   in place with new AQA content, keeping their ids; their old review progress is cleared once (key 'cards-fix1'). ---- */
+const CARD_FIX={
+ a131:[0,'Error bars and the best-fit line','Error bars show the uncertainty in each point; a valid best-fit line should pass through (nearly) all of them.'],
+ a132:[0,'Worst acceptable line','The steepest or shallowest straight line that still passes through all the error bars; its gradient difference from the best-fit line gives the gradient uncertainty.'],
+ a143:[0,'Uncertainty in a quantity raised to a power','Multiply the percentage uncertainty by the power: if r has 2% uncertainty, r² has 4% and √r has 1%.'],
+ a149:[0,'Spotting a systematic error on a graph','A straight-line graph expected through the origin that has a non-zero intercept suggests a systematic (e.g. zero) error; the gradient may still be correct.'],
+ a125:[1,'Baryon number of quarks','Each quark has baryon number +1/3 and each antiquark −1/3, so baryons have +1, antibaryons −1 and mesons 0.'],
+ a126:[1,'Muon decay','A muon decays by the weak interaction into an electron, an electron antineutrino and a muon neutrino (μ⁻ → e⁻ + ν̄ₑ + ν_μ), conserving lepton numbers.'],
+ a142:[1,'Which interaction strange particles decay by','The weak interaction, because strangeness can change (by 0 or ±1) only in weak interactions; they are created in pairs by the strong interaction.'],
+ a119:[2,'Uses of polarisation','Polaroid sunglasses cut glare (reflected light is partly polarised); TV and radio aerials must be aligned with the plane of the transmitted waves.'],
+ a144:[2,'Absorption and pulse broadening in optical fibres','Absorption reduces the amplitude of the signal; dispersion broadens pulses. Both limit the distance before the signal must be regenerated.'],
+ a127:[3,'Conservation of linear momentum','In a closed system (no external forces) the total momentum before an interaction equals the total momentum after it.'],
+ a128:[3,'Impulse and the force–time graph','Impulse is the change in momentum, equal to the area under a force–time graph.'],
+ a141:[3,'Area under a stress–strain graph','The area under a stress–strain graph (in the elastic region) is the elastic strain energy stored per unit volume.'],
+ a151:[3,'Stiffness vs strength','Stiffness is how much force is needed per unit extension; strength is the stress needed to break the material. A material can be stiff but weak (glass) or flexible but strong (nylon).'],
+ a152:[3,'Resolving a force','A force F at angle θ to the horizontal has components F cosθ horizontally and F sinθ vertically, which act independently.'],
+ a160:[3,'Free-body diagram','A diagram of one object showing every force acting on it (not forces it exerts on other things), drawn from the point where each acts.'],
+ a130:[4,'I–V and R–T behaviour of an NTC thermistor','As temperature rises its resistance falls sharply (non-linearly), because more charge carriers are released.'],
+ a136:[4,'Resistance of a metal and temperature','A metal\'s resistance rises with temperature: the ions vibrate more, so electrons collide with them more often.'],
+ a146:[4,'Conventional current vs electron flow','Conventional current flows from + to −; in a metal the electrons actually drift from − to +.'],
+ a153:[4,'The coulomb','One coulomb is the charge that passes a point when a current of 1 ampere flows for 1 second.'],
+ a157:[4,'Two resistors in series: which gets hotter?','The larger resistor: the current is the same through both, so the one with more resistance has the larger pd and dissipates more power.'],
+ a133:[5,'Phase relationships in SHM','Velocity leads displacement by a quarter cycle (π/2); acceleration is in antiphase with displacement (π).'],
+ a134:[5,'Energy in SHM','Kinetic and potential energy swap twice per cycle; the total stays constant if undamped. KE is maximum at equilibrium, PE maximum at the extremes.'],
+ a147:[5,'Effect of damping on resonance','More damping lowers and broadens the resonance peak and shifts it to a slightly lower frequency.'],
+ a148:[5,'The mole','The amount of substance containing as many particles as there are atoms in 12 g of carbon-12 (the Avogadro number of particles).'],
+ a158:[5,'Meaning of root mean square speed','The square root of the mean of the squares of the molecules\' speeds; it is the speed used to find the mean kinetic energy.'],
+ a121:[6,'Graph of g against distance outside a planet','g falls as 1/r² from the surface outwards: a steep curve that levels towards zero, never reaching it.'],
+ a122:[6,'Time constant of a capacitor circuit','RC: the time for the charge (or current or pd) to fall to 1/e, about 37%, of its starting value during discharge.'],
+ a138:[6,'Path of a charged particle in a uniform electric field','It follows a parabola, like a projectile, because the force is constant and in one direction.'],
+ a123:[7,'Half-life (definition)','The average time for the number of undecayed nuclei (or the activity) of an isotope to halve.'],
+ a124:[7,'Decay constant (meaning)','The probability that a given nucleus decays per unit time.'],
+ a139:[7,'N–Z graph and stability','Stable nuclei lie in a band; light ones have N ≈ Z and heavier ones need more neutrons. Nuclei above the band undergo β⁻ decay, below it β⁺ (or electron capture), and very heavy ones α decay.'],
+ a140:[7,'Gamma emission after α or β decay','The daughter nucleus is often left in an excited state and drops to its ground state by emitting a γ photon.'],
+ a154:[7,'Why fusion needs very high temperatures','Nuclei are positively charged and repel; only at temperatures of millions of kelvin do they move fast enough to get close enough for the strong force to act.']
+};
+CARDS.forEach(c=>{const f=CARD_FIX[c.id];if(f){c.cat=f[0];c.front=f[1];c.back=f[2];}});
+try{if(localStorage.getItem('cards-fix1')!=='1'){const st=JSON.parse(localStorage.getItem('cards')||'null');if(st&&st.s){Object.keys(CARD_FIX).forEach(id=>delete st.s[id]);localStorage.setItem('cards',JSON.stringify(st));}localStorage.setItem('cards-fix1','1');}}catch(e){}
+
 const BOX_DAYS=[0,1,2,4,8,16,32];
 const NEW_PER_DAY=10;
 function cardState(){return loadJSON('cards',{s:{},newDay:null,newCount:0});}
@@ -389,7 +435,11 @@ const POTW=[
  ['A 0.5 kg ball on a 1.0 m string is whirled in a vertical circle. What is the minimum speed at the top for the string to stay taut, and the tension at the bottom if it moves that slowly at the top? (g = 10 m/s²)',
   'At the top, gravity alone provides the centripetal force: mg = mv²/r, so v_top = √(gr) = <b>3.2 m/s</b>. Energy down to the bottom (2 m lower): v² = gr + 4gr = 5gr = 50. At the bottom, T − mg = mv²/r, so T = 0.5 × 10 + 0.5 × 50 = <b>30 N</b>, six times the weight.'],
  ['(University level) A rocket burns fuel so that its mass falls from 100 t to 25 t, with exhaust speed 3 km/s. Using the rocket equation Δv = u ln(m₀/m₁), find its change in speed. Why are rockets built in stages?',
-  'Δv = 3000 × ln4 ≈ 3000 × 1.39 ≈ <b>4.2 km/s</b>, short of the 7.8 km/s needed for orbit (plus losses). Doubling Δv needs the mass ratio squared (16 instead of 4), so rockets drop empty tanks and engines in stages: each stage then only accelerates the useful mass above it.']
+  'Δv = 3000 × ln4 ≈ 3000 × 1.39 ≈ <b>4.2 km/s</b>, short of the 7.8 km/s needed for orbit (plus losses). Doubling Δv needs the mass ratio squared (16 instead of 4), so rockets drop empty tanks and engines in stages: each stage then only accelerates the useful mass above it.'],
+ ['A 1500 kg car accelerates from rest to 20 m/s in 8 s on a level road against an average resistive force of 500 N. Find the average power delivered by the engine.',
+  'KE gained = ½ × 1500 × 400 = 300 kJ. Distance (uniform acceleration) = ½ × 20 × 8 = 80 m, so work against resistance = 500 × 80 = 40 kJ. Total 340 kJ in 8 s: average power = <b>42.5 kW</b> (about 57 horsepower).'],
+ ['(University level) A uniform disc of mass M and radius R (moment of inertia ½MR²) starts from rest and rolls without slipping down a slope at angle θ. Show that its acceleration is (2/3)g sinθ.',
+  'Along the slope: Mg sinθ − F = Ma. Torque from friction about the centre: FR = Iα = ½MR² × (a/R), so F = ½Ma. Adding: Mg sinθ = (3/2)Ma, so <b>a = (2/3)g sinθ</b>, less than the g sinθ of a sliding block, as some energy goes into rotation.']
 ];
 function weekIndex(){
   const d=new Date(),start=new Date(d.getFullYear(),0,1);
