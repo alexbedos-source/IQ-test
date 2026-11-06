@@ -64,7 +64,15 @@ V:[
  [0.7,'Which word does NOT belong: oak, maple, tulip, birch?',['Tulip','Oak','Maple','Birch'],'The others are trees; a tulip is a flower.'],
  [1.3,'Which word is closest in meaning to OBDURATE?',['Stubborn','Obvious','Gentle','Hidden'],'Obdurate means stubbornly refusing to change one\'s mind.'],
  [0.4,'Which word is the opposite of TRANSPARENT?',['Opaque','Clear','Fragile','Bright'],'Opaque means light cannot pass through.'],
- [1.1,'GLOVE is to HAND as THIMBLE is to:',['Finger','Needle','Thread','Sewing'],'A glove covers the hand; a thimble covers a finger.']
+ [1.1,'GLOVE is to HAND as THIMBLE is to:',['Finger','Needle','Thread','Sewing'],'A glove covers the hand; a thimble covers a finger.'],
+ [0.6,'Which word is closest in meaning to METICULOUS?',['Careful','Careless','Quick','Loud'],'Meticulous means showing great attention to detail.'],
+ [1.5,'Which word is the opposite of LOQUACIOUS?',['Taciturn','Talkative','Generous','Cheerful'],'Loquacious means very talkative; taciturn means saying little.'],
+ [0.5,'Which word is closest in meaning to CANDID?',['Frank','Sweet','Hidden','Brilliant'],'Candid means honest and straightforward.'],
+ [1.2,'PILOT is to AEROPLANE as JOCKEY is to:',['Horse','Race','Saddle','Stable'],'A pilot controls an aeroplane; a jockey rides a horse.'],
+ [0.6,'Which word is closest in meaning to FRUGAL?',['Thrifty','Wasteful','Fruitful','Generous'],'Frugal means careful with money or resources.'],
+ [1.3,'Which word is the opposite of EPHEMERAL?',['Permanent','Brief','Ethereal','Fragile'],'Ephemeral means lasting a very short time.'],
+ [0.5,'Which word is closest in meaning to VIGILANT?',['Watchful','Violent','Careless','Vivid'],'Vigilant means keeping careful watch for danger.'],
+ [1.2,'BOOK is to CHAPTER as SYMPHONY is to:',['Movement','Orchestra','Conductor','Note'],'A book is divided into chapters; a symphony into movements.']
 ],
 Q:[
  [-1.9,'What is 25% of 80?',['20','25','40','16'],'25% is a quarter, and a quarter of 80 is 20.'],
@@ -125,7 +133,15 @@ Q:[
  [0.6,'A train travels 180 km in 2 hours 15 minutes. What is its average speed?',['80 km/h','90 km/h','75 km/h','85 km/h'],'180 / 2.25 = 80 km/h.'],
  [1.1,'How many squares of any size are on a 3 × 3 grid?',['14','9','10','13'],'9 small squares + 4 of size 2 × 2 + 1 of size 3 × 3 = 14.'],
  [0.7,'What is 15% of 15% of 400?',['9','60','90','22.5'],'15% of 400 = 60, and 15% of 60 = 9.'],
- [1.3,'A tap fills a tank in 6 hours and a second tap fills it in 3 hours. How long do they take together?',['2 hours','4.5 hours','9 hours','1.5 hours'],'Rates 1/6 + 1/3 = 1/2 of the tank per hour, so 2 hours.']
+ [1.3,'A tap fills a tank in 6 hours and a second tap fills it in 3 hours. How long do they take together?',['2 hours','4.5 hours','9 hours','1.5 hours'],'Rates 1/6 + 1/3 = 1/2 of the tank per hour, so 2 hours.'],
+ [0.5,'What is the next number: 1, 4, 9, 16, 25, …?',['36','30','35','49'],'The square numbers: 6² = 36.'],
+ [1.2,'A number is increased by 10% and the result is then decreased by 10%. What is the overall change?',['A 1% decrease','No change','A 1% increase','A 10% decrease'],'1.1 × 0.9 = 0.99.'],
+ [0.6,'What is the next number: 2, 6, 12, 20, 30, …?',['42','40','36','44'],'Differences 4, 6, 8, 10, then 12.'],
+ [1.1,'A clock shows 3:00. What is the angle between the hands at 3:30?',['75°','90°','60°','80°'],'Minute hand at 180°, hour hand at 90° + 15° = 105°; the difference is 75°.'],
+ [0.6,'A recipe needs 250 g of flour for 4 people. How much flour is needed for 10 people?',['625 g','500 g','1000 g','650 g'],'250/4 = 62.5 g per person, × 10 = 625 g.'],
+ [1.2,'What is the next number: 1, 1, 2, 3, 5, 8, 13, …?',['21','18','20','26'],'Each number is the sum of the previous two (8 + 13).'],
+ [0.6,'What is 3/4 of 2/3 of 120?',['60','80','90','45'],'2/3 of 120 = 80, and 3/4 of 80 = 60.'],
+ [1.3,'A car travels 60 km at 30 km/h and then 60 km at 60 km/h. What is its average speed for the whole journey?',['40 km/h','45 km/h','50 km/h','35 km/h'],'Times: 2 h + 1 h = 3 h for 120 km, so 40 km/h (not the average of the speeds).']
 ],
 L:[
  [-1.8,'All cats have whiskers. Tibbles is a cat. Which must be true?',['Tibbles has whiskers','Tibbles is not a cat','Every animal with whiskers is a cat','Tibbles has no whiskers'],'Tibbles is a cat, and all cats have whiskers.'],
@@ -182,6 +198,14 @@ L:[
  [0.5,'Every member of the choir can read music. Sam cannot read music. What follows?',['Sam is not in the choir','Sam is in the choir','Some of the choir cannot read music','Nothing follows'],'If Sam were in the choir, Sam could read music.'],
  [1.0,'Today is Wednesday. What day will it be in 100 days?',['Friday','Thursday','Wednesday','Saturday'],'100 = 14 × 7 + 2, so two days after Wednesday.'],
  [0.8,'Some scientists are musicians. All musicians are patient. Which must be true?',['Some scientists are patient','All scientists are patient','All patient people are musicians','No scientist is patient'],'The scientists who are musicians are patient.'],
- [1.2,'In a race, Kim finished ahead of Lee but behind Max. Nia finished behind Lee. Who came third?',['Lee','Kim','Max','Nia'],'The order is Max, Kim, Lee, Nia.']
+ [1.2,'In a race, Kim finished ahead of Lee but behind Max. Nia finished behind Lee. Who came third?',['Lee','Kim','Max','Nia'],'The order is Max, Kim, Lee, Nia.'],
+ [0.7,'All squares are rectangles. Shape X is not a rectangle. What follows?',['X is not a square','X is a square','X is a circle','Nothing follows'],'Anything that is a square must be a rectangle.'],
+ [1.3,'Five people shake hands with each other exactly once. How many handshakes are there?',['10','20','25','5'],'Each pair shakes once: 5 × 4 / 2 = 10.'],
+ [0.6,'If no reptiles have fur, and all snakes are reptiles, which must be true?',['No snakes have fur','Some snakes have fur','All reptiles are snakes','Some reptiles have fur'],'Snakes are reptiles, and no reptile has fur.'],
+ [1.4,'A says "B is lying." B says "C is lying." C says "A and B are both lying." Who is telling the truth?',['B only','A only','C only','A and C'],'If C were truthful, A would be lying, so B would be truthful: a contradiction. So C lies, B (who says C lies) is truthful, and A (who says B lies) is lying.'],
+ [0.7,'Every doctor in the hospital has a pager. Jo has no pager. What follows?',['Jo is not a doctor in the hospital','Jo is a doctor in the hospital','Jo works in a different hospital','Nothing follows'],'If Jo were a doctor in the hospital, Jo would have a pager.'],
+ [1.3,'A bat and a ball cost £1.10 together. The bat costs £1.00 more than the ball. How much does the ball cost?',['5p','10p','15p','1p'],'Ball = b, bat = b + 1.00, so 2b + 1.00 = 1.10 and b = 0.05.'],
+ [0.8,'All of Sam\'s cousins live in Leeds. Priya lives in York. What follows?',['Priya is not Sam\'s cousin','Priya is Sam\'s cousin','Sam lives in Leeds','Nothing follows'],'If Priya were Sam\'s cousin, Priya would live in Leeds, not York.'],
+ [1.2,'Monday comes two days after the day before yesterday. What day is it today?',['Monday','Saturday','Sunday','Wednesday'],'The day before yesterday is today minus 2; two days after it is today. So today is Monday.']
 ]
 };

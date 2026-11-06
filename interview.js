@@ -45,6 +45,7 @@ function ivHome(){
    '<div class="chips" id="ivlevel">'+[['Mixed',0],['Gentler',1],['Harder',3]].map(([n,v],i)=>'<button class="chip'+(i===0?' on':'')+'" data-l="'+v+'">'+n+'</button>').join('')+'</div>'+
    '<label class="tog"><input type="checkbox" id="ivrec"> Record my voice so I can listen back</label>'+
    '<label class="tog"><input type="checkbox" id="ivtw" checked> Tutor twists: the tutor changes the problem after you answer</label>'+
+   '<label class="tog"><input type="checkbox" id="ivcalc"'+(loadJSON('iv-calc',true)?' checked':'')+'> Calculation problems only (🧮)</label>'+
    '<p class="note">Recording stays on this phone during the session only. Nothing is uploaded. If your phone blocks the microphone, the interview still works without it.</p></div>'+
   '<button class="btn" id="ivgo">Start mock interview</button>'+
   '<div class="card stack"><h2>Real interview tips</h2><ul class="rules">'+
@@ -59,6 +60,7 @@ function ivHome(){
   '</div>';
   let level=0;
   app.querySelectorAll('#ivlevel .chip').forEach(b=>b.onclick=()=>{level=+b.dataset.l;app.querySelectorAll('#ivlevel .chip').forEach(c=>c.classList.toggle('on',c===b));});
+  document.getElementById('ivcalc').onchange=e=>saveJSON('iv-calc',e.target.checked);
   document.getElementById('ivgo').onclick=()=>ivStart(level,document.getElementById('ivrec').checked,document.getElementById('ivtw').checked);
   document.getElementById('ivback').onclick=home;
 }
@@ -66,6 +68,8 @@ function ivHome(){
 function ivPick(level){
   const used=new Set(ivHistory().slice(-10).flatMap(x=>x.ids));
   let pool=PHY.filter(q=>q.f.length&&(level===0||(level===1?q.l<=2:q.l>=2)));
+  /* calculation-only (on by default, owner's preference); falls back to everything if too few match */
+  if(loadJSON('iv-calc',true)){const c=pool.filter(q=>q.calc);if(c.length>=4)pool=c;}
   const fresh=pool.filter(q=>!used.has(q.id));if(fresh.length>=2)pool=fresh;
   const a=pick(pool),rest=pool.filter(q=>q.id!==a.id&&q.t!==a.t);
   return [a,pick(rest.length?rest:pool.filter(q=>q.id!==a.id))];
@@ -108,7 +112,7 @@ function ivRender(){
   '<div class="stack">'+
   '<div class="top"><span class="count">Problem '+(iv.k+1)+' of '+iv.qs.length+'</span><span class="timer" id="ivclock">'+fmt((Date.now()-iv.qt0)/1000)+'</span></div>'+
   '<div class="ivbar">'+recBadge+'<span class="note">Aim for about 8–10 minutes per problem</span></div>'+
-  '<div class="card stack"><p class="eyebrow">'+PHY_TOPICS[q.t]+'</p>'+body+'</div>'+
+  '<div class="card stack"><p class="eyebrow">'+PHY_TOPICS[q.t]+(q.calc?' · 🧮 calculation':'')+'</p>'+body+'</div>'+
   (iv.stage==='twist'?'<button class="btn" id="ivtwok">I\'ve answered the twist</button>':iv.stage==='main'?
     '<div class="row2"><button class="btn ghost" id="ivhint"'+(iv.hints[iv.k]>=q.h.length?' disabled':'')+'>'+(iv.hints[iv.k]>=q.h.length?'No more hints':'Ask for a hint')+'</button><button class="btn" id="ivdone">I\'ve answered</button></div>':
     '<button class="btn" id="ivnext">'+(iv.fu+1<q.f.length?'Next follow-up':iv.k+1<iv.qs.length?'Next problem':'Finish and review')+'</button>')+

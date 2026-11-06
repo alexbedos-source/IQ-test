@@ -23,6 +23,8 @@ function numOpts(x,unit,sf=3,extra){
 }
 const G=(topic,prompt,pair,explain)=>({topic,prompt,right:pair[0],wrong:pair[1],explain});
 const gq=(topic,prompt,right,wrong,explain)=>({topic,prompt,right,wrong,explain});
+/* three distinct, valid wrong options from a longer candidate list */
+const pad3=(right,cands)=>{const out=[];for(const c of cands){const v=String(c);if(v!==String(right)&&!out.includes(v)&&!/NaN|undefined|Infinity/.test(v))out.push(v);if(out.length===3)break;}return out;};
 const C=(n,k)=>{let r=1;for(let i=1;i<=k;i++)r=r*(n-k+i)/i;return Math.round(r);};
 const gcd=(a,b)=>b?gcd(b,a%b):Math.abs(a);
 const frac=(p,q)=>{const g=gcd(p,q);p/=g;q/=g;if(q<0){p=-p;q=-q;}return q===1?String(p):p+'/'+q;};
@@ -122,6 +124,24 @@ const AL_PHY_BANK=[
  ,[5,'What does absolute zero correspond to in terms of the particles of an ideal gas?',['The minimum possible internal energy, with the particles having (classically) no kinetic energy','The point at which the gas becomes a liquid','The temperature at which pressure doubles','0 °C'],"Pressure and mean kinetic energy extrapolate to zero at 0 K (−273 °C)."]
  ,[1,'Which quark combination makes up a proton?',['uud','udd','uus','ud̄'],'Charges: +2/3 + 2/3 − 1/3 = +1.']
  ,[3,'A ball is thrown horizontally from a cliff. Ignoring air resistance, which quantity stays constant during its flight?',['Its horizontal velocity','Its vertical velocity','Its speed','Its kinetic energy'],'No horizontal force acts, so the horizontal component of velocity is unchanged.']
+ ,[0,'A reading is 25.0 ± 0.5 cm. What is the percentage uncertainty?',['2%','0.5%','5%','0.02%'],'0.5/25 × 100 = 2%.']
+ ,[2,'What happens to the speed and wavelength of light when it enters glass from air?',['Both decrease; the frequency stays the same','Both increase','The speed decreases, the wavelength increases','The frequency decreases'],'The frequency is set by the source; v = fλ, so λ falls with v.']
+ ,[4,'What happens to the resistance of a thermistor (NTC) when its temperature rises?',['It decreases','It increases','It stays the same','It becomes infinite'],'More charge carriers are released as temperature rises.']
+ ,[6,'What is the direction of the force on a positive charge moving in a magnetic field?',['Perpendicular to both the velocity and the field','Parallel to the field','Parallel to the velocity','Opposite to the field'],'Given by Fleming\'s left-hand rule; this is why the path is circular.']
+ ,[7,'Why is the binding energy per nucleon highest around iron-56?',['Iron nuclei are the most stable, so fusion of lighter or fission of heavier nuclei releases energy','Iron has the most nucleons','Iron has no neutrons','Iron is radioactive'],'Moving towards iron on the curve increases binding energy per nucleon and releases energy.']
+ ,[1,'Which particle is the exchange particle for the electromagnetic force?',['Virtual photon','W boson','Gluon','Pion'],'Virtual photons carry the electromagnetic interaction; W bosons carry the weak interaction.']
+ ,[1,'What is the antiparticle of the electron?',['Positron','Proton','Neutrino','Antineutron'],'The positron has the same mass and opposite charge.']
+ ,[3,'A car travels round a roundabout at constant speed. Which statement is true?',['It is accelerating','Its velocity is constant','No resultant force acts on it','Its kinetic energy is increasing'],'Its direction changes, so its velocity changes: it accelerates towards the centre.']
+ ,[3,'Which property describes a material that can be drawn into wires?',['Ductile','Brittle','Stiff','Elastic'],'Ductile materials undergo large plastic deformation under tension.']
+ ,[0,'Two lengths are 12.0 ± 0.1 cm and 8.0 ± 0.1 cm. What is the absolute uncertainty in their difference?',['± 0.2 cm','± 0.1 cm','± 0.0 cm','± 0.05 cm'],'When quantities are added or subtracted, absolute uncertainties add.']
+ ,[2,'A stationary wave on a string has nodes 15 cm apart. What is the wavelength?',['30 cm','15 cm','7.5 cm','60 cm'],'Adjacent nodes are half a wavelength apart.']
+ ,[4,'A 2 Ω, a 3 Ω and a 6 Ω resistor are connected in parallel. What is the total resistance?',['1 Ω','11 Ω','3.7 Ω','0.5 Ω'],'1/R = 1/2 + 1/3 + 1/6 = 1, so R = 1 Ω.']
+ ,[6,'The gravitational field strength at the surface of a planet is 10 N/kg. What is it at a height equal to the planet\'s radius?',['2.5 N/kg','5 N/kg','10 N/kg','1.25 N/kg'],'The distance from the centre doubles, so g falls by a factor of 4.']
+ ,[7,'In β⁻ decay, which of these is emitted along with the electron?',['An electron antineutrino','A neutrino','A positron','A proton'],'Lepton number is conserved: the electron (+1) is balanced by an antineutrino (−1).']
+ ,[5,'Which statement about the internal energy of a substance is correct?',['It is the sum of the random kinetic and potential energies of its particles','It is only the kinetic energy of its particles','It depends only on the substance\'s mass','It is zero at 0 °C'],'Both kinetic (temperature) and potential (state) contributions count.']
+ ,[0,'Which is a base SI unit?',['Kelvin','Newton','Volt','Joule'],'The base units are kg, m, s, A, K and mol (and cd); the others are derived.']
+ ,[2,'What is the phase difference between two points half a wavelength apart on a progressive wave?',['π radians','2π radians','π/2 radians','0'],'One wavelength corresponds to 2π, so half a wavelength is π.']
+ ,[4,'A cell of emf 6 V and internal resistance 0.5 Ω is short-circuited. What current flows?',['12 A','3 A','6 A','0.08 A'],'With no external resistance, I = ε/r = 6/0.5.']
 ];
 const AL_PHY_GEN=[
  [4,()=>{const [a,b,r]=pick([[6,3,2],[12,4,3],[10,10,5],[20,5,4],[6,12,4],[30,6,5],[8,8,4],[15,10,6]]);
@@ -250,6 +270,23 @@ const AL_MATHS_BANK=[
  ,[8,'For a normal distribution, about what percentage of values lie within 2 standard deviations of the mean?',['95%','68%','99.7%','50%'],'The 68–95–99.7 rule.']
  ,[9,'A particle moves with constant acceleration 2 m/s² from rest. How far does it travel in 5 s?',['25 m','10 m','50 m','12.5 m'],'s = ½at² = ½ × 2 × 25 = 25 m.']
  ,[0,'Express (x² − 9)/(x − 3) in its simplest form, for x ≠ 3.',['x + 3','x − 3','x² − 3','x + 9'],'x² − 9 = (x − 3)(x + 3).']
+ ,[6,'Find ∫ e^(2x) dx.',['½e^(2x) + C','2e^(2x) + C','e^(2x) + C','e^(2x)/x + C'],'Reverse the chain rule: differentiating ½e^(2x) gives e^(2x).']
+ ,[8,'Two events are independent with P(A) = 0.4 and P(B) = 0.5. What is P(A and B)?',['0.2','0.9','0.1','0.45'],'For independent events, multiply: 0.4 × 0.5.']
+ ,[9,'A 5 kg mass hangs at rest from a string. What is the tension? (g = 9.8 m/s²)',['49 N','5 N','9.8 N','0 N'],'In equilibrium T = mg = 5 × 9.8.']
+ ,[5,'What is the gradient of y = ln x at x = 4?',['1/4','4','ln 4','1'],'dy/dx = 1/x.']
+ ,[1,'What is the equation of the line with gradient 2 passing through (1, 5)?',['y = 2x + 3','y = 2x + 5','y = 2x − 3','y = x + 4'],'y − 5 = 2(x − 1), so y = 2x + 3.']
+ ,[2,'What is the 8th term of the geometric sequence 3, 6, 12, …?',['384','768','192','24'],'ar⁷ = 3 × 2⁷ = 384.']
+ ,[3,'Convert 135° to radians.',['3π/4','2π/3','5π/6','π/4'],'135 × π/180 = 3π/4.']
+ ,[4,'Write log₂8 + log₂4 as a single number.',['5','12','32','6'],'3 + 2 = 5 (or log₂32).']
+ ,[7,'Vectors a = 2i + 3j and b = i − j. Find a − 2b.',['5j','4i + j','3i + 2j','i + 5j'],'(2 − 2)i + (3 + 2)j = 5j.']
+ ,[0,'Solve the inequality 2x − 5 > 7.',['x > 6','x > 1','x < 6','x > 12'],'Add 5 then divide by 2.']
+ ,[8,'The mean of 4 numbers is 7. A fifth number is added and the mean becomes 8. What is the fifth number?',['12','8','15','9'],'Totals: 28, then 40, so the new number is 12.']
+ ,[9,'A 3 kg particle accelerates at 4 m/s². What is the resultant force on it?',['12 N','0.75 N','7 N','1.33 N'],'F = ma.']
+ ,[4,'Solve e^(x) = 5.',['x = ln 5','x = 5e','x = log 5','x = e⁵'],'Take natural logarithms of both sides.']
+ ,[1,'What is the radius of the circle (x − 2)² + (y + 1)² = 49?',['7','49','2','1'],'The equation is (x − a)² + (y − b)² = r², so r = √49.']
+ ,[3,'Which identity is correct?',['sin²θ + cos²θ = 1','sin²θ − cos²θ = 1','tanθ = cosθ/sinθ','sin2θ = 2sinθ'],'The Pythagorean identity; tanθ = sinθ/cosθ and sin2θ = 2sinθcosθ.']
+ ,[5,'Differentiate y = sin(3x).',['3cos(3x)','cos(3x)','−3cos(3x)','3sin(3x)'],'Chain rule: the derivative of sin(u) is cos(u) × du/dx.']
+ ,[7,'Using the trapezium rule with one strip, estimate ∫₀² x² dx.',['4','8/3','2','8'],'(h/2)(y₀ + y₁) = (2/2)(0 + 4) = 4 (an overestimate of the true 8/3).']
 ];
 const AL_MATHS_GEN=[
  [0,()=>{let r1,r2;do{r1=rint(-7,7);r2=rint(-7,7);}while(!r1||!r2||r1===r2||r1===-r2);
@@ -260,13 +297,13 @@ const AL_MATHS_GEN=[
    return gq(0,'How many real roots does '+signed(a,'x²',true)+signed(b,'x')+signed(c,'')+' = 0 have?',r,['Two distinct real roots','One repeated root','No real roots','Infinitely many roots'].filter(x=>x!==r),'Discriminant b² − 4ac = '+b+'² − 4 × '+a+' × '+c+' = '+d+'.');}],
  [1,()=>{const a=rint(-5,5),b=rint(-5,5),r=pick([2,3,4,5,6]),D=-2*a,E=-2*b,F=a*a+b*b-r*r;
    const eq='x² + y²'+signed(D,'x')+signed(E,'y')+signed(F,'')+' = 0',cc=(p,q)=>'('+mn(p)+', '+mn(q)+')';
-   return gq(1,'Find the centre of the circle '+eq+'.',cc(a,b),[cc(-a,b),cc(a,-b),cc(-a,-b),cc(D,E)].filter(x=>x!==cc(a,b)),'Complete the square: (x'+signed(-a,'')+')² + (y'+signed(-b,'')+')² = '+r*r+', so the centre is '+cc(a,b)+' and the radius '+r+'.');}],
+   return gq(1,'Find the centre of the circle '+eq+'.',cc(a,b),pad3(cc(a,b),[cc(-a,b),cc(a,-b),cc(-a,-b),cc(D,E),cc(b,a),cc(a+1,b),cc(a,b+1),cc(a-1,b-1)]),'Complete the square: (x'+signed(-a,'')+')² + (y'+signed(-b,'')+')² = '+r*r+', so the centre is '+cc(a,b)+' and the radius '+r+'.');}],
  [1,()=>{const x1=rint(-5,5),y1=rint(-5,5),dx=pick([3,4,6,8,5,12]),dy={3:4,4:3,6:8,8:6,5:12,12:5}[dx];
    return G(1,'Find the distance between ('+x1+', '+y1+') and ('+(x1+dx)+', '+(y1+dy)+').',numOpts(Math.hypot(dx,dy),'',3,[dx+dy,Math.abs(dx-dy),dx*dx+dy*dy]),'√('+dx+'² + '+dy+'²) = '+Math.hypot(dx,dy)+'.');}],
  [2,()=>{const a=rint(2,10),d=rint(2,6),n=pick([10,12,15,20]),S=n*(2*a+(n-1)*d)/2;
    return G(2,'An arithmetic series has first term '+a+' and common difference '+d+'. Find the sum of the first '+n+' terms.',numOpts(S,'',4,[n*(a+(n-1)*d),n*(2*a+n*d)/2,a+(n-1)*d]),'Sₙ = n/2 [2a + (n − 1)d] = '+n+'/2 × ['+2*a+' + '+(n-1)*d+'] = '+S+'.');}],
  [2,()=>{const a=pick([6,12,18,24,36]),[rn,rd]=pick([[1,2],[1,3],[2,3],[1,4],[-1,2]]),S=a*rd/(rd-rn);
-   return gq(2,'Find the sum to infinity of the geometric series with first term '+a+' and common ratio '+frac(rn,rd)+'.',nf(S),[nf(a*rd/(rd+rn)),nf(a/(1-rn)),nf(a*rn/rd/(1-rn/rd))].concat([nf(2*S),nf(S/2)]).filter((v,i,arr)=>v!==nf(S)&&arr.indexOf(v)===i).slice(0,3),'S∞ = a/(1 − r) = '+a+'/(1 − '+frac(rn,rd)+') = '+nf(S)+'.');}],
+   return gq(2,'Find the sum to infinity of the geometric series with first term '+a+' and common ratio '+frac(rn,rd)+'.',nf(S),pad3(nf(S),[nf(a*rd/(rd+rn)),nf(a*rn/(rd-rn)),nf(2*S),nf(S/2),nf(S+a),nf(a*(rd-rn)/rd)]),'S∞ = a/(1 − r) = '+a+'/(1 − '+frac(rn,rd)+') = '+nf(S)+'.');}],
  [2,()=>{const n=rint(4,7),k=pick([2,3]),a=pick([2,3,-2]),c=C(n,k)*Math.pow(a,k);
    return G(2,'Find the coefficient of x'+sup(k)+' in the expansion of (1 '+(a<0?'− ':'+ ')+Math.abs(a)+'x)'+sup(n)+'.',numOpts(c,'',4,[C(n,k)*a,C(n,k),Math.pow(a,k)]),'ⁿCₖ aᵏ = '+C(n,k)+' × ('+a+')'+sup(k)+' = '+c+'.');}],
  [3,()=>{const T={sin:{0:'0',30:'1/2',45:'√2/2',60:'√3/2',90:'1'},cos:{0:'1',30:'√3/2',45:'√2/2',60:'1/2',90:'0'},tan:{0:'0',30:'√3/3',45:'1',60:'√3'}};
@@ -275,24 +312,24 @@ const AL_MATHS_GEN=[
    const rad={0:'0',30:'π/6',45:'π/4',60:'π/3',90:'π/2'}[ang];
    return gq(3,'What is the exact value of '+f+'('+(Math.random()<.5?ang+'°':rad)+')?',r,shuffle(all).slice(0,3),f+' '+ang+'° = '+r+'.');}],
  [4,()=>{const b=pick([2,3,5]),n=rint(2,5),v=Math.pow(b,n);
-   return gq(4,'Solve '+b+'ˣ = '+v+'.','x = '+n,['x = '+(n+1),'x = '+v/b,'x = '+(n-1)],v+' = '+b+sup(n)+'.');}],
+   return gq(4,'Solve '+b+'ˣ = '+v+'.','x = '+n,pad3('x = '+n,['x = '+(n+1),'x = '+v/b,'x = '+(n-1),'x = '+(n+2),'x = '+v,'x = '+b*n]),v+' = '+b+sup(n)+'.');}],
  [4,()=>{const k=rint(2,9),a=pick([2,3,5]);
    return gq(4,'Simplify ln('+a+'e'+sup(k)+').',k+' + ln '+a,[k+' ln '+a,String(a*k),'ln '+a+' − '+k],'ln('+a+') + ln(e'+sup(k)+') = ln '+a+' + '+k+'.');}],
  [5,()=>{const a=rint(1,3),b=rint(-4,4),c=rint(-6,6),k=rint(-2,3),g=3*a*k*k+2*b*k+c;
-   return G(5,'Find the gradient of y = '+signed(a,'x³',true)+signed(b,'x²')+signed(c,'x')+' at x = '+k+'.',numOpts(g,'',3,[a*k*k*k+b*k*k+c*k,3*a*k+2*b+c,a*k*k+b*k+c].map(v=>v===g?g+7:v)),'dy/dx = '+signed(3*a,'x²',true)+signed(2*b,'x')+signed(c,'')+'; at x = '+k+' this is '+g+'.');}],
+   return G(5,'Find the gradient of y = '+signed(a,'x³',true)+signed(b,'x²')+signed(c,'x')+' at x = '+k+'.',numOpts(g,'',3,[a*k*k*k+b*k*k+c*k,3*a*k+2*b+c,a*k*k+b*k+c,g+1,g-1,g+7,g-7]),'dy/dx = '+signed(3*a,'x²',true)+signed(2*b,'x')+signed(c,'')+'; at x = '+k+' this is '+g+'.');}],
  [5,()=>{const a=rint(1,4),b=rint(1,6)*2*a;
    const xs=b/(2*a);
-   return gq(5,'Find the x-coordinate of the stationary point of y = '+signed(a,'x²',true)+signed(-b,'x')+' + 1.',String(xs),[String(-xs),String(b),String(xs*2)],'dy/dx = '+2*a+'x − '+b+' = 0 gives x = '+xs+'.');}],
+   return gq(5,'Find the x-coordinate of the stationary point of y = '+signed(a,'x²',true)+signed(-b,'x')+' + 1.',String(xs),pad3(String(xs),['−'+xs,String(b),String(xs*2),String(xs+1),'−'+b,String(xs*3)]),'dy/dx = '+2*a+'x − '+b+' = 0 gives x = '+xs+'.');}],
  [6,()=>{const a=pick([3,6,9]),b=pick([2,4,6]),k=rint(1,3),I=a*k*k*k/3+b*k*k/2;
    return G(6,'Evaluate ∫₀'+sup(k)+' ('+a+'x² + '+b+'x) dx.',numOpts(I,'',4,[2*a*k+b,a*k*k*k+b*k*k,a*k*k+b*k]),'['+a/3+'x³ + '+b/2+'x²] from 0 to '+k+' = '+I+'.');}],
  [6,()=>{const k=pick([2,3,4,5]);
    return gq(6,'Find ∫ e'+sup(k+'x')+' dx.','e'+sup(k+'x')+'/'+k+' + C',[k+'e'+sup(k+'x')+' + C','e'+sup(k+'x')+' + C','e'+sup((k+1)+'x')+'/'+(k+1)+' + C'],'Reverse the chain rule.');}],
  [7,()=>{const [a,b,m]=pick([[3,4,5],[5,12,13],[6,8,10],[8,15,17],[2,3,'√13'],[1,1,'√2']]);
-   return gq(7,'Find the magnitude of the vector '+a+'i + '+b+'j.',String(m),[String(a+b),String(a*a+b*b),String(Math.abs(b-a)||7)].filter(x=>x!==String(m)),'√('+a+'² + '+b+'²) = '+m+'.');}],
+   return gq(7,'Find the magnitude of the vector '+a+'i + '+b+'j.',String(m),pad3(String(m),[String(a+b),String(a*a+b*b),String(Math.abs(b-a)||7),String(a*b),String(a+b+1),'√'+(a*a+b*b+1)]),'√('+a+'² + '+b+'²) = '+m+'.');}],
  [8,()=>{const xs=[...Array(5)].map(()=>rint(1,20));const s=xs.reduce((a,b)=>a+b,0);const sorted=xs.slice().sort((a,b)=>a-b);
    return G(8,'Find the mean of '+xs.join(', ')+'.',numOpts(s/5,'',3,[sorted[2],s,s/4]),'Sum = '+s+', so the mean = '+s+'/5 = '+nf(s/5)+'.');}],
  [8,()=>{const n=pick([4,5,6]),k=rint(1,n-1),p=C(n,k),q=Math.pow(2,n);
-   return gq(8,'X ~ B('+n+', 0.5). Find P(X = '+k+').',frac(p,q),[frac(1,q),frac(k,n),frac(p+1,q)].filter(x=>x!==frac(p,q)),'ⁿCₖ (0.5)ⁿ = '+p+'/'+q+' = '+frac(p,q)+'.');}],
+   return gq(8,'X ~ B('+n+', 0.5). Find P(X = '+k+').',frac(p,q),pad3(frac(p,q),[frac(1,q),frac(k,n),frac(p+1,q),frac(p,2*q),frac(Math.max(1,p-1),q),frac(p,n)]),'ⁿCₖ (0.5)ⁿ = '+p+'/'+q+' = '+frac(p,q)+'.');}],
  [9,()=>{const a=pick([2,3,4,1.5]),t=pick([3,4,5,6]),s=0.5*a*t*t;
    return G(9,'A particle starts from rest with constant acceleration '+a+' m/s². How far does it travel in '+t+' s?',numOpts(s,'m',3,[a*t,a*t*t]),'s = ut + ½at² = ½ × '+a+' × '+t+'² = '+nf(s)+' m.');}],
  [9,()=>{const u=pick([10,15,20,25]),g=9.8,h=u*u/(2*g);
@@ -407,9 +444,22 @@ const AL_ECON_BANK=[
  ,[6,'If interest rates rise, what usually happens to the market price of existing bonds?',['It falls','It rises','It stays the same','It doubles'],'A fixed coupon is worth less when new bonds pay more, so existing bond prices fall.']
  ,[7,'A fall in the value of the pound is most likely to:',['Make UK exports cheaper abroad','Make UK imports cheaper','Reduce inflation','Reduce demand for UK exports'],'Foreign buyers need less of their own currency to buy UK goods.']
  ,[3,'A national minimum wage set above the market equilibrium wage may cause:',['Some unemployment in that labour market','A shortage of workers','A fall in wages','No change in employment in any case'],'At the higher wage, more people want to work than firms want to hire (in a competitive market).']
+ ,[1,'Which is the best example of a public good?',['Street lighting','A sandwich','A train ticket','A private gym membership'],'It is non-rival and non-excludable, so the free market tends to under-provide it.']
+ ,[5,'What is fiscal policy?',['Using government spending and taxation to influence the economy','Changing interest rates','Changing the money supply','Setting the exchange rate'],'Monetary policy covers interest rates and the money supply.']
+ ,[7,'A tariff on imported steel is most likely to:',['Raise the domestic price of steel','Lower the price of steel for consumers','Increase imports of steel','Reduce domestic steel production'],'The tax on imports raises their price, so domestic producers can charge more.']
+ ,[3,'Which of these is most likely to increase the supply of labour to an occupation?',['A rise in the wage in that occupation relative to others','Higher qualification requirements','Worse working conditions','A fall in the wage'],'Higher relative wages draw workers in (a movement along, or entry into, the occupation).']
+ ,[6,'What is quantitative easing?',['A central bank creating money to buy assets such as government bonds','A cut in income tax','A rise in government spending','Printing banknotes to pay public sector wages'],'QE aims to lower long-term interest rates and boost spending.']
+ ,[4,'Demand-pull inflation is most likely when:',['Aggregate demand grows faster than productive capacity','Oil prices rise','Wages rise faster than productivity','The exchange rate rises'],'Excess demand pulls up prices; the other options are cost-push or deflationary.']
+ ,[1,'A negative externality in production means that:',['The social cost exceeds the private cost','The private cost exceeds the social cost','The good is under-consumed','The market price is too high'],'Third parties bear costs that producers ignore, so the good is over-produced.']
+ ,[2,'Which feature is characteristic of an oligopoly?',['Interdependence between a few large firms','Many small firms','A single seller','No barriers to entry'],'Each firm\'s decisions depend on how its rivals respond.']
+ ,[5,'Which is an example of a supply-side policy?',['Funding apprenticeships to raise skills','Cutting interest rates','Raising unemployment benefits','Printing money'],"It aims to increase productive capacity (LRAS)."]
+ ,[0,'If two goods are complements, a rise in the price of one will:',['Reduce demand for the other','Increase demand for the other','Have no effect on the other','Increase supply of the other'],'E.g. printers and ink: dearer printers mean fewer ink sales.']
+ ,[3,'The Gini coefficient measures:',['Income or wealth inequality','The rate of inflation','The level of unemployment','The balance of trade'],'0 means perfect equality and 1 means total inequality.']
+ ,[6,'What does a commercial bank\'s liquidity refer to?',['Its ability to meet withdrawals and short-term obligations','Its total profit','The interest rate it charges','Its share price'],'Liquid assets can be turned into cash quickly.']
+ ,[4,'Which is most likely to cause cost-push inflation?',['A sharp rise in oil prices','A rise in consumer confidence','A cut in income tax','Lower interest rates'],'Higher input costs shift SRAS left, raising prices.']
 ];
 const AL_ECON_GEN=[
- [0,()=>{const p=pick([10,20,25,50]),q=pick([5,10,15,20,40]),ped=-(q/p);
+ [0,()=>{let p,q;do{p=pick([10,20,25,50]);q=pick([5,10,15,20,40]);}while(p===q);const ped=-(q/p);
    const lab=v=>nf(v,2)+' ('+(Math.abs(v)>1?'elastic':Math.abs(v)<1?'inelastic':'unit elastic')+')';
    const wrongLab=nf(ped,2)+' ('+(Math.abs(ped)>1?'inelastic':'elastic')+')';
    return gq(0,'Price rises by '+p+'% and quantity demanded falls by '+q+'%. What is the price elasticity of demand?',lab(ped),[lab(-p/q),wrongLab,lab(-ped)],'PED = %ΔQd / %ΔP = −'+q+'/'+p+' = '+nf(ped,2)+'.');}],
@@ -418,7 +468,7 @@ const AL_ECON_GEN=[
  [4,()=>{const a=pick([100,104,110]),b=pick([105,108,113,115]),r=100*(b-a)/a;
    return G(4,'A price index rises from '+a+' to '+b+'. What is the rate of inflation?',numOpts(r,'%',3,[b-a,100*(b-a)/b]),'(' +b+' − '+a+')/'+a+' × 100 = '+nf(r)+'%.');}],
  [4,()=>{const n=pick([3,4,5,6]),r=pick([1,2,2.5]),real=n-r;
-   return gq(4,'Nominal GDP grows by '+n+'% while inflation is '+r+'%. Approximately what is real GDP growth?',nf(real)+'%',[nf(n+r)+'%',nf(n*r)+'%',nf(r)+'%'].filter(x=>x!==nf(real)+'%'),'Real growth ≈ nominal growth − inflation.');}]
+   return gq(4,'Nominal GDP grows by '+n+'% while inflation is '+r+'%. Approximately what is real GDP growth?',nf(real)+'%',pad3(nf(real)+'%',[nf(n+r)+'%',nf(n*r)+'%',nf(r)+'%',nf(n)+'%',nf(n/r)+'%',nf(real+1)+'%']),'Real growth ≈ nominal growth − inflation.');}]
 ];
 
 /* ---- subjects ---- */
