@@ -838,6 +838,32 @@ PHY.push(
  f:[['What is the maximum current if the terminals were short-circuited?','ε/r = 12.6/0.01 = 1260 A, which is why shorting a car battery is so dangerous.'],
     ['For what external resistance is the power to the load greatest?','When it equals the internal resistance (0.01 Ω): then the load gets ε²/4r ≈ 4 kW.']]}
 );
+PHY.push(
+{id:'o1',t:1,l:2,calc:true,q:'A 50 kg gymnast bounces 2.0 m above a trampoline, which sinks 1.0 m at the lowest point. Treating the trampoline as a spring, find its stiffness and the gymnast\'s greatest acceleration in multiples of g. (g = 9.8 m/s²)',
+ h:['From the top of the bounce to the lowest point the gymnast falls 3.0 m in total, and is momentarily at rest at both ends.',
+    'Energy: mg × 3.0 = ½kx² with x = 1.0 m. At the bottom the net upward force is kx − mg.'],
+ a:'<p>mg × 3.0 = 50 × 9.8 × 3 = 1470 J = ½k(1.0)², so <b>k ≈ 2900 N/m</b>.</p><p>At the bottom: kx − mg = 2940 − 490 = 2450 N upwards, so a = 2450/50 ≈ <b>49 m/s² ≈ 5 g</b>.</p><p>Sanity check: the force on the legs is about 6 times body weight (kx/mg = 6), similar to landing a jump on hard ground but spread over a longer time.</p>',
+ f:[['How long does the gymnast spend in the air on each bounce?','Rising 2 m takes √(2 × 2/9.8) ≈ 0.64 s, so about 1.3 s up and down.'],
+    ['How long is the gymnast in contact with the trampoline?','Half a period of SHM: π√(m/k) = π√(50/2940) ≈ 0.41 s, roughly. It is in fact a little longer, because contact starts at the unstretched position, which is above the equilibrium point.']]},
+{id:'o2',t:7,l:1,calc:true,q:'A hydroelectric dam lets 50 m³ of water per second fall through a height of 100 m, with 90% efficiency. What is its electrical power output? How many homes could it supply (a home uses about 0.5 kW on average)? (g = 9.8 m/s²)',
+ h:['Each second, 50 000 kg of water loses potential energy mgh.',
+    'Power = (mass per second) × g × h × efficiency.'],
+ a:'<p>P = 50 000 × 9.8 × 100 × 0.9 ≈ <b>44 MW</b>.</p><p>Homes: 44 000 kW / 0.5 kW ≈ <b>90 000 homes</b>. Sanity check: the largest UK hydro schemes are tens to hundreds of MW, and a large gas power station is about 1000 MW.</p>',
+ f:[['What height would 50 m³/s need to fall to match a 1 GW power station?','h = 10⁹ / (50 000 × 9.8 × 0.9) ≈ 2300 m, which is why big hydro needs huge flows as well as height.'],
+    ['How fast does the water leave the turbine pipe if all the energy became kinetic energy?','v = √(2gh) ≈ 44 m/s.']]},
+{id:'o3',t:7,l:2,calc:true,q:'A wind turbine has blades 50 m long. Estimate the kinetic energy per second of the wind passing through it at 10 m/s, and its electrical output if it captures 40%. Why does output rise so steeply with wind speed? (density of air 1.2 kg/m³)',
+ h:['In one second, a cylinder of air of length v and area A passes through: its mass is ρAv.',
+    'Kinetic energy per second = ½(ρAv)v² = ½ρAv³.'],
+ a:'<p>A = π × 50² ≈ 7850 m². Power in the wind = ½ × 1.2 × 7850 × 10³ ≈ 4.7 MW. At 40%: <b>about 1.9 MW</b>.</p><p>Power ∝ v³: doubling the wind speed gives 8 times the power, so turbines are sited where winds are strong and steady. There is a theoretical maximum (the Betz limit, 59%) because the air must keep moving to get out of the way.</p>',
+ f:[['What is the output at 5 m/s?','(1/2)³ = 1/8 of the 10 m/s value: about 0.24 MW.'],
+    ['Why is the efficiency limited even for a perfect turbine?','If it extracted all the kinetic energy the air would stop behind it and block the flow; the best compromise slows it to a third of its speed (the Betz limit).']]},
+{id:'o4',t:6,l:2,calc:true,q:'The Earth is 81 times more massive than the Moon, and they are 384 000 km apart. Where between them is the gravitational field strength zero?',
+ h:['At that point the pulls of the Earth and the Moon are equal and opposite: GM_E/x² = GM_M/(D − x)².',
+    'Take square roots: x/(D − x) = √81.'],
+ a:'<p>x/(D − x) = 9, so x = 0.9D ≈ <b>346 000 km from the Earth</b>, about 38 000 km from the Moon.</p><p>It sits much closer to the Moon because gravity falls off as 1/r²: the Moon only needs to be 9 times closer to match a mass 81 times bigger. Spacecraft going to the Moon "coast uphill" against the Earth\'s pull until this point, then speed up towards the Moon.</p>',
+ f:[['Is the gravitational potential also zero there?','No: potential is negative everywhere between them (both contributions are negative); only the field (its gradient) is zero.'],
+    ['Is the point stable for a spacecraft parked there?','No: a small push towards either body makes that body\'s pull stronger, so it drifts away (an unstable equilibrium).']]}
+);
 /* ---- Calculation rewrites (owner's request, 5 Nov 2026) ----
    54 questions rewritten in place as numerical problems: the 12 that duplicated other questions, plus most of the
    purely verbal ones. Same ids (so saved questions and links still work); their old spaced-repetition ratings are

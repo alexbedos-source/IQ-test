@@ -171,7 +171,13 @@ const CARDS=[
  [4,'Uses of superconductors','Strong electromagnets (MRI scanners, particle accelerators) and, in future, power cables with no resistive losses.'],
  [5,'Specific latent heat of vaporisation vs fusion','Vaporisation needs much more energy per kilogram than melting, because the particles must be separated completely and work is done pushing back the atmosphere.'],
  [6,'Magnetic flux linkage','The flux through a coil multiplied by its number of turns; an emf is induced whenever it changes.'],
- [7,'What happens to the proton and nucleon numbers in α decay','The proton number falls by 2 and the nucleon number falls by 4.']
+ [7,'What happens to the proton and nucleon numbers in α decay','The proton number falls by 2 and the nucleon number falls by 4.'],
+ [1,'Work function','The minimum energy needed to remove an electron from the surface of a metal.'],
+ [3,'Why a parachutist slows down when the parachute opens','The larger area greatly increases air resistance, so the resultant force acts upwards and they decelerate to a new, lower terminal velocity.'],
+ [3,'When an object topples','When the line of action of its weight falls outside its base, the weight gives a turning moment that tips it over; a low centre of mass and wide base make it more stable.'],
+ [5,'What happens to a gas\'s pressure if its molecules move faster at the same volume','The pressure rises: molecules hit the walls more often and with greater change in momentum each time.'],
+ [6,'Why satellites in low orbit have shorter periods','They are closer to the Earth, where gravity is stronger, so they must move faster and travel a shorter path.'],
+ [7,'Fission vs fusion','Fission splits a heavy nucleus into two medium ones; fusion joins two light nuclei. Both release energy because the products have more binding energy per nucleon.']
 ].map((c,i)=>({id:'a'+i,cat:c[0],front:c[1],back:c[2]}));
 /* ---- Card fixes (6 Nov 2026): 33 cards repeated earlier cards (added by mistake by scheduled runs). They are rewritten
    in place with new AQA content, keeping their ids; their old review progress is cleared once (key 'cards-fix1'). ---- */
@@ -449,7 +455,11 @@ const POTW=[
  ['A 60 kg skier starts from rest at the top of a 30 m high slope and reaches the bottom at 20 m/s. How much energy was lost to friction and air resistance, and what was the average resistive force if the slope is 150 m long? (g = 10 m/s²)',
   'PE lost = 60 × 10 × 30 = 18 kJ; KE gained = ½ × 60 × 400 = 12 kJ. So <b>6 kJ</b> was lost. Average resistive force = 6000/150 = <b>40 N</b>. Check: without losses the speed would have been √(2gh) ≈ 24.5 m/s.'],
  ['(University level) Two springs of stiffness k₁ and k₂ are joined in series. Show that the combination has stiffness k₁k₂/(k₁ + k₂), and find the period of a 0.5 kg mass on two 100 N/m springs in series.',
-  'The same tension F acts in both springs, so the extensions add: F/k = F/k₁ + F/k₂, giving <b>k = k₁k₂/(k₁ + k₂)</b>. For two 100 N/m springs, k = 50 N/m, so T = 2π√(m/k) = 2π√(0.01) ≈ <b>0.63 s</b>. (In parallel they would give 200 N/m and 0.31 s.)']
+  'The same tension F acts in both springs, so the extensions add: F/k = F/k₁ + F/k₂, giving <b>k = k₁k₂/(k₁ + k₂)</b>. For two 100 N/m springs, k = 50 N/m, so T = 2π√(m/k) = 2π√(0.01) ≈ <b>0.63 s</b>. (In parallel they would give 200 N/m and 0.31 s.)'],
+ ['A 2 kg block on a smooth table is joined by a light string over a pulley at the edge to a 1 kg mass hanging freely. Find the acceleration and the tension. (g = 10 m/s²)',
+  'Only the hanging weight (10 N) drives the system of total mass 3 kg: <b>a = 10/3 ≈ 3.3 m/s²</b>. For the block: T = 2 × 10/3 ≈ <b>6.7 N</b>. Check for the hanging mass: 10 − 6.7 = 1 × 3.3. ✓ The tension is less than the hanging weight, as it must be for the mass to accelerate downwards.'],
+ ['(University level) A uniform rope of mass M and length L hangs from a ceiling. Find the tension at a distance y below the ceiling, and the time for a pulse to travel from the bottom to the top (wave speed on a string = √(T/μ)).',
+  'The tension at y supports the rope below: T(y) = Mg(L − y)/L. With μ = M/L, the speed is v = √(g(L − y)), so measuring s = L − y from the bottom, v = √(gs). Time = ∫ ds/√(gs) from 0 to L = <b>2√(L/g)</b>, about 0.9 s for a 2 m rope.']
 ];
 function weekIndex(){
   const d=new Date(),start=new Date(d.getFullYear(),0,1);
@@ -466,10 +476,27 @@ function potwHome(){
   '<p class="muted">A harder problem in the style of physics olympiads and interviews. Work on it over several days before looking at the solution.</p></div>'+
   block(cur,'This week')+
   '<h2>Earlier weeks</h2>'+prev.map(i=>block(i,'Earlier')).join('')+
+  '<button class="btn" id="pall">Browse all '+POTW.length+' problems</button>'+
   '<button class="btn ghost" id="pback">Home</button></div>';
   app.querySelectorAll('details.fu').forEach(d=>d.addEventListener('toggle',()=>{if(d.open){const s=loadJSON('potw',{});s[d.dataset.i]=Date.now();saveJSON('potw',s);}}));
   document.getElementById('pback').onclick=home;
+  document.getElementById('pall').onclick=()=>potwAll(0);
   setScratch(true);
+}
+/* the whole archive: every problem, numbered, with a filter for university-level ones */
+function potwAll(f){
+  leave();setBack(potwHome);
+  const seen=loadJSON('potw',{}),idx=POTW.map((p,i)=>i).filter(i=>f===0||(f===1?!/^\(University level\)/.test(POTW[i][0]):/^\(University level\)/.test(POTW[i][0])));
+  app.innerHTML='<div class="stack"><div class="stack" style="gap:8px"><p class="eyebrow">Problem of the week</p><h1>All problems</h1>'+
+   '<p class="muted">'+Object.keys(seen).length+' of '+POTW.length+' solutions opened. Try each one properly before revealing it.</p></div>'+
+   '<div class="chips">'+['All','A-level','University level'].map((n,i)=>'<button class="chip'+(f===i?' on':'')+'" data-f="'+i+'">'+n+'</button>').join('')+'</div>'+
+   idx.map(i=>'<div class="card stack"><p class="eyebrow">Problem '+(i+1)+(seen[i]?' · ✓ solution seen':'')+'</p><p class="prompt">'+POTW[i][0]+'</p>'+
+     '<details class="fu" data-i="'+i+'"><summary>Reveal solution</summary><p>'+POTW[i][1]+'</p></details></div>').join('')+
+   '<button class="btn ghost" id="paback">Back</button></div>';
+  app.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>potwAll(+b.dataset.f));
+  app.querySelectorAll('details.fu').forEach(d=>d.addEventListener('toggle',()=>{if(d.open){const s=loadJSON('potw',{});s[d.dataset.i]=Date.now();saveJSON('potw',s);}}));
+  document.getElementById('paback').onclick=potwHome;
+  setScratch(true);window.scrollTo(0,0);
 }
 
 /* ---------- resources ---------- */

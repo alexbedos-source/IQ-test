@@ -27,6 +27,7 @@ Status: `[ ]` not started · `[~]` in progress / in an open PR · `[x]` done.
 - [x] **Mock interview: calculation problems only** (on by default, can be switched off; remembered in `iv-calc`).
 - [x] **🧮 tag** on calculation questions (physics question screen and mock interview).
 - [~] **Calculations on Progress and home:** a "🧮 Calculations" mastery row on Progress and the calculation count on the Physics questions card.
+- [~] **Problem of the week archive:** browse all problems (A-level / university filter), not just the last five weeks.
 - [x] **Data booklet drill:** find and apply the right AQA data-booklet equation quickly.
 - [x] **Mental maths sprint** (approved 3 Nov): 60 s of no-calculator questions with a personal best.
 - [x] **Read the graph** (approved 3 Nov): gradients, areas and half-lives from generated graphs.

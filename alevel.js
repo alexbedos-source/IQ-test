@@ -145,6 +145,10 @@ const AL_PHY_BANK=[
  ,[5,'A mass on a spring oscillates with simple harmonic motion. Where is its acceleration greatest?',['At maximum displacement','At the equilibrium position','Halfway between equilibrium and maximum displacement','It is the same everywhere'],'In SHM acceleration is proportional to displacement (and opposite to it).']
  ,[6,'What happens to the capacitance of a parallel-plate capacitor if the plate separation is doubled?',['It halves','It doubles','It stays the same','It quarters'],'Capacitance is inversely proportional to the plate separation.']
  ,[7,'Why is a γ source preferred for sterilising medical equipment?',['γ rays penetrate the packaging and kill bacteria throughout','γ rays are the most ionising','γ rays have a short range in air','γ sources have very short half-lives'],'γ rays are highly penetrating, so they reach everything inside sealed packaging.']
+ ,[1,'What is the specific charge of a particle?',['Its charge divided by its mass','Its charge multiplied by its mass','Its mass divided by its charge','The charge of one electron'],'Measured in C/kg; the electron has the largest specific charge of common particles.']
+ ,[3,'A ball is dropped from rest. Ignoring air resistance, how far does it fall in the third second? (g = 10 m/s²)',['25 m','45 m','15 m','30 m'],'It falls 45 m in 3 s and 20 m in 2 s, so 25 m in the third second.']
+ ,[5,'A system oscillates with a natural frequency of 2 Hz. It is driven at 2 Hz with little damping. What happens?',['Resonance: the amplitude becomes very large','The amplitude becomes zero','The frequency doubles','The oscillation stops'],"Energy is transferred most efficiently when the driving frequency matches the natural frequency."]
+ ,[0,'A measurement is 4.0 cm with a percentage uncertainty of 5%. What is the absolute uncertainty?',['± 0.2 cm','± 0.5 cm','± 0.05 cm','± 2 cm'],'5% of 4.0 cm = 0.2 cm.']
 ];
 const AL_PHY_GEN=[
  [4,()=>{const [a,b,r]=pick([[6,3,2],[12,4,3],[10,10,5],[20,5,4],[6,12,4],[30,6,5],[8,8,4],[15,10,6]]);
@@ -294,6 +298,10 @@ const AL_MATHS_BANK=[
  ,[6,'Find ∫ 1/x dx for x > 0.',['ln x + C','x⁻² + C','−1/x² + C','1 + C'],'The derivative of ln x is 1/x.']
  ,[3,'What is the period of y = sin(2x)?',['π','2π','π/2','4π'],'The period of sin(kx) is 2π/k.']
  ,[8,'A fair dice is rolled twice. What is the probability of two sixes?',['1/36','1/6','1/12','2/6'],'Independent events: 1/6 × 1/6.']
+ ,[2,'What is the coefficient of x² in the expansion of (1 + 2x)⁵?',['40','10','20','80'],'⁵C₂ × 2² = 10 × 4 = 40.']
+ ,[4,'Simplify log₃27.',['3','9','1/3','27'],'3³ = 27.']
+ ,[6,'Find the area enclosed between y = x and y = x² for 0 ≤ x ≤ 1.',['1/6','1/2','1/3','1'],'∫₀¹ (x − x²) dx = 1/2 − 1/3 = 1/6.']
+ ,[9,'A particle moves with velocity v = 3t² m/s. What is its acceleration at t = 2 s?',['12 m/s²','6 m/s²','24 m/s²','8 m/s²'],'a = dv/dt = 6t = 12 m/s².']
 ];
 const AL_MATHS_GEN=[
  [0,()=>{let r1,r2;do{r1=rint(-7,7);r2=rint(-7,7);}while(!r1||!r2||r1===r2||r1===-r2);
@@ -469,6 +477,10 @@ const AL_ECON_BANK=[
  ,[5,'Which is the main tool of UK monetary policy?',['Bank Rate set by the Bank of England','Income tax rates','Government spending','Tariffs on imports'],'The Monetary Policy Committee sets Bank Rate to meet the inflation target.']
  ,[7,'What is a current account deficit?',['Spending on imports of goods, services and income exceeds earnings from exports','The government spends more than it receives in taxes','A fall in the exchange rate','A shortage of foreign currency reserves'],'It records trade in goods and services plus income flows with the rest of the world.']
  ,[6,'What is a bank\'s capital ratio?',['Its capital as a share of its (risk-weighted) assets','Its profit as a share of sales','Its loans as a share of deposits','Its interest rate minus the Bank Rate'],'Higher capital ratios let banks absorb losses without failing.']
+ ,[0,'A good with a positive income elasticity of demand less than 1 is:',['A necessity (normal good)','A luxury','An inferior good','A Giffen good'],'Demand rises with income, but less than proportionately.']
+ ,[3,'Which is most likely to reduce the gender pay gap?',['Better access to affordable childcare','Lower minimum wages','Fewer part-time jobs','Higher income tax on women'],"Childcare costs are a major reason women reduce hours or leave higher-paid jobs."]
+ ,[4,'Which measures the total value of goods and services produced in an economy in a year?',['GDP','CPI','The current account','The budget deficit'],'Gross domestic product; real GDP adjusts it for inflation.']
+ ,[7,'Which is an example of a non-tariff barrier to trade?',['An import quota','A tax on imported cars','A subsidy to exporters paid in cash only','A floating exchange rate'],'Quotas limit the quantity imported directly.']
 ];
 const AL_ECON_GEN=[
  [0,()=>{let p,q;do{p=pick([10,20,25,50]);q=pick([5,10,15,20,40]);}while(p===q);const ped=-(q/p);

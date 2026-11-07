@@ -359,7 +359,7 @@ body.sp-open #scratchbtn,body.vp-open #scratchbtn{display:none}
 /* Start-up safety net: if anything fails while the app loads (for example a stale cached file after an update),
    clear the offline cache and reload once automatically. If it still fails, show a repair button.
    Progress (localStorage) is never touched. */
-window.IQ_V='27';
+window.IQ_V='28';
 (function(){
   let started=false;window.addEventListener('iq-started',()=>{started=true;});
   async function repair(){
@@ -388,20 +388,20 @@ window.IQ_V='27';
 <header class="tb" id="tb"><button id="backbtn" aria-label="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button></header>
 <main class="wrap" id="app"></main>
 
-<script src="iq-bank.js?v=27"></script>
-<script src="physics.js?v=27"></script>
-<script src="interview.js?v=27"></script>
-<script src="drill.js?v=27"></script>
-<script src="learn.js?v=27"></script>
-<script src="tools.js?v=27"></script>
-<script src="alevel.js?v=27"></script>
-<script src="videos.js?v=27"></script>
-<script src="mistakes.js?v=27"></script>
-<script src="backup.js?v=27"></script>
-<script src="practicals.js?v=27"></script>
-<script src="extras.js?v=27"></script>
-<script src="train.js?v=27"></script>
-<script src="scratch.js?v=27"></script>
+<script src="iq-bank.js?v=28"></script>
+<script src="physics.js?v=28"></script>
+<script src="interview.js?v=28"></script>
+<script src="drill.js?v=28"></script>
+<script src="learn.js?v=28"></script>
+<script src="tools.js?v=28"></script>
+<script src="alevel.js?v=28"></script>
+<script src="videos.js?v=28"></script>
+<script src="mistakes.js?v=28"></script>
+<script src="backup.js?v=28"></script>
+<script src="practicals.js?v=28"></script>
+<script src="extras.js?v=28"></script>
+<script src="train.js?v=28"></script>
+<script src="scratch.js?v=28"></script>
 <script>
 /* =====================  helpers  ===================== */
 const rnd=n=>Math.floor(Math.random()*n);
