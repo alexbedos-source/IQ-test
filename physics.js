@@ -864,6 +864,32 @@ PHY.push(
  f:[['Is the gravitational potential also zero there?','No: potential is negative everywhere between them (both contributions are negative); only the field (its gradient) is zero.'],
     ['Is the point stable for a spacecraft parked there?','No: a small push towards either body makes that body\'s pull stronger, so it drifts away (an unstable equilibrium).']]}
 );
+PHY.push(
+{id:'l1',t:3,l:3,calc:true,q:'An optical fibre has a core of refractive index 1.50 and cladding of 1.45. Find the critical angle at the core–cladding boundary. Over 1 km, how much later does a ray bouncing at the critical angle arrive than a ray going straight down the axis? (c = 3.0 × 10⁸ m/s)',
+ h:['sinθ_c = n_cladding/n_core.',
+    'A ray hitting the boundary at the critical angle travels at angle (90° − θ_c) to the axis, so its path is longer by a factor of 1/sinθ_c. Its speed in the core is c/1.50.'],
+ a:'<p>sinθ_c = 1.45/1.50 = 0.967, so <b>θ_c ≈ 75°</b>.</p><p>Axial ray time: 1000 × 1.50/3 × 10⁸ = 5.00 μs. The steepest ray\'s path is longer by 1/sinθ_c = 1.034, so it takes 5.17 μs: a delay of about <b>170 ns</b> per kilometre.</p><p>That spreading of pulses (modal dispersion) limits how fast data can be sent; single-mode fibres with very thin cores avoid it.</p>',
+ f:[['Roughly what is the highest pulse rate before neighbouring pulses overlap after 1 km?','Pulses must be more than about 170 ns apart, so about 6 million pulses per second.'],
+    ['Why would a cladding index closer to the core index reduce the delay?','The critical angle gets closer to 90°, so only rays nearly parallel to the axis are guided and their path lengths differ less.']]},
+{id:'l2',t:5,l:1,calc:true,q:'A solar water heater has 2.0 m² of panels in sunshine of 600 W/m² and is 50% efficient. How long does it take to heat a 100-litre tank from 15 °C to 45 °C? (c = 4200 J kg⁻¹ K⁻¹)',
+ h:['Useful power = area × intensity × efficiency.',
+    'Energy needed = mcΔT; time = energy / power.'],
+ a:'<p>Useful power = 2.0 × 600 × 0.5 = 600 W. Energy = 100 × 4200 × 30 = 12.6 MJ. Time = 12.6 × 10⁶ / 600 = 21 000 s ≈ <b>5.8 hours</b>, most of a sunny day.</p><p>Sanity check: an electric immersion heater (3 kW) would take about 70 minutes, five times faster, but costs about 3.5 kWh of electricity.</p>',
+ f:[['How much money does the solar heater save per tank at 25p per kWh?','12.6 MJ = 3.5 kWh, so about 88p.'],
+    ['Why do the panels lose efficiency as the water gets hotter?','The hotter the panel, the more heat it loses to the surroundings by radiation and convection, so less of the sunlight ends up in the water.']]},
+{id:'l3',t:2,l:1,calc:true,q:'A sheet of paper is 0.1 mm thick. How many times would you need to fold it in half for the stack to reach the Moon, 384 000 km away?',
+ h:['After n folds the thickness is 0.1 mm × 2ⁿ.',
+    'Solve 10⁻⁴ × 2ⁿ = 3.84 × 10⁸ m. Use 2¹⁰ ≈ 10³.'],
+ a:'<p>2ⁿ = 3.84 × 10⁸ / 10⁻⁴ = 3.84 × 10¹². Since 2¹⁰ ≈ 10³, 2⁴⁰ ≈ 10¹², so n ≈ 40 + log₂3.84 ≈ 40 + 1.9 ≈ <b>42 folds</b>.</p><p>Exponential growth is startling: 30 folds already gives about 100 km. (In practice you cannot fold real paper more than about 7–12 times.)</p>',
+ f:[['How thick is the stack after 20 folds?','2²⁰ ≈ 10⁶, so about 100 m.'],
+    ['How many folds to reach the Sun (1.5 × 10¹¹ m)?','2ⁿ = 1.5 × 10¹⁵, so n ≈ 50.4, about 51 folds: only 9 more than the Moon.']]},
+{id:'l4',t:4,l:2,calc:true,q:'A defibrillator charges a 32 μF capacitor to 5.0 kV and discharges it through a patient\'s chest (about 50 Ω). Find the energy stored, the initial current and the time constant. What is the average power if most of the energy goes in about 5 ms?',
+ h:['E = ½CV²; initial current I = V/R.',
+    'Time constant = RC; average power = energy / time.'],
+ a:'<p>E = ½ × 32 × 10⁻⁶ × (5000)² = <b>400 J</b>. Initial current = 5000/50 = <b>100 A</b>. RC = 50 × 32 × 10⁻⁶ = <b>1.6 ms</b>.</p><p>Average power ≈ 400 J / 5 ms = <b>80 kW</b>, for an instant. After about 3 time constants (5 ms) only e⁻⁶ ≈ 0.25% of the energy is left, which matches the 5 ms estimate.</p>',
+ f:[['What fraction of the charge remains after one time constant?','1/e, about 37%.'],
+    ['Why must staff stand clear during the shock?','Touching the patient would put them in parallel with the chest, so part of the large current could pass through them.']]}
+);
 /* ---- Calculation rewrites (owner's request, 5 Nov 2026) ----
    54 questions rewritten in place as numerical problems: the 12 that duplicated other questions, plus most of the
    purely verbal ones. Same ids (so saved questions and links still work); their old spaced-repetition ratings are
@@ -1216,6 +1242,27 @@ const PHY_SOURCES=[
 /* ---------- state ---------- */
 const RATE={got:['Got it','ok'],hint:['Needed hints','sk'],stuck:['Stuck','no']};
 let phyFilter=-1, phyTick=null;
+/* where a physics question returns to (null = the question list); set by the Mechanics ladder */
+let PHY_CTX=null;
+/* ---- Mechanics ladder (approved by the owner, 7 Nov): 20 mechanics calculations from easy to hard.
+   A step counts as passed when its latest rating is "Got it" or "Needed hints"; the next step unlocks after it.
+   Uses the existing phy-ratings data only. ---- */
+const LADDER=['j3','f1','m2','k2','p2','j1','n11','m4','d1','b1','o1','k1','m3','r1','m7','n4','m6','u9','u7','m1'];
+function ladderPassed(R,id){return !!(R[id]&&R[id].r!=='stuck');}
+function ladderHome(){
+  leave();setBack(home);PHY_CTX=null;
+  const R=phyRatings(),qs=LADDER.map(id=>PHY.find(q=>q.id===id)).filter(Boolean);
+  let open=qs.findIndex(q=>!ladderPassed(R,q.id));if(open<0)open=qs.length;
+  app.innerHTML='<div class="stack"><div class="stack" style="gap:8px"><p class="eyebrow">Interview prep</p><h1>Mechanics ladder</h1>'+
+   '<p class="muted">'+qs.length+' mechanics calculations, from warm-up to Oxford-hard. Rate a step "Got it" or "Needed hints" to unlock the next one. "Stuck" keeps it open for another try.</p></div>'+
+   '<div class="bar"><i style="width:'+(100*Math.min(open,qs.length)/qs.length)+'%"></i></div>'+
+   '<p class="note">'+Math.min(open,qs.length)+' of '+qs.length+' climbed'+(open>=qs.length?' · ladder complete! Revisit any step to keep it fresh.':'')+'</p>'+
+   '<div class="ladder">'+qs.map((q,i)=>{const st=i<open?'done':i===open?'cur':'lock';
+     return '<button class="lstep '+st+'" data-i="'+i+'"'+(st==='lock'?' disabled':'')+'><span class="ln">'+(st==='done'?'✓':st==='lock'?'🔒':i+1)+'</span><span class="lt"><b>Step '+(i+1)+' · '+lvl(q.l)+'</b><span>'+(st==='lock'?'Locked':q.q.replace(/<[^>]+>/g,'').slice(0,90)+(q.q.length>90?'…':''))+'</span></span></button>';}).join('')+'</div>'+
+   '<button class="btn ghost" id="ladback">Home</button></div>';
+  app.querySelectorAll('.lstep:not([disabled])').forEach(b=>b.onclick=()=>{PHY_CTX=ladderHome;phyQuestion(qs[+b.dataset.i]);});
+  document.getElementById('ladback').onclick=home;
+}
 const phyRatings=()=>loadJSON('phy-ratings',{});
 /* filter: -1 all, -2 calculations only, otherwise a topic index */
 function phyPool(){return PHY.filter(q=>phyFilter===-1||(phyFilter===-2?q.calc:q.t===phyFilter));}
@@ -1241,7 +1288,7 @@ function phyNext(exclude){
 const lvl=l=>'●'.repeat(l)+'○'.repeat(3-l);
 
 function phyHome(){
-  leave();
+  leave();PHY_CTX=null;
   const R=phyRatings(),pool=phyPool();
   const cnt={got:0,hint:0,stuck:0};pool.forEach(q=>{if(R[q.id])cnt[R[q.id].r]++;});
   const unseen=pool.length-cnt.got-cnt.hint-cnt.stuck,ndue=phyDueList(pool).length;
@@ -1267,7 +1314,7 @@ function phyHome(){
 }
 
 function phyQuestion(q){
-  clearInterval(phyTick);setBack(phyHome);setScratch(true);
+  clearInterval(phyTick);setBack(PHY_CTX||phyHome);setScratch(true);
   let shown=0,end=0;
   app.innerHTML=
   '<div class="stack">'+
@@ -1278,7 +1325,7 @@ function phyQuestion(q){
   '<div class="row2"><button class="btn ghost" id="ptime">Start 5 min timer</button><button class="btn ghost" id="phint">Hint 1 of '+q.h.length+'</button></div>'+
   '<button class="btn" id="pans">Show worked answer</button>'+
   '<div id="rate"></div>'+
-  '<button class="btn ghost" id="pback">Back to questions</button>'+
+  '<button class="btn ghost" id="pback">'+(PHY_CTX?'Back to the ladder':'Back to questions')+'</button>'+
   '</div>';
   const $=id=>document.getElementById(id);
   $('ptime').onclick=()=>{
@@ -1304,10 +1351,10 @@ function phyQuestion(q){
       Object.entries(RATE).map(([k,v])=>'<button class="btn ghost rate '+v[1]+'" data-r="'+k+'">'+v[0]+'</button>').join('')+'</div></div>';
     $('rate').querySelectorAll('.rate').forEach(b=>b.onclick=()=>{
       phyRate(q.id,b.dataset.r);
-      phyQuestion(phyNext(q.id));
+      if(PHY_CTX)PHY_CTX();else phyQuestion(phyNext(q.id));
     });
     $('ans').scrollIntoView({behavior:'smooth',block:'start'});
   };
-  $('pback').onclick=phyHome;
+  $('pback').onclick=PHY_CTX||phyHome;
   window.scrollTo(0,0);
 }

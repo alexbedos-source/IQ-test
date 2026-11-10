@@ -149,6 +149,10 @@ const AL_PHY_BANK=[
  ,[3,'A ball is dropped from rest. Ignoring air resistance, how far does it fall in the third second? (g = 10 m/s²)',['25 m','45 m','15 m','30 m'],'It falls 45 m in 3 s and 20 m in 2 s, so 25 m in the third second.']
  ,[5,'A system oscillates with a natural frequency of 2 Hz. It is driven at 2 Hz with little damping. What happens?',['Resonance: the amplitude becomes very large','The amplitude becomes zero','The frequency doubles','The oscillation stops'],"Energy is transferred most efficiently when the driving frequency matches the natural frequency."]
  ,[0,'A measurement is 4.0 cm with a percentage uncertainty of 5%. What is the absolute uncertainty?',['± 0.2 cm','± 0.5 cm','± 0.05 cm','± 2 cm'],'5% of 4.0 cm = 0.2 cm.']
+ ,[2,'What does the intensity of a wave depend on?',['The square of its amplitude','Its amplitude only, linearly','Its wavelength only','Its speed only'],'Intensity ∝ amplitude²: doubling the amplitude quadruples the intensity.']
+ ,[4,'What is the emf of a cell?',['The energy transferred to each coulomb of charge by the cell','The pd across the terminals when current flows','The current it can supply','Its internal resistance'],"Emf is energy per unit charge supplied; the terminal pd is less when current flows."]
+ ,[6,'In which direction is the electric field between a positive and a negative plate?',['From the positive plate to the negative plate','From the negative plate to the positive plate','Parallel to the plates','There is no field between them'],'Field lines show the direction of the force on a positive charge.']
+ ,[7,'What is the main reason fusion is hard to achieve on Earth?',['Nuclei repel strongly, so very high temperatures and pressures are needed','Fusion releases too little energy','Hydrogen is very rare','Fusion products are highly radioactive'],'Overcoming the electrostatic repulsion needs temperatures of about 10⁸ K in reactors.']
 ];
 const AL_PHY_GEN=[
  [4,()=>{const [a,b,r]=pick([[6,3,2],[12,4,3],[10,10,5],[20,5,4],[6,12,4],[30,6,5],[8,8,4],[15,10,6]]);
@@ -302,6 +306,10 @@ const AL_MATHS_BANK=[
  ,[4,'Simplify log₃27.',['3','9','1/3','27'],'3³ = 27.']
  ,[6,'Find the area enclosed between y = x and y = x² for 0 ≤ x ≤ 1.',['1/6','1/2','1/3','1'],'∫₀¹ (x − x²) dx = 1/2 − 1/3 = 1/6.']
  ,[9,'A particle moves with velocity v = 3t² m/s. What is its acceleration at t = 2 s?',['12 m/s²','6 m/s²','24 m/s²','8 m/s²'],'a = dv/dt = 6t = 12 m/s².']
+ ,[2,'Using the binomial expansion, approximate (1.02)⁵ to 3 decimal places.',['1.104','1.100','1.010','1.120'],'(1 + 0.02)⁵ ≈ 1 + 5(0.02) + 10(0.02)² = 1.104.']
+ ,[3,'What is the exact value of cos(π/3)?',['1/2','√3/2','√2/2','1'],'cos 60° = 1/2.']
+ ,[7,'What is the scalar (dot) product of (2, 3) and (4, −1)?',['5','11','8','−5'],'2 × 4 + 3 × (−1) = 5.']
+ ,[1,'What is the midpoint of (−2, 4) and (6, 0)?',['(2, 2)','(4, 4)','(2, 4)','(−4, 2)'],'Average the coordinates.']
 ];
 const AL_MATHS_GEN=[
  [0,()=>{let r1,r2;do{r1=rint(-7,7);r2=rint(-7,7);}while(!r1||!r2||r1===r2||r1===-r2);
@@ -481,6 +489,10 @@ const AL_ECON_BANK=[
  ,[3,'Which is most likely to reduce the gender pay gap?',['Better access to affordable childcare','Lower minimum wages','Fewer part-time jobs','Higher income tax on women'],"Childcare costs are a major reason women reduce hours or leave higher-paid jobs."]
  ,[4,'Which measures the total value of goods and services produced in an economy in a year?',['GDP','CPI','The current account','The budget deficit'],'Gross domestic product; real GDP adjusts it for inflation.']
  ,[7,'Which is an example of a non-tariff barrier to trade?',['An import quota','A tax on imported cars','A subsidy to exporters paid in cash only','A floating exchange rate'],'Quotas limit the quantity imported directly.']
+ ,[0,'Which would shift the supply curve of strawberries to the right?',['A spell of good growing weather','A rise in the price of strawberries','A rise in consumer incomes','A fall in the price of cream'],'Better weather raises output at every price; a price change is a movement along the curve.']
+ ,[2,'What is a natural monopoly?',['An industry where one firm can supply the whole market at lower cost than several firms','A firm that owns a natural resource','Any firm with more than 25% market share','A monopoly created by government licence'],'Very high fixed costs (e.g. water pipes) give huge economies of scale.']
+ ,[5,'What is the budget deficit?',['The amount by which government spending exceeds tax revenue in a year','The total amount the government owes','The gap between imports and exports','The fall in GDP in a recession'],'The total accumulated borrowing is the national debt.']
+ ,[6,'Why might a bank run cause a bank to fail even if it is solvent?',['It cannot turn its long-term loans into cash quickly enough to repay depositors','Its assets are worth less than its liabilities','Interest rates fall','Depositors earn too little interest'],'This is a liquidity problem rather than a solvency problem.']
 ];
 const AL_ECON_GEN=[
  [0,()=>{let p,q;do{p=pick([10,20,25,50]);q=pick([5,10,15,20,40]);}while(p===q);const ped=-(q/p);

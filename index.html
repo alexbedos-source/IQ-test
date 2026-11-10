@@ -177,6 +177,14 @@ details.rev p{margin-top:6px;font-size:.92rem;color:var(--muted)}
 .trow:first-of-type{border-top:0}
 .trow .tv{color:var(--accent);font:500 .88rem var(--mono)}
 .tdone{color:var(--good);font-weight:500}
+/* mechanics ladder */
+.ladder{display:flex;flex-direction:column;gap:8px}
+.lstep{display:flex;gap:12px;align-items:center;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;cursor:pointer;color:inherit;font:inherit}
+.lstep .ln{flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font:600 .9rem var(--mono);background:#222}
+.lstep .lt{display:flex;flex-direction:column;gap:2px}.lstep .lt span{font-size:.82rem;color:var(--muted)}
+.lstep.done .ln{background:color-mix(in srgb,var(--good) 30%,#161616);color:var(--good)}
+.lstep.cur{border-color:var(--accent)}.lstep.cur .ln{background:var(--accent);color:var(--accent-ink)}
+.lstep.lock{opacity:.5;cursor:default}
 /* practice records */
 .recs{display:flex;flex-direction:column}
 .rec{display:flex;flex-direction:column;gap:3px;text-align:left;background:none;border:0;border-top:1px solid var(--line);padding:10px 0;cursor:pointer;color:inherit;font:inherit}
@@ -359,7 +367,7 @@ body.sp-open #scratchbtn,body.vp-open #scratchbtn{display:none}
 /* Start-up safety net: if anything fails while the app loads (for example a stale cached file after an update),
    clear the offline cache and reload once automatically. If it still fails, show a repair button.
    Progress (localStorage) is never touched. */
-window.IQ_V='28';
+window.IQ_V='29';
 (function(){
   let started=false;window.addEventListener('iq-started',()=>{started=true;});
   async function repair(){
@@ -388,20 +396,20 @@ window.IQ_V='28';
 <header class="tb" id="tb"><button id="backbtn" aria-label="Back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button></header>
 <main class="wrap" id="app"></main>
 
-<script src="iq-bank.js?v=28"></script>
-<script src="physics.js?v=28"></script>
-<script src="interview.js?v=28"></script>
-<script src="drill.js?v=28"></script>
-<script src="learn.js?v=28"></script>
-<script src="tools.js?v=28"></script>
-<script src="alevel.js?v=28"></script>
-<script src="videos.js?v=28"></script>
-<script src="mistakes.js?v=28"></script>
-<script src="backup.js?v=28"></script>
-<script src="practicals.js?v=28"></script>
-<script src="extras.js?v=28"></script>
-<script src="train.js?v=28"></script>
-<script src="scratch.js?v=28"></script>
+<script src="iq-bank.js?v=29"></script>
+<script src="physics.js?v=29"></script>
+<script src="interview.js?v=29"></script>
+<script src="drill.js?v=29"></script>
+<script src="learn.js?v=29"></script>
+<script src="tools.js?v=29"></script>
+<script src="alevel.js?v=29"></script>
+<script src="videos.js?v=29"></script>
+<script src="mistakes.js?v=29"></script>
+<script src="backup.js?v=29"></script>
+<script src="practicals.js?v=29"></script>
+<script src="extras.js?v=29"></script>
+<script src="train.js?v=29"></script>
+<script src="scratch.js?v=29"></script>
 <script>
 /* =====================  helpers  ===================== */
 const rnd=n=>Math.floor(Math.random()*n);
@@ -871,7 +879,7 @@ function todayHtml(dr,drDone,cardsDueN,mistakesN){
     '<p class="tdone">✓ All caught up for today</p>')+'</div>';
 }
 function home(){
-  leave();setBack(null);
+  leave();setBack(null);if(typeof PHY_CTX!=='undefined')PHY_CTX=null;
   const dr=drillState(),drDone=!!dr.days[dayKey()],cd=cardsDue(cardState()),due=cd.due.length+cd.fresh.length,nmb=mbList().length;
   const card=(id,title,desc,badge,done)=>'<button class="hubcard" id="'+id+'"><b>'+title+'</b><span>'+desc+'</span>'+(badge?'<span class="badge'+(done?' done':'')+'">'+badge+'</span>':'')+'</button>';
   app.innerHTML=
@@ -880,6 +888,7 @@ function home(){
   todayHtml(dr,drDone,due,nmb)+weekHtml()+
   '<div class="hubsec"><p class="eyebrow">Interview prep</p>'+
    card('hiv','Mock interview','Two problems, think aloud, tutor follow-ups, then review yourself.')+
+   card('hlad','Mechanics ladder','20 calculations, easy to Oxford-hard',(()=>{const R=phyRatings();const n=LADDER.filter(id=>ladderPassed(R,id)).length;return n?n+' / '+LADDER.length:'';})())+
    '<div class="hubgrid">'+card('hphy','Physics questions',PHY.length+' questions with hints, '+PHY.filter(q=>q.calc).length+' of them calculations',phyDueList(PHY).length?phyDueList(PHY).length+' due':'')+card('hpotw','Problem of the week','A harder problem to chew on')+card('hsk','Sketch the graph','Draw it, then compare')+'</div></div>'+
   '<div class="hubsec"><p class="eyebrow">A-levels</p><div class="hubgrid">'+
    card('alphy','Physics','AQA')+card('almaths','Maths','Edexcel')+card('alecon','Economics','AQA')+card('alall','All subjects','Accuracy by topic')+
@@ -899,7 +908,7 @@ function home(){
   '<div class="hubsec"><p class="eyebrow">Intelligence</p>'+
    card('hiq','IQ test','Seven abilities · 5, 10 or 30 minutes')+'</div>'+
   '</div>';
-  const go={hgr:grHome,hspr:sprintHome,hdb:dbHome,hweek:progressHome,hsaved:savedHome,hsk:sketchHome,hmix:mixedHome,tdrill:drillHome,tcards:cardsHome,tphy:phyHome,tmb:mbHome,hrp:rpHome,hvid:videosHome,hmb:mbHome,hbk:backupHome,alphy:()=>alSubject(0,home),almaths:()=>alSubject(1,home),alecon:()=>alSubject(2,home),alall:alHome,hiv:ivHome,hphy:phyHome,hpotw:potwHome,hdrill:drillHome,hcards:cardsHome,htopics:topicsHome,hres:resourcesHome,hstudy:studyHome,hprog:progressHome,hiq:iqHome};
+  const go={hlad:ladderHome,hgr:grHome,hspr:sprintHome,hdb:dbHome,hweek:progressHome,hsaved:savedHome,hsk:sketchHome,hmix:mixedHome,tdrill:drillHome,tcards:cardsHome,tphy:phyHome,tmb:mbHome,hrp:rpHome,hvid:videosHome,hmb:mbHome,hbk:backupHome,alphy:()=>alSubject(0,home),almaths:()=>alSubject(1,home),alecon:()=>alSubject(2,home),alall:alHome,hiv:ivHome,hphy:phyHome,hpotw:potwHome,hdrill:drillHome,hcards:cardsHome,htopics:topicsHome,hres:resourcesHome,hstudy:studyHome,hprog:progressHome,hiq:iqHome};
   for(const id in go){const el=document.getElementById(id);if(el)el.onclick=go[id];}
   window.scrollTo(0,0);
 }

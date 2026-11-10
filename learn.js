@@ -177,7 +177,13 @@ const CARDS=[
  [3,'When an object topples','When the line of action of its weight falls outside its base, the weight gives a turning moment that tips it over; a low centre of mass and wide base make it more stable.'],
  [5,'What happens to a gas\'s pressure if its molecules move faster at the same volume','The pressure rises: molecules hit the walls more often and with greater change in momentum each time.'],
  [6,'Why satellites in low orbit have shorter periods','They are closer to the Earth, where gravity is stronger, so they must move faster and travel a shorter path.'],
- [7,'Fission vs fusion','Fission splits a heavy nucleus into two medium ones; fusion joins two light nuclei. Both release energy because the products have more binding energy per nucleon.']
+ [7,'Fission vs fusion','Fission splits a heavy nucleus into two medium ones; fusion joins two light nuclei. Both release energy because the products have more binding energy per nucleon.'],
+ [0,'Why measure many oscillations to find a period','Timing, say, 10 oscillations and dividing by 10 reduces the percentage uncertainty from human reaction time.'],
+ [2,'Electromagnetic spectrum in order of increasing wavelength','Gamma rays, X-rays, ultraviolet, visible light, infrared, microwaves, radio waves. All travel at the same speed in a vacuum.'],
+ [3,'Why seatbelts and airbags reduce injury','They increase the time over which a passenger\'s momentum changes, so the force on them is smaller for the same change in momentum.'],
+ [4,'Measuring internal resistance','Vary the external resistance, plot terminal pd against current: the gradient is −r and the y-intercept is the emf.'],
+ [5,'Forced oscillation phase at resonance','At resonance the driver leads the oscillator by a quarter of a cycle (π/2); far below resonance they are in phase, far above in antiphase.'],
+ [7,'Activity (definition)','The number of nuclei that decay per second, measured in becquerels (Bq).']
 ].map((c,i)=>({id:'a'+i,cat:c[0],front:c[1],back:c[2]}));
 /* ---- Card fixes (6 Nov 2026): 33 cards repeated earlier cards (added by mistake by scheduled runs). They are rewritten
    in place with new AQA content, keeping their ids; their old review progress is cleared once (key 'cards-fix1'). ---- */
@@ -459,7 +465,11 @@ const POTW=[
  ['A 2 kg block on a smooth table is joined by a light string over a pulley at the edge to a 1 kg mass hanging freely. Find the acceleration and the tension. (g = 10 m/s²)',
   'Only the hanging weight (10 N) drives the system of total mass 3 kg: <b>a = 10/3 ≈ 3.3 m/s²</b>. For the block: T = 2 × 10/3 ≈ <b>6.7 N</b>. Check for the hanging mass: 10 − 6.7 = 1 × 3.3. ✓ The tension is less than the hanging weight, as it must be for the mass to accelerate downwards.'],
  ['(University level) A uniform rope of mass M and length L hangs from a ceiling. Find the tension at a distance y below the ceiling, and the time for a pulse to travel from the bottom to the top (wave speed on a string = √(T/μ)).',
-  'The tension at y supports the rope below: T(y) = Mg(L − y)/L. With μ = M/L, the speed is v = √(g(L − y)), so measuring s = L − y from the bottom, v = √(gs). Time = ∫ ds/√(gs) from 0 to L = <b>2√(L/g)</b>, about 0.9 s for a 2 m rope.']
+  'The tension at y supports the rope below: T(y) = Mg(L − y)/L. With μ = M/L, the speed is v = √(g(L − y)), so measuring s = L − y from the bottom, v = √(gs). Time = ∫ ds/√(gs) from 0 to L = <b>2√(L/g)</b>, about 0.9 s for a 2 m rope.'],
+ ['A 0.2 kg ball moving at 15 m/s is hit back along its path at 25 m/s by a bat. The contact lasts 2.0 ms. Find the impulse and the average force.',
+  'Taking the final direction as positive: Δp = 0.2 × 25 − 0.2 × (−15) = 5 + 3 = <b>8.0 N s</b>. Average force = 8.0/0.002 = <b>4000 N</b>, about 2000 times the ball\'s weight. A common mistake is forgetting the change of direction, which would give only 2 N s.'],
+ ['(University level) A satellite in a circular orbit of radius r has kinetic energy K. Show that its total energy is −K, and explain why air drag makes it speed up.',
+  'From GMm/r² = mv²/r, K = ½mv² = GMm/2r. Potential energy U = −GMm/r = −2K. Total E = K + U = <b>−K</b>. Drag removes energy, so E becomes more negative, which means K = −E increases: the satellite drops to a lower orbit and moves faster (half of the lost potential energy becomes kinetic energy, half is dissipated).']
 ];
 function weekIndex(){
   const d=new Date(),start=new Date(d.getFullYear(),0,1);

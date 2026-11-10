@@ -76,7 +76,9 @@ V:[
  [0.6,'Which word is closest in meaning to OBSOLETE?',['Outdated','Obvious','Modern','Hidden'],'Obsolete means no longer in use.'],
  [1.4,'Which word is the opposite of BENEVOLENT?',['Malevolent','Generous','Kind','Charitable'],'Benevolent means well-meaning; malevolent means wishing harm.'],
  [0.6,'Which word is closest in meaning to TENACIOUS?',['Persistent','Tense','Timid','Thin'],'Tenacious means holding firmly to something; determined.'],
- [1.3,'SCALPEL is to SURGEON as CHISEL is to:',['Sculptor','Wood','Hammer','Carpenter\'s bench'],'A scalpel is a surgeon\'s cutting tool; a chisel is a sculptor\'s.']
+ [1.3,'SCALPEL is to SURGEON as CHISEL is to:',['Sculptor','Wood','Hammer','Carpenter\'s bench'],'A scalpel is a surgeon\'s cutting tool; a chisel is a sculptor\'s.'],
+ [0.5,'Which word is closest in meaning to LUCID?',['Clear','Lucky','Bright red','Confused'],'Lucid means expressed clearly; easy to understand.'],
+ [1.3,'Which word is the opposite of PROLIFIC?',['Unproductive','Abundant','Famous','Professional'],'Prolific means producing a lot.']
 ],
 Q:[
  [-1.9,'What is 25% of 80?',['20','25','40','16'],'25% is a quarter, and a quarter of 80 is 20.'],
@@ -149,7 +151,9 @@ Q:[
  [0.7,'What is the next number: 3, 6, 11, 18, 27, …?',['38','36','35','40'],'Differences 3, 5, 7, 9, then 11.'],
  [1.2,'If 4 machines make 4 widgets in 4 minutes, how long do 8 machines take to make 8 widgets?',['4 minutes','8 minutes','2 minutes','16 minutes'],'Each machine makes 1 widget in 4 minutes, so 8 machines make 8 in 4 minutes.'],
  [0.5,'A train leaves at 09:45 and arrives at 12:20. How long is the journey?',['2 h 35 min','2 h 25 min','3 h 35 min','2 h 45 min'],'09:45 to 12:00 is 2 h 15 min, plus 20 min.'],
- [1.3,'The sum of three consecutive even numbers is 78. What is the largest?',['28','26','24','30'],'24 + 26 + 28 = 78.']
+ [1.3,'The sum of three consecutive even numbers is 78. What is the largest?',['28','26','24','30'],'24 + 26 + 28 = 78.'],
+ [0.6,'What is 20% of 30% of 500?',['30','150','100','60'],'30% of 500 = 150, and 20% of 150 = 30.'],
+ [1.2,'A square has a diagonal of 10 cm. What is its area?',['50 cm²','100 cm²','25 cm²','70.7 cm²'],'Area = d²/2 = 100/2 = 50 cm².']
 ],
 L:[
  [-1.8,'All cats have whiskers. Tibbles is a cat. Which must be true?',['Tibbles has whiskers','Tibbles is not a cat','Every animal with whiskers is a cat','Tibbles has no whiskers'],'Tibbles is a cat, and all cats have whiskers.'],
@@ -218,6 +222,8 @@ L:[
  [0.7,'No birds in the aviary can swim. Some birds in the aviary are parrots. Which must be true?',['Some parrots cannot swim','All parrots can swim','No parrots are in the aviary','All birds are parrots'],'The parrots in the aviary are birds in the aviary, so they cannot swim.'],
  [1.2,'Tom is older than Ann. Ann is older than Ben. Ben is older than Cy. Who is the second youngest?',['Ben','Ann','Tom','Cy'],'From oldest: Tom, Ann, Ben, Cy. The second youngest is Ben.'],
  [0.7,'If it is a weekday, the library is open. The library is closed. What follows?',['It is not a weekday','It is a weekday','The library is being repaired','Nothing follows'],'A weekday would mean the library is open, so it must not be a weekday.'],
- [1.3,'In a code, CAT is written as DBU. How is DOG written?',['EPH','CNF','EOH','DPH'],'Each letter moves forward one place in the alphabet.']
+ [1.3,'In a code, CAT is written as DBU. How is DOG written?',['EPH','CNF','EOH','DPH'],'Each letter moves forward one place in the alphabet.'],
+ [0.7,'Only members can enter the club. Rae entered the club. What follows?',['Rae is a member','Rae is not a member','All members entered','Nothing follows'],'Anyone who entered must be a member.'],
+ [1.3,'Five people finish a race. Ann beats Bo, Cal beats Ann, Bo beats Dee, and Eve is last. Who came second?',['Ann','Bo','Cal','Dee'],'The order is Cal, Ann, Bo, Dee, Eve.']
 ]
 };
