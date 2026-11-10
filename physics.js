@@ -812,6 +812,110 @@ PHY.push(
  f:[['If the room loses 200 W per kelvin above the outside temperature, what is the highest temperature rise the heater can maintain?','In steady state 1000 W = 200 × ΔT, so ΔT = 5 K above outside.'],
     ['How much does running the heater for 3 hours cost at 25p per kWh?','3 kWh × 25p = 75p.']]}
 );
+PHY.push(
+{id:'t1',t:7,l:2,calc:true,q:'A washing machine drum of radius 25 cm spins at 1200 revolutions per minute. Find the acceleration of the clothes against the drum wall in multiples of g. Why does this dry the clothes?',
+ h:['Convert rpm to angular speed ω in rad/s.',
+    'Centripetal acceleration a = ω²r. Then think about the water: what holds it in a circle?'],
+ a:'<p>ω = 1200 × 2π/60 ≈ 126 rad/s. a = ω²r = 126² × 0.25 ≈ 4000 m/s² ≈ <b>400 g</b>.</p><p>The drum wall pushes the clothes inwards, providing the centripetal force. Water in the fabric is held only weakly; where the force needed to keep it moving in a circle exceeds what the fibres can supply, it carries on in a straight line (tangentially) and escapes through the holes in the drum.</p><p>Sanity check: at 400 g, 1 g of water needs about 4 N to stay with the clothes.</p>',
+ f:[['What is the speed of the drum wall?','v = ωr ≈ 126 × 0.25 ≈ 31 m/s, about 70 mph.'],
+    ['Why do machines spin up gradually and wobble if the load is uneven?','An off-centre mass means the centre of mass circles the axis, so a large rotating force shakes the machine; spinning up slowly lets the clothes spread out first.']]},
+{id:'t2',t:0,l:1,calc:true,q:'Estimate the mass of rain that falls on the UK in a year.',
+ h:['Estimate the area of the UK, and the average yearly rainfall depth.',
+    'The UK is roughly 240 000 km²; average rainfall is roughly 1 m a year (much more in the west, less in the east).'],
+ a:'<p>Area ≈ 2.4 × 10¹¹ m². Volume ≈ 2.4 × 10¹¹ × 1 m = 2.4 × 10¹¹ m³, so mass ≈ <b>2.4 × 10¹⁴ kg</b> (240 billion tonnes).</p><p>That is roughly 3600 tonnes per person per year (67 million people), while each person uses only about 50 tonnes of mains water a year: most rain evaporates or flows to the sea.</p>',
+ f:[['How much gravitational potential energy does that rain lose falling from clouds 1 km up?','mgh ≈ 2.4 × 10¹⁴ × 10 × 1000 ≈ 2.4 × 10¹⁸ J, mostly lost to air resistance on the way down.'],
+    ['How does that compare with UK electricity use (about 300 TWh a year)?','300 TWh ≈ 1.1 × 10¹⁸ J, so falling rain releases about twice as much energy, but it is spread thinly and cannot be captured.']]},
+{id:'t3',t:3,l:3,calc:true,q:'A magnifying glass 5 cm across with a focal length of 10 cm focuses sunlight onto paper. The Sun appears 0.53° across. Estimate the size of the bright spot and how much more intense it is than sunlight. (sunlight ≈ 1000 W/m²)',
+ h:['The lens forms an image of the Sun in its focal plane. The image size ≈ focal length × angular size (in radians).',
+    'All the power collected by the lens goes into the spot. Compare the areas.'],
+ a:'<p>0.53° = 9.3 × 10⁻³ rad, so the spot diameter ≈ 0.10 × 9.3 × 10⁻³ ≈ <b>0.9 mm</b>.</p><p>Power collected: π × 0.025² × 1000 ≈ 2.0 W. Spot area: π × (0.46 × 10⁻³)² ≈ 6.7 × 10⁻⁷ m². Intensity ≈ 3 × 10⁶ W/m², about <b>3000 times</b> sunlight (the ratio of the areas, (50/0.93)²).</p><p>Enough to char paper in seconds. A lens with a longer focal length gives a bigger, less intense spot.</p>',
+ f:[['Could you use a lens to make the spot hotter than the surface of the Sun?','No: the image of the Sun can at best match the Sun\'s surface brightness, so the spot cannot get hotter than about 5800 K (a consequence of the second law).'],
+    ['What is the spot size with a 50 cm focal length lens of the same diameter?','About 4.6 mm, and the intensity drops 25-fold to about 120 times sunlight.']]},
+{id:'t4',t:4,l:2,calc:true,q:'A car battery has an emf of 12.6 V and internal resistance 0.01 Ω. The starter motor draws 200 A. Find the terminal pd, the power delivered to the motor and the power wasted in the battery. Why do headlights dim when you start the engine?',
+ h:['Lost volts = Ir; terminal pd = ε − Ir.',
+    'Power to the motor = terminal pd × I; power wasted = I²r.'],
+ a:'<p>Lost volts = 200 × 0.01 = 2 V, so the terminal pd = <b>10.6 V</b>. Power to the motor = 10.6 × 200 ≈ <b>2.1 kW</b>. Wasted in the battery: 200² × 0.01 = <b>400 W</b>.</p><p>The headlights are connected across the same terminals, so their pd drops from 12.6 V to 10.6 V; since P ∝ V², they lose about 30% of their power and visibly dim. A cold battery has a higher internal resistance, making this worse.</p>',
+ f:[['What is the maximum current if the terminals were short-circuited?','ε/r = 12.6/0.01 = 1260 A, which is why shorting a car battery is so dangerous.'],
+    ['For what external resistance is the power to the load greatest?','When it equals the internal resistance (0.01 Ω): then the load gets ε²/4r ≈ 4 kW.']]}
+);
+PHY.push(
+{id:'o1',t:1,l:2,calc:true,q:'A 50 kg gymnast bounces 2.0 m above a trampoline, which sinks 1.0 m at the lowest point. Treating the trampoline as a spring, find its stiffness and the gymnast\'s greatest acceleration in multiples of g. (g = 9.8 m/s²)',
+ h:['From the top of the bounce to the lowest point the gymnast falls 3.0 m in total, and is momentarily at rest at both ends.',
+    'Energy: mg × 3.0 = ½kx² with x = 1.0 m. At the bottom the net upward force is kx − mg.'],
+ a:'<p>mg × 3.0 = 50 × 9.8 × 3 = 1470 J = ½k(1.0)², so <b>k ≈ 2900 N/m</b>.</p><p>At the bottom: kx − mg = 2940 − 490 = 2450 N upwards, so a = 2450/50 ≈ <b>49 m/s² ≈ 5 g</b>.</p><p>Sanity check: the force on the legs is about 6 times body weight (kx/mg = 6), similar to landing a jump on hard ground but spread over a longer time.</p>',
+ f:[['How long does the gymnast spend in the air on each bounce?','Rising 2 m takes √(2 × 2/9.8) ≈ 0.64 s, so about 1.3 s up and down.'],
+    ['How long is the gymnast in contact with the trampoline?','Half a period of SHM: π√(m/k) = π√(50/2940) ≈ 0.41 s, roughly. It is in fact a little longer, because contact starts at the unstretched position, which is above the equilibrium point.']]},
+{id:'o2',t:7,l:1,calc:true,q:'A hydroelectric dam lets 50 m³ of water per second fall through a height of 100 m, with 90% efficiency. What is its electrical power output? How many homes could it supply (a home uses about 0.5 kW on average)? (g = 9.8 m/s²)',
+ h:['Each second, 50 000 kg of water loses potential energy mgh.',
+    'Power = (mass per second) × g × h × efficiency.'],
+ a:'<p>P = 50 000 × 9.8 × 100 × 0.9 ≈ <b>44 MW</b>.</p><p>Homes: 44 000 kW / 0.5 kW ≈ <b>90 000 homes</b>. Sanity check: the largest UK hydro schemes are tens to hundreds of MW, and a large gas power station is about 1000 MW.</p>',
+ f:[['What height would 50 m³/s need to fall to match a 1 GW power station?','h = 10⁹ / (50 000 × 9.8 × 0.9) ≈ 2300 m, which is why big hydro needs huge flows as well as height.'],
+    ['How fast does the water leave the turbine pipe if all the energy became kinetic energy?','v = √(2gh) ≈ 44 m/s.']]},
+{id:'o3',t:7,l:2,calc:true,q:'A wind turbine has blades 50 m long. Estimate the kinetic energy per second of the wind passing through it at 10 m/s, and its electrical output if it captures 40%. Why does output rise so steeply with wind speed? (density of air 1.2 kg/m³)',
+ h:['In one second, a cylinder of air of length v and area A passes through: its mass is ρAv.',
+    'Kinetic energy per second = ½(ρAv)v² = ½ρAv³.'],
+ a:'<p>A = π × 50² ≈ 7850 m². Power in the wind = ½ × 1.2 × 7850 × 10³ ≈ 4.7 MW. At 40%: <b>about 1.9 MW</b>.</p><p>Power ∝ v³: doubling the wind speed gives 8 times the power, so turbines are sited where winds are strong and steady. There is a theoretical maximum (the Betz limit, 59%) because the air must keep moving to get out of the way.</p>',
+ f:[['What is the output at 5 m/s?','(1/2)³ = 1/8 of the 10 m/s value: about 0.24 MW.'],
+    ['Why is the efficiency limited even for a perfect turbine?','If it extracted all the kinetic energy the air would stop behind it and block the flow; the best compromise slows it to a third of its speed (the Betz limit).']]},
+{id:'o4',t:6,l:2,calc:true,q:'The Earth is 81 times more massive than the Moon, and they are 384 000 km apart. Where between them is the gravitational field strength zero?',
+ h:['At that point the pulls of the Earth and the Moon are equal and opposite: GM_E/x² = GM_M/(D − x)².',
+    'Take square roots: x/(D − x) = √81.'],
+ a:'<p>x/(D − x) = 9, so x = 0.9D ≈ <b>346 000 km from the Earth</b>, about 38 000 km from the Moon.</p><p>It sits much closer to the Moon because gravity falls off as 1/r²: the Moon only needs to be 9 times closer to match a mass 81 times bigger. Spacecraft going to the Moon "coast uphill" against the Earth\'s pull until this point, then speed up towards the Moon.</p>',
+ f:[['Is the gravitational potential also zero there?','No: potential is negative everywhere between them (both contributions are negative); only the field (its gradient) is zero.'],
+    ['Is the point stable for a spacecraft parked there?','No: a small push towards either body makes that body\'s pull stronger, so it drifts away (an unstable equilibrium).']]}
+);
+PHY.push(
+{id:'l1',t:3,l:3,calc:true,q:'An optical fibre has a core of refractive index 1.50 and cladding of 1.45. Find the critical angle at the core–cladding boundary. Over 1 km, how much later does a ray bouncing at the critical angle arrive than a ray going straight down the axis? (c = 3.0 × 10⁸ m/s)',
+ h:['sinθ_c = n_cladding/n_core.',
+    'A ray hitting the boundary at the critical angle travels at angle (90° − θ_c) to the axis, so its path is longer by a factor of 1/sinθ_c. Its speed in the core is c/1.50.'],
+ a:'<p>sinθ_c = 1.45/1.50 = 0.967, so <b>θ_c ≈ 75°</b>.</p><p>Axial ray time: 1000 × 1.50/3 × 10⁸ = 5.00 μs. The steepest ray\'s path is longer by 1/sinθ_c = 1.034, so it takes 5.17 μs: a delay of about <b>170 ns</b> per kilometre.</p><p>That spreading of pulses (modal dispersion) limits how fast data can be sent; single-mode fibres with very thin cores avoid it.</p>',
+ f:[['Roughly what is the highest pulse rate before neighbouring pulses overlap after 1 km?','Pulses must be more than about 170 ns apart, so about 6 million pulses per second.'],
+    ['Why would a cladding index closer to the core index reduce the delay?','The critical angle gets closer to 90°, so only rays nearly parallel to the axis are guided and their path lengths differ less.']]},
+{id:'l2',t:5,l:1,calc:true,q:'A solar water heater has 2.0 m² of panels in sunshine of 600 W/m² and is 50% efficient. How long does it take to heat a 100-litre tank from 15 °C to 45 °C? (c = 4200 J kg⁻¹ K⁻¹)',
+ h:['Useful power = area × intensity × efficiency.',
+    'Energy needed = mcΔT; time = energy / power.'],
+ a:'<p>Useful power = 2.0 × 600 × 0.5 = 600 W. Energy = 100 × 4200 × 30 = 12.6 MJ. Time = 12.6 × 10⁶ / 600 = 21 000 s ≈ <b>5.8 hours</b>, most of a sunny day.</p><p>Sanity check: an electric immersion heater (3 kW) would take about 70 minutes, five times faster, but costs about 3.5 kWh of electricity.</p>',
+ f:[['How much money does the solar heater save per tank at 25p per kWh?','12.6 MJ = 3.5 kWh, so about 88p.'],
+    ['Why do the panels lose efficiency as the water gets hotter?','The hotter the panel, the more heat it loses to the surroundings by radiation and convection, so less of the sunlight ends up in the water.']]},
+{id:'l3',t:2,l:1,calc:true,q:'A sheet of paper is 0.1 mm thick. How many times would you need to fold it in half for the stack to reach the Moon, 384 000 km away?',
+ h:['After n folds the thickness is 0.1 mm × 2ⁿ.',
+    'Solve 10⁻⁴ × 2ⁿ = 3.84 × 10⁸ m. Use 2¹⁰ ≈ 10³.'],
+ a:'<p>2ⁿ = 3.84 × 10⁸ / 10⁻⁴ = 3.84 × 10¹². Since 2¹⁰ ≈ 10³, 2⁴⁰ ≈ 10¹², so n ≈ 40 + log₂3.84 ≈ 40 + 1.9 ≈ <b>42 folds</b>.</p><p>Exponential growth is startling: 30 folds already gives about 100 km. (In practice you cannot fold real paper more than about 7–12 times.)</p>',
+ f:[['How thick is the stack after 20 folds?','2²⁰ ≈ 10⁶, so about 100 m.'],
+    ['How many folds to reach the Sun (1.5 × 10¹¹ m)?','2ⁿ = 1.5 × 10¹⁵, so n ≈ 50.4, about 51 folds: only 9 more than the Moon.']]},
+{id:'l4',t:4,l:2,calc:true,q:'A defibrillator charges a 32 μF capacitor to 5.0 kV and discharges it through a patient\'s chest (about 50 Ω). Find the energy stored, the initial current and the time constant. What is the average power if most of the energy goes in about 5 ms?',
+ h:['E = ½CV²; initial current I = V/R.',
+    'Time constant = RC; average power = energy / time.'],
+ a:'<p>E = ½ × 32 × 10⁻⁶ × (5000)² = <b>400 J</b>. Initial current = 5000/50 = <b>100 A</b>. RC = 50 × 32 × 10⁻⁶ = <b>1.6 ms</b>.</p><p>Average power ≈ 400 J / 5 ms = <b>80 kW</b>, for an instant. After about 3 time constants (5 ms) only e⁻⁶ ≈ 0.25% of the energy is left, which matches the 5 ms estimate.</p>',
+ f:[['What fraction of the charge remains after one time constant?','1/e, about 37%.'],
+    ['Why must staff stand clear during the shock?','Touching the patient would put them in parallel with the chest, so part of the large current could pass through them.']]}
+);
+PHY.push(
+{id:'r5',t:1,l:2,calc:true,q:'A roller-coaster car runs (without friction) round a vertical loop of radius 10 m. From what height above the bottom of the loop must it start from rest to just make it round? What is the normal force on a 60 kg rider at the bottom? (g = 9.8 m/s²)',
+ h:['At the top of the loop the car only just stays on track when gravity alone provides the centripetal force: mg = mv²/r.',
+    'Use energy conservation from the start height h to the top of the loop (height 2r).'],
+ a:'<p>At the top: v² = gr. Energy: mgh = mg(2r) + ½m(gr), so <b>h = 2.5r = 25 m</b>.</p><p>At the bottom: v² = 2gh = 5gr, so N − mg = m(5g), giving N = 6mg ≈ 6 × 60 × 9.8 ≈ <b>3500 N</b>, six times the rider\'s weight. Real coasters use teardrop-shaped loops (tighter at the top) to keep forces lower at the bottom.</p>',
+ f:[['How fast is the car at the top of the loop?','v = √(gr) = √98 ≈ 9.9 m/s.'],
+    ['What is the normal force on the rider at the top?','Zero: the rider feels weightless there at the minimum speed.']]},
+{id:'r6',t:7,l:1,calc:true,q:'An escalator lifts people through a height of 8 m. On average one 70 kg person steps on every second. Estimate the power needed to lift them. Why is the motor rated much higher? (g = 9.8 m/s²)',
+ h:['Each second, one person gains potential energy mgh.',
+    'Think about friction in the mechanism and busy periods.'],
+ a:'<p>P = mgh per second = 70 × 9.8 × 8 ≈ <b>5.5 kW</b>.</p><p>The motor is typically rated at several times this: friction in the steps and chain uses a lot of power even when empty, and at rush hour two people per step can board every second.</p>',
+ f:[['If the escalator moves at 0.5 m/s along a 30° incline, how long does the ride take?','The length is 8/sin30° = 16 m, so 16/0.5 = 32 s.'],
+    ['How much energy does it use lifting people in a 16-hour day?','5.5 kW × 16 h ≈ 88 kWh (plus the losses).']]},
+{id:'r7',t:0,l:2,calc:true,q:'Estimate the mass of uranium-235 a 1 GW nuclear power station fissions in a year. (Each fission releases about 200 MeV; efficiency about 33%; 1 MeV = 1.6 × 10⁻¹³ J; one U-235 atom has mass 3.9 × 10⁻²⁵ kg)',
+ h:['Electrical energy per year = 10⁹ W × 3.15 × 10⁷ s. The heat needed is three times that.',
+    'Divide by the energy per fission to get the number of fissions, then multiply by the mass of one atom.'],
+ a:'<p>Electrical energy ≈ 3.2 × 10¹⁶ J/year, so heat ≈ 9.5 × 10¹⁶ J. Energy per fission = 200 × 1.6 × 10⁻¹³ = 3.2 × 10⁻¹¹ J, so about 3 × 10²⁷ fissions.</p><p>Mass ≈ 3 × 10²⁷ × 3.9 × 10⁻²⁵ ≈ <b>1.2 tonnes</b> of U-235 a year. A coal station of the same output burns about 3 million tonnes of coal a year: over a million times more.</p>',
+ f:[['Fuel is only about 4% U-235. How much fuel does the station need?','Roughly 1.2/0.04 ≈ 30 tonnes a year (in practice a bit more, as not all U-235 is used).'],
+    ['What mass is converted into energy in a year?','Δm = E/c² = 9.5 × 10¹⁶ / 9 × 10¹⁶ ≈ 1 kg.']]},
+{id:'r8',t:6,l:2,calc:true,q:'An asteroid is a sphere of radius 1.0 km and density 2000 kg/m³. How fast would you need to throw a stone horizontally for it to orbit just above the surface? Could you jump off it? (G = 6.7 × 10⁻¹¹ N m² kg⁻²)',
+ h:['Find the mass M = (4/3)πr³ρ.',
+    'Orbital speed v = √(GM/r); escape speed is √2 times larger.'],
+ a:'<p>M = (4/3)π × 10⁹ × 2000 ≈ 8.4 × 10¹² kg. v = √(6.7 × 10⁻¹¹ × 8.4 × 10¹² / 1000) = √0.56 ≈ <b>0.75 m/s</b>, a gentle lob.</p><p>Escape speed ≈ 1.06 m/s. A standing jump launches you at about 2–3 m/s, so yes: <b>you would leave the asteroid for good</b>. Surface gravity is only about 0.0006 N/kg.</p>',
+ f:[['How long would one orbit take?','2πr/v ≈ 6300/0.75 ≈ 8400 s, about 2.3 hours.'],
+    ['How does the orbital speed scale with radius for asteroids of the same density?','M ∝ r³, so v = √(GM/r) ∝ r: twice the size, twice the orbital speed.']]}
+);
 /* ---- Calculation rewrites (owner's request, 5 Nov 2026) ----
    54 questions rewritten in place as numerical problems: the 12 that duplicated other questions, plus most of the
    purely verbal ones. Same ids (so saved questions and links still work); their old spaced-repetition ratings are
@@ -1164,6 +1268,27 @@ const PHY_SOURCES=[
 /* ---------- state ---------- */
 const RATE={got:['Got it','ok'],hint:['Needed hints','sk'],stuck:['Stuck','no']};
 let phyFilter=-1, phyTick=null;
+/* where a physics question returns to (null = the question list); set by the Mechanics ladder */
+let PHY_CTX=null;
+/* ---- Mechanics ladder (approved by the owner, 7 Nov): 20 mechanics calculations from easy to hard.
+   A step counts as passed when its latest rating is "Got it" or "Needed hints"; the next step unlocks after it.
+   Uses the existing phy-ratings data only. ---- */
+const LADDER=['j3','f1','m2','k2','p2','j1','n11','m4','d1','b1','o1','k1','m3','r1','m7','n4','m6','u9','u7','m1'];
+function ladderPassed(R,id){return !!(R[id]&&R[id].r!=='stuck');}
+function ladderHome(){
+  leave();setBack(home);PHY_CTX=null;
+  const R=phyRatings(),qs=LADDER.map(id=>PHY.find(q=>q.id===id)).filter(Boolean);
+  let open=qs.findIndex(q=>!ladderPassed(R,q.id));if(open<0)open=qs.length;
+  app.innerHTML='<div class="stack"><div class="stack" style="gap:8px"><p class="eyebrow">Interview prep</p><h1>Mechanics ladder</h1>'+
+   '<p class="muted">'+qs.length+' mechanics calculations, from warm-up to Oxford-hard. Rate a step "Got it" or "Needed hints" to unlock the next one. "Stuck" keeps it open for another try.</p></div>'+
+   '<div class="bar"><i style="width:'+(100*Math.min(open,qs.length)/qs.length)+'%"></i></div>'+
+   '<p class="note">'+Math.min(open,qs.length)+' of '+qs.length+' climbed'+(open>=qs.length?' · ladder complete! Revisit any step to keep it fresh.':'')+'</p>'+
+   '<div class="ladder">'+qs.map((q,i)=>{const st=i<open?'done':i===open?'cur':'lock';
+     return '<button class="lstep '+st+'" data-i="'+i+'"'+(st==='lock'?' disabled':'')+'><span class="ln">'+(st==='done'?'✓':st==='lock'?'🔒':i+1)+'</span><span class="lt"><b>Step '+(i+1)+' · '+lvl(q.l)+'</b><span>'+(st==='lock'?'Locked':q.q.replace(/<[^>]+>/g,'').slice(0,90)+(q.q.length>90?'…':''))+'</span></span></button>';}).join('')+'</div>'+
+   '<button class="btn ghost" id="ladback">Home</button></div>';
+  app.querySelectorAll('.lstep:not([disabled])').forEach(b=>b.onclick=()=>{PHY_CTX=ladderHome;phyQuestion(qs[+b.dataset.i]);});
+  document.getElementById('ladback').onclick=home;
+}
 const phyRatings=()=>loadJSON('phy-ratings',{});
 /* filter: -1 all, -2 calculations only, otherwise a topic index */
 function phyPool(){return PHY.filter(q=>phyFilter===-1||(phyFilter===-2?q.calc:q.t===phyFilter));}
@@ -1189,7 +1314,7 @@ function phyNext(exclude){
 const lvl=l=>'●'.repeat(l)+'○'.repeat(3-l);
 
 function phyHome(){
-  leave();
+  leave();PHY_CTX=null;
   const R=phyRatings(),pool=phyPool();
   const cnt={got:0,hint:0,stuck:0};pool.forEach(q=>{if(R[q.id])cnt[R[q.id].r]++;});
   const unseen=pool.length-cnt.got-cnt.hint-cnt.stuck,ndue=phyDueList(pool).length;
@@ -1215,7 +1340,7 @@ function phyHome(){
 }
 
 function phyQuestion(q){
-  clearInterval(phyTick);setBack(phyHome);setScratch(true);
+  clearInterval(phyTick);setBack(PHY_CTX||phyHome);setScratch(true);
   let shown=0,end=0;
   app.innerHTML=
   '<div class="stack">'+
@@ -1226,7 +1351,7 @@ function phyQuestion(q){
   '<div class="row2"><button class="btn ghost" id="ptime">Start 5 min timer</button><button class="btn ghost" id="phint">Hint 1 of '+q.h.length+'</button></div>'+
   '<button class="btn" id="pans">Show worked answer</button>'+
   '<div id="rate"></div>'+
-  '<button class="btn ghost" id="pback">Back to questions</button>'+
+  '<button class="btn ghost" id="pback">'+(PHY_CTX?'Back to the ladder':'Back to questions')+'</button>'+
   '</div>';
   const $=id=>document.getElementById(id);
   $('ptime').onclick=()=>{
@@ -1252,10 +1377,10 @@ function phyQuestion(q){
       Object.entries(RATE).map(([k,v])=>'<button class="btn ghost rate '+v[1]+'" data-r="'+k+'">'+v[0]+'</button>').join('')+'</div></div>';
     $('rate').querySelectorAll('.rate').forEach(b=>b.onclick=()=>{
       phyRate(q.id,b.dataset.r);
-      phyQuestion(phyNext(q.id));
+      if(PHY_CTX)PHY_CTX();else phyQuestion(phyNext(q.id));
     });
     $('ans').scrollIntoView({behavior:'smooth',block:'start'});
   };
-  $('pback').onclick=phyHome;
+  $('pback').onclick=PHY_CTX||phyHome;
   window.scrollTo(0,0);
 }

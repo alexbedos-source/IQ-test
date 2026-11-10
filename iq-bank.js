@@ -72,7 +72,15 @@ V:[
  [0.6,'Which word is closest in meaning to FRUGAL?',['Thrifty','Wasteful','Fruitful','Generous'],'Frugal means careful with money or resources.'],
  [1.3,'Which word is the opposite of EPHEMERAL?',['Permanent','Brief','Ethereal','Fragile'],'Ephemeral means lasting a very short time.'],
  [0.5,'Which word is closest in meaning to VIGILANT?',['Watchful','Violent','Careless','Vivid'],'Vigilant means keeping careful watch for danger.'],
- [1.2,'BOOK is to CHAPTER as SYMPHONY is to:',['Movement','Orchestra','Conductor','Note'],'A book is divided into chapters; a symphony into movements.']
+ [1.2,'BOOK is to CHAPTER as SYMPHONY is to:',['Movement','Orchestra','Conductor','Note'],'A book is divided into chapters; a symphony into movements.'],
+ [0.6,'Which word is closest in meaning to OBSOLETE?',['Outdated','Obvious','Modern','Hidden'],'Obsolete means no longer in use.'],
+ [1.4,'Which word is the opposite of BENEVOLENT?',['Malevolent','Generous','Kind','Charitable'],'Benevolent means well-meaning; malevolent means wishing harm.'],
+ [0.6,'Which word is closest in meaning to TENACIOUS?',['Persistent','Tense','Timid','Thin'],'Tenacious means holding firmly to something; determined.'],
+ [1.3,'SCALPEL is to SURGEON as CHISEL is to:',['Sculptor','Wood','Hammer','Carpenter\'s bench'],'A scalpel is a surgeon\'s cutting tool; a chisel is a sculptor\'s.'],
+ [0.5,'Which word is closest in meaning to LUCID?',['Clear','Lucky','Bright red','Confused'],'Lucid means expressed clearly; easy to understand.'],
+ [1.3,'Which word is the opposite of PROLIFIC?',['Unproductive','Abundant','Famous','Professional'],'Prolific means producing a lot.'],
+ [0.6,'Which word is closest in meaning to ARDUOUS?',['Difficult','Ardent','Easy','Arid'],'Arduous means involving a lot of effort.'],
+ [1.4,'Which word is the opposite of TRANSIENT?',['Permanent','Passing','Travelling','Fleeting'],'Transient means lasting only a short time.']
 ],
 Q:[
  [-1.9,'What is 25% of 80?',['20','25','40','16'],'25% is a quarter, and a quarter of 80 is 20.'],
@@ -141,7 +149,15 @@ Q:[
  [0.6,'A recipe needs 250 g of flour for 4 people. How much flour is needed for 10 people?',['625 g','500 g','1000 g','650 g'],'250/4 = 62.5 g per person, × 10 = 625 g.'],
  [1.2,'What is the next number: 1, 1, 2, 3, 5, 8, 13, …?',['21','18','20','26'],'Each number is the sum of the previous two (8 + 13).'],
  [0.6,'What is 3/4 of 2/3 of 120?',['60','80','90','45'],'2/3 of 120 = 80, and 3/4 of 80 = 60.'],
- [1.3,'A car travels 60 km at 30 km/h and then 60 km at 60 km/h. What is its average speed for the whole journey?',['40 km/h','45 km/h','50 km/h','35 km/h'],'Times: 2 h + 1 h = 3 h for 120 km, so 40 km/h (not the average of the speeds).']
+ [1.3,'A car travels 60 km at 30 km/h and then 60 km at 60 km/h. What is its average speed for the whole journey?',['40 km/h','45 km/h','50 km/h','35 km/h'],'Times: 2 h + 1 h = 3 h for 120 km, so 40 km/h (not the average of the speeds).'],
+ [0.7,'What is the next number: 3, 6, 11, 18, 27, …?',['38','36','35','40'],'Differences 3, 5, 7, 9, then 11.'],
+ [1.2,'If 4 machines make 4 widgets in 4 minutes, how long do 8 machines take to make 8 widgets?',['4 minutes','8 minutes','2 minutes','16 minutes'],'Each machine makes 1 widget in 4 minutes, so 8 machines make 8 in 4 minutes.'],
+ [0.5,'A train leaves at 09:45 and arrives at 12:20. How long is the journey?',['2 h 35 min','2 h 25 min','3 h 35 min','2 h 45 min'],'09:45 to 12:00 is 2 h 15 min, plus 20 min.'],
+ [1.3,'The sum of three consecutive even numbers is 78. What is the largest?',['28','26','24','30'],'24 + 26 + 28 = 78.'],
+ [0.6,'What is 20% of 30% of 500?',['30','150','100','60'],'30% of 500 = 150, and 20% of 150 = 30.'],
+ [1.2,'A square has a diagonal of 10 cm. What is its area?',['50 cm²','100 cm²','25 cm²','70.7 cm²'],'Area = d²/2 = 100/2 = 50 cm².'],
+ [0.6,'What is the next number: 81, 27, 9, 3, …?',['1','0','2','1/3'],'Each term is divided by 3.'],
+ [1.2,'A tank is 2/5 full. After adding 30 litres it is 4/5 full. What is its capacity?',['75 litres','60 litres','90 litres','50 litres'],'30 litres = 2/5 of the tank, so the tank holds 75 litres.']
 ],
 L:[
  [-1.8,'All cats have whiskers. Tibbles is a cat. Which must be true?',['Tibbles has whiskers','Tibbles is not a cat','Every animal with whiskers is a cat','Tibbles has no whiskers'],'Tibbles is a cat, and all cats have whiskers.'],
@@ -206,6 +222,14 @@ L:[
  [0.7,'Every doctor in the hospital has a pager. Jo has no pager. What follows?',['Jo is not a doctor in the hospital','Jo is a doctor in the hospital','Jo works in a different hospital','Nothing follows'],'If Jo were a doctor in the hospital, Jo would have a pager.'],
  [1.3,'A bat and a ball cost £1.10 together. The bat costs £1.00 more than the ball. How much does the ball cost?',['5p','10p','15p','1p'],'Ball = b, bat = b + 1.00, so 2b + 1.00 = 1.10 and b = 0.05.'],
  [0.8,'All of Sam\'s cousins live in Leeds. Priya lives in York. What follows?',['Priya is not Sam\'s cousin','Priya is Sam\'s cousin','Sam lives in Leeds','Nothing follows'],'If Priya were Sam\'s cousin, Priya would live in Leeds, not York.'],
- [1.2,'Monday comes two days after the day before yesterday. What day is it today?',['Monday','Saturday','Sunday','Wednesday'],'The day before yesterday is today minus 2; two days after it is today. So today is Monday.']
+ [1.2,'Monday comes two days after the day before yesterday. What day is it today?',['Monday','Saturday','Sunday','Wednesday'],'The day before yesterday is today minus 2; two days after it is today. So today is Monday.'],
+ [0.7,'No birds in the aviary can swim. Some birds in the aviary are parrots. Which must be true?',['Some parrots cannot swim','All parrots can swim','No parrots are in the aviary','All birds are parrots'],'The parrots in the aviary are birds in the aviary, so they cannot swim.'],
+ [1.2,'Tom is older than Ann. Ann is older than Ben. Ben is older than Cy. Who is the second youngest?',['Ben','Ann','Tom','Cy'],'From oldest: Tom, Ann, Ben, Cy. The second youngest is Ben.'],
+ [0.7,'If it is a weekday, the library is open. The library is closed. What follows?',['It is not a weekday','It is a weekday','The library is being repaired','Nothing follows'],'A weekday would mean the library is open, so it must not be a weekday.'],
+ [1.3,'In a code, CAT is written as DBU. How is DOG written?',['EPH','CNF','EOH','DPH'],'Each letter moves forward one place in the alphabet.'],
+ [0.7,'Only members can enter the club. Rae entered the club. What follows?',['Rae is a member','Rae is not a member','All members entered','Nothing follows'],'Anyone who entered must be a member.'],
+ [1.3,'Five people finish a race. Ann beats Bo, Cal beats Ann, Bo beats Dee, and Eve is last. Who came second?',['Ann','Bo','Cal','Dee'],'The order is Cal, Ann, Bo, Dee, Eve.'],
+ [0.8,'All triangles have three sides. This shape has four sides. What follows?',['It is not a triangle','It is a square','It is a triangle','Nothing follows'],'Any triangle would have three sides.'],
+ [1.3,'Kai is taller than Liv but shorter than Max. Ned is shorter than Liv. Who is the shortest?',['Ned','Liv','Kai','Max'],'Order from tallest: Max, Kai, Liv, Ned.']
 ]
 };

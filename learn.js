@@ -165,7 +165,31 @@ const CARDS=[
  [4,'Kirchhoff\'s second law','Around any closed loop in a circuit, the sum of the emfs equals the sum of the pds: a consequence of conservation of energy.'],
  [5,'Charles\'s law','For a fixed mass of gas at constant pressure, the volume is directly proportional to the absolute temperature.'],
  [6,'Field lines and equipotentials around a point charge','Field lines are radial; equipotentials are concentric spheres, closer together where the field is stronger.'],
- [3,'Newton\'s first law','An object stays at rest or moves at constant velocity unless a resultant force acts on it.']
+ [3,'Newton\'s first law','An object stays at rest or moves at constant velocity unless a resultant force acts on it.'],
+ [0,'Interpolation vs extrapolation','Interpolation reads a value between measured points; extrapolation extends the graph beyond them, which is less reliable because the trend may change.'],
+ [2,'Refraction at a boundary: what changes','The speed and wavelength change; the frequency stays the same. Light bends towards the normal when it slows down.'],
+ [4,'Uses of superconductors','Strong electromagnets (MRI scanners, particle accelerators) and, in future, power cables with no resistive losses.'],
+ [5,'Specific latent heat of vaporisation vs fusion','Vaporisation needs much more energy per kilogram than melting, because the particles must be separated completely and work is done pushing back the atmosphere.'],
+ [6,'Magnetic flux linkage','The flux through a coil multiplied by its number of turns; an emf is induced whenever it changes.'],
+ [7,'What happens to the proton and nucleon numbers in α decay','The proton number falls by 2 and the nucleon number falls by 4.'],
+ [1,'Work function','The minimum energy needed to remove an electron from the surface of a metal.'],
+ [3,'Why a parachutist slows down when the parachute opens','The larger area greatly increases air resistance, so the resultant force acts upwards and they decelerate to a new, lower terminal velocity.'],
+ [3,'When an object topples','When the line of action of its weight falls outside its base, the weight gives a turning moment that tips it over; a low centre of mass and wide base make it more stable.'],
+ [5,'What happens to a gas\'s pressure if its molecules move faster at the same volume','The pressure rises: molecules hit the walls more often and with greater change in momentum each time.'],
+ [6,'Why satellites in low orbit have shorter periods','They are closer to the Earth, where gravity is stronger, so they must move faster and travel a shorter path.'],
+ [7,'Fission vs fusion','Fission splits a heavy nucleus into two medium ones; fusion joins two light nuclei. Both release energy because the products have more binding energy per nucleon.'],
+ [0,'Why measure many oscillations to find a period','Timing, say, 10 oscillations and dividing by 10 reduces the percentage uncertainty from human reaction time.'],
+ [2,'Electromagnetic spectrum in order of increasing wavelength','Gamma rays, X-rays, ultraviolet, visible light, infrared, microwaves, radio waves. All travel at the same speed in a vacuum.'],
+ [3,'Why seatbelts and airbags reduce injury','They increase the time over which a passenger\'s momentum changes, so the force on them is smaller for the same change in momentum.'],
+ [4,'Measuring internal resistance','Vary the external resistance, plot terminal pd against current: the gradient is −r and the y-intercept is the emf.'],
+ [5,'Forced oscillation phase at resonance','At resonance the driver leads the oscillator by a quarter of a cycle (π/2); far below resonance they are in phase, far above in antiphase.'],
+ [7,'Activity (definition)','The number of nuclei that decay per second, measured in becquerels (Bq).'],
+ [1,'Why electrons are emitted with a range of kinetic energies in the photoelectric effect','Electrons deeper in the metal lose some energy escaping; only those at the surface leave with the maximum kinetic energy.'],
+ [2,'Progressive vs stationary waves (energy)','Progressive waves transfer energy along the wave; stationary waves store energy and transfer none overall.'],
+ [3,'Elastic strain energy from a force–extension graph','It is the area under the graph up to the extension reached (if loading and unloading follow the same line).'],
+ [5,'Isothermal vs adiabatic (in words)','Isothermal: temperature stays constant as heat flows in or out. Adiabatic: no heat flows, so compressing the gas heats it.'],
+ [6,'Why a transformer only works with alternating current','Only a changing current produces a changing flux in the core, which induces an emf in the secondary coil.'],
+ [7,'Uses of radioactive isotopes (examples)','Medical tracers (e.g. technetium-99m, γ, short half-life), smoke detectors (americium-241, α) and thickness monitoring (β).']
 ].map((c,i)=>({id:'a'+i,cat:c[0],front:c[1],back:c[2]}));
 /* ---- Card fixes (6 Nov 2026): 33 cards repeated earlier cards (added by mistake by scheduled runs). They are rewritten
    in place with new AQA content, keeping their ids; their old review progress is cleared once (key 'cards-fix1'). ---- */
@@ -439,7 +463,23 @@ const POTW=[
  ['A 1500 kg car accelerates from rest to 20 m/s in 8 s on a level road against an average resistive force of 500 N. Find the average power delivered by the engine.',
   'KE gained = ½ × 1500 × 400 = 300 kJ. Distance (uniform acceleration) = ½ × 20 × 8 = 80 m, so work against resistance = 500 × 80 = 40 kJ. Total 340 kJ in 8 s: average power = <b>42.5 kW</b> (about 57 horsepower).'],
  ['(University level) A uniform disc of mass M and radius R (moment of inertia ½MR²) starts from rest and rolls without slipping down a slope at angle θ. Show that its acceleration is (2/3)g sinθ.',
-  'Along the slope: Mg sinθ − F = Ma. Torque from friction about the centre: FR = Iα = ½MR² × (a/R), so F = ½Ma. Adding: Mg sinθ = (3/2)Ma, so <b>a = (2/3)g sinθ</b>, less than the g sinθ of a sliding block, as some energy goes into rotation.']
+  'Along the slope: Mg sinθ − F = Ma. Torque from friction about the centre: FR = Iα = ½MR² × (a/R), so F = ½Ma. Adding: Mg sinθ = (3/2)Ma, so <b>a = (2/3)g sinθ</b>, less than the g sinθ of a sliding block, as some energy goes into rotation.'],
+ ['A 60 kg skier starts from rest at the top of a 30 m high slope and reaches the bottom at 20 m/s. How much energy was lost to friction and air resistance, and what was the average resistive force if the slope is 150 m long? (g = 10 m/s²)',
+  'PE lost = 60 × 10 × 30 = 18 kJ; KE gained = ½ × 60 × 400 = 12 kJ. So <b>6 kJ</b> was lost. Average resistive force = 6000/150 = <b>40 N</b>. Check: without losses the speed would have been √(2gh) ≈ 24.5 m/s.'],
+ ['(University level) Two springs of stiffness k₁ and k₂ are joined in series. Show that the combination has stiffness k₁k₂/(k₁ + k₂), and find the period of a 0.5 kg mass on two 100 N/m springs in series.',
+  'The same tension F acts in both springs, so the extensions add: F/k = F/k₁ + F/k₂, giving <b>k = k₁k₂/(k₁ + k₂)</b>. For two 100 N/m springs, k = 50 N/m, so T = 2π√(m/k) = 2π√(0.01) ≈ <b>0.63 s</b>. (In parallel they would give 200 N/m and 0.31 s.)'],
+ ['A 2 kg block on a smooth table is joined by a light string over a pulley at the edge to a 1 kg mass hanging freely. Find the acceleration and the tension. (g = 10 m/s²)',
+  'Only the hanging weight (10 N) drives the system of total mass 3 kg: <b>a = 10/3 ≈ 3.3 m/s²</b>. For the block: T = 2 × 10/3 ≈ <b>6.7 N</b>. Check for the hanging mass: 10 − 6.7 = 1 × 3.3. ✓ The tension is less than the hanging weight, as it must be for the mass to accelerate downwards.'],
+ ['(University level) A uniform rope of mass M and length L hangs from a ceiling. Find the tension at a distance y below the ceiling, and the time for a pulse to travel from the bottom to the top (wave speed on a string = √(T/μ)).',
+  'The tension at y supports the rope below: T(y) = Mg(L − y)/L. With μ = M/L, the speed is v = √(g(L − y)), so measuring s = L − y from the bottom, v = √(gs). Time = ∫ ds/√(gs) from 0 to L = <b>2√(L/g)</b>, about 0.9 s for a 2 m rope.'],
+ ['A 0.2 kg ball moving at 15 m/s is hit back along its path at 25 m/s by a bat. The contact lasts 2.0 ms. Find the impulse and the average force.',
+  'Taking the final direction as positive: Δp = 0.2 × 25 − 0.2 × (−15) = 5 + 3 = <b>8.0 N s</b>. Average force = 8.0/0.002 = <b>4000 N</b>, about 2000 times the ball\'s weight. A common mistake is forgetting the change of direction, which would give only 2 N s.'],
+ ['(University level) A satellite in a circular orbit of radius r has kinetic energy K. Show that its total energy is −K, and explain why air drag makes it speed up.',
+  'From GMm/r² = mv²/r, K = ½mv² = GMm/2r. Potential energy U = −GMm/r = −2K. Total E = K + U = <b>−K</b>. Drag removes energy, so E becomes more negative, which means K = −E increases: the satellite drops to a lower orbit and moves faster (half of the lost potential energy becomes kinetic energy, half is dissipated).'],
+ ['A 0.5 kg mass on a spring (k = 200 N/m) is pulled 4 cm from equilibrium and released. Find the period, the maximum speed and the maximum acceleration.',
+  'ω = √(k/m) = √400 = 20 rad/s, so T = 2π/ω ≈ <b>0.31 s</b>. v_max = ωA = 20 × 0.04 = <b>0.8 m/s</b>. a_max = ω²A = 400 × 0.04 = <b>16 m/s²</b>. Check with energy: ½kA² = 0.16 J = ½mv_max² = ½ × 0.5 × 0.64. ✓'],
+ ['(University level) A uniform chain of length L and mass M is held vertically with its lower end just touching a table, then released. Show that the force on the table when a length x has fallen is 3Mgx/L.',
+  'The fallen part rests on the table with weight Mgx/L. Each falling element has speed v = √(2gx) and is stopped on landing; mass arrives at the rate (M/L)v, so the force to stop it is (M/L)v² = (M/L)(2gx). Total force = Mgx/L + 2Mgx/L = <b>3Mgx/L</b>: just before the last link lands, the table feels three times the chain\'s weight.']
 ];
 function weekIndex(){
   const d=new Date(),start=new Date(d.getFullYear(),0,1);
@@ -456,10 +496,27 @@ function potwHome(){
   '<p class="muted">A harder problem in the style of physics olympiads and interviews. Work on it over several days before looking at the solution.</p></div>'+
   block(cur,'This week')+
   '<h2>Earlier weeks</h2>'+prev.map(i=>block(i,'Earlier')).join('')+
+  '<button class="btn" id="pall">Browse all '+POTW.length+' problems</button>'+
   '<button class="btn ghost" id="pback">Home</button></div>';
   app.querySelectorAll('details.fu').forEach(d=>d.addEventListener('toggle',()=>{if(d.open){const s=loadJSON('potw',{});s[d.dataset.i]=Date.now();saveJSON('potw',s);}}));
   document.getElementById('pback').onclick=home;
+  document.getElementById('pall').onclick=()=>potwAll(0);
   setScratch(true);
+}
+/* the whole archive: every problem, numbered, with a filter for university-level ones */
+function potwAll(f){
+  leave();setBack(potwHome);
+  const seen=loadJSON('potw',{}),idx=POTW.map((p,i)=>i).filter(i=>f===0||(f===1?!/^\(University level\)/.test(POTW[i][0]):/^\(University level\)/.test(POTW[i][0])));
+  app.innerHTML='<div class="stack"><div class="stack" style="gap:8px"><p class="eyebrow">Problem of the week</p><h1>All problems</h1>'+
+   '<p class="muted">'+Object.keys(seen).length+' of '+POTW.length+' solutions opened. Try each one properly before revealing it.</p></div>'+
+   '<div class="chips">'+['All','A-level','University level'].map((n,i)=>'<button class="chip'+(f===i?' on':'')+'" data-f="'+i+'">'+n+'</button>').join('')+'</div>'+
+   idx.map(i=>'<div class="card stack"><p class="eyebrow">Problem '+(i+1)+(seen[i]?' · ✓ solution seen':'')+'</p><p class="prompt">'+POTW[i][0]+'</p>'+
+     '<details class="fu" data-i="'+i+'"><summary>Reveal solution</summary><p>'+POTW[i][1]+'</p></details></div>').join('')+
+   '<button class="btn ghost" id="paback">Back</button></div>';
+  app.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>potwAll(+b.dataset.f));
+  app.querySelectorAll('details.fu').forEach(d=>d.addEventListener('toggle',()=>{if(d.open){const s=loadJSON('potw',{});s[d.dataset.i]=Date.now();saveJSON('potw',s);}}));
+  document.getElementById('paback').onclick=potwHome;
+  setScratch(true);window.scrollTo(0,0);
 }
 
 /* ---------- resources ---------- */

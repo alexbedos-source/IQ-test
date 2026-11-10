@@ -64,6 +64,7 @@ Later goal (not started): video explanations for questions answered wrongly.
 - Answers should state assumptions, use round numbers, give a sanity check, and say what tutors look for where useful.
 - **Calculations first (owner's instruction, 5 Nov 2026):** the owner wants interview questions to be mostly numerical problems (mechanics especially), not just "explain why". New questions should be mostly calculations: give the data needed, hints that lead to the method, a worked answer with numbers and a sanity check, and numerical follow-ups. Keep a few conceptual classics.
 - `PHY_CALC` (physics.js) rewrote 54 questions in place as calculations (same ids; old ratings cleared once via the `phy-calc` key). Questions with `calc:true` (set for these and for any question whose worked answer is numerical) appear under the "🧮 Calculations" chip and show a 🧮 tag; add `calc:true` to new calculation questions to be sure they are counted.
+- **Mechanics ladder:** `LADDER` (physics.js) lists 20 mechanics calculation ids in order; a step is passed when its rating is got/hint. `PHY_CTX` makes `phyQuestion` return to the ladder. Only append to `LADDER` if you add steps.
 - **Check for duplicates before adding:** read the existing question texts first. Earlier runs added near-copies (Moon face, bent straw, sky colour…), which were replaced.
 
 ## Testing before a PR
