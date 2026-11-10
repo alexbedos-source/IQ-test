@@ -153,6 +153,10 @@ const AL_PHY_BANK=[
  ,[4,'What is the emf of a cell?',['The energy transferred to each coulomb of charge by the cell','The pd across the terminals when current flows','The current it can supply','Its internal resistance'],"Emf is energy per unit charge supplied; the terminal pd is less when current flows."]
  ,[6,'In which direction is the electric field between a positive and a negative plate?',['From the positive plate to the negative plate','From the negative plate to the positive plate','Parallel to the plates','There is no field between them'],'Field lines show the direction of the force on a positive charge.']
  ,[7,'What is the main reason fusion is hard to achieve on Earth?',['Nuclei repel strongly, so very high temperatures and pressures are needed','Fusion releases too little energy','Hydrogen is very rare','Fusion products are highly radioactive'],'Overcoming the electrostatic repulsion needs temperatures of about 10⁸ K in reactors.']
+ ,[1,'In the photoelectric effect, what happens if the intensity of light above the threshold frequency is increased?',['More electrons are emitted per second, with the same maximum kinetic energy','The electrons\' maximum kinetic energy increases','No electrons are emitted','The threshold frequency falls'],'More photons per second release more electrons; each photon still has energy hf.']
+ ,[3,'A 2 kg mass moving at 3 m/s collides with and sticks to a stationary 1 kg mass. What is their speed afterwards?',['2 m/s','3 m/s','1 m/s','1.5 m/s'],'Momentum: 6 = 3v.']
+ ,[5,'What does the area under a pressure–volume graph represent?',['Work done by or on the gas','The internal energy of the gas','The temperature of the gas','The number of moles'],'Work = pΔV, the area under the p–V curve.']
+ ,[6,'A coil is rotated faster in a uniform magnetic field. What happens to the peak induced emf?',['It increases in proportion to the rotation speed','It decreases','It stays the same','It becomes zero'],"The rate of change of flux linkage increases with the angular speed."]
 ];
 const AL_PHY_GEN=[
  [4,()=>{const [a,b,r]=pick([[6,3,2],[12,4,3],[10,10,5],[20,5,4],[6,12,4],[30,6,5],[8,8,4],[15,10,6]]);
@@ -310,6 +314,10 @@ const AL_MATHS_BANK=[
  ,[3,'What is the exact value of cos(π/3)?',['1/2','√3/2','√2/2','1'],'cos 60° = 1/2.']
  ,[7,'What is the scalar (dot) product of (2, 3) and (4, −1)?',['5','11','8','−5'],'2 × 4 + 3 × (−1) = 5.']
  ,[1,'What is the midpoint of (−2, 4) and (6, 0)?',['(2, 2)','(4, 4)','(2, 4)','(−4, 2)'],'Average the coordinates.']
+ ,[0,'Rationalise 6/√3.',['2√3','6√3','√3/2','3√2'],'Multiply top and bottom by √3: 6√3/3 = 2√3.']
+ ,[5,'Find the stationary point of y = x² − 6x + 5.',['(3, −4)','(−3, 32)','(6, 5)','(3, 4)'],'dy/dx = 2x − 6 = 0 at x = 3; y = 9 − 18 + 5 = −4.']
+ ,[8,'A normal distribution has mean 50 and standard deviation 5. Roughly what percentage of values exceed 60?',['2.5%','5%','16%','0.15%'],'60 is 2 standard deviations above the mean; about 95% lie within 2 SD, so about 2.5% lie above.']
+ ,[9,'A projectile is launched at 20 m/s at 30° above the horizontal. What is the initial vertical component of its velocity?',['10 m/s','17.3 m/s','20 m/s','11.5 m/s'],'20 sin30° = 10 m/s.']
 ];
 const AL_MATHS_GEN=[
  [0,()=>{let r1,r2;do{r1=rint(-7,7);r2=rint(-7,7);}while(!r1||!r2||r1===r2||r1===-r2);
@@ -493,6 +501,10 @@ const AL_ECON_BANK=[
  ,[2,'What is a natural monopoly?',['An industry where one firm can supply the whole market at lower cost than several firms','A firm that owns a natural resource','Any firm with more than 25% market share','A monopoly created by government licence'],'Very high fixed costs (e.g. water pipes) give huge economies of scale.']
  ,[5,'What is the budget deficit?',['The amount by which government spending exceeds tax revenue in a year','The total amount the government owes','The gap between imports and exports','The fall in GDP in a recession'],'The total accumulated borrowing is the national debt.']
  ,[6,'Why might a bank run cause a bank to fail even if it is solvent?',['It cannot turn its long-term loans into cash quickly enough to repay depositors','Its assets are worth less than its liabilities','Interest rates fall','Depositors earn too little interest'],'This is a liquidity problem rather than a solvency problem.']
+ ,[0,'What is consumer surplus?',['The difference between what consumers are willing to pay and what they actually pay','The profit firms make above normal profit','Extra goods left unsold','Government revenue from taxes'],'It is the area below the demand curve and above the price.']
+ ,[3,'Which factor is most likely to make labour demand more elastic?',['Labour costs being a large share of total costs','Labour being hard to replace with machines','Demand for the final product being inelastic','Workers having rare skills'],'If wages are a big part of costs, a wage rise has a big effect on output and hiring.']
+ ,[4,'Which of these would be counted as frictional unemployment?',['A graduate taking time to find their first job','A miner whose industry has closed','A shop worker laid off in a recession','A ski instructor out of work in summer'],'Frictional unemployment is short-term, while people move between jobs.']
+ ,[7,'Which is a likely benefit of a country joining a free-trade area?',['Lower prices and more choice for consumers','Higher tariffs on members\' goods','Less competition for domestic firms','Guaranteed full employment'],'Removing trade barriers increases competition and specialisation.']
 ];
 const AL_ECON_GEN=[
  [0,()=>{let p,q;do{p=pick([10,20,25,50]);q=pick([5,10,15,20,40]);}while(p===q);const ped=-(q/p);

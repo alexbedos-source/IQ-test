@@ -183,7 +183,13 @@ const CARDS=[
  [3,'Why seatbelts and airbags reduce injury','They increase the time over which a passenger\'s momentum changes, so the force on them is smaller for the same change in momentum.'],
  [4,'Measuring internal resistance','Vary the external resistance, plot terminal pd against current: the gradient is −r and the y-intercept is the emf.'],
  [5,'Forced oscillation phase at resonance','At resonance the driver leads the oscillator by a quarter of a cycle (π/2); far below resonance they are in phase, far above in antiphase.'],
- [7,'Activity (definition)','The number of nuclei that decay per second, measured in becquerels (Bq).']
+ [7,'Activity (definition)','The number of nuclei that decay per second, measured in becquerels (Bq).'],
+ [1,'Why electrons are emitted with a range of kinetic energies in the photoelectric effect','Electrons deeper in the metal lose some energy escaping; only those at the surface leave with the maximum kinetic energy.'],
+ [2,'Progressive vs stationary waves (energy)','Progressive waves transfer energy along the wave; stationary waves store energy and transfer none overall.'],
+ [3,'Elastic strain energy from a force–extension graph','It is the area under the graph up to the extension reached (if loading and unloading follow the same line).'],
+ [5,'Isothermal vs adiabatic (in words)','Isothermal: temperature stays constant as heat flows in or out. Adiabatic: no heat flows, so compressing the gas heats it.'],
+ [6,'Why a transformer only works with alternating current','Only a changing current produces a changing flux in the core, which induces an emf in the secondary coil.'],
+ [7,'Uses of radioactive isotopes (examples)','Medical tracers (e.g. technetium-99m, γ, short half-life), smoke detectors (americium-241, α) and thickness monitoring (β).']
 ].map((c,i)=>({id:'a'+i,cat:c[0],front:c[1],back:c[2]}));
 /* ---- Card fixes (6 Nov 2026): 33 cards repeated earlier cards (added by mistake by scheduled runs). They are rewritten
    in place with new AQA content, keeping their ids; their old review progress is cleared once (key 'cards-fix1'). ---- */
@@ -469,7 +475,11 @@ const POTW=[
  ['A 0.2 kg ball moving at 15 m/s is hit back along its path at 25 m/s by a bat. The contact lasts 2.0 ms. Find the impulse and the average force.',
   'Taking the final direction as positive: Δp = 0.2 × 25 − 0.2 × (−15) = 5 + 3 = <b>8.0 N s</b>. Average force = 8.0/0.002 = <b>4000 N</b>, about 2000 times the ball\'s weight. A common mistake is forgetting the change of direction, which would give only 2 N s.'],
  ['(University level) A satellite in a circular orbit of radius r has kinetic energy K. Show that its total energy is −K, and explain why air drag makes it speed up.',
-  'From GMm/r² = mv²/r, K = ½mv² = GMm/2r. Potential energy U = −GMm/r = −2K. Total E = K + U = <b>−K</b>. Drag removes energy, so E becomes more negative, which means K = −E increases: the satellite drops to a lower orbit and moves faster (half of the lost potential energy becomes kinetic energy, half is dissipated).']
+  'From GMm/r² = mv²/r, K = ½mv² = GMm/2r. Potential energy U = −GMm/r = −2K. Total E = K + U = <b>−K</b>. Drag removes energy, so E becomes more negative, which means K = −E increases: the satellite drops to a lower orbit and moves faster (half of the lost potential energy becomes kinetic energy, half is dissipated).'],
+ ['A 0.5 kg mass on a spring (k = 200 N/m) is pulled 4 cm from equilibrium and released. Find the period, the maximum speed and the maximum acceleration.',
+  'ω = √(k/m) = √400 = 20 rad/s, so T = 2π/ω ≈ <b>0.31 s</b>. v_max = ωA = 20 × 0.04 = <b>0.8 m/s</b>. a_max = ω²A = 400 × 0.04 = <b>16 m/s²</b>. Check with energy: ½kA² = 0.16 J = ½mv_max² = ½ × 0.5 × 0.64. ✓'],
+ ['(University level) A uniform chain of length L and mass M is held vertically with its lower end just touching a table, then released. Show that the force on the table when a length x has fallen is 3Mgx/L.',
+  'The fallen part rests on the table with weight Mgx/L. Each falling element has speed v = √(2gx) and is stopped on landing; mass arrives at the rate (M/L)v, so the force to stop it is (M/L)v² = (M/L)(2gx). Total force = Mgx/L + 2Mgx/L = <b>3Mgx/L</b>: just before the last link lands, the table feels three times the chain\'s weight.']
 ];
 function weekIndex(){
   const d=new Date(),start=new Date(d.getFullYear(),0,1);

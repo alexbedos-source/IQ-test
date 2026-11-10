@@ -29,6 +29,7 @@ Status: `[ ]` not started · `[~]` in progress / in an open PR · `[x]` done.
 - [~] **Calculations on Progress and home:** a "🧮 Calculations" mastery row on Progress and the calculation count on the Physics questions card.
 - [~] **Problem of the week archive:** browse all problems (A-level / university filter), not just the last five weeks.
 - [~] **Mechanics ladder** (approved 7 Nov): 20 mechanics calculations in order, each unlocking the next.
+- [~] **Ladder on Progress:** a "🪜 Mechanics ladder" row on the Progress page.
 - [x] **Data booklet drill:** find and apply the right AQA data-booklet equation quickly.
 - [x] **Mental maths sprint** (approved 3 Nov): 60 s of no-calculator questions with a personal best.
 - [x] **Read the graph** (approved 3 Nov): gradients, areas and half-lives from generated graphs.

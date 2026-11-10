@@ -148,6 +148,7 @@ function progressHome(){
   const iq=loadJSON('iq10-history',[]),R=loadJSON('phy-ratings',{}),dr=drillState(),cs=cardState(),iv=loadJSON('iv-history',[]),sl=studyLog(),sp=loadJSON('speed-history',[]);
   const topicRows=PHY_TOPICS.map((n,i)=>{const qs=PHY.filter(q=>q.t===i),got=qs.filter(q=>R[q.id]&&R[q.id].r==='got').length;return [n,got,qs.length];});
   {const qs=PHY.filter(q=>q.calc);topicRows.push(['🧮 Calculations (all topics)',qs.filter(q=>R[q.id]&&R[q.id].r==='got').length,qs.length]);}
+  topicRows.push(['🪜 Mechanics ladder (steps climbed)',LADDER.filter(id=>ladderPassed(R,id)).length,LADDER.length]);
   const known=CARDS.filter(c=>cs.s[c.id]&&cs.s[c.id].box>=4).length,seen=CARDS.filter(c=>cs.s[c.id]).length;
   const week=sl.filter(x=>x.t>Date.now()-7*864e5).reduce((a,x)=>a+x.min,0);
   const ivAvg=iv.length?(iv.slice(-5).reduce((a,x)=>a+x.score,0)/Math.min(5,iv.length)).toFixed(1):'–';

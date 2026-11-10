@@ -890,6 +890,32 @@ PHY.push(
  f:[['What fraction of the charge remains after one time constant?','1/e, about 37%.'],
     ['Why must staff stand clear during the shock?','Touching the patient would put them in parallel with the chest, so part of the large current could pass through them.']]}
 );
+PHY.push(
+{id:'r5',t:1,l:2,calc:true,q:'A roller-coaster car runs (without friction) round a vertical loop of radius 10 m. From what height above the bottom of the loop must it start from rest to just make it round? What is the normal force on a 60 kg rider at the bottom? (g = 9.8 m/s²)',
+ h:['At the top of the loop the car only just stays on track when gravity alone provides the centripetal force: mg = mv²/r.',
+    'Use energy conservation from the start height h to the top of the loop (height 2r).'],
+ a:'<p>At the top: v² = gr. Energy: mgh = mg(2r) + ½m(gr), so <b>h = 2.5r = 25 m</b>.</p><p>At the bottom: v² = 2gh = 5gr, so N − mg = m(5g), giving N = 6mg ≈ 6 × 60 × 9.8 ≈ <b>3500 N</b>, six times the rider\'s weight. Real coasters use teardrop-shaped loops (tighter at the top) to keep forces lower at the bottom.</p>',
+ f:[['How fast is the car at the top of the loop?','v = √(gr) = √98 ≈ 9.9 m/s.'],
+    ['What is the normal force on the rider at the top?','Zero: the rider feels weightless there at the minimum speed.']]},
+{id:'r6',t:7,l:1,calc:true,q:'An escalator lifts people through a height of 8 m. On average one 70 kg person steps on every second. Estimate the power needed to lift them. Why is the motor rated much higher? (g = 9.8 m/s²)',
+ h:['Each second, one person gains potential energy mgh.',
+    'Think about friction in the mechanism and busy periods.'],
+ a:'<p>P = mgh per second = 70 × 9.8 × 8 ≈ <b>5.5 kW</b>.</p><p>The motor is typically rated at several times this: friction in the steps and chain uses a lot of power even when empty, and at rush hour two people per step can board every second.</p>',
+ f:[['If the escalator moves at 0.5 m/s along a 30° incline, how long does the ride take?','The length is 8/sin30° = 16 m, so 16/0.5 = 32 s.'],
+    ['How much energy does it use lifting people in a 16-hour day?','5.5 kW × 16 h ≈ 88 kWh (plus the losses).']]},
+{id:'r7',t:0,l:2,calc:true,q:'Estimate the mass of uranium-235 a 1 GW nuclear power station fissions in a year. (Each fission releases about 200 MeV; efficiency about 33%; 1 MeV = 1.6 × 10⁻¹³ J; one U-235 atom has mass 3.9 × 10⁻²⁵ kg)',
+ h:['Electrical energy per year = 10⁹ W × 3.15 × 10⁷ s. The heat needed is three times that.',
+    'Divide by the energy per fission to get the number of fissions, then multiply by the mass of one atom.'],
+ a:'<p>Electrical energy ≈ 3.2 × 10¹⁶ J/year, so heat ≈ 9.5 × 10¹⁶ J. Energy per fission = 200 × 1.6 × 10⁻¹³ = 3.2 × 10⁻¹¹ J, so about 3 × 10²⁷ fissions.</p><p>Mass ≈ 3 × 10²⁷ × 3.9 × 10⁻²⁵ ≈ <b>1.2 tonnes</b> of U-235 a year. A coal station of the same output burns about 3 million tonnes of coal a year: over a million times more.</p>',
+ f:[['Fuel is only about 4% U-235. How much fuel does the station need?','Roughly 1.2/0.04 ≈ 30 tonnes a year (in practice a bit more, as not all U-235 is used).'],
+    ['What mass is converted into energy in a year?','Δm = E/c² = 9.5 × 10¹⁶ / 9 × 10¹⁶ ≈ 1 kg.']]},
+{id:'r8',t:6,l:2,calc:true,q:'An asteroid is a sphere of radius 1.0 km and density 2000 kg/m³. How fast would you need to throw a stone horizontally for it to orbit just above the surface? Could you jump off it? (G = 6.7 × 10⁻¹¹ N m² kg⁻²)',
+ h:['Find the mass M = (4/3)πr³ρ.',
+    'Orbital speed v = √(GM/r); escape speed is √2 times larger.'],
+ a:'<p>M = (4/3)π × 10⁹ × 2000 ≈ 8.4 × 10¹² kg. v = √(6.7 × 10⁻¹¹ × 8.4 × 10¹² / 1000) = √0.56 ≈ <b>0.75 m/s</b>, a gentle lob.</p><p>Escape speed ≈ 1.06 m/s. A standing jump launches you at about 2–3 m/s, so yes: <b>you would leave the asteroid for good</b>. Surface gravity is only about 0.0006 N/kg.</p>',
+ f:[['How long would one orbit take?','2πr/v ≈ 6300/0.75 ≈ 8400 s, about 2.3 hours.'],
+    ['How does the orbital speed scale with radius for asteroids of the same density?','M ∝ r³, so v = √(GM/r) ∝ r: twice the size, twice the orbital speed.']]}
+);
 /* ---- Calculation rewrites (owner's request, 5 Nov 2026) ----
    54 questions rewritten in place as numerical problems: the 12 that duplicated other questions, plus most of the
    purely verbal ones. Same ids (so saved questions and links still work); their old spaced-repetition ratings are
